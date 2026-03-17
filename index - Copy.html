@@ -1,0 +1,1825 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Premium research peptides for laboratory use only. HPLC-verified Retatrutide, Tirzepatide, BPC-157, GHK-Cu & more. Fast cold-chain shipping • For research only.">
+  <title>Paragon Peptides | Precision Research Compounds – HPLC Verified</title>
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://paragonpeptides.net">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Paragon Peptides | Precision Research Compounds">
+  <meta property="og:description" content="Lab-grade peptides for scientific research. Retatrutide, Tirzepatide, BPC-157 & more.">
+  <meta property="og:image" content="https://i.imgur.com/jXQlcWB.png">
+  <meta property="og:url" content="https://paragonpeptides.net">
+<!-- Favicon -->
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Satoshi:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    [x-cloak] { display: none !important; }
+    :root { --accent: #ff1493; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #000000; color: #e2e8f0; }
+    h1, h2, h3 { font-family: 'Satoshi', sans-serif; }
+    .product-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    .product-card:hover { transform: translateY(-12px); box-shadow: 0 25px 30px -10px rgb(255 20 147 / 0.15); }
+    .modal { animation: modalPop 0.3s ease-out; }
+    @keyframes modalPop { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+    /* Mobile optimizations */
+    @media (max-width: 640px) {
+      .dose-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
+      .dose-grid button { padding: 0.75rem 0.5rem; font-size: 0.875rem; }
+      .max-w-lg { max-width: 95% !important; }
+      .px-6 { padding-left: 1rem; padding-right: 1rem; }
+      .py-12 { padding-top: 2rem; padding-bottom: 2rem; }
+      .modal { padding: 1.5rem !important; }
+    @media (max-width: 640px) {
+       .success-modal { 
+       max-height: 85vh !important; 
+       overflow-y: auto !important; 
+       padding: 1.25rem !important; 
+  }
+  .success-modal button { min-height: 48px !important; } /* bigger tap targets */
+}
+    }
+
+    /* Font loading */
+    @font-face { font-family: 'Inter'; font-display: swap; }
+    @font-face { font-family: 'Satoshi'; font-display: swap; }
+/* PERFECT SMOOTH SCROLLING – GPU acceleration without breaking centering */
+html {
+  scroll-behavior: smooth;
+}
+body {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: none;
+}
+.product-card img,
+.fixed,
+.modal,
+header,
+.success-modal,
+div[x-show="showGate"] > div {
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+/* SCROLL OPTIMIZATION v3 – Content Visibility (kills the last hiccup on product grid) */
+#shop {
+  content-visibility: auto;
+  contain-intrinsic-size: 800px 1600px; /* helps browser predict scroll */
+}
+.product-card {
+  contain: layout paint;
+}
+
+  </style>
+</head>
+<body class="antialiased">
+
+<!-- Noscript fallback (shows if JS is disabled) -->
+<noscript>
+  <div class="fixed inset-0 bg-black flex items-center justify-center text-white text-center p-6 z-[999999]">
+    <div>
+      <h2 class="text-2xl font-bold mb-4">JavaScript Required</h2>
+      <p>Please enable JavaScript in your browser settings to use this site fully. Thank you!</p>
+    </div>
+  </div>
+</noscript>
+
+<!-- AGE GATE – Shows every visit (no persistence) + reliable on live site -->
+<div x-data="{ showGate: true }">
+  <!-- Age Gate Modal -->
+  <div x-show="showGate" x-cloak
+       class="fixed inset-0 z-[999999] flex items-center justify-center bg-black/95 backdrop-blur-xl"
+       x-transition>
+    <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-lg w-full mx-4 p-10 modal shadow-2xl">
+      <h2 class="text-3xl font-bold mb-6 text-white text-center">IMPORTANT LEGAL NOTICE</h2>
+      <div class="prose prose-invert text-zinc-300 text-[15px] text-center">
+        <p>All products are <strong>strictly for research and laboratory use only</strong>. Not for human or veterinary consumption.</p>
+        <p class="mt-4">By proceeding you confirm you are 21+ and accessing this site for legitimate scientific research purposes only.</p>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-4 mt-10">
+        <button @click="showGate = false"
+                class="flex-1 bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-lg text-white transition">
+          I ACKNOWLEDGE — ENTER SITE
+        </button>
+        <a href="https://google.com"
+           class="flex-1 bg-zinc-900 hover:bg-zinc-800 py-4 rounded-2xl font-semibold text-lg text-center transition">
+          EXIT
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- MAIN SITE -->
+  <div x-show="!showGate" x-cloak x-data="app()" x-init="init()">
+    <!-- FLASH SALE BANNER -->
+    <div class="bg-[#ff1493] text-white text-center py-2.5 text-sm font-medium">FLASH SALE: 15% OFF ENTIRE CATALOG — USE CODE RESEARCH15</div>
+
+<!-- HEADER – WHITE SLIDE-IN MENU WITH ALL 3 SOCIAL ICONS -->
+<header class="bg-black border-b border-zinc-800 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="#" class="flex items-center gap-3">
+      <img src="https://i.imgur.com/jXQlcWB.png" alt="Paragon Peptides" class="h-8 w-8">
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden md:flex items-center gap-x-8 text-sm font-medium text-white">
+    <a @click="showGetInTouchModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Get in Touch</a>
+      <a @click="showSupportModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Support</a>
+      <a @click="showFaqsPage = true" class="hover:text-[#ff1493] transition cursor-pointer">FAQs & Policies</a>
+      <a @click="showAccountModal = true" class="hover:text-[#ff1493] transition cursor-pointer">My Account</a>
+    </nav>
+ <div class="flex items-center gap-4 sm:gap-6">
+          <div class="relative hidden md:block w-56 lg:w-72">
+            <input type="text" x-model="searchTerm" placeholder="Search compounds..." @input="handleSearch()" class="w-full bg-zinc-950 border border-zinc-800 rounded-full pl-9 pr-4 py-2 text-sm focus:outline-none focus:border-[#ff1493] placeholder:text-zinc-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 absolute left-3 top-2.5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 01-14 0 7 7 0 0114 0z" />
+            </svg>
+           </div>
+
+
+    <!-- Mobile Hamburger + Cart -->
+    <div class="flex items-center gap-6">
+      <button @click="mobileMenuOpen = !mobileMenuOpen" 
+              class="md:hidden w-11 h-11 flex items-center justify-center text-3xl text-white hover:text-[#ff1493] transition">
+        ☰
+      </button>
+      <button @click="cartOpen = true" class="relative flex items-center gap-2 text-sm font-medium text-white">
+        <span class="hidden sm:inline">Cart</span>
+        <span class="relative">
+          🛒
+          <span x-show="cart.length > 0" 
+                class="absolute -top-1 -right-1 bg-[#ff1493] text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">
+            <span x-text="cart.length"></span>
+          </span>
+        </span>
+      </button>
+    </div>
+  </div>
+</header>
+
+  <!-- MOBILE MENU – SOLID BLACK FULLSCREEN (placed outside <header> to escape its stacking context / backdrop-filter containment) -->
+<div x-show="mobileMenuOpen" x-cloak
+     class="fixed inset-0 bg-black z-[99999] md:hidden flex flex-col"
+     style="background-color: #000000 !important; overscroll-behavior: none;"
+     x-transition:enter="transition ease-out duration-200"
+     x-transition:enter-start="translate-x-full"
+     x-transition:enter-end="translate-x-0"
+     x-transition:leave="transition ease-in duration-150"
+     x-transition:leave-start="translate-x-0"
+     x-transition:leave-end="translate-x-full">
+  <div class="flex justify-between items-center p-6 border-b border-zinc-800">
+    <span class="text-2xl font-bold tracking-tight text-white">Menu</span>
+    <button @click="mobileMenuOpen = false" class="text-4xl leading-none text-white">&times;</button>
+  </div>
+  <div class="flex-1 flex flex-col px-6 py-10 text-2xl font-medium text-white gap-y-10">
+    <a href="#shop" @click="mobileMenuOpen = false" class="hover:text-[#ff1493] transition">Shop</a>
+    <a @click="showGetInTouchModal = true; mobileMenuOpen = false" class="hover:text-[#ff1493] transition cursor-pointer">Get in Touch</a>
+    <a @click="showSupportModal = true; mobileMenuOpen = false" class="hover:text-[#ff1493] transition cursor-pointer">Support</a>
+    <a @click="showFaqsPage = true; mobileMenuOpen = false" class="hover:text-[#ff1493] transition cursor-pointer">FAQs & Policies</a>
+    <a @click="showAccountModal = true; mobileMenuOpen = false" class="hover:text-[#ff1493] transition cursor-pointer">My Account</a>
+
+    <!-- SOCIAL ICONS – ALL 3 WITH OFFICIAL COLORS & SHAPES -->
+    <div class="p-6 border-t border-zinc-200 flex justify-center gap-8">
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/paragon_peps/" 
+         target="_blank" rel="noopener noreferrer" 
+         class="text-[#E1306C] hover:text-[#ff1493] hover:scale-110 transition duration-200">
+        <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.332.014 7.052.072 2.578.27 0 2.85 0 7.328c-.014 1.28-.014 1.689-.014 5.948 0 4.259.014 4.668.014 5.948 0 4.478 2.578 7.058 7.052 7.256 1.28.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.474-.198 7.052-2.778 7.052-7.256 0-1.28.014-1.689.014-5.948 0-4.259-.014-4.668-.014-5.948C24 2.85 21.422.27 16.948.072 15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a4 4 0 110-8 4 4 0 010 8zm7.846-10.162a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/>
+        </svg>
+      </a>
+
+      <!-- Telegram (real paper plane icon) -->
+      <a href="https://t.me/Paragonpeptides" 
+         target="_blank" rel="noopener noreferrer" 
+         class="text-[#0088cc] hover:text-[#ff1493] hover:scale-110 transition duration-200">
+        <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.665 3.717L2.934 10.554C2.425 10.736 2.417 11.035 2.833 11.183L7.833 12.917L17.833 6.917C18.167 6.667 18.5 6.833 18.167 7.083L10.167 14.083L9.833 19.083C9.833 19.583 10.167 19.75 10.583 19.583L13.167 18.083L17.833 21.083C18.833 21.583 19.167 21.083 19.417 20.083L21.917 4.083C22.167 3.083 21.667 2.717 20.665 3.717Z"/>
+        </svg>
+      </a>
+     </div>
+    </div>
+  </div>
+
+    <!-- HERO -->
+    <section class="relative pt-16 pb-24 bg-gradient-to-b from-black via-zinc-950 to-black text-center overflow-hidden">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6">
+        <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDcza3c5Z3NmeDF1cXR4YTRhbDhpZ2xhdjkzbmM2eXVxb3BtOWZhaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/5MKtgf36tYGe7SG2Ae/giphy.gif" loading="lazy"
+             class="mx-auto mb-8 h-40 sm:h-48 md:h-72 lg:h-96 drop-shadow-[0_0_60px_rgba(236,72,153,0.6)] rounded-lg transition-all duration-500 hover:drop-shadow-[0_0_80px_rgba(236,72,153,0.8)] hover:scale-105"
+             alt="Paragon Peptides Animated Logo"
+             loading="lazy"
+             style="background: transparent !important; mix-blend-mode: screen; opacity: 0.95;">
+             <div class="max-w-7xl mx-auto px-6 py-20 sm:py-28 lg:py-36 flex flex-col items-center text-center">
+        <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold text-white leading-tight tracking-tight">
+          Precision Research<br>
+          <span class="text-[#ff1493]">Compounds</span>
+        </h1>
+        <p class="mt-6 text-lg sm:text-xl text-zinc-400 max-w-2xl leading-relaxed">
+          Premium peptides &amp; research chemicals — rigorously tested at 99.5%+ purity. Trusted by scientists and laboratories worldwide.
+        </p>
+        <div class="mt-10 flex flex-col sm:flex-row gap-4">
+          <a href="#shop" class="bg-[#ff1493] hover:bg-pink-600 text-white font-semibold px-10 py-4 rounded-2xl text-lg transition">
+            Browse Catalog
+          </a>
+          <a @click="showFaqsPage = true" class="border border-zinc-700 hover:border-[#ff1493] text-white font-semibold px-10 py-4 rounded-2xl text-lg transition cursor-pointer">
+            Learn More
+          </a>
+        </div>
+        <div class="mt-14 flex flex-wrap justify-center gap-x-10 gap-y-4 text-sm text-zinc-500">
+          <span class="flex items-center gap-2"><span class="text-[#ff1493]">&#10003;</span> 99.5%+ Purity Verified</span>
+          <span class="flex items-center gap-2"><span class="text-[#ff1493]">&#10003;</span> Third-Party Lab Tested</span>
+          <span class="flex items-center gap-2"><span class="text-[#ff1493]">&#10003;</span> Fast UPS Shipping</span>
+        </div>
+      </div>
+    </section>
+
+<!-- SHOP GRID – FIXED & CLEAN -->
+<div id="shop" class="max-w-7xl mx-auto px-6 py-12">
+  <h1 class="text-5xl font-bold text-center mb-12">Precision Research Compounds</h1>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <template x-for="product in filteredProducts" :key="product.id">
+      <div class="product-card bg-zinc-900 rounded-3xl overflow-hidden cursor-pointer" @click="viewProduct(product)">
+        <img :src="product.image" :alt="product.name" class="w-full h-56 object-cover" loading="lazy" decoding="async">
+        <div class="p-6">
+          <h3 class="text-2xl font-bold" x-text="product.name"></h3>
+          <p class="text-zinc-400 text-sm mt-1" x-text="product.desc"></p>
+          <!-- TRUST BADGES -->
+          <div class="flex flex-wrap gap-2 mt-3">
+            <span class="text-[10px] bg-green-900 text-green-400 px-3 py-1 rounded-full font-medium">HPLC Verified</span>
+            <span class="text-[10px] bg-amber-900 text-amber-400 px-3 py-1 rounded-full font-medium">Cold Chain</span>
+            <span class="text-[10px] bg-blue-900 text-blue-400 px-3 py-1 rounded-full font-medium">Research Use Only</span>
+          </div>
+         <!-- DOSE BUTTONS + LIVE STOCK BADGES – NOW FULLY SUPPORTS ml -->
+<div class="flex flex-wrap gap-2 mt-6">
+  <template x-for="variant in product.doses" :key="variant.mg || variant.ml">
+    <button
+      @click.stop="toggleDose(product, variant)"
+      :disabled="variant.stock <= 0"
+      :class="{
+        'bg-[#ff1493] text-white ring-2 ring-pink-500 scale-105': product.selectedDose === (variant.mg || variant.ml),
+        'opacity-50 cursor-not-allowed': variant.stock <= 0
+      }"
+      class="px-6 py-3 rounded-2xl text-sm font-medium transition-all relative flex flex-col items-center min-h-[52px]">
+      
+      <!-- Dose label (handles both mg and ml) -->
+      <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
+      
+      <!-- STOCK BADGE (now works for ml too) -->
+      <span class="absolute -top-1 -right-1 text-[10px] font-bold px-2 py-0.5 rounded-full"
+            :class="{
+              'bg-red-600 text-white': variant.stock === 0,
+              'bg-orange-500 text-white': variant.stock > 0 && variant.stock <= 5,
+              'bg-green-600 text-white': variant.stock > 5
+            }">
+        <span x-text="variant.stock === 0 ? 'OUT' : variant.stock <= 5 ? variant.stock + ' left' : 'IN'"></span>
+      </span>
+    </button>
+  </template>
+</div>
+          <!-- LIVE PRICE -->
+          <div class="mt-6 flex justify-between items-end">
+            <div>
+              <span class="text-3xl font-bold" x-text="'$' + product.price"></span>
+              <span class="text-zinc-400">/vial</span>
+            </div>
+            <button @click.stop="addToCartWithDose(product)" class="bg-white text-black px-8 py-4 rounded-3xl font-semibold hover:bg-zinc-200 transition">ADD TO CART</button>
+          </div>
+        </div>
+      </div>
+    </template>
+  </div>
+</div>
+
+<footer class="bg-black py-16 border-t border-zinc-800">
+  <div class="max-w-7xl mx-auto px-6 text-center">
+    <!-- Top links row -->
+    <div class="flex flex-wrap justify-center gap-x-8 gap-y-3 text-zinc-400 text-sm font-medium mb-12">
+ <a @click="showGetInTouchModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Get in Touch</a>
+      <a @click="showSupportModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Support</a>
+      <a @click="showFaqsPage = true" class="hover:text-[#ff1493] transition cursor-pointer">FAQs &amp; Policies</a>
+      <a @click="showAccountModal = true" class="hover:text-[#ff1493] transition cursor-pointer">My Account</a>
+    </div>
+
+<!-- Social Icons – Centered, consistent size, official colors -->
+<div class="flex justify-center items-center gap-12 mb-12">
+  <!-- Instagram -->
+  <a href="https://www.instagram.com/paragon_peps/" 
+     target="_blank" rel="noopener noreferrer"
+     class="text-[#E1306C] hover:text-[#ff1493] hover:scale-110 transition duration-200">
+    <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.332.014 7.052.072 2.578.27 0 2.85 0 7.328c-.014 1.28-.014 1.689-.014 5.948 0 4.259.014 4.668.014 5.948 0 4.478 2.578 7.058 7.052 7.256 1.28.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.474-.198 7.052-2.778 7.052-7.256 0-1.28.014-1.689.014-5.948 0-4.259-.014-4.668-.014-5.948C24 2.85 21.422.27 16.948.072 15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a4 4 0 110-8 4 4 0 010 8zm7.846-10.162a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/>
+    </svg>
+  </a>
+
+  <!-- Telegram -->
+  <a href="https://t.me/Paragonpeptides" 
+     target="_blank" rel="noopener noreferrer"
+     class="text-[#0088cc] hover:text-[#ff1493] hover:scale-110 transition duration-200">
+    <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20.665 3.717L2.934 10.554C2.425 10.736 2.417 11.035 2.833 11.183L7.833 12.917L17.833 6.917C18.167 6.667 18.5 6.833 18.167 7.083L10.167 14.083L9.833 19.083C9.833 19.583 10.167 19.75 10.583 19.583L13.167 18.083L17.833 21.083C18.833 21.583 19.167 21.083 19.417 20.083L21.917 4.083C22.167 3.083 21.667 2.717 20.665 3.717Z"/>
+    </svg>
+  </a>
+</div>
+
+    <!-- Disclaimer -->
+   <div class="max-w-2xl mx-auto text-[13px] leading-relaxed tracking-wide text-zinc-400 font-light mb-8">
+      © 2026 Paragon Peptides • For research use only. Not for human consumption.<br>
+      Products are not intended to diagnose, treat, or cure any condition.<br>
+      By purchasing, you confirm you are 21 or older and conducting scientific research.
+    </div>
+
+    <!-- Admin button -->
+    <button @click="openStockManager()"
+            class="text-xs text-zinc-600 hover:text-[#ff1493] block mx-auto">
+      Site Tools
+    </button>
+  </div>
+</footer>
+
+  <!-- DEDICATED FAQ PAGE (full-screen like profoundaminos.com) -->
+  <div x-show="showFaqsPage" class="fixed inset-0 bg-black z-[99999] overflow-auto" x-transition>
+    <div class="max-w-4xl mx-auto px-6 py-12">
+      <button @click="showFaqsPage = false" class="mb-8 flex items-center gap-2 text-[#ff1493] hover:text-pink-400">← Back to Shop</button>
+      
+      <h1 class="text-5xl font-bold text-white mb-12">Frequently Asked Questions (FAQs)</h1>
+
+      <!-- Coupon Issue -->
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold text-white mb-4">I had an issue with my checkout while using a coupon, and now my coupon won’t work, what should I do?</h2>
+        <p class="text-zinc-300">If your checkout is not completed properly due to a payment issue, your coupon will temporarily not work because our system thinks it has been used. In this case please wait an hour for our system to realise the coupon wasn’t used, and the coupon will automatically refresh and be ready for use again! If you have waited an hour and the coupon still doesn’t work, please reach out to support and we’ll send you a new code.</p>
+      </div>
+
+
+    <div class="mb-12">
+  <h2 class="text-2xl font-bold text-white mb-4">Where are your COAs?</h2>
+  <div class="text-zinc-300 leading-relaxed">
+    <p>For research compounds sold strictly for laboratory use, we do not release Certificates of Analysis (COAs) publicly or upon request.</p>
+    
+    <p>Our products are HPLC-verified in-house at ≥99% purity before every batch ships. However, we do not provide third-party COAs for the following reasons:</p>
+    
+    <ul class="list-disc pl-6 space-y-3 mt-4">
+      <li><strong>Regulatory compliance</strong> – Releasing COAs could imply the material is intended for human or clinical use, which violates our research-only policy and could create legal risk for both us and our customers.</li>
+      <li><strong>Customer privacy &amp; security</strong> – Third-party lab reports contain sensitive batch data. We protect that information to prevent counterfeiters from copying our exact testing standards.</li>
+      <li><strong>Speed &amp; focus</strong> – Every order is tested internally before it leaves our facility. We prioritize fast cold-chain shipping over paperwork that most researchers never need.</li>
+    </ul>
+    
+    <p class="mt-6">If you require independent verification for your specific project, you can always send a small sample from your vial to any accredited lab (MZ Biolabs, Janoshik, or Prime are commonly used by the community). We stand behind our in-house testing and offer a full refund if any third-party test shows purity below 98%.</p>
+    
+    <p>All products on Paragon Peptides are sold exclusively for scientific research purposes. Thank you for understanding.</p>
+  </div>
+</div>
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold text-white mb-4">Can I combine coupons on one order?</h2>
+        <p class="text-zinc-300">No. Only one coupon can be used per order.</p>
+      </div>
+
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold text-white mb-4">Can I use coupons during sales?</h2>
+        <p class="text-zinc-300">No.</p>
+      </div>
+
+      <!-- Store Policies -->
+      <div class="mb-12">
+        <h2 class="text-3xl font-bold text-white mb-8">Store Policies</h2>
+
+        <div class="space-y-10 text-zinc-300">
+          <div>
+            <h3 class="text-xl font-bold text-white mb-3">Research Use Only</h3>
+            <p>The products on this website are for legitimate research use only. They are not intended to prevent, treat, or cure any illness or disease and are not intended for human consumption. By accessing this site, you acknowledge that you are at least 21 years of age, understand these terms, and have a legitimate research basis for buying these products.<br><br>Any reference to or discussion of human consumption of any type will result in cancellation of sale and prohibition on future ordering.<br><br>We cannot advise customers about any part of the research process, and assume that all researchers have the requisite knowledge and expertise to safely conduct their experiments and properly handle research-grade compounds.</p>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-white mb-3">Store Refunds &amp; Returns</h3>
+            <p>For safety and quality assurance reasons, we are unable to accept returns on research products. All our products are sourced from reputable manufacturers with established safety and quality records.<br><br>We stand firmly behind the integrity of our products and are committed to your satisfaction. If you experience any issue or have concerns regarding a product you’ve received, please contact our support team — we’ll be happy to assist and ensure your concerns are properly addressed.<br></p>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-white mb-3">Refunds</h3>
+            <p>In the event that you are not satisfied with the research product you purchase, you may contact our care team to discuss the issue.<br><br>Refunds will not be issued for purity or fill weight unless 3rd party test results are presented showing that the product is either underweight or the purity is under 98%. Upon submission of these 3rd party test results, a full refund will be issued.<br><br>Test results are only accepted from reputable testing providers, as indicated here: TrustPointe Analytics, MZ Biolabs, Janoshik Analytical, Prime.</p>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-white mb-3">Shipping/Delivery Issues</h3>
+            <p>We ship all products using UPS Ground unless otherwise requested during order submission. Shipments are picked up between 10am-2pm each weekday, and usually arrive within 3 business days, although it may take up to 10 business days to arrive due to recent ongoing carrier delays.<br><br>Tracking information is provided upon shipment, and automatically sent to customer’s email address. Tracking should be followed to ensure safe and secure delivery of your product.<br><br>We are not responsible for stolen or redirected packages. We encourage all customers to use a secure lockbox or a drop box for package delivery to ensure safety of purchased items.<br><br><br>Please note that shipping delays do happen, and we have no control over the shipping process once the order leaves our warehouse. While we understand it is frustrating for your order to get delayed, please be patient. The vast majority of packages that are delayed in transit do ultimately get delivered.<br><br>We are not able to authorize re-shipments or refunds for packages with tracking info that states “delivered.” This includes packages delivered to an incorrect address or to a common area in an apartment building. Customers should contact the carrier to inquire about the package delivery prior to reaching out to us for assistance.<br><br>Please contact us using our contact form with any questions or concerns.<br><br>Contact us via the chat bubble for questions related to refunds and returns.</p>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-white mb-3">Chargeback Policies</h3>
+            <p>We defend our business from fraud and theft assertively. Customers who submit chargebacks/disputes for valid fulfilled orders will be banned from our store. Please contact us about any order issues before initiating a chargeback/dispute. Most of these order issues can be worked out collaboratively to mutual satisfaction.</p>
+          </div>
+        </div>
+      </div>
+
+      <button @click="showFaqsPage = false" class="mt-12 w-full bg-[#ff1493] py-5 rounded-3xl font-semibold text-xl">Back to Shop</button>
+    </div>
+  </div>
+
+<!-- DEDICATED GET IN TOUCH PAGE (exactly like profoundaminos.com/contact/) -->
+<div x-show="showGetInTouchModal" class="fixed inset-0 bg-black z-[99999] overflow-auto" x-transition>
+  <div class="max-w-4xl mx-auto px-6 py-12">
+    <button @click="showGetInTouchModal = false" class="mb-8 flex items-center gap-2 text-[#ff1493] hover:text-pink-400">← Back to Shop</button>
+    
+    <h1 class="text-5xl font-bold text-white mb-12">Get in Touch</h1>
+    
+    <div class="text-zinc-300 leading-relaxed mb-12">
+      <p class="text-xl">We’re here to help with any questions about our research compounds, orders, or lab support.</p>
+      
+      <h2 class="text-3xl font-bold text-white mt-12 mb-6">Contact Customer Care</h2>
+      <p>Paragon Peptides staff are available during business hours Monday–Friday to answer any questions.</p>
+      
+      <div class="mt-8 space-y-6">
+        <div>
+          <strong class="block text-white">Mailing Address:</strong>
+          <p>Paragon Peptides<br>
+          3595 S Baldwin RD<br>
+          Lake Orion, Michigan 48359</p>
+        </div>
+        
+        <div>
+          <strong class="block text-white">Multiple ways to reach us:</strong>
+          <ul class="list-disc pl-6 space-y-2 mt-4">
+            <li>Submit a ticket from your account dashboard</li>
+            <li>Send us a message through the site chat bubble</li>
+            <li>Email: paragonpeps@gmail.com</li>
+            <li>Call: +1 (313) 725-1350</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+   <!-- REAL CONTACT FORM (Formspree ready + feedback) -->
+<div class="bg-zinc-900 rounded-3xl p-10">
+  <h3 class="text-2xl font-bold text-white mb-8">Send us a message</h3>
+  
+  <form 
+    id="getintouch-form" 
+    action="https://formspree.io/f/xjgepbby" 
+    method="POST" 
+    @submit.prevent="submitGetInTouch" 
+    class="space-y-6">
+    
+    <!-- Honeypot (spam protection – leave empty) -->
+    <input type="text" name="_gotcha" style="display:none" />
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label class="block text-sm text-zinc-400 mb-2">Your Name</label>
+        <input type="text" name="name" required class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-[#ff1493]">
+      </div>
+      <div>
+        <label class="block text-sm text-zinc-400 mb-2">Email Address</label>
+        <input type="email" name="email" required class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-[#ff1493]">
+      </div>
+    </div>
+    
+    <div>
+      <label class="block text-sm text-zinc-400 mb-2">Subject</label>
+      <input type="text" name="subject" required placeholder="Order question, product inquiry, etc." class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-[#ff1493]">
+    </div>
+    
+    <div>
+      <label class="block text-sm text-zinc-400 mb-2">Message</label>
+      <textarea name="message" rows="6" required class="w-full bg-zinc-950 border border-zinc-800 rounded-3xl px-5 py-4 text-white focus:outline-none focus:border-[#ff1493]" placeholder="How can we help you today?"></textarea>
+    </div>
+    
+    <!-- Submit Button with Loading State -->
+    <button 
+      type="submit" 
+      :disabled="isSubmittingGetInTouch"
+      class="w-full bg-[#ff1493] hover:bg-pink-600 py-5 rounded-3xl font-semibold text-xl text-white transition disabled:opacity-50 disabled:cursor-not-allowed">
+      <span x-text="isSubmittingGetInTouch ? 'Sending...' : 'Send Message'"></span>
+    </button>
+    
+    <!-- Feedback Messages -->
+    <div x-show="getInTouchSuccess" class="text-green-400 text-center mt-4">Message sent successfully! We'll get back to you soon.</div>
+    <div x-show="getInTouchError" class="text-red-400 text-center mt-4" x-text="getInTouchError"></div>
+  </form>
+</div>
+    
+    <button @click="showGetInTouchModal = false" class="mt-12 w-full bg-zinc-800 hover:bg-zinc-700 py-5 rounded-3xl font-semibold text-xl">Close</button>
+  </div>
+</div>
+
+
+    <!-- CART DRAWER -->
+    <div x-show="cartOpen" class="fixed inset-0 z-[99999] bg-black/60" @click="cartOpen = false"></div>
+    <div x-show="cartOpen" class="fixed right-0 top-0 bottom-0 w-full max-w-md bg-zinc-900 border-l border-zinc-800 z-[99999] transition-transform" :class="{ 'translate-x-full': !cartOpen }">
+      <div class="p-8 h-full flex flex-col">
+        <div class="flex justify-between mb-8">
+          <h3 class="text-3xl font-semibold">Your Cart</h3>
+          <button @click="cartOpen = false" class="text-4xl">×</button>
+        </div>
+    <div x-show="cart.length === 0" class="text-center py-12">
+    <p class="text-xl text-zinc-400 mb-6">Your cart is empty</p>
+    <button @click="cartOpen = false" class="bg-[#ff1493] text-  white py-4 px-8 rounded-2xl font-semibold hover:bg-pink-600 transition">
+    Continue Shopping
+  </button>
+</div>
+        <div class="flex-1 overflow-auto space-y-6">
+          <template x-for="(item, i) in cart" :key="i">
+           <div class="flex gap-6 border-b border-zinc-800 pb-6">
+  <img :src="item.image" class="w-24 h-24 object-cover rounded-xl">
+  <div class="flex-1">
+    <h4 class="font-medium text-lg" x-text="item.name"></h4>
+    <p class="text-sm text-zinc-400 mt-1" x-text="'Dose: ' + item.dose + (item.unit || 'mg')"></p>
+    <div class="flex gap-4 mt-3">
+      <button @click="changeQty(i, -1)" class="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded">-</button>
+      <span class="font-medium py-2" x-text="item.qty"></span>
+      <button @click="changeQty(i, 1)" class="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded">+</button>
+    </div>
+  </div>
+  <div class="text-right">
+    <div class="font-semibold text-lg" x-text="'$' + (item.price * item.qty).toFixed(2)"></div>
+    <button @click="removeFromCart(i)" class="text-red-400 text-sm mt-4 hover:text-red-300 transition">Remove</button>
+          </div>
+         </div>          
+       </template>
+        </div>
+       <div class="pt-8 border-t border-zinc-800 sticky bottom-0 bg-zinc-900 p-6 -mx-8 -mb-8 shadow-lg z-10">
+  <div class="flex justify-between text-xl mb-6">
+    <span class="font-medium">Subtotal</span>
+    <span class="font-bold" x-text="'$' + cartTotal.toFixed(2)"></span>
+  </div>
+  <!-- Optional: Shipping note -->
+  <p class="text-sm text-zinc-400 mb-4" x-text="cartTotal >= 250 ? 'Free Shipping Eligible' : 'Shipping calculated at checkout'"></p>
+  <button @click="proceedToCheckout()" 
+          class="w-full bg-white text-black py-5 rounded-3xl font-semibold text-xl hover:bg-gray-200 transition">
+    Proceed to Checkout
+  </button>
+      </div>
+      </div>
+    </div>
+
+<!-- DEDICATED CHECKOUT PAGE (full-screen like profoundaminos.com) -->
+<div x-show="checkoutPage" class="fixed inset-0 bg-black z-[100000] overflow-auto" x-transition>
+  <div class="max-w-7xl mx-auto px-6 py-12">
+    <!-- Back button -->
+    <button @click="checkoutPage = false" class="mb-8 flex items-center gap-2 text-[#ff1493] hover:text-pink-400 font-medium">
+      ← Return to Cart
+    </button>
+
+    <div class="grid lg:grid-cols-2 gap-12">
+      <!-- LEFT COLUMN: Billing & Shipping Form -->
+      <div>
+        <h1 class="text-4xl font-bold text-white mb-8">Checkout</h1>
+
+<form id="checkout-form" action="https://formspree.io/f/mlgpeovo" method="POST" class="space-y-6">
+
+  <!-- Billing Details -->
+  <div class="space-y-6">
+    <h2 class="text-2xl font-semibold text-white mb-4">Billing Details</h2>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm text-zinc-400 mb-2">First Name *</label>
+        <input type="text" name="first_name" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+      </div>
+      <div>
+        <label class="block text-sm text-zinc-400 mb-2">Last Name *</label>
+        <input type="text" name="last_name" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-sm text-zinc-400 mb-2">Company Name (optional)</label>
+      <input type="text" name="company" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+    </div>
+
+    <div>
+      <label class="block text-sm text-zinc-400 mb-2">Country / Region *</label>
+      <select name="country" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+        <option>United States</option>
+        <option>Canada</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="block text-sm text-zinc-400 mb-2">Street Address *</label>
+      <input type="text" name="address_line1" required placeholder="House number and street name" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493] mb-2">
+      <input type="text" name="address_line2" placeholder="Apartment, suite, unit, etc. (optional)" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm text-zinc-400 mb-2">Town / City *</label>
+        <input type="text" name="city" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+      </div>
+      <div>
+        <label class="block text-sm text-zinc-400 mb-2">State *</label>
+  <select name="state" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+    <option value="" disabled selected>Select a state</option>
+    <option value="AL">Alabama</option>
+    <option value="AK">Alaska</option>
+    <option value="AZ">Arizona</option>
+    <option value="AR">Arkansas</option>
+    <option value="CA">California</option>
+    <option value="CO">Colorado</option>
+    <option value="CT">Connecticut</option>
+    <option value="DE">Delaware</option>
+    <option value="FL">Florida</option>
+    <option value="GA">Georgia</option>
+    <option value="HI">Hawaii</option>
+    <option value="ID">Idaho</option>
+    <option value="IL">Illinois</option>
+    <option value="IN">Indiana</option>
+    <option value="IA">Iowa</option>
+    <option value="KS">Kansas</option>
+    <option value="KY">Kentucky</option>
+    <option value="LA">Louisiana</option>
+    <option value="ME">Maine</option>
+    <option value="MD">Maryland</option>
+    <option value="MA">Massachusetts</option>
+    <option value="MI">Michigan</option>
+    <option value="MN">Minnesota</option>
+    <option value="MS">Mississippi</option>
+    <option value="MO">Missouri</option>
+    <option value="MT">Montana</option>
+    <option value="NE">Nebraska</option>
+    <option value="NV">Nevada</option>
+    <option value="NH">New Hampshire</option>
+    <option value="NJ">New Jersey</option>
+    <option value="NM">New Mexico</option>
+    <option value="NY">New York</option>
+    <option value="NC">North Carolina</option>
+    <option value="ND">North Dakota</option>
+    <option value="OH">Ohio</option>
+    <option value="OK">Oklahoma</option>
+    <option value="OR">Oregon</option>
+    <option value="PA">Pennsylvania</option>
+    <option value="RI">Rhode Island</option>
+    <option value="SC">South Carolina</option>
+    <option value="SD">South Dakota</option>
+    <option value="TN">Tennessee</option>
+    <option value="TX">Texas</option>
+    <option value="UT">Utah</option>
+    <option value="VT">Vermont</option>
+    <option value="VA">Virginia</option>
+    <option value="WA">Washington</option>
+    <option value="WV">West Virginia</option>
+    <option value="WI">Wisconsin</option>
+    <option value="WY">Wyoming</option>
+    <!-- Optional: Washington DC -->
+    <option value="DC">District of Columbia</option>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm text-zinc-400 mb-2">ZIP Code *</label>
+        <input type="text" name="zip" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+      </div>
+      <div>
+        <label class="block text-sm text-zinc-400 mb-2">Phone *</label>
+        <input type="tel" name="phone" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-sm text-zinc-400 mb-2">Email Address *</label>
+      <input type="email" name="email" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+    </div>
+  </div>
+
+  <!-- Shipping Options -->
+  <div class="mt-12">
+    <h2 class="text-2xl font-semibold text-white mb-4">Shipping</h2>
+    <div class="space-y-4">
+      <label class="flex items-center gap-3">
+        <input type="radio" name="shipping_method" value="ups_ground" checked class="w-5 h-5 accent-[#ff1493]">
+        <span>UPS Ground (3–5 business days) – $12.99</span>
+      </label>
+      <label class="flex items-center gap-3">
+        <input type="radio" name="shipping_method" value="ups_2day" class="w-5 h-5 accent-[#ff1493]">
+        <span>UPS 2nd Day Air – $29.99</span>
+      </label>
+      <label class="flex items-center gap-3">
+        <input type="radio" name="shipping_method" value="free_over_250" class="w-5 h-5 accent-[#ff1493]">
+        <span>Free Shipping (orders over $250)</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Order Notes -->
+  <div class="mt-12">
+    <h2 class="text-2xl font-semibold text-white mb-4">Order Notes (optional)</h2>
+    <textarea name="order_notes" rows="4" class="w-full bg-zinc-950 border border-zinc-800 rounded-3xl px-6 py-4 text-white focus:outline-none focus:border-[#ff1493]" placeholder="Notes about your order, e.g. special instructions for delivery."></textarea>
+  </div>
+
+  <!-- Hidden Fields – REQUIRED for cart data -->
+  <input type="hidden" name="order_number" id="hidden_order_number">
+  <input type="hidden" name="order_total" id="hidden_total">
+  <input type="hidden" name="cart_items" id="hidden_cart_items">
+  <input type="hidden" name="_subject" value="New Paragon Peptides Order">
+
+<!-- Agreement Checkboxes – must be checked to enable submit (like profoundaminos.com) -->
+<div class="mt-8 space-y-4 text-sm text-zinc-300">
+  <label class="flex items-start gap-3 cursor-pointer">
+    <input type="checkbox" x-model="agreedToTOS" class="mt-1 w-5 h-5 accent-[#ff1493] cursor-pointer">
+    <span>
+      I agree to the 
+      <a href="#" class="text-[#ff1493] hover:underline" target="_blank">Terms of Service</a>
+    </span>
+  </label>
+
+  <label class="flex items-start gap-3 cursor-pointer">
+    <input type="checkbox" x-model="agreedToPolicies" class="mt-1 w-5 h-5 accent-[#ff1493] cursor-pointer">
+    <span>
+      I agree to the 
+      <a href="#" class="text-[#ff1493] hover:underline" target="_blank">Store Policies</a>
+    </span>
+  </label>
+</div>
+ <!-- Submit Button with Loading & Error Handling -->
+<!-- Submit Button with Loading & Error Handling -->
+<button type="button"
+        @click="handleCheckoutSubmit()"
+        :disabled="isSubmitting || !agreedToTOS || !agreedToPolicies"
+        class="w-full py-6 rounded-3xl font-semibold text-2xl text-white transition disabled:opacity-50 disabled:cursor-not-allowed"
+        :class="isSubmitting ? 'bg-zinc-700' : 'bg-[#ff1493] hover:bg-pink-600'">
+  <span x-text="isSubmitting ? 'Processing...' : 'Place Secure Order'"></span>
+</button>
+
+              <!-- Error / Success Messages -->
+              <div x-show="formError" class="text-red-400 text-center text-sm mt-4" x-text="formError"></div>
+              <div x-show="formSuccess" class="text-green-400 text-center text-sm mt-4">
+                Order submitted successfully! Check your email for confirmation.
+              </div>
+
+
+      <p class="text-center text-sm text-zinc-500 mt-6">
+        Your personal data will be used to process your order...
+      </p>
+
+    </form>
+
+    </div>
+      <!-- RIGHT COLUMN: Order Summary + Payment -->
+      <div class="lg:sticky lg:top-12 h-fit bg-zinc-950 border border-zinc-800 rounded-3xl p-8">
+        <h2 class="text-2xl font-semibold text-white mb-6">Your Order</h2>
+
+<div class="space-y-4 mb-8">
+  <!-- Products -->
+  <div class="flex justify-between text-zinc-300">
+    <span>Product</span>
+    <span>Subtotal</span>
+  </div>
+  <div class="border-t border-zinc-800 pt-4">
+    <template x-for="item in cart" :key="item.id">
+      <div class="flex justify-between py-2">
+        <span x-text="item.name + ' × ' + item.qty"></span>
+        <span x-text="'$' + (item.price * item.qty).toFixed(2)"></span>
+      </div>
+    </template>
+  </div>
+
+  <!-- Subtotal -->
+  <div class="flex justify-between border-t border-zinc-800 pt-4 font-semibold text-white">
+    <span>Subtotal</span>
+    <span x-text="'$' + cartTotal.toFixed(2)"></span>
+  </div>
+
+  <!-- Shipping -->
+  <div class="flex justify-between">
+    <span>Shipping</span>
+    <span x-text="cartTotal >= 250 ? 'Free' : '$12.99'"></span>
+  </div>
+
+  <!-- Coupon Discount (only if applied) -->
+  <template x-if="appliedCoupon">
+    <div class="flex justify-between text-green-400">
+      <span>Discount (<span x-text="appliedCoupon.discountPercent + '%'"></span>)</span>
+      <span x-text="'-$' + ((cartTotal * (appliedCoupon.discountPercent / 100)).toFixed(2))"></span>
+    </div>
+  </template>
+
+  <!-- Final Total -->
+  <div class="flex justify-between text-xl font-bold text-white border-t border-zinc-800 pt-4">
+    <span>Total</span>
+    <span x-text="'$' + discountedTotal"></span>
+  </div>
+</div>
+
+<!-- Coupon Input -->
+<div class="mb-8">
+  <label class="block text-sm text-zinc-400 mb-2">Have a coupon?</label>
+  <div class="flex gap-2">
+    <input type="text" x-model="couponCode" placeholder="Coupon code" 
+           class="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+    <button @click="applyCoupon()" 
+            class="bg-[#ff1493] hover:bg-pink-600 px-6 py-3 rounded-lg font-medium text-white transition">
+      Apply
+    </button>
+  </div>
+
+  <!-- Coupon message -->
+  <p x-show="couponMessage" 
+     :class="{'text-green-400': appliedCoupon, 'text-red-400': !appliedCoupon}"
+     class="mt-2 text-sm" 
+     x-text="couponMessage"></p>
+
+  <!-- Remove coupon button -->
+  <template x-if="appliedCoupon">
+    <button @click="removeCoupon()" class="mt-2 text-sm text-red-400 hover:text-red-300">
+      Remove coupon
+    </button>
+  </template>
+</div>
+
+<!-- Payment Instructions – Click-to-Reveal Accordion (exact Profound Aminos style) -->
+<div class="mt-12 space-y-4">
+  <h3 class="text-xl font-semibold text-white mb-6">How to Pay</h3>
+
+<div class="border border-zinc-800 rounded-xl overflow-hidden">
+    <button @click="activePayment = activePayment === 'venmo' ? null : 
+<div class="border border-zinc-800 rounded-xl overflow-hidden">
+    <button @click="activePayment = activePayment === 'venmo' ? null : 'venmo'"
+            class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
+      <span class="text-lg font-medium text-[#ff1493]">Pay with Venmo</span>
+      <span x-text="activePayment === 'venmo' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
+    </button>
+    <div x-show="activePayment === 'venmo'" class="px-6 pb-6 bg-zinc-950 overflow-hidden text-zinc-300">
+      <p class="mt-4">Place your order first then follow instructions to pay with Venmo.</p>
+      <p class="mt-4 font-bold text-white">*****NOTE*****</p>
+      <p class="mt-2 text-sm">PLEASE DO NOT TURN ON PURCHASE OPTION.<br>ORDER # DIGITS ONLY IN THE NOTE!</p>
+      <a href="https://venmo.com/code?user_id=3026528279461888787&amp;created=1772988492" 
+         target="_blank" rel="noopener noreferrer"
+         class="block mt-6 w-full bg-[#3D95CE] hover:bg-[#2E7AB3] text-white font-semibold py-5 rounded-2xl text-center text-xl transition">
+        Open Venmo & Pay Now
+      </a>
+    </div>
+  </div>
+
+  <!-- CASH APP -->
+  <div class="border border-zinc-800 rounded-xl overflow-hidden">
+    <button @click="activePayment = activePayment === 'cashapp' ? null : 'cashapp'"
+            class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
+      <span class="text-lg font-medium text-[#ff1493]">Pay with Cash App</span>
+      <span x-text="activePayment === 'cashapp' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
+    </button>
+    <div x-show="activePayment === 'cashapp'" class="px-6 pb-6 bg-zinc-950 overflow-hidden text-zinc-300">
+      <p class="mt-4">Send the total via Cash App. Include your order number in the memo.</p>
+      <a href="https://cash.app/$ParagonPeps" 
+         target="_blank" rel="noopener noreferrer"
+         class="block mt-6 w-full bg-[#00C244] hover:bg-[#00A03A] text-white font-semibold py-5 rounded-2xl text-center text-xl transition">
+        Open Cash App & Pay Now
+      </a>
+    </div>
+  </div>
+
+  <!-- BITCOIN WITH QR CODE -->
+  <div class="border border-zinc-800 rounded-xl overflow-hidden">
+    <button @click="activePayment = activePayment === 'bitcoin' ? null : 'bitcoin'"
+            class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
+      <span class="text-lg font-medium text-[#ff1493]">Pay with Bitcoin</span>
+      <span x-text="activePayment === 'bitcoin' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
+    </button>
+    <div x-show="activePayment === 'bitcoin'" class="px-6 pb-6 bg-zinc-950 overflow-hidden text-zinc-300">
+      <p class="mt-4 text-center">Send exact amount to this Bitcoin address:</p>
+      <div class="bg-black p-4 rounded-xl mt-4 text-center">
+        <p class="font-mono text-sm break-all text-[#ff1493]">bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw</p>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&amp;data=bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw" 
+             class="mx-auto mt-4 rounded-xl" alt="Bitcoin QR Code">
+      </div>
+      <button @click="copyToClipboard('bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw')"
+              class="mt-6 w-full bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-white">
+        Copy Bitcoin Address
+      </button>
+      <p class="text-xs text-zinc-500 mt-4 text-center">Include your order number in the transaction memo.</p>
+    </div>
+  </div>
+</div>
+
+      <input type="hidden" name="order_number" id="hidden_order_number">
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Payment Update Alert Modal – OUTSIDE the checkout page block -->
+<div x-show="showPaymentAlert" 
+     @click.away="showPaymentAlert = false"
+     class="fixed inset-0 z-[100001] flex items-center justify-center bg-black/80 backdrop-blur-sm"
+     x-transition>
+  <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-lg w-full mx-4 p-8 relative shadow-2xl">
+    <!-- Close button -->
+    <button @click="showPaymentAlert = false" 
+            class="absolute top-4 right-4 text-zinc-400 hover:text-white text-2xl">
+      ×
+    </button>
+
+    <h2 class="text-2xl font-bold text-white mb-6 text-center">Payment Update</h2>
+    
+    <div class="text-zinc-300 space-y-4 text-center">
+      <p>We are currently improving our payment options. For now, Venmo, Same Day Payment, and ByteNFT are available and remain secure and reliable methods to complete your purchase.</p>
+      <p>Making Payment via Crypto payment gateways receive a 5% discount, but verification is required for security compliance, so please complete the verification process to secure your discount.</p>
+      <p>If you need any help, please contact our support team. Thank you for your patience.</p>
+    </div>
+
+    <button @click="showPaymentAlert = false"
+            class="mt-8 w-full bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-lg text-white transition">
+      I Understand — Continue Checkout
+    </button>
+  </div>
+</div>
+
+    <!-- PAYMENT UPDATE ALERT MODAL -->
+    <div x-show="showPaymentAlert" @click.away="showPaymentAlert = false"
+         class="fixed inset-0 z-[100001] flex items-center justify-center bg-black/80 backdrop-blur-sm" x-transition>
+      <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-lg w-full mx-4 p-8 relative shadow-2xl">
+        <button @click="showIMPORTANT LEGAL NOTICE PLEASE READ = false" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-2xl">×</button>
+        <h2 class="text-2xl font-bold text-white mb-6 text-center">IMPORTANT LEGAL NOTICE PLEASE READ</h2>
+        <div class="text-zinc-300 space-y-4 text-center">
+          <p>NOT FOR HUMAN CONSUMPTION.</p>
+          <p>The Products on this website are for legitmitate Research use only. They are not intended to prevent, treat or cure any illness or disease.</p>
+          <p>By sumitting I agree you acknowledge and understand these Terms.</p>
+        </div>
+        <button @click="showPaymentAlert = false" class="mt-8 w-full bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-lg text-white transition">I Understand — Continue Checkout</button>
+      </div>
+    </div>
+
+<!-- SUCCESS MODAL – Scrollable on mobile, smaller padding -->
+<div x-show="successOpen" class="fixed inset-0 z-[100001] bg-black/90 flex items-center justify-center p-4 overflow-hidden">
+  <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 text-center relative shadow-2xl success-modal">
+    <!-- Close button – always visible at top-right -->
+    <button @click="successOpen = false; orderCopied = false" 
+            class="absolute top-3 right-3 sm:top-4 sm:right-4 text-zinc-400 hover:text-white text-3xl sm:text-4xl font-bold focus:outline-none z-10">
+      ×
+    </button>
+
+    <div class="text-6xl sm:text-8xl mb-4 sm:mb-6">🎉</div>
+    <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 text-white">Order Received!</h2>
+    <p class="text-base sm:text-xl text-zinc-300 mb-6">
+      Thank you! Your order has been submitted successfully.
+    </p>
+
+    <div class="bg-black border border-zinc-700 rounded-2xl p-6 mb-6">
+      <p class="text-base sm:text-lg text-zinc-400 mb-3">
+        Your Order Number (paste in Venmo/Cash App note):
+      </p>
+      <p class="text-4xl sm:text-5xl md:text-6xl font-mono font-bold text-[#ff1493] mb-4 break-all" x-text="lastOrderNumber || '—'"></p>
+
+      <button @click="copyOrderNumber()"
+              class="w-full py-4 rounded-2xl font-semibold text-lg sm:text-xl text-white transition flex items-center justify-center gap-3"
+              :class="orderCopied ? 'bg-green-600' : 'bg-[#ff1493] hover:bg-pink-600'">
+        <span x-text="orderCopied ? '✅ Copied!' : 'Copy Order Number'"></span>
+      </button>
+    </div>
+<!-- DIRECT PAYMENT LINKS IN SUCCESS MODAL -->
+<div class="grid grid-cols-3 gap-4 mt-8">
+  <a href="https://venmo.com/code?user_id=3026528279461888787" 
+     target="_blank" 
+     class="bg-[#3D95CE] hover:bg-[#2E7AB3] py-4 rounded-2xl text-center text-sm font-medium transition">
+    Venmo
+  </a>
+  <a href="https://cash.app/$ParagonPeps" 
+     target="_blank" 
+     class="bg-[#00C244] hover:bg-[#00A03A] py-4 rounded-2xl text-center text-sm font-medium transition">
+    Cash App
+  </a>
+  <a href="#" 
+     @click="copyToClipboard('bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw'); alert('Bitcoin address copied! Paste in your wallet.')"
+     class="bg-orange-600 hover:bg-orange-700 py-4 rounded-2xl text-center text-sm font-medium transition">
+    Bitcoin
+  </a>
+</div>
+
+    <p class="text-sm sm:text-base text-zinc-400 mb-6">
+      Your order is confirmed! Copy the number above, close this modal, and complete payment below using Venmo, Cash App, or Bitcoin.
+    </p>
+
+    <button @click="successOpen = false; orderCopied = false"
+            class="w-full bg-zinc-800 hover:bg-zinc-700 py-4 rounded-3xl font-semibold text-lg sm:text-xl text-white transition">
+      Close & Proceed to Payment
+    </button>
+  </div>
+</div>
+
+<!-- STOCK MANAGER (hidden admin panel) -->
+<div x-show="showStockManager" class="fixed inset-0 bg-black/90 z-[99999] overflow-auto">
+  <div class="max-w-4xl mx-auto p-8">
+    <h2 class="text-3xl font-bold mb-8 text-white">Stock Manager</h2>
+    <button @click="showStockManager = false" class="mb-6 text-[#ff1493] hover:underline">← Close Manager</button>
+    
+    <div class="grid gap-6">
+      <template x-for="product in products" :key="product.id">
+        <div class="bg-zinc-900 p-6 rounded-3xl">
+          <h3 class="font-semibold text-white mb-4" x-text="product.name"></h3>
+          <div class="mt-4 space-y-3">
+            <template x-for="(variant, i) in product.doses" :key="i">
+              <div class="flex items-center gap-4">
+                <span class="w-20 text-zinc-300" x-text="variant.mg + ' ' + (product.unit || 'mg')"></span>
+                <input type="number" 
+                       x-model.number="variant.stock"
+                       class="bg-zinc-800 w-24 px-3 py-2 rounded-lg text-center text-white border border-zinc-700 focus:border-[#ff1493] focus:outline-none">
+                <span class="text-xs text-zinc-400">left</span>
+              </div>
+            </template>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+</div>
+
+<!-- FLOATING TELEGRAM BUTTON (#4) -->
+<a href="http://t.me/Paragonpeptides" target="_blank" rel="noopener noreferrer"
+   class="fixed bottom-6 right-6 bg-[#ff1493] text-white w-14 h-14 rounded-2xl flex items-center justify-center shadow-2xl md:hidden z-[99999] hover:scale-110 transition">
+  <span class="text-3xl">📩</span>
+</a>
+
+      <!-- ACCOUNT MODAL -->
+  <div x-show="showAccountModal" class="fixed inset-0 z-[99999] bg-black/70 flex items-center justify-center" @click.self="showAccountModal = false">
+    <div class="bg-zinc-900 rounded-3xl max-w-md w-full p-8">
+      <h3 class="text-3xl font-bold mb-6">My Account</h3>
+      <p class="text-slate-300 mb-6"></p>
+      <button @click="showAccountModal = false" class="w-full bg-[#ff1493] py-5 rounded-3xl font-semibold">(Coming Soon)</button>
+    </div>
+  </div>
+
+
+  <!-- SUPPORT MODAL -->
+  <div x-show="showSupportModal" class="fixed inset-0 z-[99999] bg-black/70 flex items-center justify-center" @click.self="showSupportModal = false">
+    <div class="bg-zinc-900 rounded-3xl max-w-md w-full p-8">
+      <h3 class="text-3xl font-bold mb-6">Support</h3>
+      <p class="text-slate-300"> Email paragonpeps@gmail.com</p>
+      <button @click="showSupportModal = false" class="mt-8 w-full bg-[#ff1493] py-5 rounded-3xl font-semibold">Close</button>
+    </div>
+  </div>
+
+<!-- DYNAMIC PRODUCT MODAL (mobile-optimized) -->
+    <div x-show="currentProduct" class="fixed inset-0 bg-black z-[9999] overflow-auto" x-transition>
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        <button @click="currentProduct = null" class="mb-6 flex items-center gap-2 text-[#ff1493] hover:text-pink-400 text-sm sm:text-base min-h-[44px]">← Back to Catalog</button>
+        <div class="grid md:grid-cols-2 gap-8">
+          <img :src="currentProduct.image" class="rounded-3xl w-full shadow-2xl" loading="lazy">
+          <div>
+            <h1 class="text-4xl sm:text-5xl font-bold text-white" x-text="currentProduct.name"></h1>
+            <p class="text-[#ff1493] text-xl sm:text-2xl mt-2" x-text="currentProduct.desc"></p>
+
+<!-- DYNAMIC DOSE BUTTONS – FIXED & SYNCED -->
+<div class="mt-6 sm:mt-8">
+  <label class="block text-sm text-zinc-400 mb-2">SELECT DOSE</label>
+  <div class="grid grid-cols-3 sm:grid-cols-5 gap-3 dose-grid">
+    <template x-for="variant in currentProduct.doses" :key="variant.mg || variant.ml">
+      <button
+        @click="currentProduct.selectedDose = (variant.mg || variant.ml); currentProduct.price = variant.price"
+        :disabled="variant.stock <= 0"
+        :class="{
+          'bg-[#ff1493] text-white min-h-[44px] ring-2 ring-pink-500 scale-105': currentProduct.selectedDose === (variant.mg || variant.ml) && variant.stock > 0,
+          'bg-zinc-800 text-zinc-400 cursor-not-allowed opacity-60 min-h-[44px]': variant.stock <= 0,
+          'bg-zinc-800 hover:bg-zinc-700 min-h-[44px]': currentProduct.selectedDose !== (variant.mg || variant.ml) && variant.stock > 0
+        }"
+        class="py-3 px-4 rounded-xl font-medium transition text-sm sm:text-base flex items-center justify-center gap-2">
+        <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
+      </button>
+    </template>
+  </div>
+</div>
+
+            <div class="text-3xl sm:text-4xl font-bold mt-6 sm:mt-8 text-white" x-text="'$' + getDosePrice()"></div>
+            <button @click="addToCartWithDose(currentProduct)" class="mt-8 sm:mt-10 w-full bg-[#ff1493] hover:bg-pink-600 py-4 sm:py-5 rounded-3xl font-semibold text-lg sm:text-xl text-white transition min-h-[48px]">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+        <div class="mt-12 sm:mt-20 prose prose-invert max-w-none text-zinc-300 prose-sm sm:prose-base" x-html="currentProduct.fullDesc"></div>
+      </div>
+    </div>
+
+<!-- GLOBAL LOADING SPINNER -->
+<div x-show="isLoading" class="fixed inset-0 bg-black/90 flex items-center justify-center z-[999999]">
+  <div class="text-center">
+    <div class="w-12 h-12 border-4 border-[#ff1493] border-t-transparent rounded-full animate-spin mx-auto"></div>
+    <p class="mt-4 text-white text-sm tracking-widest">LOADING...</p>
+  </div>
+</div>
+
+</body>
+</html>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Paragon Peptides",
+  "url": "https://paragonpeptides.net",
+  "description": "Premium research peptides for laboratory use only. HPLC-verified compounds with fast cold-chain shipping."
+}
+</script>
+
+<script>
+  function app() {
+    return {
+      cartOpen: false,
+      checkoutPage: false,
+      successOpen: false,
+      showAccountModal: false,
+   showGetInTouchModal: false,
+      showSupportModal: false,
+      showFaqsPage: false,
+      showStockManager: false,
+      showPaymentAlert: false,
+      currentProduct: null,
+      selectedDose: null,
+      orderCopied: false,
+      cart: [],
+      searchTerm: '',
+      lastOrderNumber: '',
+      couponCode: '',
+      appliedCoupon: null,
+      isLoading: false,
+      couponMessage: '',
+      activePayment: null,
+      agreedToTOS: false,
+      agreedToPolicies: false,
+      isSubmitting: false,
+      formError: null,
+      formSuccess: false,
+      mobileMenuOpen: false,
+      isSubmittingGetInTouch: false,
+      getInTouchSuccess: false,
+      getInTouchError: null,  
+
+      // Computed
+      get discountedTotal() {
+        let subtotal = this.cartTotal;
+        let shipping = subtotal >= 250 ? 0 : 12.99;
+        let totalBeforeDiscount = subtotal + shipping;
+        if (!this.appliedCoupon) return totalBeforeDiscount;
+        const discount = subtotal * (this.appliedCoupon.discountPercent / 100);
+        return Math.max(0, totalBeforeDiscount - discount).toFixed(2);
+      },
+
+copyOrderNumber() {
+  if (!this.lastOrderNumber) {
+    alert("No order number available.");
+    return;
+  }
+  navigator.clipboard.writeText(this.lastOrderNumber)
+    .then(() => {
+      this.orderCopied = true;
+      setTimeout(() => this.orderCopied = false, 3000);
+    })
+    .catch(() => {
+      // Fallback
+      const el = document.createElement('textarea');
+      el.value = this.lastOrderNumber;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      this.orderCopied = true;
+      setTimeout(() => this.orderCopied = false, 3000);
+    });
+},
+
+      get filteredProducts() {
+        if (!this.searchTerm) return this.products;
+        const term = this.searchTerm.toLowerCase().trim();
+        return this.products.filter(p =>
+          p.name.toLowerCase().includes(term) || p.desc.toLowerCase().includes(term)
+        );
+      },
+
+      handleSearch() {
+        if (this.searchTerm.trim().length > 0) {
+          document.getElementById('shop').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      },
+
+openStockManager() {
+  const pass = prompt("Admin password:");
+  if (pass === "Cmat2221") {  // change this to something secure
+    this.showStockManager = true;
+  } else {
+    alert("Access denied.");
+  }
+},
+
+toggleDose(product, variant) {
+  const doseValue = variant.mg || variant.ml;
+  if (product.selectedDose === doseValue) {
+    product.selectedDose = null;
+  } else {
+    product.selectedDose = doseValue;
+    product.price = variant.price;
+  }
+},
+
+    products: [
+  // 1. Reta
+  {
+    id: 1,
+    name: "Reta",
+    price: 49,
+    image: "https://i.imgur.com/ozyIavd.jpeg",
+    desc: "Triple agonist",
+    doses: [ 
+      { mg: 10, price: 49, stock: 30 },
+      { mg: 20, price: 79, stock: 30 },
+      { mg: 30, price: 129, stock: 30 }
+    ],
+    fullDesc: "<p>Reta is a triple agonist (GLP-1/GIP/glucagon) studied in advanced metabolic and obesity-related laboratory models.</p>" +
+              "<p><strong>Product Specifications</strong><br>CAS Number: N/A<br>Molecular Formula: N/A<br>Molecular Weight: N/A<br>Purity: ≥99% (HPLC Verified)<br>Form: Lyophilized White Powder</p>" +
+              "<p><strong>Chemical Identity & Structural Mechanism</strong><br>Retatrutide activates multiple incretin pathways for enhanced metabolic research.</p>" +
+              "<p><strong>Why Leading Labs Source Retatrutide from Paragon Peptides</strong><br>Every batch is HPLC verified and shipped with cold-chain logistics to maintain stability.</p>" +
+              "<p><strong>Research Context</strong><br>Studied for energy expenditure, lipid metabolism, and body composition modeling.</p>" +
+              "<p><strong>DISCLAIMER</strong><br>Products sold on our website are meant for scientific research purposes only, designed for in vitro testing and lab experimentation exclusively. These products are not intended to be used as foods, drugs or cosmetics, any sort of bodily introduction of the products into humans or animals is strictly prohibited. They must also not be misbranded, misused, or mislabeled, or used for anything other than research and scientific investigation.<br>All the products you see on the website are being sold in a lyophilized powder state (freeze-dried), in a sealed sterile vial; and should be reconstituted.<br>The product’s label clearly states the amount of product a vial contains; some products are offered in different variations.<br>The products we are selling come in a sealed vial but require additional lab equipment for proper testing.<br>Though we make sure packaging, label, seals and writing does not differ from the product photos you see on our website, there is a chance for a minimal deviation.</p>"
+  },
+  // 2. Tirz
+  {
+    id: 2,
+    name: "Tirz",
+    price: 69,
+    image: "https://imgur.com/8c3N73C.jpeg",
+    desc: "Dual GLP-1/GIP agonist",
+    doses: [{ mg: 20, price: 69, stock: 30 }],
+    fullDesc: "<p>Tirz is a dual incretin mimetic researched for combined GLP-1 and GIP receptor activity in metabolic laboratory studies.</p>" +
+              "<p><strong>Product Specifications</strong><br>CAS Number: 2023788-19-2<br>Molecular Formula: C225H348N48O68<br>Molecular Weight: 4813 g/mol<br>Purity: ≥99% (HPLC Verified)<br>Form: Lyophilized White Powder</p>" +
+              "<p><strong>Chemical Identity & Structural Mechanism</strong><br>Tirz combines GIP and GLP-1 activity for enhanced metabolic research.</p>" +
+              "<p><strong>Why Leading Labs Source Tir from Paragon Peptides</strong><br>Every batch is HPLC verified and shipped with cold-chain logistics to maintain stability.</p>" +
+              "<p><strong>Research Context</strong><br>Studied for superior weight regulation and insulin sensitivity.</p>" +
+              "<p><strong>DISCLAIMER</strong><br>Products sold on our website are meant for scientific research purposes only...</p>"
+  },
+  // 3. sema
+  {
+    id: 3,
+    name: "Sema",
+    price: 39,
+    image: "https://imgur.com/C7Fem9j.jpeg",
+    desc: "GLP-1 mimetic analog",
+    doses: [{ mg: 5, price: 39, stock: 30 }],
+    fullDesc: "<p>Sema is a long-acting GLP-1 receptor agonist analog investigated in metabolic and endocrine research models.</p>" +
+              "<p><strong>Product Specifications</strong><br>CAS Number: 910463-68-2<br>Molecular Formula: C187H291N45O59<br>Molecular Weight: 4113.6 g/mol<br>Purity: ≥99% (HPLC Verified)<br>Form: Lyophilized White Powder</p>" +
+              "<p><strong>Chemical Identity & Structural Mechanism</strong><br>Semag mimics GLP-1 to study insulin secretion and appetite regulation in lab models.</p>" +
+              "<p><strong>Why Leading Labs Source Sema from Paragon Peptides</strong><br>Every batch is HPLC verified and shipped with cold-chain logistics to maintain stability.</p>" +
+              "<p><strong>Research Context</strong><br>Studied for glucose homeostasis and weight regulation.</p>" +
+              "<p><strong>DISCLAIMER</strong><br>Products sold on our website are meant for scientific research purposes only...</p>"
+  },
+  // 4. cagri
+  {
+    id: 4,
+    name: "Cagri",
+    price: 39,
+    image: "https://imgur.com/C7Fem9j.jpeg",
+    desc: "Exercise mimetic",
+    doses: [{ mg: 5, price: 39, stock: 30 }],
+    fullDesc: "<p>Cagri is an ERR agonist researched for its ability to enhance mitochondrial biogenesis and exercise-like metabolic effects.</p>" +
+              "<p><strong>Product Specifications</strong><br>CAS Number: N/A<br>Molecular Formula: N/A<br>Molecular Weight: N/A<br>Purity: ≥99% (HPLC Verified)<br>Form: Tablets</p>" +
+              "<p><strong>Chemical Identity & Structural Mechanism</strong><br>Cagri activates ERR to study mitochondrial function and endurance.</p>" +
+              "<p><strong>Why Leading Labs Source Cagri from Paragon Peptides</strong><br>Every batch is HPLC verified and shipped with cold-chain logistics to maintain stability.</p>" +
+              "<p><strong>Research Context</strong><br>Studied for metabolic flexibility and muscle performance.</p>" +
+              "<p><strong>DISCLAIMER</strong><br>Products sold on our website are meant for scientific research purposes only...</p>"
+  },
+  // 5. nad+
+  {
+    id: 5,
+    name: "NAD+ 500mg",
+    price: 49,
+    image: "https://imgur.com/8c3N73C.jpeg",
+    desc: "Growth hormone secretagogue",
+    doses: [{ mg: 500, price: 49, stock: 30 }],
+    fullDesc: "<p>MK-677 is an orally active ghrelin mimetic researched for its ability to stimulate growth hormone and IGF-1 release in laboratory settings.</p>" +
+              "<p><strong>Product Specifications</strong><br>CAS Number: 159752-10-0<br>Molecular Formula: C27H36N4O5S<br>Molecular Weight: 528.7 g/mol<br>Purity: ≥99% (HPLC Verified)<br>Form: Capsules</p>" +
+              "<p><strong>Chemical Identity & Structural Mechanism</strong><br>Nad+ mimics ghrelin to study GH pulse and IGF-1 elevation.</p>" +
+              "<p><strong>Why Leading Labs Source Nad+ from Paragon Peptides</strong><br>Every batch is HPLC verified and shipped with cold-chain logistics to maintain stability.</p>" +
+              "<p><strong>Research Context</strong><br>Studied for muscle protein synthesis, bone density, and sleep quality.</p>" +
+              "<p><strong>DISCLAIMER</strong><br>Products sold on our website are meant for scientific research purposes only...</p>"
+  },
+  // 6. mots-c
+  {
+    id: 6,
+    name: "MOTS-C",
+    price: 39,
+    image: "https://imgur.com/bTD6loO.jpeg",
+    desc: "Metabolic research",
+    doses: [{ mg: 10, price: 39, stock: 30 }],
+    fullDesc: "<p>Mots-C is a small-molecule NNMT inhibitor investigated for its role in metabolic rate, fat oxidation, and cellular energy pathways.</p>" +
+              "<p><strong>Product Specifications</strong><br>CAS Number: N/A<br>Molecular Formula: C9H9N3O2<br>Molecular Weight: 158.2 g/mol<br>Purity: ≥99% (HPLC Verified)<br>Form: Capsules</p>" +
+              "<p><strong>Chemical Identity & Structural Mechanism</strong><br>Mots-C inhibits NNMT to study metabolic and mitochondrial function.</p>" +
+              "<p><strong>Why Leading Labs Source Mots-C from Paragon Peptides</strong><br>Every batch is HPLC verified and shipped with cold-chain logistics to maintain stability.</p>" +
+              "<p><strong>Research Context</strong><br>Studied for adipose tissue metabolism and exercise mimetic effects.</p>" +
+              "<p><strong>DISCLAIMER</strong><br>Products sold on our website are meant for scientific research purposes only...</p>"
+  },
+  // 7. SS31 → GHK-CU (closest)
+  {
+    id: 7,
+    name: "GHK-Cu 50mg",
+    price: 29,
+    image: "https://imgur.com/C7Fem9j.jpeg",
+    desc: "Copper peptide research",
+    doses: [{ mg: 50, price: 29, stock: 30 }],
+    fullDesc: "<p>GHK-Cu is a naturally occurring tripeptide-copper complex studied for tissue remodeling, antioxidant, and anti-inflammatory effects in lab models.</p>" +
+              "<p><strong>Product Specifications</strong><br>CAS Number: N/A<br>Molecular Formula: C14H24N6O4Cu<br>Molecular Weight: 340 g/mol<br>Purity: ≥99% (HPLC Verified)<br>Form: Lyophilized White Powder</p>" +
+              "<p><strong>Chemical Identity & Structural Mechanism</strong><br>GHK-Cu modulates collagen synthesis and antioxidant pathways.</p>" +
+              "<p><strong>Why Leading Labs Source GHK-Cu from Paragon Peptides</strong><br>Every batch is HPLC verified and shipped with cold-chain logistics to maintain stability.</p>" +
+              "<p><strong>Research Context</strong><br>Studied for collagen synthesis, wound healing, and skin regeneration.</p>" +
+              "<p><strong>DISCLAIMER</strong><br>Products sold on our website are meant for scientific research purposes only...</p>"
+  },
+  // 8. GHK-CU moved up (already placed)
+  // Continuing with the rest in order
+  // 9. TD-500 → TB-500
+  {
+    id: 9,
+    name: "TB-500",
+    price: 29,
+    image: "https://imgur.com/C7Fem9j.jpeg",
+    desc: "Tissue repair modeling",
+    doses: [
+         { mg: 5, price: 29, stock: 30 },
+         { mg: 10, price: 49, stock: 30 }
+    ],
+    fullDesc: "<p>TB-500 is a synthetic actin-binding peptide researched for cell migration, differentiation, and wound-healing mechanisms in laboratory models.</p>" +
+              "<p><strong>Product Specifications</strong><br>CAS Number: 77591-33-4<br>Molecular Formula: C212H350N56O78S<br>Molecular Weight: 4963 g/mol<br>Purity: ≥99% (HPLC Verified)<br>Form: Lyophilized White Powder</p>" +
+              "<p><strong>Chemical Identity & Structural Mechanism</strong><br>TB-500 promotes actin sequestration and cell motility in research models.</p>" +
+              "<p><strong>Why Leading Labs Source TB-500 from Paragon Peptides</strong><br>Every batch is HPLC verified and shipped with cold-chain logistics to maintain stability.</p>" +
+              "<p><strong>Research Context</strong><br>Studied for wound closure, angiogenesis, and muscle recovery.</p>" +
+              "<p><strong>DISCLAIMER</strong><br>Products sold on our website are meant for scientific research purposes only...</p>"
+  },
+  // 10. BPC-157 → BPC-157
+  {
+    id: 10,
+    name: "BPC-157",
+    price: 29,
+    image: "https://imgur.com/C7Fem9j.jpeg",
+    desc: "Regenerative research",
+doses: [
+      { mg: 5, price: 29, stock: 30 },
+      { mg: 10, price: 39, stock: 30 }
+    ],
+    fullDesc: "<p>BPC-157 is a synthetic pentadecapeptide studied in animal models for its cytoprotective and tissue-repair properties in gastrointestinal and musculoskeletal research.</p>" +
+              "<p><strong>Product Specifications</strong><br>CAS Number: N/A<br>Molecular Formula: C62H98N16O22<br>Molecular Weight: 1419.5 g/mol<br>Purity: ≥99% (HPLC Verified)<br>Form: Lyophilized White Powder<br>Solubility: Soluble in sterile water</p>" +
+              "<p><strong>Chemical Identity & Structural Mechanism</strong><br>BPC-157 is derived from a protective protein found in human gastric juice. It promotes angiogenesis and modulates inflammatory pathways in research models.</p>" +
+              "<p><strong>Why Leading Labs Source BPC-157 from Paragon Peptides</strong><br>Every batch is HPLC verified and shipped with cold-chain logistics to maintain stability.</p>" +
+              "<p><strong>Research Context</strong><br>Studied for tendon healing, gut integrity, and wound recovery in preclinical models.</p>" +
+              "<p><strong>DISCLAIMER</strong><br>Products sold on our website are meant for scientific research purposes only...</p>"
+  },
+  // 11. melanotan 2
+  {
+    id: 11,
+    name: "Melanotan II",
+    price: 39,
+    image: "https://imgur.com/C7Fem9j.jpeg",
+    desc: "Melanocortin research",
+    doses: [{ mg: 10, price: 39, stock: 30 }],
+    fullDesc: "<p>Melanotan II is a synthetic melanocortin receptor agonist studied for its effects on pigmentation, appetite, and sexual function pathways in animal models.</p>" +
+              "<p><strong>Product Specifications</strong><br>CAS Number: N/A<br>Molecular Formula: N/A<br>Molecular Weight: 1024 g/mol<br>Purity: ≥99% (HPLC Verified)<br>Form: Lyophilized White Powder</p>" +
+              "<p><strong>Chemical Identity & Structural Mechanism</strong><br>Melanotan II activates melanocortin receptors for pigmentation and appetite studies.</p>" +
+              "<p><strong>Why Leading Labs Source Melanotan II from Paragon Peptides</strong><br>Every batch is HPLC verified and shipped with cold-chain logistics to maintain stability.</p>" +
+              "<p><strong>Research Context</strong><br>Studied for melanogenesis, appetite suppression, and erectile function modeling.</p>" +
+              "<p><strong>DISCLAIMER</strong><br>Products sold on our website are meant for scientific research purposes only...</p>"
+  },
+  // 12. ipamorelin
+  {
+    id: 12,
+    name: "Ipamorelin",
+    price: 29,
+    image: "https://imgur.com/C7Fem9j.jpeg",
+    desc: "Selective GH release",
+    doses: [{ mg: 5, price: 29, stock: 30 }],
+    fullDesc: "<p>Ipamorelin is a selective ghrelin receptor agonist researched for its targeted growth-hormone-releasing properties without cortisol elevation.</p>" +
+              "<p><strong>Product Specifications</strong><br>CAS Number: N/A<br>Molecular Formula: N/A<br>Molecular Weight: 711.9 g/mol<br>Purity: ≥99% (HPLC Verified)<br>Form: Lyophilized White Powder</p>" +
+              "<p><strong>Chemical Identity & Structural Mechanism</strong><br>Ipamorelin selectively stimulates pituitary GH release.</p>" +
+              "<p><strong>Why Leading Labs Source Ipamorelin from Paragon Peptides</strong><br>Every batch is HPLC verified and shipped with cold-chain logistics to maintain stability.</p>" +
+              "<p><strong>Research Context</strong><br>Studied for pituitary GH secretion, lean mass modeling, and recovery protocols.</p>" +
+              "<p><strong>DISCLAIMER</strong><br>Products sold on our website are meant for scientific research purposes only...</p>"
+  },
+  // 13. Tesa
+  {
+    id: 13,
+    name: "Tesamorelin",
+    price: 59,
+    image: "https://imgur.com/M3vbJFX.jpeg",
+    desc: "GHRH analog",
+    doses: [{ mg: 10, price: 59, stock: 30 }],
+    fullDesc: "<p>Tesa is a growth-hormone-releasing hormone analog investigated for its ability to stimulate endogenous GH secretion in laboratory endocrine models.</p>" +
+              "<p><strong>Product Specifications</strong><br>CAS Number: N/A<br>Molecular Formula: N/A<br>Molecular Weight: 5135 g/mol<br>Purity: ≥99% (HPLC Verified)<br>Form: Lyophilized White Powder</p>" +
+              "<p><strong>Chemical Identity & Structural Mechanism</strong><br>Tesa stimulates pituitary GH release.</p>" +
+              "<p><strong>Why Leading Labs Source Tesa from Paragon Peptides</strong><br>Every batch is HPLC verified and shipped with cold-chain logistics to maintain stability.</p>" +
+              "<p><strong>Research Context</strong><br>Studied for visceral fat reduction and metabolic health.</p>" +
+              "<p><strong>DISCLAIMER</strong><br>Products sold on our website are meant for scientific research purposes only...</p>"
+  },
+  // 14. CJC-129 W/O DAC
+  {
+    id: 14,
+    name: "CJC-1295 W/O DAC",
+    price: 29,
+    image: "https://imgur.com/C7Fem9j.jpeg",
+    desc: "Long-acting GHRH",
+    doses: [{ mg: 10, price: 39, stock: 30 }],
+    fullDesc: "<p>CJC-1295 without DAC is a growth-hormone-releasing hormone analog studied for prolonged GH stimulation in laboratory models.</p>" +
+              "<p><strong>Product Specifications</strong><br>CAS Number: N/A<br>Molecular Formula: N/A<br>Molecular Weight: 3647 g/mol<br>Purity: ≥99% (HPLC Verified)<br>Form: Lyophilized White Powder</p>" +
+              "<p><strong>Chemical Identity & Structural Mechanism</strong><br>CJC-1295 DAC extends GH release duration through DAC attachment.</p>" +
+              "<p><strong>Why Leading Labs Source CJC-1295 DAC from Paragon Peptides</strong><br>Every batch is HPLC verified and shipped with cold-chain logistics to maintain stability.</p>" +
+              "<p><strong>Research Context</strong><br>Studied for GH pulse amplitude, IGF-1 elevation, and recovery modeling.</p>" +
+              "<p><strong>DISCLAIMER</strong><br>Products sold on our website are meant for scientific research purposes only...</p>"
+  },
+  // 15. AOD-9604
+  {
+    id: 15,
+    name: "AOD-9604",
+    price: 29,
+    image: "https://imgur.com/C7Fem9j.jpeg",
+    desc: "Lipolytic fragment",
+    doses: [{ mg: 2, price: 29, stock: 30 }],
+    fullDesc: "<p>AOD-9604 is a modified fragment of human growth hormone researched for its lipolytic (fat-breaking) activity in adipose tissue models.</p>" +
+              "<p><strong>Product Specifications</strong><br>CAS Number: N/A<br>Molecular Formula: N/A<br>Molecular Weight: 1815 g/mol<br>Purity: ≥99% (HPLC Verified)<br>Form: Lyophilized White Powder</p>" +
+              "<p><strong>Chemical Identity & Structural Mechanism</strong><br>AOD-9604 stimulates lipolysis without full GH effects.</p>" +
+              "<p><strong>Why Leading Labs Source AOD-9604 from Paragon Peptides</strong><br>Every batch is HPLC verified and shipped with cold-chain logistics to maintain stability.</p>" +
+              "<p><strong>Research Context</strong><br>Studied for fat metabolism, lipolysis, and body composition.</p>" +
+              "<p><strong>DISCLAIMER</strong><br>Products sold on our website are meant for scientific research purposes only...</p>"
+  },
+  // 16.Epithalon 
+  {
+    id: 16,
+    name: "Epithalon",
+    price: 69,
+    image: "https://imgur.com/C7Fem9j.jpeg",
+    desc: "Telomere research",
+    doses: [{ mg: 10, price: 69, stock: 30 }],
+    fullDesc: "<p>Epithalon is a synthetic tetrapeptide researched for its potential to upregulate telomerase activity and support cellular longevity in laboratory models.</p>" +
+              "<p><strong>Product Specifications</strong><br>CAS Number: N/A<br>Molecular Formula: N/A<br>Molecular Weight: 390 g/mol<br>Sequence: Ala-Glu-Asp-Gly<br>Purity: ≥99% (HPLC Verified)<br>Form: Lyophilized White Powder</p>" +
+              "<p><strong>Chemical Identity & Structural Mechanism</strong><br>Epithalon activates telomerase to study cellular senescence.</p>" +
+              "<p><strong>Why Leading Labs Source Epitalon from Paragon Peptides</strong><br>Every batch is HPLC verified and shipped with cold-chain logistics to maintain stability.</p>" +
+              "<p><strong>Research Context</strong><br>Studied for telomerase activation, anti-aging modeling, and immune function.</p>" +
+              "<p><strong>DISCLAIMER</strong><br>Products sold on our website are meant for scientific research purposes only...</p>"
+  },
+  // 17. DSIP (new)
+  {
+    id: 17,
+    name: "DSIP ",
+    price: 29,
+    image: "https://imgur.com/C7Fem9j.jpeg",
+    desc: "Delta Sleep Inducing Peptide",
+doses: [
+      { mg: 2, price: 29, stock: 30 },
+      { mg: 5, price: 39, stock: 30 }
+    ], 
+    fullDesc: "<p>DSIP is a neuropeptide researched for its role in sleep regulation, stress reduction, and neuroendocrine modulation in laboratory models.</p>" +
+              "<p><strong>Product Specifications</strong><br>CAS Number: N/A<br>Molecular Formula: C35H48N10O15<br>Molecular Weight: 848.8 g/mol<br>Purity: ≥99% (HPLC Verified)<br>Form: Lyophilized White Powder</p>" +
+              "<p><strong>Chemical Identity & Structural Mechanism</strong><br>DSIP influences delta-wave sleep and ACTH release.</p>" +
+              "<p><strong>Why Leading Labs Source DSIP from Paragon Peptides</strong><br>Every batch is HPLC verified and shipped with cold-chain logistics to maintain stability.</p>" +
+              "<p><strong>Research Context</strong><br>Studied for sleep induction and stress response modulation.</p>" +
+              "<p><strong>DISCLAIMER</strong><br>Products sold on our website are meant for scientific research purposes only...</p>"
+  },
+  // 18. PT-141
+  {
+    id: 18,
+    name: "PT-141",
+    price: 39,
+    image: "https://imgur.com/C7Fem9j.jpeg",
+    desc: "Melanocortin agonist",
+    doses: [{ mg: 10, price: 39, stock: 30 }],
+    fullDesc: "<p>PT-141 (Bremelanotide) is a synthetic melanocortin receptor agonist researched for its effects on sexual arousal and desire pathways in laboratory models.</p>" +
+              "<p><strong>Product Specifications</strong><br>CAS Number: N/A<br>Molecular Formula: C50H68N14O10<br>Molecular Weight: 1025.2 g/mol<br>Purity: ≥99% (HPLC Verified)<br>Form: Lyophilized White Powder</p>" +
+              "<p><strong>Chemical Identity & Structural Mechanism</strong><br>PT-141 activates MC3 and MC4 receptors in the CNS.</p>" +
+              "<p><strong>Why Leading Labs Source PT-141 from Paragon Peptides</strong><br>Every batch is HPLC verified and shipped with cold-chain logistics to maintain stability.</p>" +
+              "<p><strong>Research Context</strong><br>Studied for sexual dysfunction and libido modulation.</p>" +
+              "<p><strong>DISCLAIMER</strong><br>Products sold on our website are meant for scientific research purposes only...</p>"
+  },
+  // 19. Kisspeptin
+  {
+    id: 19,
+    name: "Kisspeptin",
+    price: 39,
+    image: "https://imgur.com/C7Fem9j.jpeg",
+    desc: "Hormone research",
+    doses: [{ mg: 5, price: 39, stock: 30 }],
+    fullDesc: "<p>Kisspeptin is a neuropeptide researched for its critical role in regulating gonadotropin-releasing hormone (GnRH) and reproductive hormone pathways in laboratory models.</p>" +
+              "<p><strong>Product Specifications</strong><br>CAS Number: N/A<br>Molecular Formula: C258H401N79O79S<br>Molecular Weight: 5857.4 g/mol<br>Purity: ≥99% (HPLC Verified)<br>Form: Lyophilized White Powder</p>" +
+              "<p><strong>Chemical Identity & Structural Mechanism</strong><br>Kisspeptin stimulates GnRH release from the hypothalamus.</p>" +
+              "<p><strong>Why Leading Labs Source Kisspeptin from Paragon Peptides</strong><br>Every batch is HPLC verified and shipped with cold-chain logistics to maintain stability.</p>" +
+              "<p><strong>Research Context</strong><br>Studied for reproductive endocrinology and fertility models.</p>" +
+              "<p><strong>DISCLAIMER</strong><br>Products sold on our website are meant for scientific research purposes only...</p>"
+  },
+  // 20. Semax/Selank Blend
+  {
+    id: 20,
+    name: "Semax/Selank Blend",
+    price: 49,
+    image: "https://imgur.com/C7Fem9j.jpeg",
+    desc: "Nootropic blend",
+    doses: [{ mg: 20, price: 49, stock: 30 }],
+    fullDesc: "<p>Semax/Selank Blend combines two synthetic heptapeptides researched for neuroprotective, anxiolytic, and cognitive-enhancing effects in laboratory models.</p>" +
+              "<p><strong>Product Specifications</strong><br>CAS Number: N/A<br>Molecular Formula: N/A<br>Molecular Weight: N/A<br>Purity: ≥99% (HPLC Verified)<br>Form: Lyophilized White Powder</p>" +
+              "<p><strong>Chemical Identity & Structural Mechanism</strong><br>Semax modulates BDNF; Selank modulates GABA.</p>" +
+              "<p><strong>Why Leading Labs Source Semax/Selank from Paragon Peptides</strong><br>Every batch is HPLC verified and shipped with cold-chain logistics to maintain stability.</p>" +
+              "<p><strong>Research Context</strong><br>Studied for nootropic and anxiolytic applications.</p>" +
+              "<p><strong>DISCLAIMER</strong><br>Products sold on our website are meant for scientific research purposes only...</p>"
+  },
+  // 21. Cerebrolysin
+  {
+    id: 21,
+    name: "Cerebrolysin 60mg",
+    price: 29,
+    image: "https://imgur.com/C7Fem9j.jpeg",
+    desc: "Neurotrophic factor",
+          doses: [{ mg: 60, price: 29, stock: 30 }],
+    fullDesc: "<p>Cerebrolysin is a mixture of neurotrophic peptides researched for neuroprotective and neuroregenerative effects in neurological models.</p>" +
+              "<p><strong>Product Specifications</strong><br>CAS Number: N/A<br>Molecular Formula: N/A<br>Molecular Weight: N/A<br>Purity: Standardized<br>Form: Sterile Solution</p>" +
+              "<p><strong>Chemical Identity & Structural Mechanism</strong><br>Contains low-molecular-weight peptides derived from porcine brain.</p>" +
+              "<p><strong>Why Leading Labs Source Cerebrolysin from Paragon Peptides</strong><br>Every batch is HPLC verified and shipped with cold-chain logistics to maintain stability.</p>" +
+              "<p><strong>Research Context</strong><br>Studied for traumatic brain injury and neurodegenerative conditions.</p>" +
+              "<p><strong>DISCLAIMER</strong><br>Products sold on our website are meant for scientific research purposes only...</p>"
+  },
+  // 22. Acetic Water
+  {
+    id: 22,
+    name: "Acetic Water 10ml ",
+    price: 8,
+    image: "https://imgur.com/8c3N73C.jpeg",
+    desc: "Reconstitution solvent",
+          doses: [{ ml: 10, price: 8, stock: 30 }],
+    fullDesc: "<p>0.6% Acetic Acid Solution is a sterile solvent used for reconstitution of certain lyophilized peptides in laboratory settings.</p>" +
+              "<p><strong>Product Specifications</strong><br>Concentration: 0.6% Acetic Acid<br>Form: Sterile Solution<br>Volume: 10 ml</p>" +
+              "<p><strong>Why Leading Labs Source Acetic Water from Paragon Peptides</strong><br>Sterile, ready-to-use, and shipped with cold-chain logistics.</p>" +
+              "<p><strong>Research Context</strong><br>Standard solvent for peptide reconstitution.</p>" +
+              "<p><strong>DISCLAIMER</strong><br>Products sold on our website are meant for scientific research purposes only...</p>"
+  },
+// 23. Bac-Water
+  {
+    id: 23,
+    name: "Bacteriostatic Water 10ml",
+    price: 8,
+    image: "https://imgur.com/8c3N73C.jpeg",
+    desc: "Reconstitution solvent",
+    doses: [{ ml:10, price: 8, stock: 0 }], 
+    fullDesc: "<p>Bacteriostatic Water for Injection is a sterile solvent containing 0.9% benzyl alcohol, used for reconstitution of lyophilized peptides in laboratory research.</p>" +
+              "<p><strong>Product Specifications</strong><br>Concentration: 0.9% Benzyl Alcohol<br>Form: Sterile Solution<br>Volume: 10 ml</p>" +
+              "<p><strong>Why Leading Labs Source Bac-Water from Paragon Peptides</strong><br>Sterile, multi-dose vial, and shipped with cold-chain logistics.</p>" +
+              "<p><strong>Research Context</strong><br>Standard solvent for multi-use peptide reconstitution.</p>" +
+              "<p><strong>DISCLAIMER</strong><br>Products sold on our website are meant for scientific research purposes only...</p>"  }
+
+   
+ ],
+
+
+      init() {
+        try {
+          this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
+        } catch(e) {}
+      },
+
+copyToClipboard(text) {
+  if (!text) {
+    alert("No order number to copy.");
+    return;
+  }
+
+  // Try modern Clipboard API first
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        this.orderCopied = true;
+        setTimeout(() => this.orderCopied = false, 3000); // reset after 3s
+      })
+      .catch(err => {
+        console.error("Clipboard API failed:", err);
+        this.fallbackCopy(text);
+      });
+  } else {
+    // Fallback for older browsers / non-secure contexts
+    this.fallbackCopy(text);
+  }
+},
+
+fallbackCopy(text) {
+  // Classic textarea method (works everywhere)
+  const textArea = document.createElement("textarea");
+  textArea.value = text;
+  textArea.style.position = "fixed";  // Avoid scrolling to bottom
+  textArea.style.top = "0";
+  textArea.style.left = "0";
+  textArea.style.opacity = "0";
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+
+  try {
+    const successful = document.execCommand('copy');
+    if (successful) {
+      this.orderCopied = true;
+      setTimeout(() => this.orderCopied = false, 3000);
+    } else {
+      alert("Copy failed. Please select and copy manually.");
+    }
+  } catch (err) {
+    console.error("Fallback copy failed:", err);
+    alert("Copy failed. Please select and copy manually.");
+  }
+
+  document.body.removeChild(textArea);
+},
+
+      get filteredProducts() {
+        if (!this.searchTerm) return this.products;
+        const term = this.searchTerm.toLowerCase().trim();
+        return this.products.filter(p => p.name.toLowerCase().includes(term) || p.desc.toLowerCase().includes(term));
+      },
+
+      handleSearch() {
+        if (this.searchTerm.trim().length > 0) {
+          document.getElementById('shop').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      },
+
+viewProduct(p) {
+  this.currentProduct = p;
+  const firstAvailable = p.doses.find(v => v.stock > 0) || p.doses[0];
+  this.currentProduct.selectedDose = firstAvailable ? (firstAvailable.mg || firstAvailable.ml) : null;
+},
+
+      getSelectedVariant() {
+        if (!this.currentProduct || !this.currentProduct.doses) return null;
+        return this.currentProduct.doses.find(v => v.mg === this.selectedDose) || this.currentProduct.doses[0];
+      },
+
+getDosePrice() {
+  if (!this.currentProduct) return 0;
+  const variant = this.currentProduct.doses.find(v => (v.mg || v.ml) === this.currentProduct.selectedDose);
+  return variant ? variant.price : 0;
+},
+
+addToCartWithDose(product) {
+  if (!product.selectedDose) {
+    alert("Please select a dose first.");
+    return;
+  }
+  const variant = product.doses.find(v => (v.mg || v.ml) === product.selectedDose);
+  if (!variant || variant.stock <= 0) {
+    alert("This dose is out of stock.");
+    return;
+  }
+  const price = variant.price;
+  const dose = product.selectedDose;
+  let existing = this.cart.find(i => i.id === product.id && i.dose === dose);
+  if (existing) {
+    existing.qty++;
+  } else {
+    this.cart.push({ ...product, dose, price, qty: 1 });
+  }
+  this.saveCart();
+  this.cartOpen = true;
+  this.currentProduct = null;
+},
+
+      addToCart(p) {
+        let existing = this.cart.find(i => i.id === p.id);
+        if (existing) existing.qty = (existing.qty || 1) + 1;
+        else this.cart.push({ ...p, qty: 1 });
+        this.saveCart();
+        this.cartOpen = true;
+      },
+
+      removeFromCart(i) {
+        this.cart.splice(i, 1);
+        this.saveCart();
+      },
+
+      changeQty(i, delta) {
+        let item = this.cart[i];
+        if (item) item.qty = Math.max(1, (item.qty || 1) + delta);
+        this.saveCart();
+      },
+
+      get cartTotal() {
+        return this.cart.reduce((sum, item) => sum + (item.price * (item.qty || 1)), 0);
+      },
+
+      saveCart() {
+        try { localStorage.setItem('paragonCart', JSON.stringify(this.cart)); } catch(e) {}
+      },
+
+      proceedToCheckout() {
+        if (this.cart.length > 0) {
+          this.cartOpen = false;
+          this.checkoutPage = true;
+          this.$nextTick(() => this.showPaymentAlert = true);
+        }
+      },
+
+      applyCoupon() {
+        const code = this.couponCode.trim().toUpperCase();
+        if (!code) {
+          this.couponMessage = 'Please enter a coupon code.';
+          this.appliedCoupon = null;
+          return;
+        }
+        const validCoupons = {
+          'RESEARCH15': { discountPercent: 15 },
+          'WELCOME10': { discountPercent: 10 }
+        };
+        if (validCoupons[code]) {
+          this.appliedCoupon = validCoupons[code];
+          this.couponMessage = `Coupon "${code}" applied! ${validCoupons[code].discountPercent}% off.`;
+          this.couponCode = '';
+        } else {
+          this.couponMessage = 'Invalid or expired coupon.';
+          this.appliedCoupon = null;
+        }
+      },
+
+      removeCoupon() {
+        this.appliedCoupon = null;
+        this.couponMessage = 'Coupon removed.';
+      },
+
+handleCheckoutSubmit() {
+  const form = document.getElementById('checkout-form');
+  
+  // NEW: Enforce all required fields BEFORE sending
+  if (!form.checkValidity()) {
+    form.reportValidity();           // Shows native red borders + tooltips
+    return;                          // Stops checkout completely
+  }
+
+  // Rest of your existing code (unchanged)
+  const orderNumber = Math.floor(10000 + Math.random() * 90000).toString();
+  document.getElementById('hidden_order_number').value = orderNumber;
+  
+  const total = (this.cartTotal + (this.cartTotal >= 250 ? 0 : 12.99)).toFixed(2);
+  document.getElementById('hidden_total').value = '$' + total;
+  
+  let itemsText = '';
+  this.cart.forEach(item => {
+    itemsText += `${item.name} (${item.qty} × $${item.price}${item.dose ? ' ' + item.dose + (item.unit || 'mg') : ''}) = $${(item.price * item.qty).toFixed(2)}\n`;
+  });
+  document.getElementById('hidden_cart_items').value = itemsText || 'No items';
+
+  // Submit
+  this.isSubmitting = true;
+  fetch(form.action, {
+    method: 'POST',
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' }
+  })
+  .then(response => {
+    if (response.ok) {
+      this.formSuccess = true;
+      this.cart = [];
+      this.saveCart();
+      this.checkoutPage = true;
+      this.lastOrderNumber = orderNumber;
+      this.successOpen = true;
+      this.$nextTick(() => {
+        if (this.lastOrderNumber) this.copyToClipboard(this.lastOrderNumber);
+      });
+    } else {
+      this.formError = 'Failed to submit order. Please try again.';
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    this.formError = 'Network error — please check your connection.';
+  })
+  .finally(() => {
+    this.isSubmitting = false;
+  });
+},
+
+submitGetInTouch(event) {
+  this.isSubmittingGetInTouch = true;
+  this.getInTouchSuccess = false;
+  this.getInTouchError = null;
+
+  fetch(event.target.action, {
+    method: 'POST',
+    body: new FormData(event.target),
+    headers: { 'Accept': 'application/json' }
+  })
+  .then(response => {
+    if (response.ok) {
+      this.getInTouchSuccess = true;
+      event.target.reset(); // clear form
+      setTimeout(() => this.showGetInTouchModal = false, 3000); // close modal after 3s
+    } else {
+      throw new Error('Form submission failed');
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    this.getInTouchError = 'Something went wrong. Please try again or email us directly.';
+  })
+  .finally(() => {
+    this.isSubmittingGetInTouch = false;
+  });
+},
+      openStockManager() {
+        const pass = prompt("Admin password:");
+        if (pass === "12345") {  // CHANGE THIS TO YOUR SECURE PASSWORD
+          this.showStockManager = true;
+        } else {
+          alert("Access denied.");
+        }
+      }
+    }
+  }
+</script>
+</body>
+</html>
