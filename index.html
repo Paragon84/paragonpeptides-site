@@ -1052,7 +1052,7 @@ div[x-show="showGate"] > div {
     </div>
   </div>
 
-<!-- DYNAMIC PRODUCT MODAL – NULL-SAFE & ERROR-PROOF -->
+<!-- DYNAMIC PRODUCT MODAL – NULL-SAFE -->
 <div x-show="currentProduct" class="fixed inset-0 bg-black z-[9999] overflow-auto" x-transition>
   <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
     <button @click="currentProduct = null" class="mb-6 flex items-center gap-2 text-[#ff1493] hover:text-pink-400 text-sm sm:text-base min-h-[44px]">← Back to Catalog</button>
@@ -1112,6 +1112,7 @@ div[x-show="showGate"] > div {
     <div class="mt-12 sm:mt-20 prose prose-invert max-w-none text-zinc-300 prose-sm sm:prose-base" x-html="currentProduct?.fullDesc || '<p>No description available.</p>'"></div>
   </div>
 </div>
+
 <!-- GLOBAL LOADING SPINNER -->
 <div x-show="isLoading" class="fixed inset-0 bg-black/90 flex items-center justify-center z-[999999]">
   <div class="text-center">
