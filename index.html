@@ -859,11 +859,12 @@ div[x-show="showGate"] > div {
 
   <!-- CASH APP -->
   <div class="border border-zinc-800 rounded-xl overflow-hidden">
-    <button @click="activePayment = activePayment === 'cashapp' ? null : 'cashapp'"
-            class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
-      <span class="text-lg font-medium text-[#ff1493]">Pay with Cash App</span>
-      <span x-text="activePayment === 'cashapp' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
-    </button>
+   <button 
+  @click="activePayment = activePayment === 'cashapp' ? null : 'cashapp'"
+  class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
+  <span class="text-lg font-medium text-[#ff1493]">Pay with Cash App</span>
+  <span x-text="activePayment === 'cashapp' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
+</button>
     <div x-show="activePayment === 'cashapp'" class="px-6 pb-6 bg-zinc-950 overflow-hidden text-zinc-300">
       <p class="mt-4">Send the total via Cash App. Include your order number in the memo.</p>
       <a href="https://cash.app/$ParagonPeps" 
@@ -876,11 +877,12 @@ div[x-show="showGate"] > div {
 
   <!-- BITCOIN WITH QR CODE -->
   <div class="border border-zinc-800 rounded-xl overflow-hidden">
-    <button @click="activePayment = activePayment === 'bitcoin' ? null : 'bitcoin'"
-            class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
-      <span class="text-lg font-medium text-[#ff1493]">Pay with Bitcoin</span>
-      <span x-text="activePayment === 'bitcoin' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
-    </button>
+    <button 
+  @click="activePayment = activePayment === 'bitcoin' ? null : 'bitcoin'"
+  class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
+  <span class="text-lg font-medium text-[#ff1493]">Pay with Bitcoin</span>
+  <span x-text="activePayment === 'bitcoin' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
+</button>
     <div x-show="activePayment === 'bitcoin'" class="px-6 pb-6 bg-zinc-950 overflow-hidden text-zinc-300">
       <p class="mt-4 text-center">Send exact amount to this Bitcoin address:</p>
       <div class="bg-black p-4 rounded-xl mt-4 text-center">
@@ -936,7 +938,11 @@ div[x-show="showGate"] > div {
     <div x-show="showPaymentAlert" @click.away="showPaymentAlert = false"
          class="fixed inset-0 z-[100001] flex items-center justify-center bg-black/80 backdrop-blur-sm" x-transition>
       <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-lg w-full mx-4 p-8 relative shadow-2xl">
-        <button @click="showIMPORTANT LEGAL NOTICE PLEASE READ = false" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-2xl">×</button>
+       <button 
+  @click="showPaymentAlert = false"
+  class="absolute top-4 right-4 text-zinc-400 hover:text-white text-2xl">
+  ×
+</button>
         <h2 class="text-2xl font-bold text-white mb-6 text-center">IMPORTANT LEGAL NOTICE PLEASE READ</h2>
         <div class="text-zinc-300 space-y-4 text-center">
           <p>NOT FOR HUMAN CONSUMPTION.</p>
