@@ -241,66 +241,60 @@ div[x-show="showGate"] > div {
       </div>
     </section>
 
-<!-- DYNAMIC PRODUCT MODAL – SAFE NULL CHECKS -->
-<div x-show="currentProduct" class="fixed inset-0 bg-black z-[9999] overflow-auto" x-transition>
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-    <button @click="currentProduct = null" class="mb-6 flex items-center gap-2 text-[#ff1493] hover:text-pink-400 text-sm sm:text-base min-h-[44px]">← Back to Catalog</button>
-    
-    <div class="grid md:grid-cols-2 gap-8">
-      <!-- Image – safe check -->
-      <img 
-        x-show="currentProduct.image" 
-        :src="currentProduct.image" 
-        class="rounded-3xl w-full shadow-2xl" 
-        loading="lazy"
-        alt="Product image"
-      >
-      <img 
-        x-show="!currentProduct.image" 
-        src="https://via.placeholder.com/600x600?text=No+Image" 
-        class="rounded-3xl w-full shadow-2xl" 
-        loading="lazy"
-        alt="Placeholder"
-      >
-
-      <div>
-        <!-- Name – safe -->
-        <h1 class="text-4xl sm:text-5xl font-bold text-white" x-text="currentProduct.name || 'Product'"></h1>
-        
-        <!-- Desc – safe -->
-        <p class="text-[#ff1493] text-xl sm:text-2xl mt-2" x-text="currentProduct.desc || ''"></p>
-
-        <!-- DOSE BUTTONS – SAFE -->
-        <div class="mt-6 sm:mt-8">
-          <label class="block text-sm text-zinc-400 mb-2">SELECT DOSE</label>
-          <div class="grid grid-cols-3 sm:grid-cols-5 gap-3 dose-grid">
-            <template x-for="variant in (currentProduct.doses || [])" :key="variant.mg || variant.ml">
-              <button
-                @click="currentProduct.selectedDose = (variant.mg || variant.ml); currentProduct.price = variant.price"
-                :disabled="variant.stock <= 0"
-                :class="{
-                  'bg-[#ff1493] text-white min-h-[44px] ring-2 ring-pink-500 scale-105': currentProduct.selectedDose === (variant.mg || variant.ml) && variant.stock > 0,
-                  'bg-zinc-800 text-zinc-400 cursor-not-allowed opacity-60 min-h-[44px]': variant.stock <= 0,
-                  'bg-zinc-800 hover:bg-zinc-700 min-h-[44px]': currentProduct.selectedDose !== (variant.mg || variant.ml) && variant.stock > 0
-                }"
-                class="py-3 px-4 rounded-xl font-medium transition text-sm sm:text-base flex items-center justify-center gap-2">
-                <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
-              </button>
-            </template>
+<!-- SHOP GRID – FIXED & CLEAN -->
+<div id="shop" class="max-w-7xl mx-auto px-6 py-12">
+  <h1 class="text-5xl font-bold text-center mb-12">Precision Research Compounds</h1>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <template x-for="product in filteredProducts" :key="product.id">
+      <div class="product-card bg-zinc-900 rounded-3xl overflow-hidden cursor-pointer" @click="viewProduct(product)">
+        <img :src="product.image" :alt="product.name" class="w-full h-56 object-cover" loading="lazy" decoding="async">
+        <div class="p-6">
+          <h3 class="text-2xl font-bold" x-text="product.name"></h3>
+          <p class="text-zinc-400 text-sm mt-1" x-text="product.desc"></p>
+          <!-- TRUST BADGES -->
+          <div class="flex flex-wrap gap-2 mt-3">
+            <span class="text-[10px] bg-green-900 text-green-400 px-3 py-1 rounded-full font-medium">HPLC Verified</span>
+            <span class="text-[10px] bg-amber-900 text-amber-400 px-3 py-1 rounded-full font-medium">Cold Chain</span>
+            <span class="text-[10px] bg-blue-900 text-blue-400 px-3 py-1 rounded-full font-medium">Research Use Only</span>
+          </div>
+         <!-- DOSE BUTTONS + LIVE STOCK BADGES – NOW FULLY SUPPORTS ml -->
+<div class="flex flex-wrap gap-2 mt-6">
+  <template x-for="variant in product.doses" :key="variant.mg || variant.ml">
+    <button
+      @click.stop="toggleDose(product, variant)"
+      :disabled="variant.stock <= 0"
+      :class="{
+        'bg-[#ff1493] text-white ring-2 ring-pink-500 scale-105': product.selectedDose === (variant.mg || variant.ml),
+        'opacity-50 cursor-not-allowed': variant.stock <= 0
+      }"
+      class="px-6 py-3 rounded-2xl text-sm font-medium transition-all relative flex flex-col items-center min-h-[52px]">
+      
+      <!-- Dose label (handles both mg and ml) -->
+      <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
+      
+      <!-- STOCK BADGE (now works for ml too) -->
+      <span class="absolute -top-1 -right-1 text-[10px] font-bold px-2 py-0.5 rounded-full"
+            :class="{
+              'bg-red-600 text-white': variant.stock === 0,
+              'bg-orange-500 text-white': variant.stock > 0 && variant.stock <= 5,
+              'bg-green-600 text-white': variant.stock > 5
+            }">
+        <span x-text="variant.stock === 0 ? 'OUT' : variant.stock <= 5 ? variant.stock + ' left' : 'IN'"></span>
+      </span>
+    </button>
+  </template>
+</div>
+          <!-- LIVE PRICE -->
+          <div class="mt-6 flex justify-between items-end">
+            <div>
+              <span class="text-3xl font-bold" x-text="'$' + product.price"></span>
+              <span class="text-zinc-400">/vial</span>
+            </div>
+            <button @click.stop="addToCartWithDose(product)" class="bg-white text-black px-8 py-4 rounded-3xl font-semibold hover:bg-zinc-200 transition">ADD TO CART</button>
           </div>
         </div>
-
-        <!-- Price – safe -->
-        <div class="text-3xl sm:text-4xl font-bold mt-6 sm:mt-8 text-white" x-text="'$' + (currentProduct.price || 0)"></div>
-
-        <button @click="addToCartWithDose(currentProduct)" class="mt-8 sm:mt-10 w-full bg-[#ff1493] hover:bg-pink-600 py-4 sm:py-5 rounded-3xl font-semibold text-lg sm:text-xl text-white transition min-h-[48px]">
-          Add to Cart
-        </button>
       </div>
-    </div>
-
-    <!-- Full description – safe -->
-    <div class="mt-12 sm:mt-20 prose prose-invert max-w-none text-zinc-300 prose-sm sm:prose-base" x-html="currentProduct.fullDesc || '<p>No description available.</p>'"></div>
+    </template>
   </div>
 </div>
 
@@ -1058,46 +1052,66 @@ div[x-show="showGate"] > div {
     </div>
   </div>
 
-<!-- DYNAMIC PRODUCT MODAL (mobile-optimized) -->
-    <div x-show="currentProduct" class="fixed inset-0 bg-black z-[9999] overflow-auto" x-transition>
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        <button @click="currentProduct = null" class="mb-6 flex items-center gap-2 text-[#ff1493] hover:text-pink-400 text-sm sm:text-base min-h-[44px]">← Back to Catalog</button>
-        <div class="grid md:grid-cols-2 gap-8">
-          <img :src="currentProduct.image" class="rounded-3xl w-full shadow-2xl" loading="lazy">
-          <div>
-            <h1 class="text-4xl sm:text-5xl font-bold text-white" x-text="currentProduct.name"></h1>
-            <p class="text-[#ff1493] text-xl sm:text-2xl mt-2" x-text="currentProduct.desc"></p>
+<!-- DYNAMIC PRODUCT MODAL – NULL-SAFE & ERROR-PROOF -->
+<div x-show="currentProduct" class="fixed inset-0 bg-black z-[9999] overflow-auto" x-transition>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+    <button @click="currentProduct = null" class="mb-6 flex items-center gap-2 text-[#ff1493] hover:text-pink-400 text-sm sm:text-base min-h-[44px]">← Back to Catalog</button>
+    
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- Image with fallback -->
+      <img 
+        x-show="currentProduct?.image" 
+        :src="currentProduct?.image" 
+        class="rounded-3xl w-full shadow-2xl" 
+        loading="lazy"
+        alt="Product image"
+      >
+      <div 
+        x-show="!currentProduct?.image" 
+        class="bg-zinc-800 rounded-3xl flex items-center justify-center h-96 text-zinc-500 text-center p-6">
+        No image available
+      </div>
 
-<!-- DYNAMIC DOSE BUTTONS – FIXED & SYNCED -->
-<div class="mt-6 sm:mt-8">
-  <label class="block text-sm text-zinc-400 mb-2">SELECT DOSE</label>
-  <div class="grid grid-cols-3 sm:grid-cols-5 gap-3 dose-grid">
-    <template x-for="variant in currentProduct.doses" :key="variant.mg || variant.ml">
-      <button
-        @click="currentProduct.selectedDose = (variant.mg || variant.ml); currentProduct.price = variant.price"
-        :disabled="variant.stock <= 0"
-        :class="{
-          'bg-[#ff1493] text-white min-h-[44px] ring-2 ring-pink-500 scale-105': currentProduct.selectedDose === (variant.mg || variant.ml) && variant.stock > 0,
-          'bg-zinc-800 text-zinc-400 cursor-not-allowed opacity-60 min-h-[44px]': variant.stock <= 0,
-          'bg-zinc-800 hover:bg-zinc-700 min-h-[44px]': currentProduct.selectedDose !== (variant.mg || variant.ml) && variant.stock > 0
-        }"
-        class="py-3 px-4 rounded-xl font-medium transition text-sm sm:text-base flex items-center justify-center gap-2">
-        <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
-      </button>
-    </template>
-  </div>
-</div>
+      <div>
+        <!-- Name with fallback -->
+        <h1 class="text-4xl sm:text-5xl font-bold text-white" x-text="currentProduct?.name || 'Product'"></h1>
+        
+        <!-- Desc with fallback -->
+        <p class="text-[#ff1493] text-xl sm:text-2xl mt-2" x-text="currentProduct?.desc || ''"></p>
 
-            <div class="text-3xl sm:text-4xl font-bold mt-6 sm:mt-8 text-white" x-text="'$' + getDosePrice()"></div>
-            <button @click="addToCartWithDose(currentProduct)" class="mt-8 sm:mt-10 w-full bg-[#ff1493] hover:bg-pink-600 py-4 sm:py-5 rounded-3xl font-semibold text-lg sm:text-xl text-white transition min-h-[48px]">
-              Add to Cart
-            </button>
+        <!-- DOSE BUTTONS – safe loop -->
+        <div class="mt-6 sm:mt-8">
+          <label class="block text-sm text-zinc-400 mb-2">SELECT DOSE</label>
+          <div class="grid grid-cols-3 sm:grid-cols-5 gap-3 dose-grid">
+            <template x-for="variant in (currentProduct?.doses || [])" :key="variant.mg || variant.ml">
+              <button
+                @click="currentProduct.selectedDose = (variant.mg || variant.ml); currentProduct.price = variant.price"
+                :disabled="variant.stock <= 0"
+                :class="{
+                  'bg-[#ff1493] text-white min-h-[44px] ring-2 ring-pink-500 scale-105': currentProduct.selectedDose === (variant.mg || variant.ml) && variant.stock > 0,
+                  'bg-zinc-800 text-zinc-400 cursor-not-allowed opacity-60 min-h-[44px]': variant.stock <= 0,
+                  'bg-zinc-800 hover:bg-zinc-700 min-h-[44px]': currentProduct.selectedDose !== (variant.mg || variant.ml) && variant.stock > 0
+                }"
+                class="py-3 px-4 rounded-xl font-medium transition text-sm sm:text-base flex items-center justify-center gap-2">
+                <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
+              </button>
+            </template>
           </div>
         </div>
-        <div class="mt-12 sm:mt-20 prose prose-invert max-w-none text-zinc-300 prose-sm sm:prose-base" x-html="currentProduct.fullDesc"></div>
+
+        <!-- Price with fallback -->
+        <div class="text-3xl sm:text-4xl font-bold mt-6 sm:mt-8 text-white" x-text="'$' + (currentProduct?.price || 0)"></div>
+
+        <button @click="addToCartWithDose(currentProduct)" class="mt-8 sm:mt-10 w-full bg-[#ff1493] hover:bg-pink-600 py-4 sm:py-5 rounded-3xl font-semibold text-lg sm:text-xl text-white transition min-h-[48px]">
+          Add to Cart
+        </button>
       </div>
     </div>
 
+    <!-- Full description with fallback -->
+    <div class="mt-12 sm:mt-20 prose prose-invert max-w-none text-zinc-300 prose-sm sm:prose-base" x-html="currentProduct?.fullDesc || '<p>No description available.</p>'"></div>
+  </div>
+</div>
 <!-- GLOBAL LOADING SPINNER -->
 <div x-show="isLoading" class="fixed inset-0 bg-black/90 flex items-center justify-center z-[999999]">
   <div class="text-center">
