@@ -1301,8 +1301,9 @@ async init() {
     ];
   }
 
-  console.log('init() finished – products length:', this.products.length);
+  console.log('init() finished – final products length:', this.products.length);
 },
+
       init() {
         try {
           this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
