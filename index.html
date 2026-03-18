@@ -1258,37 +1258,44 @@ toggleDose(product, variant) {
 products: [],
 
 async init() {
+  console.log('init() started – loading cart and stock...');
+
   try {
     this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
+    console.log('Cart loaded from localStorage:', this.cart.length, 'items');
 
-    console.log('1. Starting stock fetch from /stock.json');
-
+    console.log('Fetching /stock.json...');
     const response = await fetch('/stock.json');
-    console.log('2. Fetch response status:', response.status);
-    console.log('3. Response OK?', response.ok);
+    console.log('Fetch response:', response);
+    console.log('Status code:', response.status);
+    console.log('OK?', response.ok);
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.log('4. Fetch error response text:', errorText);
-      throw new Error(`Fetch failed with status ${response.status}`);
+      console.log('Fetch error body:', errorText);
+      throw new Error(`Fetch failed – status ${response.status}`);
     }
 
+    console.log('Reading JSON...');
     const data = await response.json();
-    console.log('5. Raw fetched data:', data);
-    console.log('6. Products array:', data.products);
+    console.log('Raw JSON data:', data);
+    console.log('Products inside data:', data.products);
 
     this.products = data.products || [];
-    console.log('7. Products loaded into this.products:', this.products.length, 'items');
+    console.log('Assigned to this.products:', this.products);
+    console.log('Total products loaded:', this.products.length);
 
   } catch (e) {
-    console.error('Stock init error:', e);
-    // Temporary fallback so grid isn't empty
+    console.error('init() failed:', e);
+    // Fallback so grid isn't empty
+    console.log('Using fallback products');
     this.products = [
       { id: 22, name: "Acetic Water 10ml", doses: [{ ml: 10, price: 8, stock: 30 }] },
       { id: 23, name: "Bacteriostatic Water 10ml", doses: [{ ml: 10, price: 8, stock: 30 }] }
     ];
-    console.log('Fallback products loaded:', this.products.length);
   }
+
+  console.log('init() finished – products length:', this.products.length);
 },
       init() {
         try {
