@@ -837,6 +837,10 @@ div[x-show="showGate"] > div {
     <button @click="activePayment = activePayment === 'venmo' ? null : 
 <div class="border border-zinc-800 rounded-xl overflow-hidden">
     <button @click="activePayment = activePayment === 'venmo' ? null : 'venmo'"
+        class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
+  <span class="text-lg font-medium text-[#ff1493]">Pay with Venmo</span>
+  <span x-text="activePayment === 'venmo' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
+</button>
             class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
       <span class="text-lg font-medium text-[#ff1493]">Pay with Venmo</span>
       <span x-text="activePayment === 'venmo' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
