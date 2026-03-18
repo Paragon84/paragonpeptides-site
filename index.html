@@ -19,6 +19,7 @@
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Satoshi:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     [x-cloak] { display: none !important; }
@@ -1089,7 +1090,7 @@ div[x-show="showGate"] > div {
         <!-- Desc with fallback -->
         <p class="text-[#ff1493] text-xl sm:text-2xl mt-2" x-text="currentProduct?.desc || ''"></p>
 
-        <!-- DOSE BUTTONS – safe loop -->
+        .<!-- DOSE BUTTONS – safe loop -->
         <div class="mt-6 sm:mt-8">
           <label class="block text-sm text-zinc-400 mb-2">SELECT DOSE</label>
           <div class="grid grid-cols-3 sm:grid-cols-5 gap-3 dose-grid">
@@ -1256,47 +1257,57 @@ div[x-show="showGate"] > div {
         } else {
           product.selectedDose = doseValue;
           product.price = variant.price;
-        }
+         }
       },
 
-      products: [],
+  products: [],
 
-      async init() {
-        console.log('init() started – loading cart and stock...');
+supabase: null,
 
-        try {
-          this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
-          console.log('Cart loaded from localStorage:', this.cart.length, 'items');
+init() {
+  this.supabase = Supabase.createClient(
+    'https://YOUR_PROJECT_REF.supabase.co',  // paste your URL
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...' // paste your anon public key
+  );
+  this.loadProducts();
+},
 
-          console.log('Fetching /stock.json...');
-          const response = await fetch('/stock.json');
-          console.log('Fetch response status:', response.status);
+async loadProducts() {
+  try {
+    const { data, error } = await this.supabase
+      .from('products')
+      .select('*');
 
-          if (!response.ok) {
-            const errorText = await response.text();
-            console.log('Fetch error body:', errorText);
-            throw new Error(`Fetch failed – status ${response.status}`);
-          }
+    if (error) throw error;
 
-          console.log('Reading JSON...');
-          const data = await response.json();
-          console.log('Raw JSON data:', data);
+    this.products = data || [];
+    console.log('Loaded from Supabase:', this.products.length, 'products');
+  } catch (e) {
+    console.error('Supabase load error:', e);
+    // Fallback
+    this.products = [
+      { id: 22, name: "Acetic Water 10ml", doses: [{ ml: 10, price: 8, stock: 30 }] },
+      { id: 23, name: "Bacteriostatic Water 10ml", doses: [{ ml: 10, price: 8, stock: 30 }] }
+    ];
+  }
+},
 
-          this.products = data.products || [];
-          console.log('Products loaded:', this.products.length, 'items');
+async saveStock() {
+  try {
+    for (const product of this.products) {
+      const { error } = await this.supabase
+        .from('products')
+        .update({ doses: product.doses })
+        .eq('id', product.id);
 
-        } catch (e) {
-          console.error('init() failed:', e);
-          // Fallback
-          console.log('Using fallback products');
-          this.products = [
-            { id: 22, name: "Acetic Water 10ml", doses: [{ ml: 10, price: 8, stock: 30 }] },
-            { id: 23, name: "Bacteriostatic Water 10ml", doses: [{ ml: 10, price: 8, stock: 30 }] }
-          ];
-        }
-
-        console.log('init() finished – final products length:', this.products.length);
-      },
+      if (error) throw error;
+    }
+    alert('Stock updated globally!');
+  } catch (e) {
+    console.error('Save error:', e);
+    alert('Failed to save – changes local only');
+  }
+},
 
       copyToClipboard(text) {
         if (!text) {
