@@ -1143,8 +1143,6 @@ div[x-show="showGate"] > div {
   "url": "https://paragonpeptides.net",
   "description": "Premium research peptides for laboratory use only. HPLC-verified compounds with fast cold-chain shipping."
 }
-</script>
-
 <script>
   function app() {
     return {
@@ -1260,55 +1258,74 @@ div[x-show="showGate"] > div {
          }
       },
 
-  products: [],
 
-supabase: null,
+products: [],
+
+supabase: null,  // keep if you want Supabase later
 
 init() {
+  console.log('init() started');
+
+  // Load cart
+  this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
+  console.log('Cart loaded:', this.cart.length);
+
+  // Initialize Supabase (optional – comment out if not using yet)
   this.supabase = Supabase.createClient(
-    'https://lydlmgzavepcdtreeoto.supabase.co' 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5ZGxtZ3phdmVwY2R0cmVlb3RvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NDA3MTksImV4cCI6MjA4OTQxNjcxOX0.-F_lSkO6_Wz4-FnNwsPkib-k31_xEe5sgrC4WDaOOSk'
+    'https://lydlmgzavepcdtreeoto.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5ZGxtZ3phdmVwY2R0cmVlb3RvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NDA3MTksImV4cCI6MjA4OTQxNjcxOX0.-F_lSkO6_Wz4-FnNwsPkib-k31_xEe5sgrC4WDaOOSk'
   );
-  this.loadProducts();
+
+  // Load products from stock.json
+  this.loadStockFromJson();
 },
 
-async loadProducts() {
+async loadStockFromJson() {
   try {
-    const { data, error } = await this.supabase
-      .from('products')
-      .select('*');
+    console.log('Fetching /stock.json');
+    const response = await fetch('/stock.json');
+    console.log('Status:', response.status);
 
-    if (error) throw error;
+    if (!response.ok) {
+      console.log('Fetch failed - status:', response.status);
+      throw new Error('Fetch failed');
+    }
 
-    this.products = data || [];
-    console.log('Loaded from Supabase:', this.products.length, 'products');
+    const data = await response.json();
+    console.log('Fetched data:', data);
+
+    this.products = data.products || [];
+    console.log('Products loaded from JSON:', this.products.length);
+
   } catch (e) {
-    console.error('Supabase load error:', e);
+    console.error('Load error:', e);
     // Fallback
     this.products = [
       { id: 22, name: "Acetic Water 10ml", doses: [{ ml: 10, price: 8, stock: 30 }] },
       { id: 23, name: "Bacteriostatic Water 10ml", doses: [{ ml: 10, price: 8, stock: 30 }] }
     ];
+    console.log('Fallback used');
   }
 },
 
 async saveStock() {
   try {
-    for (const product of this.products) {
-      const { error } = await this.supabase
-        .from('products')
-        .update({ doses: product.doses })
-        .eq('id', product.id);
-
-      if (error) throw error;
-    }
-    alert('Stock updated globally!');
+    const updatedData = { products: this.products };
+    const response = await fetch('/.netlify/functions/update-stock', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updatedData)
+    });
+    if (!response.ok) throw new Error('Save failed');
+    console.log('Stock saved');
+    alert('Stock updated!');
   } catch (e) {
     console.error('Save error:', e);
-    alert('Failed to save – changes local only');
+    alert('Save failed');
   }
-},
+}, 
 
-      copyToClipboard(text) {
+       copyToClipboard(text) {
         if (!text) {
           alert("No order number to copy.");
           return;
