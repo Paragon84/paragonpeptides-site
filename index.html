@@ -1151,7 +1151,7 @@ div[x-show="showGate"] > div {
       checkoutPage: false,
       successOpen: false,
       showAccountModal: false,
-   showGetInTouchModal: false,
+      showGetInTouchModal: false,
       showSupportModal: false,
       showFaqsPage: false,
       showStockManager: false,
@@ -1175,7 +1175,7 @@ div[x-show="showGate"] > div {
       mobileMenuOpen: false,
       isSubmittingGetInTouch: false,
       getInTouchSuccess: false,
-      getInTouchError: null,  
+      getInTouchError: null,
 
       // Computed
       get discountedTotal() {
@@ -1187,28 +1187,27 @@ div[x-show="showGate"] > div {
         return Math.max(0, totalBeforeDiscount - discount).toFixed(2);
       },
 
-copyOrderNumber() {
-  if (!this.lastOrderNumber) {
-    alert("No order number available.");
-    return;
-  }
-  navigator.clipboard.writeText(this.lastOrderNumber)
-    .then(() => {
-      this.orderCopied = true;
-      setTimeout(() => this.orderCopied = false, 3000);
-    })
-    .catch(() => {
-      // Fallback
-      const el = document.createElement('textarea');
-      el.value = this.lastOrderNumber;
-      document.body.appendChild(el);
-      el.select();
-      document.execCommand('copy');
-      document.body.removeChild(el);
-      this.orderCopied = true;
-      setTimeout(() => this.orderCopied = false, 3000);
-    });
-},
+      copyOrderNumber() {
+        if (!this.lastOrderNumber) {
+          alert("No order number available.");
+          return;
+        }
+        navigator.clipboard.writeText(this.lastOrderNumber)
+          .then(() => {
+            this.orderCopied = true;
+            setTimeout(() => this.orderCopied = false, 3000);
+          })
+          .catch(() => {
+            const el = document.createElement('textarea');
+            el.value = this.lastOrderNumber;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            this.orderCopied = true;
+            setTimeout(() => this.orderCopied = false, 3000);
+          });
+      },
 
       get filteredProducts() {
         if (!this.searchTerm) return this.products;
@@ -1224,147 +1223,128 @@ copyOrderNumber() {
         }
       },
 
-openStockManager() {
-  const pass = prompt("Admin password:");
-  if (pass === "Cmat2221") {  // change this to something secure
-    this.showStockManager = true;
-  } else {
-    alert("Access denied.");
-  }
-},
-async saveStock() {
-  try {
-    const updatedData = { products: this.products };
-    const response = await fetch('/.netlify/functions/update-stock', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updatedData)
-    });
-
-    if (!response.ok) throw new Error('Save failed: ' + response.status);
-    
-    console.log('Stock saved to server');
-    // Optional: alert success or show toast
-    alert('Stock changes saved successfully!');
-  } catch (e) {
-    console.error('Error saving stock:', e);
-    alert('Failed to save stock. Changes are local only for now.');
-  }
-},
-
-toggleDose(product, variant) {
-  const doseValue = variant.mg || variant.ml;
-  if (product.selectedDose === doseValue) {
-    product.selectedDose = null;
-  } else {
-    product.selectedDose = doseValue;
-    product.price = variant.price;
-  }
-},
-products: [],
-
-async init() {
-  console.log('init() started – loading cart and stock...');
-
-  try {
-    this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
-    console.log('Cart loaded from localStorage:', this.cart.length, 'items');
-
-    console.log('Fetching /stock.json...');
-    const response = await fetch('/stock.json');
-    console.log('Fetch response:', response);
-    console.log('Status code:', response.status);
-    console.log('OK?', response.ok);
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.log('Fetch error body:', errorText);
-      throw new Error(`Fetch failed – status ${response.status}`);
-    }
-
-    console.log('Reading JSON...');
-    const data = await response.json();
-    console.log('Raw JSON data:', data);
-    console.log('Products inside data:', data.products);
-
-    this.products = data.products || [];
-    console.log('Assigned to this.products:', this.products);
-    console.log('Total products loaded:', this.products.length);
-
-  } catch (e) {
-    console.error('init() failed:', e);
-    // Fallback so grid isn't empty
-    console.log('Using fallback products');
-    this.products = [
-      { id: 22, name: "Acetic Water 10ml", doses: [{ ml: 10, price: 8, stock: 30 }] },
-      { id: 23, name: "Bacteriostatic Water 10ml", doses: [{ ml: 10, price: 8, stock: 30 }] }
-    ];
-  }
-
-  console.log('init() finished – final products length:', this.products.length);
-},
-
-      init() {
-        try {
-          this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
-        } catch(e) {}
+      openStockManager() {
+        const pass = prompt("Admin password:");
+        if (pass === "Cmat2221") {
+          this.showStockManager = true;
+        } else {
+          alert("Access denied.");
+        }
       },
 
-copyToClipboard(text) {
-  if (!text) {
-    alert("No order number to copy.");
-    return;
-  }
+      async saveStock() {
+        try {
+          const updatedData = { products: this.products };
+          const response = await fetch('/.netlify/functions/update-stock', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedData)
+          });
+          if (!response.ok) throw new Error('Save failed: ' + response.status);
+          console.log('Stock saved to server');
+          alert('Stock changes saved successfully!');
+        } catch (e) {
+          console.error('Error saving stock:', e);
+          alert('Failed to save stock. Changes are local only for now.');
+        }
+      },
 
-  // Try modern Clipboard API first
-  if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(text)
-      .then(() => {
-        this.orderCopied = true;
-        setTimeout(() => this.orderCopied = false, 3000); // reset after 3s
-      })
-      .catch(err => {
-        console.error("Clipboard API failed:", err);
-        this.fallbackCopy(text);
-      });
-  } else {
-    // Fallback for older browsers / non-secure contexts
-    this.fallbackCopy(text);
-  }
-},
+      toggleDose(product, variant) {
+        const doseValue = variant.mg || variant.ml;
+        if (product.selectedDose === doseValue) {
+          product.selectedDose = null;
+        } else {
+          product.selectedDose = doseValue;
+          product.price = variant.price;
+        }
+      },
 
-fallbackCopy(text) {
-  // Classic textarea method (works everywhere)
-  const textArea = document.createElement("textarea");
-  textArea.value = text;
-  textArea.style.position = "fixed";  // Avoid scrolling to bottom
-  textArea.style.top = "0";
-  textArea.style.left = "0";
-  textArea.style.opacity = "0";
-  document.body.appendChild(textArea);
-  textArea.focus();
-  textArea.select();
+      products: [],
 
-  try {
-    const successful = document.execCommand('copy');
-    if (successful) {
-      this.orderCopied = true;
-      setTimeout(() => this.orderCopied = false, 3000);
-    } else {
-      alert("Copy failed. Please select and copy manually.");
-    }
-  } catch (err) {
-    console.error("Fallback copy failed:", err);
-    alert("Copy failed. Please select and copy manually.");
-  }
+      async init() {
+        console.log('init() started – loading cart and stock...');
 
-  document.body.removeChild(textArea);
-},
+        try {
+          this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
+          console.log('Cart loaded from localStorage:', this.cart.length, 'items');
+
+          console.log('Fetching /stock.json...');
+          const response = await fetch('/stock.json');
+          console.log('Fetch response status:', response.status);
+
+          if (!response.ok) {
+            const errorText = await response.text();
+            console.log('Fetch error body:', errorText);
+            throw new Error(`Fetch failed – status ${response.status}`);
+          }
+
+          console.log('Reading JSON...');
+          const data = await response.json();
+          console.log('Raw JSON data:', data);
+
+          this.products = data.products || [];
+          console.log('Products loaded:', this.products.length, 'items');
+
+        } catch (e) {
+          console.error('init() failed:', e);
+          // Fallback
+          console.log('Using fallback products');
+          this.products = [
+            { id: 22, name: "Acetic Water 10ml", doses: [{ ml: 10, price: 8, stock: 30 }] },
+            { id: 23, name: "Bacteriostatic Water 10ml", doses: [{ ml: 10, price: 8, stock: 30 }] }
+          ];
+        }
+
+        console.log('init() finished – final products length:', this.products.length);
+      },
+
+      copyToClipboard(text) {
+        if (!text) {
+          alert("No order number to copy.");
+          return;
+        }
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(text)
+            .then(() => {
+              this.orderCopied = true;
+              setTimeout(() => this.orderCopied = false, 3000);
+            })
+            .catch(err => {
+              console.error("Clipboard API failed:", err);
+              this.fallbackCopy(text);
+            });
+        } else {
+          this.fallbackCopy(text);
+        }
+      },
+
+      fallbackCopy(text) {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.top = "0";
+        textArea.style.left = "0";
+        textArea.style.opacity = "0";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+          document.execCommand('copy');
+          this.orderCopied = true;
+          setTimeout(() => this.orderCopied = false, 3000);
+        } catch (err) {
+          console.error("Fallback copy failed:", err);
+          alert("Copy failed. Please copy manually.");
+        }
+        document.body.removeChild(textArea);
+      },
 
       get filteredProducts() {
         if (!this.searchTerm) return this.products;
         const term = this.searchTerm.toLowerCase().trim();
-        return this.products.filter(p => p.name.toLowerCase().includes(term) || p.desc.toLowerCase().includes(term));
+        return this.products.filter(p => 
+          p.name.toLowerCase().includes(term) || p.desc.toLowerCase().includes(term)
+        );
       },
 
       handleSearch() {
@@ -1373,45 +1353,45 @@ fallbackCopy(text) {
         }
       },
 
-viewProduct(p) {
-  this.currentProduct = p;
-  const firstAvailable = p.doses.find(v => v.stock > 0) || p.doses[0];
-  this.currentProduct.selectedDose = firstAvailable ? (firstAvailable.mg || firstAvailable.ml) : null;
-},
+      viewProduct(p) {
+        this.currentProduct = p;
+        const firstAvailable = p.doses.find(v => v.stock > 0) || p.doses[0];
+        this.currentProduct.selectedDose = firstAvailable ? (firstAvailable.mg || firstAvailable.ml) : null;
+      },
 
       getSelectedVariant() {
         if (!this.currentProduct || !this.currentProduct.doses) return null;
-        return this.currentProduct.doses.find(v => v.mg === this.selectedDose) || this.currentProduct.doses[0];
+        return this.currentProduct.doses.find(v => (v.mg || v.ml) === this.currentProduct.selectedDose) || this.currentProduct.doses[0];
       },
 
-getDosePrice() {
-  if (!this.currentProduct) return 0;
-  const variant = this.currentProduct.doses.find(v => (v.mg || v.ml) === this.currentProduct.selectedDose);
-  return variant ? variant.price : 0;
-},
+      getDosePrice() {
+        if (!this.currentProduct) return 0;
+        const variant = this.currentProduct.doses.find(v => (v.mg || v.ml) === this.currentProduct.selectedDose);
+        return variant ? variant.price : 0;
+      },
 
-addToCartWithDose(product) {
-  if (!product.selectedDose) {
-    alert("Please select a dose first.");
-    return;
-  }
-  const variant = product.doses.find(v => (v.mg || v.ml) === product.selectedDose);
-  if (!variant || variant.stock <= 0) {
-    alert("This dose is out of stock.");
-    return;
-  }
-  const price = variant.price;
-  const dose = product.selectedDose;
-  let existing = this.cart.find(i => i.id === product.id && i.dose === dose);
-  if (existing) {
-    existing.qty++;
-  } else {
-    this.cart.push({ ...product, dose, price, qty: 1 });
-  }
-  this.saveCart();
-  this.cartOpen = true;
-  this.currentProduct = null;
-},
+      addToCartWithDose(product) {
+        if (!product.selectedDose) {
+          alert("Please select a dose first.");
+          return;
+        }
+        const variant = product.doses.find(v => (v.mg || v.ml) === product.selectedDose);
+        if (!variant || variant.stock <= 0) {
+          alert("This dose is out of stock.");
+          return;
+        }
+        const price = variant.price;
+        const dose = product.selectedDose;
+        let existing = this.cart.find(i => i.id === product.id && i.dose === dose);
+        if (existing) {
+          existing.qty++;
+        } else {
+          this.cart.push({ ...product, dose, price, qty: 1 });
+        }
+        this.saveCart();
+        this.cartOpen = true;
+        this.currentProduct = null;
+      },
 
       addToCart(p) {
         let existing = this.cart.find(i => i.id === p.id);
@@ -1474,93 +1454,80 @@ addToCartWithDose(product) {
         this.couponMessage = 'Coupon removed.';
       },
 
-handleCheckoutSubmit() {
-  const form = document.getElementById('checkout-form');
-  
-  // NEW: Enforce all required fields BEFORE sending
-  if (!form.checkValidity()) {
-    form.reportValidity();           // Shows native red borders + tooltips
-    return;                          // Stops checkout completely
-  }
-
-  // Rest of your existing code (unchanged)
-  const orderNumber = Math.floor(10000 + Math.random() * 90000).toString();
-  document.getElementById('hidden_order_number').value = orderNumber;
-  
-  const total = (this.cartTotal + (this.cartTotal >= 250 ? 0 : 12.99)).toFixed(2);
-  document.getElementById('hidden_total').value = '$' + total;
-  
-  let itemsText = '';
-  this.cart.forEach(item => {
-    itemsText += `${item.name} (${item.qty} × $${item.price}${item.dose ? ' ' + item.dose + (item.unit || 'mg') : ''}) = $${(item.price * item.qty).toFixed(2)}\n`;
-  });
-  document.getElementById('hidden_cart_items').value = itemsText || 'No items';
-
-  // Submit
-  this.isSubmitting = true;
-  fetch(form.action, {
-    method: 'POST',
-    body: new FormData(form),
-    headers: { 'Accept': 'application/json' }
-  })
-  .then(response => {
-    if (response.ok) {
-      this.formSuccess = true;
-      this.cart = [];
-      this.saveCart();
-      this.checkoutPage = true;
-      this.lastOrderNumber = orderNumber;
-      this.successOpen = true;
-      this.$nextTick(() => {
-        if (this.lastOrderNumber) this.copyToClipboard(this.lastOrderNumber);
-      });
-    } else {
-      this.formError = 'Failed to submit order. Please try again.';
-    }
-  })
-  .catch(err => {
-    console.error(err);
-    this.formError = 'Network error — please check your connection.';
-  })
-  .finally(() => {
-    this.isSubmitting = false;
-  });
-},
-
-submitGetInTouch(event) {
-  this.isSubmittingGetInTouch = true;
-  this.getInTouchSuccess = false;
-  this.getInTouchError = null;
-
-  fetch(event.target.action, {
-    method: 'POST',
-    body: new FormData(event.target),
-    headers: { 'Accept': 'application/json' }
-  })
-  .then(response => {
-    if (response.ok) {
-      this.getInTouchSuccess = true;
-      event.target.reset(); // clear form
-      setTimeout(() => this.showGetInTouchModal = false, 3000); // close modal after 3s
-    } else {
-      throw new Error('Form submission failed');
-    }
-  })
-  .catch(err => {
-    console.error(err);
-    this.getInTouchError = 'Something went wrong. Please try again or email us directly.';
-  })
-  .finally(() => {
-    this.isSubmittingGetInTouch = false;
-  });
-},
-      openStockManager() {
-        const pass = prompt("Admin password:");
-        if (pass === "12345") {  // CHANGE THIS TO YOUR SECURE PASSWORD
-          this.showStockManager = true;
-        } else {
-          alert("Access denied.");
+      handleCheckoutSubmit() {
+        const form = document.getElementById('checkout-form');
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
         }
+        const orderNumber = Math.floor(10000 + Math.random() * 90000).toString();
+        document.getElementById('hidden_order_number').value = orderNumber;
+
+        const total = (this.cartTotal + (this.cartTotal >= 250 ? 0 : 12.99)).toFixed(2);
+        document.getElementById('hidden_total').value = '$' + total;
+
+        let itemsText = '';
+        this.cart.forEach(item => {
+          itemsText += `${item.name} (${item.qty} × $${item.price}${item.dose ? ' ' + item.dose + (item.unit || 'mg') : ''}) = $${(item.price * item.qty).toFixed(2)}\n`;
+        });
+        document.getElementById('hidden_cart_items').value = itemsText || 'No items';
+
+        this.isSubmitting = true;
+        fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        })
+        .then(response => {
+          if (response.ok) {
+            this.formSuccess = true;
+            this.cart = [];
+            this.saveCart();
+            this.checkoutPage = true;
+            this.lastOrderNumber = orderNumber;
+            this.successOpen = true;
+            this.$nextTick(() => {
+              if (this.lastOrderNumber) this.copyToClipboard(this.lastOrderNumber);
+            });
+          } else {
+            this.formError = 'Failed to submit order. Please try again.';
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          this.formError = 'Network error — please check your connection.';
+        })
+        .finally(() => {
+          this.isSubmitting = false;
+        });
+      },
+
+      submitGetInTouch(event) {
+        this.isSubmittingGetInTouch = true;
+        this.getInTouchSuccess = false;
+        this.getInTouchError = null;
+
+        fetch(event.target.action, {
+          method: 'POST',
+          body: new FormData(event.target),
+          headers: { 'Accept': 'application/json' }
+        })
+        .then(response => {
+          if (response.ok) {
+            this.getInTouchSuccess = true;
+            event.target.reset();
+            setTimeout(() => this.showGetInTouchModal = false, 3000);
+          } else {
+            throw new Error('Form submission failed');
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          this.getInTouchError = 'Something went wrong. Please try again or email us directly.';
+        })
+        .finally(() => {
+          this.isSubmittingGetInTouch = false;
+        });
       }
     }
   }
