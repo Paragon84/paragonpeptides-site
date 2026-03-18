@@ -1261,25 +1261,35 @@ async init() {
   try {
     this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
 
-    console.log('Attempting to fetch /stock.json...');
+    console.log('1. Starting stock fetch from /stock.json');
+
     const response = await fetch('/stock.json');
-    console.log('Fetch response status:', response.status);
+    console.log('2. Fetch response status:', response.status);
+    console.log('3. Response OK?', response.ok);
 
     if (!response.ok) {
-      throw new Error(`Failed to load stock.json - status ${response.status}`);
+      const errorText = await response.text();
+      console.log('4. Fetch error response text:', errorText);
+      throw new Error(`Fetch failed with status ${response.status}`);
     }
 
     const data = await response.json();
-    console.log('Fetched data:', data);
+    console.log('5. Raw fetched data:', data);
+    console.log('6. Products array:', data.products);
+
     this.products = data.products || [];
-    console.log('Products loaded:', this.products.length, 'items');
+    console.log('7. Products loaded into this.products:', this.products.length, 'items');
 
   } catch (e) {
     console.error('Stock init error:', e);
-    // Optional: fallback to hardcoded if needed (remove later)
+    // Temporary fallback so grid isn't empty
+    this.products = [
+      { id: 22, name: "Acetic Water 10ml", doses: [{ ml: 10, price: 8, stock: 30 }] },
+      { id: 23, name: "Bacteriostatic Water 10ml", doses: [{ ml: 10, price: 8, stock: 30 }] }
+    ];
+    console.log('Fallback products loaded:', this.products.length);
   }
 },
-
       init() {
         try {
           this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
