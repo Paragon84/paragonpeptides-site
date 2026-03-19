@@ -12,14 +12,14 @@
   <meta property="og:description" content="Lab-grade peptides for scientific research. Retatrutide, Tirzepatide, BPC-157 & more.">
   <meta property="og:image" content="https://i.imgur.com/jXQlcWB.png">
   <meta property="og:url" content="https://paragonpeptides.net">
-<!-- Favicon -->
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
-<link rel="icon" href="/favicon.png" type="image/png" sizes="32x32">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
-  
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+ 
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Satoshi:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     [x-cloak] { display: none !important; }
@@ -30,7 +30,6 @@
     .product-card:hover { transform: translateY(-12px); box-shadow: 0 25px 30px -10px rgb(255 20 147 / 0.15); }
     .modal { animation: modalPop 0.3s ease-out; }
     @keyframes modalPop { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-
     /* Mobile optimizations */
     @media (max-width: 640px) {
       .dose-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
@@ -39,51 +38,35 @@
       .px-6 { padding-left: 1rem; padding-right: 1rem; }
       .py-12 { padding-top: 2rem; padding-bottom: 2rem; }
       .modal { padding: 1.5rem !important; }
-    @media (max-width: 640px) {
-       .success-modal { 
-       max-height: 85vh !important; 
-       overflow-y: auto !important; 
-       padding: 1.25rem !important; 
-  }
-  .success-modal button { min-height: 48px !important; } /* bigger tap targets */
-}
     }
-
+    @media (max-width: 640px) {
+      .success-modal {
+        max-height: 85vh !important;
+        overflow-y: auto !important;
+        padding: 1.25rem !important;
+      }
+      .success-modal button { min-height: 48px !important; }
+    }
     /* Font loading */
     @font-face { font-family: 'Inter'; font-display: swap; }
     @font-face { font-family: 'Satoshi'; font-display: swap; }
-/* PERFECT SMOOTH SCROLLING – GPU acceleration without breaking centering */
-html {
-  scroll-behavior: smooth;
-}
-body {
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-y: none;
-}
-.product-card img,
-.fixed,
-.modal,
-header,
-.success-modal,
-div[x-show="showGate"] > div {
-  will-change: transform;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-}
-/* SCROLL OPTIMIZATION v3 – Content Visibility (kills the last hiccup on product grid) */
-#shop {
-  content-visibility: auto;
-  contain-intrinsic-size: 800px 1600px; /* helps browser predict scroll */
-}
-.product-card {
-  contain: layout paint;
-}
-
+    /* PERFECT SMOOTH SCROLLING */
+    html { scroll-behavior: smooth; }
+    body { -webkit-overflow-scrolling: touch; overscroll-behavior-y: none; }
+    .product-card img, .fixed, .modal, header, .success-modal, div[x-show="showGate"] > div {
+      will-change: transform;
+      backface-visibility: hidden;
+      transform: translateZ(0);
+    }
+    #shop {
+      content-visibility: auto;
+      contain-intrinsic-size: 800px 1600px;
+    }
+    .product-card { contain: layout paint; }
   </style>
 </head>
 <body class="antialiased">
-
-<!-- Noscript fallback (shows if JS is disabled) -->
+<!-- Noscript fallback -->
 <noscript>
   <div class="fixed inset-0 bg-black flex items-center justify-center text-white text-center p-6 z-[999999]">
     <div>
@@ -93,12 +76,9 @@ div[x-show="showGate"] > div {
   </div>
 </noscript>
 
-<!-- AGE GATE – Shows every visit (no persistence) + reliable on live site -->
+<!-- AGE GATE -->
 <div x-data="{ showGate: true }">
-  <!-- Age Gate Modal -->
-  <div x-show="showGate" x-cloak
-       class="fixed inset-0 z-[999999] flex items-center justify-center bg-black/95 backdrop-blur-xl"
-       x-transition>
+  <div x-show="showGate" x-cloak class="fixed inset-0 z-[999999] flex items-center justify-center bg-black/95 backdrop-blur-xl" x-transition>
     <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-lg w-full mx-4 p-10 modal shadow-2xl">
       <h2 class="text-3xl font-bold mb-6 text-white text-center">IMPORTANT LEGAL NOTICE</h2>
       <div class="prose prose-invert text-zinc-300 text-[15px] text-center">
@@ -106,107 +86,83 @@ div[x-show="showGate"] > div {
         <p class="mt-4">By proceeding you confirm you are 21+ and accessing this site for legitimate scientific research purposes only.</p>
       </div>
       <div class="flex flex-col sm:flex-row gap-4 mt-10">
-        <button @click="showGate = false"
-                class="flex-1 bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-lg text-white transition">
+        <button @click="showGate = false" class="flex-1 bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-lg text-white transition">
           I ACKNOWLEDGE — ENTER SITE
         </button>
-        <a href="https://google.com"
-           class="flex-1 bg-zinc-900 hover:bg-zinc-800 py-4 rounded-2xl font-semibold text-lg text-center transition">
+        <a href="https://google.com" class="flex-1 bg-zinc-900 hover:bg-zinc-800 py-4 rounded-2xl font-semibold text-lg text-center transition">
           EXIT
         </a>
       </div>
     </div>
   </div>
+
   <!-- MAIN SITE -->
   <div x-show="!showGate" x-cloak x-data="app()" x-init="init()">
     <!-- FLASH SALE BANNER -->
     <div class="bg-[#ff1493] text-white text-center py-2.5 text-sm font-medium">FLASH SALE: 15% OFF ENTIRE CATALOG — USE CODE RESEARCH15</div>
 
-<!-- HEADER – WHITE SLIDE-IN MENU WITH ALL 3 SOCIAL ICONS -->
-<header class="bg-black border-b border-zinc-800 sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-    <!-- Logo -->
-    <a href="#" class="flex items-center gap-3">
-      <img src="https://i.imgur.com/jXQlcWB.png" alt="Paragon Peptides" class="h-8 w-8">
-    </a>
-
-    <!-- Desktop Nav -->
-    <nav class="hidden md:flex items-center gap-x-8 text-sm font-medium text-white">
-    <a @click="showGetInTouchModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Get in Touch</a>
-      <a @click="showSupportModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Support</a>
-      <a @click="showFaqsPage = true" class="hover:text-[#ff1493] transition cursor-pointer">FAQs & Policies</a>
-      <a @click="showAccountModal = true" class="hover:text-[#ff1493] transition cursor-pointer">My Account</a>
-    </nav>
- <div class="flex items-center gap-4 sm:gap-6">
+    <!-- HEADER -->
+    <header class="bg-black border-b border-zinc-800 sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+        <a href="#" class="flex items-center gap-3">
+          <img src="https://i.imgur.com/jXQlcWB.png" alt="Paragon Peptides" class="h-8 w-8">
+        </a>
+        <nav class="hidden md:flex items-center gap-x-8 text-sm font-medium text-white">
+          <a @click="showGetInTouchModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Get in Touch</a>
+          <a @click="showSupportModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Support</a>
+          <a @click="showFaqsPage = true" class="hover:text-[#ff1493] transition cursor-pointer">FAQs & Policies</a>
+          <a @click="showAccountModal = true" class="hover:text-[#ff1493] transition cursor-pointer">My Account</a>
+        </nav>
+        <div class="flex items-center gap-4 sm:gap-6">
           <div class="relative hidden md:block w-56 lg:w-72">
             <input type="text" x-model="searchTerm" placeholder="Search compounds..." @input="handleSearch()" class="w-full bg-zinc-950 border border-zinc-800 rounded-full pl-9 pr-4 py-2 text-sm focus:outline-none focus:border-[#ff1493] placeholder:text-zinc-400">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 absolute left-3 top-2.5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 01-14 0 7 7 0 0114 0z" />
             </svg>
-           </div>
+          </div>
+          <div class="flex items-center gap-6">
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden w-11 h-11 flex items-center justify-center text-3xl text-white hover:text-[#ff1493] transition">☰</button>
+            <button @click="cartOpen = true" class="relative flex items-center gap-2 text-sm font-medium text-white">
+              <span class="hidden sm:inline">Cart</span>
+              <span class="relative">
+                🛒
+                <span x-show="cart.length > 0" class="absolute -top-1 -right-1 bg-[#ff1493] text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">
+                  <span x-text="cart.length"></span>
+                </span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
 
-
-    <!-- Mobile Hamburger + Cart -->
-    <div class="flex items-center gap-6">
-      <button @click="mobileMenuOpen = !mobileMenuOpen" 
-              class="md:hidden w-11 h-11 flex items-center justify-center text-3xl text-white hover:text-[#ff1493] transition">
-        ☰
-      </button>
-      <button @click="cartOpen = true" class="relative flex items-center gap-2 text-sm font-medium text-white">
-        <span class="hidden sm:inline">Cart</span>
-        <span class="relative">
-          🛒
-          <span x-show="cart.length > 0" 
-                class="absolute -top-1 -right-1 bg-[#ff1493] text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">
-            <span x-text="cart.length"></span>
-          </span>
-        </span>
-      </button>
-    </div>
-  </div>
-</header>
-
-  <!-- MOBILE MENU – SOLID BLACK FULLSCREEN (placed outside <header> to escape its stacking context / backdrop-filter containment) -->
-<div x-show="mobileMenuOpen" x-cloak
-     class="fixed inset-0 bg-black z-[99999] md:hidden flex flex-col"
-     style="background-color: #000000 !important; overscroll-behavior: none;"
-     x-transition:enter="transition ease-out duration-200"
-     x-transition:enter-start="translate-x-full"
-     x-transition:enter-end="translate-x-0"
-     x-transition:leave="transition ease-in duration-150"
-     x-transition:leave-start="translate-x-0"
-     x-transition:leave-end="translate-x-full">
-  <div class="flex justify-between items-center p-6 border-b border-zinc-800">
-    <span class="text-2xl font-bold tracking-tight text-white">Menu</span>
-    <button @click="mobileMenuOpen = false" class="text-4xl leading-none text-white">&times;</button>
-  </div>
-  <div class="flex-1 flex flex-col px-6 py-10 text-2xl font-medium text-white gap-y-10">
-    <a href="#shop" @click="mobileMenuOpen = false" class="hover:text-[#ff1493] transition">Shop</a>
-    <a @click="showGetInTouchModal = true; mobileMenuOpen = false" class="hover:text-[#ff1493] transition cursor-pointer">Get in Touch</a>
-    <a @click="showSupportModal = true; mobileMenuOpen = false" class="hover:text-[#ff1493] transition cursor-pointer">Support</a>
-    <a @click="showFaqsPage = true; mobileMenuOpen = false" class="hover:text-[#ff1493] transition cursor-pointer">FAQs & Policies</a>
-    <a @click="showAccountModal = true; mobileMenuOpen = false" class="hover:text-[#ff1493] transition cursor-pointer">My Account</a>
-
-    <!-- SOCIAL ICONS – ALL 3 WITH OFFICIAL COLORS & SHAPES -->
-    <div class="p-6 border-t border-zinc-200 flex justify-center gap-8">
-      <!-- Instagram -->
-      <a href="https://www.instagram.com/paragon_peps/" 
-         target="_blank" rel="noopener noreferrer" 
-         class="text-[#E1306C] hover:text-[#ff1493] hover:scale-110 transition duration-200">
-        <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.332.014 7.052.072 2.578.27 0 2.85 0 7.328c-.014 1.28-.014 1.689-.014 5.948 0 4.259.014 4.668.014 5.948 0 4.478 2.578 7.058 7.052 7.256 1.28.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.474-.198 7.052-2.778 7.052-7.256 0-1.28.014-1.689.014-5.948 0-4.259-.014-4.668-.014-5.948C24 2.85 21.422.27 16.948.072 15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a4 4 0 110-8 4 4 0 010 8zm7.846-10.162a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/>
-        </svg>
-      </a>
-
-      <!-- Telegram (real paper plane icon) -->
-      <a href="https://t.me/Paragonpeptides" 
-         target="_blank" rel="noopener noreferrer" 
-         class="text-[#0088cc] hover:text-[#ff1493] hover:scale-110 transition duration-200">
-        <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20.665 3.717L2.934 10.554C2.425 10.736 2.417 11.035 2.833 11.183L7.833 12.917L17.833 6.917C18.167 6.667 18.5 6.833 18.167 7.083L10.167 14.083L9.833 19.083C9.833 19.583 10.167 19.75 10.583 19.583L13.167 18.083L17.833 21.083C18.833 21.583 19.167 21.083 19.417 20.083L21.917 4.083C22.167 3.083 21.667 2.717 20.665 3.717Z"/>
-        </svg>
-      </a>
-     </div>
+    <!-- MOBILE MENU -->
+    <div x-show="mobileMenuOpen" x-cloak class="fixed inset-0 bg-black z-[99999] md:hidden flex flex-col" style="background-color: #000000 !important; overscroll-behavior: none;" x-transition>
+      <div class="flex justify-between items-center p-6 border-b border-zinc-800">
+        <span class="text-2xl font-bold tracking-tight text-white">Menu</span>
+        <button @click="mobileMenuOpen = false" class="text-4xl leading-none text-white">&times;</button>
+      </div>
+      <div class="flex-1 flex flex-col px-6 py-10 text-2xl font-medium text-white gap-y-10">
+        <a href="#shop" @click="mobileMenuOpen = false" class="hover:text-[#ff1493] transition">Shop</a>
+        <a @click="showGetInTouchModal = true; mobileMenuOpen = false" class="hover:text-[#ff1493] transition cursor-pointer">Get in Touch</a>
+        <a @click="showSupportModal = true; mobileMenuOpen = false" class="hover:text-[#ff1493] transition cursor-pointer">Support</a>
+        <a @click="showFaqsPage = true; mobileMenuOpen = false" class="hover:text-[#ff1493] transition cursor-pointer">FAQs & Policies</a>
+        <a @click="showAccountModal = true; mobileMenuOpen = false" class="hover:text-[#ff1493] transition cursor-pointer">My Account</a>
+        <div class="p-6 border-t border-zinc-200 flex justify-center gap-8">
+          <a href="https://www.instagram.com/paragon_peps/" target="_blank" rel="noopener noreferrer" class="text-[#E1306C] hover:text-[#ff1493] hover:scale-110 transition duration-200">
+            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <!-- Instagram SVG path -->
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.332.014 7.052.072 2.578.27 0 2.85 0 7.328c-.014 1.28-.014 1.689-.014 5.948 0 4.259.014 4.668.014 5.948 0 4.478 2.578 7.058 7.052 7.256 1.28.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.474-.198 7.052-2.778 7.052-7.256 0-1.28.014-1.689.014-5.948 0-4.259-.014-4.668-.014-5.948C24 2.85 21.422.27 16.948.072 15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a4 4 0 110-8 4 4 0 010 8zm7.846-10.162a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/>
+            </svg>
+          </a>
+          <a href="https://t.me/Paragonpeptides" target="_blank" rel="noopener noreferrer" class="text-[#0088cc] hover:text-[#ff1493] hover:scale-110 transition duration-200">
+            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <!-- Telegram SVG path -->
+              <path d="M20.665 3.717L2.934 10.554C2.425 10.736 2.417 11.035 2.833 11.183L7.833 12.917L17.833 6.917C18.167 6.667 18.5 6.833 18.167 7.083L10.167 14.083L9.833 19.083C9.833 19.583 10.167 19.75 10.583 19.583L13.167 18.083L17.833 21.083C18.833 21.583 19.167 21.083 19.417 20.083L21.917 4.083C22.167 3.083 21.667 2.717 20.665 3.717Z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -242,64 +198,60 @@ div[x-show="showGate"] > div {
       </div>
     </section>
 
-<!-- SHOP GRID – FIXED & CLEAN -->
-<div id="shop" class="max-w-7xl mx-auto px-6 py-12">
-  <h1 class="text-5xl font-bold text-center mb-12">Precision Research Compounds</h1>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-    <template x-for="product in filteredProducts" :key="product.id">
-      <div class="product-card bg-zinc-900 rounded-3xl overflow-hidden cursor-pointer" @click="viewProduct(product)">
-        <img :src="product.image" :alt="product.name" class="w-full h-56 object-cover" loading="lazy" decoding="async">
-        <div class="p-6">
-          <h3 class="text-2xl font-bold" x-text="product.name"></h3>
-          <p class="text-zinc-400 text-sm mt-1" x-text="product.desc"></p>
-          <!-- TRUST BADGES -->
-          <div class="flex flex-wrap gap-2 mt-3">
-            <span class="text-[10px] bg-green-900 text-green-400 px-3 py-1 rounded-full font-medium">HPLC Verified</span>
-            <span class="text-[10px] bg-amber-900 text-amber-400 px-3 py-1 rounded-full font-medium">Cold Chain</span>
-            <span class="text-[10px] bg-blue-900 text-blue-400 px-3 py-1 rounded-full font-medium">Research Use Only</span>
-          </div>
-         <!-- DOSE BUTTONS + LIVE STOCK BADGES – NOW FULLY SUPPORTS ml -->
-<div class="flex flex-wrap gap-2 mt-6">
-  <template x-for="variant in product.doses" :key="variant.mg || variant.ml">
-    <button
-      @click.stop="toggleDose(product, variant)"
-      :disabled="variant.stock <= 0"
-      :class="{
-        'bg-[#ff1493] text-white ring-2 ring-pink-500 scale-105': product.selectedDose === (variant.mg || variant.ml),
-        'opacity-50 cursor-not-allowed': variant.stock <= 0
-      }"
-      class="px-6 py-3 rounded-2xl text-sm font-medium transition-all relative flex flex-col items-center min-h-[52px]">
-      
-      <!-- Dose label (handles both mg and ml) -->
-      <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
-      
-      <!-- STOCK BADGE (now works for ml too) -->
-      <span class="absolute -top-1 -right-1 text-[10px] font-bold px-2 py-0.5 rounded-full"
-            :class="{
-              'bg-red-600 text-white': variant.stock === 0,
-              'bg-orange-500 text-white': variant.stock > 0 && variant.stock <= 5,
-              'bg-green-600 text-white': variant.stock > 5
-            }">
-        <span x-text="variant.stock === 0 ? 'OUT' : variant.stock <= 5 ? variant.stock + ' left' : 'IN'"></span>
-      </span>
-    </button>
-  </template>
-</div>
-          <!-- LIVE PRICE -->
-          <div class="mt-6 flex justify-between items-end">
-            <div>
-              <span class="text-3xl font-bold" x-text="'$' + product.price"></span>
-              <span class="text-zinc-400">/vial</span>
+  <!-- SHOP GRID -->
+  <div id="shop" class="max-w-7xl mx-auto px-6 py-12">
+    <h1 class="text-5xl font-bold text-center mb-12">Precision Research Compounds</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <template x-for="product in filteredProducts" :key="product.id">
+        <div class="product-card bg-zinc-900 rounded-3xl overflow-hidden cursor-pointer" @click="viewProduct(product)">
+          <img :src="product.image" :alt="product.name" class="w-full h-56 object-cover" loading="lazy" decoding="async">
+          <div class="p-6">
+            <h3 class="text-2xl font-bold" x-text="product.name"></h3>
+            <p class="text-zinc-400 text-sm mt-1" x-text="product.desc"></p>
+            <!-- Trust badges -->
+            <div class="flex flex-wrap gap-2 mt-3">
+              <span class="text-[10px] bg-green-900 text-green-400 px-3 py-1 rounded-full font-medium">HPLC Verified</span>
+              <span class="text-[10px] bg-amber-900 text-amber-400 px-3 py-1 rounded-full font-medium">Cold Chain</span>
+              <span class="text-[10px] bg-blue-900 text-blue-400 px-3 py-1 rounded-full font-medium">Research Use Only</span>
             </div>
-            <button @click.stop="addToCartWithDose(product)" class="bg-white text-black px-8 py-4 rounded-3xl font-semibold hover:bg-zinc-200 transition">ADD TO CART</button>
+            <!-- Dose buttons -->
+            <div class="flex flex-wrap gap-2 mt-6">
+              <template x-for="variant in product.doses" :key="variant.mg || variant.ml">
+                <button
+                  @click.stop="toggleDose(product, variant)"
+                  :disabled="variant.stock <= 0"
+                  :class="{
+                    'bg-[#ff1493] text-white ring-2 ring-pink-500 scale-105': product.selectedDose === (variant.mg || variant.ml),
+                    'opacity-50 cursor-not-allowed': variant.stock <= 0
+                  }"
+                  class="px-6 py-3 rounded-2xl text-sm font-medium transition-all relative flex flex-col items-center min-h-[52px]">
+                  <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
+                  <span class="absolute -top-1 -right-1 text-[10px] font-bold px-2 py-0.5 rounded-full"
+                        :class="{
+                          'bg-red-600 text-white': variant.stock === 0,
+                          'bg-orange-500 text-white': variant.stock > 0 && variant.stock <= 5,
+                          'bg-green-600 text-white': variant.stock > 5
+                        }">
+                    <span x-text="variant.stock === 0 ? 'OUT' : variant.stock <= 5 ? variant.stock + ' left' : 'IN'"></span>
+                  </span>
+                </button>
+              </template>
+            </div>
+            <!-- Price & Add to Cart -->
+            <div class="mt-6 flex justify-between items-end">
+              <div>
+                <span class="text-3xl font-bold" x-text="'$' + product.price"></span>
+                <span class="text-zinc-400">/vial</span>
+              </div>
+              <button @click.stop="addToCartWithDose(product)" class="bg-white text-black px-8 py-4 rounded-3xl font-semibold hover:bg-zinc-200 transition">ADD TO CART</button>
+            </div>
           </div>
         </div>
-      </div>
-    </template>
+      </template>
+    </div>
   </div>
-</div>
 
-<footer class="bg-black py-16 border-t border-zinc-800">
+ <footer class="bg-black py-16 border-t border-zinc-800">
   <div class="max-w-7xl mx-auto px-6 text-center">
     <!-- Top links row -->
     <div class="flex flex-wrap justify-center gap-x-8 gap-y-3 text-zinc-400 text-sm font-medium mb-12">
@@ -833,11 +785,9 @@ div[x-show="showGate"] > div {
 <!-- Payment Instructions – Click-to-Reveal Accordion (exact Profound Aminos style) -->
 <div class="mt-12 space-y-4">
   <h3 class="text-xl font-semibold text-white mb-6">How to Pay</h3>
-
+ 
 <div class="border border-zinc-800 rounded-xl overflow-hidden">
     <button @click="activePayment = activePayment === 'venmo' ? null : 
-<div class="border border-zinc-800 rounded-xl overflow-hidden">
-    <button @click="activePayment = activePayment === 'venmo' ? null : 'venmo'"
         class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
   <span class="text-lg font-medium text-[#ff1493]">Pay with Venmo</span>
   <span x-text="activePayment === 'venmo' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
@@ -1011,32 +961,33 @@ div[x-show="showGate"] > div {
   </div>
 </div>
 
-<!-- STOCK MANAGER (hidden admin panel) -->
-<div x-show="showStockManager" class="fixed inset-0 bg-black/90 z-[99999] overflow-auto">
-  <div class="max-w-4xl mx-auto p-8">
-    <h2 class="text-3xl font-bold mb-8 text-white">Stock Manager</h2>
-    <button @click="showStockManager = false" class="mb-6 text-[#ff1493] hover:underline">← Close Manager</button>
-    
-    <div class="grid gap-6">
-      <template x-for="product in products" :key="product.id">
-        <div class="bg-zinc-900 p-6 rounded-3xl">
-          <h3 class="font-semibold text-white mb-4" x-text="product.name"></h3>
-          <div class="mt-4 space-y-3">
-            <template x-for="(variant, i) in product.doses" :key="i">
-              <div class="flex items-center gap-4">
-                <span class="w-20 text-zinc-300" x-text="variant.mg + ' ' + (product.unit || 'mg')"></span>
-               <input type="number"
-       x-model.number="variant.stock"
-       @change="saveStock"
-       class="bg-zinc-800 w-24 px-3 py-2 rounded-lg text-center text-white border border-zinc-700 focus:border-[#ff1493] focus:outline-none">                <span class="text-xs text-zinc-400">left</span>
-              </div>
-            </template>
+
+  <!-- STOCK MANAGER -->
+  <div x-show="showStockManager" class="fixed inset-0 bg-black/90 z-[99999] overflow-auto">
+    <div class="max-w-4xl mx-auto p-8">
+      <h2 class="text-3xl font-bold mb-8 text-white">Stock Manager</h2>
+      <button @click="showStockManager = false" class="mb-6 text-[#ff1493] hover:underline">← Close Manager</button>
+      <div class="grid gap-6">
+        <template x-for="product in products" :key="product.id">
+          <div class="bg-zinc-900 p-6 rounded-3xl">
+            <h3 class="font-semibold text-white mb-4" x-text="product.name"></h3>
+            <div class="mt-4 space-y-3">
+              <template x-for="(variant, i) in product.doses" :key="i">
+                <div class="flex items-center gap-4">
+                  <span class="w-20 text-zinc-300" x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
+                  <input type="number"
+                         x-model.number="variant.stock"
+                         @change="saveStock"
+                         class="bg-zinc-800 w-24 px-3 py-2 rounded-lg text-center text-white border border-zinc-700 focus:border-[#ff1493] focus:outline-none">
+                  <span class="text-xs text-zinc-400">left</span>
+                </div>
+              </template>
+            </div>
           </div>
-        </div>
-      </template>
+        </template>
+      </div>
     </div>
   </div>
-</div>
 
 <!-- FLOATING TELEGRAM BUTTON (#4) -->
 <a href="http://t.me/Paragonpeptides" target="_blank" rel="noopener noreferrer"
@@ -1135,14 +1086,12 @@ div[x-show="showGate"] > div {
 </body>
 </html>
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Paragon Peptides",
-  "url": "https://paragonpeptides.net",
-  "description": "Premium research peptides for laboratory use only. HPLC-verified compounds with fast cold-chain shipping."
-}
+
+</body>
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
   function app() {
     return {
@@ -1175,8 +1124,8 @@ div[x-show="showGate"] > div {
       isSubmittingGetInTouch: false,
       getInTouchSuccess: false,
       getInTouchError: null,
-
-      // Computed
+  
+       // Computed
       get discountedTotal() {
         let subtotal = this.cartTotal;
         let shipping = subtotal >= 250 ? 0 : 12.99;
@@ -1258,87 +1207,121 @@ div[x-show="showGate"] > div {
          }
       },
 
+products: [],
+      supabase: null,
 
-init() {
+      init() {
         console.log('[INIT] Starting...');
 
+        // Load cart first (no dependency)
         try {
-          // Load cart
           this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
-          console.log('[INIT] Cart loaded:', this.cart.length, 'items');
+          console.log('[INIT] Cart loaded:', this.cart.length);
+        } catch (e) {
+          console.error('[INIT] Cart load failed:', e);
+        }
 
-          // Initialize Supabase
+        // Wait for Supabase to be available
+        this.waitForSupabase().then(() => {
+          console.log('[INIT] Supabase ready – initializing client');
+          this.initializeSupabase();
+          this.loadProducts();
+        }).catch(e => {
+          console.error('[INIT] Supabase failed to load after retries:', e);
+        });
+      },
+
+      waitForSupabase(maxAttempts = 10, delay = 500) {
+        return new Promise((resolve, reject) => {
+          let attempts = 0;
+
+          const check = () => {
+            attempts++;
+            if (typeof Supabase !== 'undefined') {
+              console.log('[WAIT] Supabase loaded after', attempts, 'attempts');
+              resolve();
+              return;
+            }
+            if (attempts >= maxAttempts) {
+              reject(new Error('Supabase not loaded after ' + maxAttempts + ' attempts'));
+              return;
+            }
+            console.log('[WAIT] Supabase not ready yet – attempt', attempts);
+            setTimeout(check, delay);
+          };
+
+          check();
+        });
+      },
+
+      initializeSupabase() {
+        try {
           this.supabase = Supabase.createClient(
             'https://lydlmgzavepcdtreeoto.supabase.co',
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5ZGxtZ3phdmVwY2R0cmVlb3RvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NDA3MTksImV4cCI6MjA4OTQxNjcxOX0.-F_lSkO6_Wz4-FnNwsPkib-k31_xEe5sgrC4WDaOOSk'
           );
           console.log('[INIT] Supabase client initialized');
-
-          // Load products
-          this.loadProducts();
-
         } catch (e) {
-          console.error('[INIT] Critical error:', e);
+          console.error('[INIT] Supabase client creation failed:', e);
         }
       },
 
       async loadProducts() {
+        if (!this.supabase) {
+          console.error('[LOAD] Supabase not initialized');
+          return;
+        }
+
         try {
-          console.log('[LOAD] Fetching products from Supabase...');
+          console.log('[LOAD] Querying products...');
           const { data, error } = await this.supabase
             .from('products')
             .select('*');
 
-          if (error) {
-            console.error('[LOAD] Supabase error:', error.message);
-            throw error;
-          }
+          if (error) throw error;
 
-          console.log('[LOAD] Raw data from Supabase:', data);
+          console.log('[LOAD] Raw data:', data);
           this.products = data || [];
-          console.log('[LOAD] Products assigned:', this.products.length, 'items');
-
-          // Optional: fallback if empty
-          if (this.products.length === 0) {
-            console.warn('[LOAD] No products returned – using fallback');
-            this.products = [
-              { id: 22, name: "Acetic Water 10ml", doses: [{ ml: 10, price: 8, stock: 30 }] },
-              { id: 23, name: "Bacteriostatic Water 10ml", doses: [{ ml: 10, price: 8, stock: 30 }] }
-            ];
-          }
-
+          console.log('[LOAD] Products loaded:', this.products.length, 'items');
         } catch (e) {
-          console.error('[LOAD] Failed to load products:', e);
+          console.error('[LOAD] Failed:', e.message);
+          // Fallback
+          this.products = [
+            { id: 22, name: "Acetic Water 10ml", doses: [{ ml: 10, price: 8, stock: 30 }] },
+            { id: 23, name: "Bacteriostatic Water 10ml", doses: [{ ml: 10, price: 8, stock: 30 }] }
+          ];
         }
       },
 
       async saveStock() {
+        if (!this.supabase) {
+          alert('Supabase not ready');
+          return;
+        }
+
         try {
           console.log('[SAVE] Starting save...');
-          if (!this.supabase) throw new Error('Supabase not initialized');
-
           for (const product of this.products) {
-            console.log('[SAVE] Updating product ID:', product.id);
             const { error } = await this.supabase
               .from('products')
               .update({ doses: product.doses })
               .eq('id', product.id);
 
-            if (error) {
-              console.error('[SAVE] Error for product', product.id, ':', error.message);
-              throw error;
-            }
+            if (error) throw error;
           }
-
-          console.log('[SAVE] All updates successful');
+          console.log('[SAVE] Success');
           alert('Stock updated globally!');
-
         } catch (e) {
-          console.error('[SAVE] Save failed:', e);
-          alert('Failed to save stock. Check console for details.');
+          console.error('[SAVE] Failed:', e.message);
+          alert('Failed to save – check console');
         }
       },
-       copyToClipboard(text) {
+      // Payment accordion – fixed syntax
+      togglePayment(method) {
+        this.activePayment = this.activePayment === method ? null : method;
+      },
+
+     copyToClipboard(text) {
         if (!text) {
           alert("No order number to copy.");
           return;
@@ -1572,5 +1555,3 @@ init() {
     }
   }
 </script>
-</body>
-</html>
