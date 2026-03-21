@@ -1090,11 +1090,6 @@ div[x-show="showGate"] > div {
   <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
     <div class="grid md:grid-cols-2 gap-8">
       <div class="relative">
-        <img :src="currentProduct?.image" 
-             @error="$el.src='https://i.imgur.com/jXQlcWB.png'"
-             class="rounded-3xl w-full shadow-2xl" 
-             alt="Product Image">
-      </div>
 
       <div>
         <h1 class="text-4xl sm:text-5xl font-bold text-white" x-text="currentProduct?.name"></h1>
@@ -1103,7 +1098,6 @@ div[x-show="showGate"] > div {
 
 <!-- DYNAMIC DOSE BUTTONS – FIXED & SYNCED -->
 <div class="mt-6 sm:mt-8">
-  <label class="block text-sm text-zinc-400 mb-2">SELECT DOSE</label>
   <div class="grid grid-cols-3 sm:grid-cols-5 gap-3 dose-grid">
     <template x-for="variant in currentProduct.doses" :key="variant.mg || variant.ml">
       <button
@@ -1119,38 +1113,6 @@ div[x-show="showGate"] > div {
       </button>
     </template>
   </div>
-</div>
-
-<div class="text-3xl sm:text-4xl font-bold mt-6 sm:mt-8 text-white" 
-     x-text="currentProduct.price ? '$' + currentProduct.price : '$' + currentProduct.doses[0].price">
-</div>
-            <button @click="addToCartWithDose(currentProduct)" class="mt-8 sm:mt-10 w-full bg-[#ff1493] hover:bg-pink-600 py-4 sm:py-5 rounded-3xl font-semibold text-lg sm:text-xl text-white transition min-h-[48px]">
-              Add to Cart
-            </button>
-          </div>
-        </div>
-                  <div 
-    :class="activeTab === 'description' ? 'bg-white text-zinc-900' : 'bg-zinc-900 text-zinc-300'"
-    class="mt-12 sm:mt-20 transition-colors duration-500 rounded-2xl overflow-hidden"
->
-    <div class="p-8 sm:p-12">
-        <div class="prose max-w-none prose-sm sm:prose-base"
-             :class="activeTab === 'description' ? 'prose-zinc' : 'prose-invert'">
-             <div x-html="currentProduct.fullDesc"></div>
-        </div>
-    </div>
-
-    <div class="bg-zinc-100 border-t border-zinc-200 p-8 sm:p-12">
-        <h4 class="text-zinc-900 font-bold text-xs uppercase tracking-widest mb-4">
-            Research Use Only (RUO) Compliance
-        </h4>
-        <p class="text-zinc-500 text-[11px] leading-relaxed italic">
-            This compound is supplied as a lyophilized powder for **laboratory research purposes only**. 
-            It is not intended for human or veterinary use, diagnostic, or therapeutic procedures. 
-            By purchasing, the researcher confirms they have the necessary equipment and safety 
-            protocols to handle these compounds in a controlled environment.
-        </p>
-    </div>
 </div>
 
 <!-- GLOBAL LOADING SPINNER -->
