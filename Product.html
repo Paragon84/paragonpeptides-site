@@ -144,7 +144,15 @@ function app() {
 
       this.isLoading = false;
     },
-      // Toggle: select if not selected, deselect if already selected
+      isSelected(variant) {
+      return this.selectedVariant === variant;
+     },
+
+    selectDose(variant) {
+      this.selectedDose = variant.mg || variant.ml;
+      this.price = variant.price;
+    },
+     // Toggle: select if not selected, deselect if already selected
       toggleDose(variant) {
       if (this.selectedVariant === variant) {
       // Clicked the same one → deselect
@@ -155,7 +163,7 @@ function app() {
       this.selectedVariant = variant;
       this.selectedPrice = variant.price || 0;
       }
-    },
+     },
 
     addToCart() {
       if (!this.product || !this.selectedDose) return alert("Please select a dose");
