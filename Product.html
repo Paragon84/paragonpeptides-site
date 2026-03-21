@@ -18,18 +18,6 @@
 </head>
 <body class="antialiased" x-data="app()" x-init="init()">
 
-<div class="product-page-wrapper max-w-6xl mx-auto px-6 py-12">
-
-<!-- IMAGE + ADD TO CART (with zoom) -->
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-    <div class="product-image-zoom-wrapper relative">
-      <img id="main-product-image"
-           src="YOUR-PRODUCT-IMAGE.jpg" 
-           data-zoom-image="YOUR-HIGH-RES-IMAGE.jpg" 
-           alt="Product Image"
-           class="w-full rounded-3xl shadow-xl cursor-zoom-in">
-    </div>
-
 <!-- Loading -->
 <div x-show="isLoading" class="fixed inset-0 bg-black flex items-center justify-center z-50">
   <div class="text-center">
@@ -211,28 +199,6 @@ function app() {
     }
   }
 }
-</script>
-
-<!-- ======================== ZOOM SCRIPT (jQuery + ElevateZoom) ======================== -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-elevatezoom/1.0.0/jquery.elevatezoom.min.js"></script>
-
-<script>
-$(document).ready(function() {
-  $("#main-product-image").elevateZoom({
-    zoomType: "lens",
-    lensShape: "round",
-    lensSize: 200,
-    lensBorderSize: 2,
-    lensBorderColour: "#000",
-    borderSize: 2,
-    zoomWindowWidth: 420,
-    zoomWindowHeight: 420,
-    zoomWindowPosition: 1,
-    cursor: "zoom-in",
-    responsive: true
-  });
-});
 </script>
 
 </body>
