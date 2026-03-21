@@ -18,6 +18,18 @@
 </head>
 <body class="antialiased" x-data="app()" x-init="init()">
 
+<div class="product-page-wrapper max-w-6xl mx-auto px-6 py-12">
+
+<!-- IMAGE + ADD TO CART (with zoom) -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+    <div class="product-image-zoom-wrapper relative">
+      <img id="main-product-image"
+           src="YOUR-PRODUCT-IMAGE.jpg" 
+           data-zoom-image="YOUR-HIGH-RES-IMAGE.jpg" 
+           alt="Product Image"
+           class="w-full rounded-3xl shadow-xl cursor-zoom-in">
+    </div>
+
 <!-- Loading -->
 <div x-show="isLoading" class="fixed inset-0 bg-black flex items-center justify-center z-50">
   <div class="text-center">
@@ -91,11 +103,16 @@
       </div>
     </div>
   </div>
-<!-- === SMALL WHITE FDA DISCLAIMER BREAK (1/3 size) === -->
-<div style="background:#ffffff; padding:18px 25px; border:1px solid #e5e5e5; border-radius:6px; max-width:620px; margin:30px auto 35px; font-size:0.92rem; line-height:1.45; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.03);">
-  <strong style="color:#222; font-size:1.05rem;">FDA DISCLAIMER</strong><br><br>
-  These Statements Have Not Been Evaluated By The Food And Drug Administration. This Product Is Not Intended To Diagnose, Treat, Cure Or Prevent Any Disease.
-</div>
+<!-- 3. SMALL WHITE FDA DISCLAIMER (exact width match + solid black text) -->
+  <div class="mt-12 bg-white text-black py-8 px-8 rounded-3xl border border-zinc-200 max-w-2xl mx-auto">
+    <div class="text-center">
+      <strong class="text-xl font-bold text-black block mb-3">FDA DISCLAIMER</strong>
+      <p class="text-base leading-relaxed text-black">
+        These Statements Have Not Been Evaluated By The Food And Drug Administration.<br>
+        This Product Is Not Intended To Diagnose, Treat, Cure Or Prevent Any Disease.
+      </p>
+    </div>
+  </div>
 
   <!-- FULL DESCRIPTION -->
   <div class="mt-20 prose prose-invert max-w-none text-zinc-300" x-html="product.fullDesc"></div>
@@ -127,72 +144,96 @@ function app() {
     price: 0,
     isLoading: true,
     supabase: null,
-    selectedVariant: null,      // will store the full variant object
+    selectedVariant: null,
     selectedPrice: 0,
+
     async init() {
       const urlParams = new URLSearchParams(window.location.search);
       const id = parseInt(urlParams.get('id'));
-
+      
       this.supabase = supabase.createClient(
         'https://lydlmgzavepcdtreeoto.supabase.co',
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5ZGxtZ3phdmVwY2R0cmVlb3RvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NDA3MTksImV4cCI6MjA4OTQxNjcxOX0.-F_lSkO6_Wz4-FnNwsPkib-k31_xEe5sgrC4WDaOOSk'
       );
-
+      
       const { data } = await this.supabase.from('products').select('*');
       this.product = data.find(p => p.id === id);
-
+      
       if (this.product && this.product.doses && this.product.doses.length) {
         const first = this.product.doses[0];
         this.selectedDose = first.mg || first.ml;
         this.price = first.price;
       }
-
       this.isLoading = false;
     },
-      isSelected(variant) {
+
+    isSelected(variant) {
       return this.selectedVariant === variant;
-     },
+    },
 
     selectDose(variant) {
       this.selectedDose = variant.mg || variant.ml;
       this.price = variant.price;
     },
-     // Toggle: select if not selected, deselect if already selected
-      toggleDose(variant) {
+
+    toggleDose(variant) {
       if (this.selectedVariant === variant) {
-      // Clicked the same one → deselect
-      this.selectedVariant = null;
-      this.selectedPrice = 0;
+        this.selectedVariant = null;
+        this.selectedPrice = 0;
       } else {
-      // Select this one
-      this.selectedVariant = variant;
-      this.selectedPrice = variant.price || 0;
+        this.selectedVariant = variant;
+        this.selectedPrice = variant.price || 0;
       }
-     },
+    },
 
     addToCart() {
-      if (!this.product || !this.selectedDose) return alert("Please select a dose");
+      if (!this.product || !this.selectedDose) {
+        return alert("Please select a dose");
+      }
       const variant = this.product.doses.find(v => (v.mg || v.ml) === this.selectedDose);
       
       let cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
       const existing = cart.find(i => i.id === this.product.id && i.dose === this.selectedDose);
       
       if (existing) existing.qty++;
-      else cart.push({ 
-        id: this.product.id, 
-        name: this.product.name, 
-        image: this.product.image, 
+      else cart.push({
+        id: this.product.id,
+        name: this.product.name,
+        image: this.product.image,
         dose: this.selectedDose,
         unit: variant.mg ? 'mg' : 'ml',
-        price: variant.price, 
-        qty: 1 
+        price: variant.price,
+        qty: 1
       });
-
+      
       localStorage.setItem('paragonCart', JSON.stringify(cart));
       alert("✅ Added to cart! Return to shop to checkout.");
     }
-  };
+  }
 }
 </script>
+
+<!-- ======================== ZOOM SCRIPT (jQuery + ElevateZoom) ======================== -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-elevatezoom/1.0.0/jquery.elevatezoom.min.js"></script>
+
+<script>
+$(document).ready(function() {
+  $("#main-product-image").elevateZoom({
+    zoomType: "lens",
+    lensShape: "round",
+    lensSize: 200,
+    lensBorderSize: 2,
+    lensBorderColour: "#000",
+    borderSize: 2,
+    zoomWindowWidth: 420,
+    zoomWindowHeight: 420,
+    zoomWindowPosition: 1,
+    cursor: "zoom-in",
+    responsive: true
+  });
+});
+</script>
+
 </body>
 </html>
