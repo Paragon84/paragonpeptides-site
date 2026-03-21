@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title x-text="product ? product.name + ' – Paragon Peptides' : 'Product – Paragon Peptides'"></title>
+  <meta name="robots" content="noindex"> <!-- optional: don't index individual product pages -->
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Satoshi:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    [x-cloak] { display: none !important; }
+    :root { --accent: #ff1493; }
+    body { 
+      font-family: 'Inter', system-ui, sans-serif; 
+      background: #000000; 
+      color: #e2e8f0; 
+      margin: 0;
+    }
+    h1, h2, h3 { font-family: 'Satoshi', sans-serif; }
+  </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<div x-data="productPage()" x-init="init()" class="flex-1 flex flex-col">
+
+  <!-- Back button + minimal header -->
+  <header class="bg-black/80 border-b border-zinc-800 sticky top-0 z-50 backdrop-blur-sm">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <button @click="goBack()" class="flex items-center gap-2 text-[#ff1493] hover:text-pink-400 font-medium">
+        ← Back to Shop
+      </button>
+      <a href="/" class="text-lg font-bold text-white">Paragon Peptides</a>
+    </div>
+  </header>
+
+  <!-- Main product content -->
+  <main class="flex-1 py-12 px-6">
+    <div x-show="isLoading" class="flex items-center justify-center h-96">
+      <div class="text-center">
+        <div class="w-12 h-12 border-4 border-[#ff1493] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <p class="text-zinc-400">Loading product...</p>
+      </div>
+    </div>
+
+    <div x-show="!isLoading && !product" class="text-center py-20">
+      <h2 class="text-3xl font-bold text-white mb-4">Product not found</h2>
+      <p class="text-zinc-400 mb-8">The requested product could not be loaded.</p>
+      <button @click="goBack()" class="bg-[#ff1493] hover:bg-pink-600 text-white px-8 py-4 rounded-2xl font-semibold">
+        Return to Shop
+      </button>
+    </div>
+
+    <template x-if="product && !isLoading">
+      <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
+        <!-- Product Image -->
+        <div class="relative rounded-3xl overflow-hidden shadow-2xl bg-zinc-950">
+          <img 
+            :src="product.image || 'https://i.imgur.com/jXQlcWB.png'" 
+            :alt="product.name"
+            class="w-full h-auto object-cover"
+            loading="lazy">
+        </div>
+
+        <!-- Product Info -->
+        <div class="flex flex-col justify-center">
+          <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4" x-text="product.name"></h1>
+          
+          <p class="text-xl text-[#ff1493] mb-6" x-text="product.desc"></p>
+
+          <!-- Dose selection -->
+          <div class="mb-8">
+            <label class="block text-sm text-zinc-400 mb-3 uppercase tracking-wider font-medium">Select Dose</label>
+            <div class="flex flex-wrap gap-3">
+              <template x-for="variant in product.doses" :key="variant.mg || variant.ml">
+                <button
+                  @click="selectDose(variant)"
+                  :disabled="variant.stock <= 0"
+                  :class="{
+                    'bg-[#ff1493] text-white ring-2 ring-pink-500': selectedVariant === variant,
+                    'bg-zinc-800 text-zinc-400 cursor-not-allowed opacity-60': variant.stock <= 0,
+                    'bg-zinc-900 hover:bg-zinc-800 border border-zinc-700': selectedVariant !== variant && variant.stock > 0
+                  }"
+                  class="px-6 py-3 rounded-2xl font-medium transition min-w-[100px]">
+                  <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
+                  <span class="block text-xs mt-1 opacity-80"
+                        :class="variant.stock <= 0 ? 'text-red-400' : variant.stock <= 5 ? 'text-orange-400' : 'text-green-400'">
+                    <span x-text="variant.stock <= 0 ? 'Out of stock' : variant.stock + ' left'"></span>
+                  </span>
+                </button>
+              </template>
+            </div>
+          </div>
+
+          <!-- Price & Add to Cart -->
+          <div class="flex items-end justify-between mb-10">
+            <div>
+              <span class="text-5xl font-bold text-white" x-text="'$' + selectedPrice"></span>
+              <span class="text-zinc-400 text-xl">/vial</span>
+            </div>
+            <button 
+              @click="addToCart()"
+              :disabled="!selectedVariant || selectedVariant.stock <= 0"
+              class="bg-white hover:bg-zinc-200 text-black px-10 py-5 rounded-3xl font-bold text-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
+              Add to Cart
+            </button>
+          </div>
+
+          <!-- Full description -->
+          <div class="prose prose-invert max-w-none">
+            <div x-html="product.fullDesc || '<p>No detailed description available.</p>'"></div>
+          </div>
+
+          <!-- Research disclaimer -->
+          <div class="mt-12 p-6 bg-zinc-950 border border-zinc-800 rounded-2xl text-sm text-zinc-400 italic">
+            For research and laboratory use only. Not for human or veterinary consumption.
+          </div>
+        </div>
+      </div>
+    </template>
+  </main>
+
+  <!-- Minimal footer -->
+  <footer class="bg-black border-t border-zinc-800 py-8 text-center text-sm text-zinc-500">
+    © 2026 Paragon Peptides • Research use only
+  </footer>
+</div>
+
+<script>
+  function productPage() {
+    return {
+      product: null,
+      isLoading: true,
+      selectedVariant: null,
+      selectedPrice: 0,
+
+      init() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+
+        if (!productId) {
+          console.warn('No product ID in URL');
+          this.isLoading = false;
+          return;
+        }
+
+        this.loadProduct(productId);
+      },
+
+      async loadProduct(id) {
+        this.isLoading = true;
+
+        const supabase = Supabase.createClient(
+          'https://lydlmgzavepcdtreeoto.supabase.co',
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5ZGxtZ3phdmVwY2R0cmVlb3RvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NDA3MTksImV4cCI6MjA4OTQxNjcxOX0.-F_lSkO6_Wz4-FnNwsPkib-k31_xEe5sgrC4WDaOOSk'
+        );
+
+        try {
+          const { data, error } = await supabase
+            .from('products')
+            .select('*')
+            .eq('id', id)
+            .single();
+
+          if (error) throw error;
+          if (!data) throw new Error('Product not found');
+
+          this.product = data;
+          if (this.product.doses?.length > 0) {
+            this.selectDose(this.product.doses[0]);
+          }
+        } catch (err) {
+          console.error('Product load failed:', err.message);
+        } finally {
+          this.isLoading = false;
+        }
+      },
+
+      selectDose(variant) {
+        this.selectedVariant = variant;
+        this.selectedPrice = variant.price || 0;
+      },
+
+      addToCart() {
+        if (!this.selectedVariant || this.selectedVariant.stock <= 0) return;
+
+        // You can either:
+        // 1. Redirect back to main site with cart update (via localStorage)
+        // 2. Or open cart drawer (but since it's a dedicated page, better to redirect)
+
+        // Example: save to localStorage and redirect
+        let cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
+        const existing = cart.find(i => i.id === this.product.id && i.dose === (this.selectedVariant.mg || this.selectedVariant.ml));
+        if (existing) {
+          existing.qty++;
+        } else {
+          cart.push({
+            id: this.product.id,
+            name: this.product.name,
+            image: this.product.image,
+            dose: this.selectedVariant.mg || this.selectedVariant.ml,
+            unit: this.selectedVariant.mg ? 'mg' : 'ml',
+            price: this.selectedPrice,
+            qty: 1
+          });
+        }
+        localStorage.setItem('paragonCart', JSON.stringify(cart));
+
+        // Redirect back to main shop
+        window.location.href = '/?added=true';
+      },
+
+      goBack() {
+        window.location.href = '/';
+      }
+    }
+  }
+</script>
+
+</body>
+</html>
