@@ -13,10 +13,9 @@
   <meta property="og:image" content="https://i.imgur.com/4nw0O80.jpeg">
   <meta property="og:url" content="https://paragonpeptides.net">
 <!-- Favicon -->
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
-<link rel="icon" href="/favicon.png" type="image/png" sizes="32x32">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="icon" href="https://i.imgur.com/jXQlcWB.png" type="image/png">
+<link rel="icon" href="/favicon.png?v=2" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="https://i.imgur.com/jXQlcWB.png" sizes="180x180">  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
@@ -1155,6 +1154,7 @@ div[x-show="showGate"] > div {
       // --- Product & Cart Data ---
       products: [],
       currentProduct: null,
+      selectedDose: null,
       cart: [],
       searchTerm: '',
       activeFilter: 'all' ,
@@ -1178,6 +1178,17 @@ div[x-show="showGate"] > div {
       isSubmittingGetInTouch: false,
       getInTouchSuccess: false,
       getInTouchError: null,
+
+toggleDose(product, variant) {
+  const doseValue = variant.mg || variant.ml;
+  if (product.selectedDose === doseValue) {
+    product.selectedDose = null;
+  } else {
+    product.selectedDose = doseValue;
+    product.price = variant.price;
+  }
+},
+
 
       // --- Supabase ---
       supabase: null,
@@ -1290,11 +1301,11 @@ filteredProducts() {
         this.currentProduct.selectedDose = first ? (first.mg || first.ml) : null;
         this.currentProduct.price = first ? first.price : 0;
       },
-
-      toggleDose(product, variant) {
-        product.selectedDose = (variant.mg || variant.ml);
-        product.price = variant.price;
+             getSelectedVariant() {
+               if (!this.currentProduct || !this.currentProduct.doses) return null;
+              return this.currentProduct.doses.find(v => v.mg ===   this.selectedDose) || this.currentProduct.doses[0];
       },
+
 
       addToCartWithDose(product) {
         if (!product.selectedDose) return alert("Select a dose");
