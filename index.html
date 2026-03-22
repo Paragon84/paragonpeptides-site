@@ -78,8 +78,23 @@ div[x-show="showGate"] > div {
 .product-card {
   contain: layout paint;
 }
+.product-card {
+  box-shadow: 0 0 20px rgba(255, 20, 147, 0.4);
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
 
-  </style>
+.product-card:hover {
+  box-shadow: 0 0 60px rgba(255, 20, 147, 0.9);
+  transform: translateY(-8px);
+}
+
+/* Extra glow when dose is selected */
+.product-card button[aria-selected="true"] {
+  box-shadow: 0 0 40px rgba(255, 20, 147, 0.8);
+}
+
+
+ </style>
 </head>
 <body class="antialiased">
 
@@ -216,37 +231,32 @@ div[x-show="showGate"] > div {
     </div>
   </div>
 
-    <!-- HERO -->
-    <section class="relative pt-16 pb-24 bg-gradient-to-b from-black via-zinc-950 to-black text-center overflow-hidden">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6">
-        <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDcza3c5Z3NmeDF1cXR4YTRhbDhpZ2xhdjkzbmM2eXVxb3BtOWZhaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/5MKtgf36tYGe7SG2Ae/giphy.gif" loading="lazy"
-             class="mx-auto mb-8 h-40 sm:h-48 md:h-72 lg:h-96 drop-shadow-[0_0_60px_rgba(236,72,153,0.6)] rounded-lg transition-all duration-500 hover:drop-shadow-[0_0_80px_rgba(236,72,153,0.8)] hover:scale-105"
-             alt="Paragon Peptides Animated Logo"
-             loading="lazy"
-             style="background: transparent !important; mix-blend-mode: screen; opacity: 0.95;">
-             <div class="max-w-7xl mx-auto px-6 py-20 sm:py-28 lg:py-36 flex flex-col items-center text-center">
-        <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold text-white leading-tight tracking-tight">
-          Precision Research<br>
-          <span class="text-[#ff1493]">Compounds</span>
+<!-- UPGRADED HERO -->
+    <section class="relative pt-16 pb-24 bg-black overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/60 to-black"></div>
+      <div class="max-w-5xl mx-auto px-6 relative z-10 text-center">
+        <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDcza3c5Z3NmeDF1cXR4YTRhbDhpZ2xhdjkzbmM2eXVxb3BtOWZhaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/5MKtgf36tYGe7SG2Ae/giphy.gif" 
+             class="mx-auto h-72 md:h-96 drop-shadow-[0_0_80px_#ff1493] animate-pulse-slow">
+        <h1 class="text-6xl md:text-7xl font-bold tracking-tighter mt-8 text-white">
+          Precision Research<br><span class="text-[#ff1493]">Compounds</span>
         </h1>
-        <p class="mt-6 text-lg sm:text-xl text-zinc-400 max-w-2xl leading-relaxed">
-          Premium peptides &amp; research chemicals — rigorously tested at 99.5%+ purity. Trusted by scientists and laboratories worldwide.
-        </p>
-        <div class="mt-10 flex flex-col sm:flex-row gap-4">
-          <a href="#shop" class="bg-[#ff1493] hover:bg-pink-600 text-white font-semibold px-10 py-4 rounded-2xl text-lg transition">
-            Browse Catalog
-          </a>
-          <a @click="showFaqsPage = true" class="border border-zinc-700 hover:border-[#ff1493] text-white font-semibold px-10 py-4 rounded-2xl text-lg transition cursor-pointer">
-            Learn More
-          </a>
-        </div>
-        <div class="mt-14 flex flex-wrap justify-center gap-x-10 gap-y-4 text-sm text-zinc-500">
-          <span class="flex items-center gap-2"><span class="text-[#ff1493]">&#10003;</span> 99.5%+ Purity Verified</span>
-          <span class="flex items-center gap-2"><span class="text-[#ff1493]">&#10003;</span> Third-Party Lab Tested</span>
-          <span class="flex items-center gap-2"><span class="text-[#ff1493]">&#10003;</span> Fast UPS Shipping</span>
+        <p class="mt-6 text-xl text-zinc-400 max-w-xl mx-auto">99.5%+ HPLC Verified • Cold-Chain Shipped • Research Use Only</p>
+        <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="#shop" class="bg-[#ff1493] hover:bg-pink-600 text-white font-semibold px-10 py-4 rounded-2xl text-lg transition">Browse Catalog</a>
+          <a @click="showFaqsPage = true" class="border border-zinc-700 hover:border-[#ff1493] text-white font-semibold px-10 py-4 rounded-2xl text-lg transition cursor-pointer">Learn More</a>
         </div>
       </div>
     </section>
+
+    <!-- STICKY TRUST BAR -->
+    <div class="bg-zinc-950 border-y border-zinc-800 py-6 sticky top-0 z-40">
+      <div class="max-w-7xl mx-auto px-6 flex flex-wrap justify-center gap-x-12 gap-y-4 text-sm font-medium text-zinc-400">
+        <div class="flex items-center gap-3"><span class="text-[#ff1493]">✔</span> 99.5%+ HPLC Verified</div>
+        <div class="flex items-center gap-3"><span class="text-[#ff1493]">✔</span> Third-Party Lab Tested</div>
+        <div class="flex items-center gap-3"><span class="text-[#ff1493]">✔</span> Cold-Chain Shipping</div>
+        <div class="flex items-center gap-3"><span class="text-[#ff1493]">✔</span> Research Use Only</div>
+      </div>
+    </div>
 
 <!-- SHOP GRID – UPDATED WITH DEDICATED PRODUCT PAGE INTEGRATION -->
 <div id="shop" class="max-w-7xl mx-auto px-6 py-12">
@@ -274,8 +284,9 @@ div[x-show="showGate"] > div {
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
     <template x-for="product in filteredProducts" :key="product.id">
       <div 
-        class="group bg-zinc-900/50 border border-zinc-800 rounded-3xl overflow-hidden hover:border-[#ff1493]/50 transition-all duration-500 cursor-pointer"
-        @click="window.location.href = '/product.html?id=' + product.id">
+     <div class="product-card group bg-zinc-900/50 border border-zinc-800 rounded-3xl overflow-hidden hover:border-[#ff1493] transition-all duration-500 cursor-pointer"
+     @click="window.location.href = '/product.html?id=' + product.id">
+  <img :src="product.image" :alt="product.name" class="w-full h-56 object-cover group-hover:
 
         <img 
           :src="product.image" 
@@ -326,12 +337,12 @@ div[x-show="showGate"] > div {
               <span class="text-zinc-400">/vial</span>
             </div>
             <button 
-              @click.stop="addToCartWithDose(product)"
-              class="bg-white text-black px-8 py-4 rounded-3xl font-semibold hover:bg-zinc-200 transition">
-              ADD TO CART
-            </button>
-          </div>
-        </div>
+              <button @click.stop="addToCartWithDose(product)"
+            class="mt-8 w-full bg-white text-black py-4 rounded-3xl font-semibold hover:bg-zinc-200 transition">
+      ADD TO CART
+    </button>
+  </div>
+</div>
       </div>
     </template>
   </div>
