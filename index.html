@@ -12,6 +12,7 @@
   <meta property="og:description" content="Lab-grade peptides for scientific research. Retatrutide, Tirzepatide, BPC-157 & more.">
   <meta property="og:image" content="https://i.imgur.com/4nw0O80.jpeg">
   <meta property="og:url" content="https://paragonpeptides.net">
+  <meta name="trustpilot-one-time-domain-verification-id"   content="95ded606-5ff5-487b-ab95-6997be5b1b4a"/>
 <!-- Favicon -->
 <link rel="icon" href="https://i.imgur.com/jXQlcWB.png" type="image/png">
 <link rel="icon" href="/favicon.png?v=2" type="image/png" sizes="32x32">
@@ -1171,6 +1172,8 @@ div[x-show="showGate"] > div {
   </div>
 </div>
 
+
+
 <script>
   // Defer non-critical scripts
   window.addEventListener('load', () => {
@@ -1180,31 +1183,6 @@ div[x-show="showGate"] > div {
 </script>
 
 <script>
-  // Mobile Scroll Glow (triggers when card enters viewport)
-  function initScrollGlow() {
-    const cards = document.querySelectorAll('.product-card');
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-        } else {
-          entry.target.classList.remove('in-view'); // optional: removes glow when scrolled away
-        }
-      });
-    }, {
-      threshold: 0.4,      // glows when 40% of card is visible
-      rootMargin: "0px 0px -10% 0px"  // starts glowing a bit early
-    });
-
-    cards.forEach(card => observer.observe(card));
-  }
-
-  // Run after Alpine loads the products
-  window.addEventListener('load', () => {
-    setTimeout(initScrollGlow, 800); // small delay so cards exist
-  });
-</script>
 
 
 </body>
@@ -1235,7 +1213,11 @@ div[x-show="showGate"] > div {
       showPaymentAlert: false,
       mobileMenuOpen: false,
       isLoading: true,
-      
+      showPopup: false,
+              timeLeft: 10,
+              discountCode: 'RESEARCH15',
+             copied: false,
+
       // --- Product & Cart Data ---
       products: [],
       currentProduct: null,
@@ -1291,6 +1273,7 @@ toggleDose(product, variant) {
         this.waitForsupabase().then(() => {
           this.initializesupabase();
           this.loadProducts();
+                        this.startDiscountTimer();
         }).catch(e => {
           console.error('[INIT] Failed:', e);
           this.isLoading = false;
@@ -1301,6 +1284,30 @@ toggleDose(product, variant) {
                  }
                });
       },
+
+ startDiscountTimer() {
+        setTimeout(() => {
+          if (!localStorage.getItem('discountPopupSeen')) {
+            this.showPopup = true;
+            let timer = setInterval(() => {
+              this.timeLeft--;
+              if (this.timeLeft <= 0) clearInterval(timer);
+            }, 1000);
+          }
+        }, 10000); // 10 Second delay
+      },
+
+      copyDiscount() {
+        navigator.clipboard.writeText(this.discountCode);
+        this.copied = true;
+        setTimeout(() => this.copied = false, 1000);
+      },
+
+      dismissPopup() {
+        this.showPopup = false;
+        localStorage.setItem('discountPopupSeen', 'true');
+      },
+
 
       waitForsupabase(maxAttempts = 20, delay = 300) {
         return new Promise((resolve, reject) => {
