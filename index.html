@@ -93,6 +93,28 @@ div[x-show="showGate"] > div {
   box-shadow: 0 0 40px rgba(255, 20, 147, 0.8);
 }
 
+.product-card {
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.product-card.in-view,
+.product-card:hover {
+  box-shadow: 0 0 60px rgba(255, 20, 147, 0.9) !important;
+  border-color: #ff1493 !important;
+  transform: translateY(-8px);
+}
+
+/* Extra pulse on first scroll-in */
+.product-card.in-view {
+  animation: neonPulse 1.5s ease-out forwards;
+}
+
+@keyframes neonPulse {
+  0%   { box-shadow: 0 0 30px rgba(255, 20, 147, 0.6); }
+  50%  { box-shadow: 0 0 80px rgba(255, 20, 147, 1); }
+  100% { box-shadow: 0 0 60px rgba(255, 20, 147, 0.9); }
+}
+
 
  </style>
 </head>
@@ -1156,6 +1178,34 @@ div[x-show="showGate"] > div {
     scripts.forEach(s => { s.src = s.getAttribute('data-src'); });
   });
 </script>
+
+<script>
+  // Mobile Scroll Glow (triggers when card enters viewport)
+  function initScrollGlow() {
+    const cards = document.querySelectorAll('.product-card');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        } else {
+          entry.target.classList.remove('in-view'); // optional: removes glow when scrolled away
+        }
+      });
+    }, {
+      threshold: 0.4,      // glows when 40% of card is visible
+      rootMargin: "0px 0px -10% 0px"  // starts glowing a bit early
+    });
+
+    cards.forEach(card => observer.observe(card));
+  }
+
+  // Run after Alpine loads the products
+  window.addEventListener('load', () => {
+    setTimeout(initScrollGlow, 800); // small delay so cards exist
+  });
+</script>
+
 
 </body>
 </html>
