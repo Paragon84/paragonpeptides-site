@@ -32,71 +32,74 @@
     ← Back to Shop
   </button>
 
-  <div class="grid lg:grid-cols-2 gap-12">
-    <!-- Image -->
-    <div>
-      <img :src="product.image" 
-           @error="$el.src='https://i.imgur.com/jXQlcWB.png'"
-           class="w-full rounded-3xl shadow-2xl" alt="Product Image">
+<div class="grid lg:grid-cols-2 gap-12">
+  <!-- Image -->
+  <div>
+    <img :src="product.image"
+         @error="$el.src='https://i.imgur.com/jXQlcWB.png'"
+         class="w-full rounded-3xl shadow-2xl" alt="Product Image">
+  </div>
+
+  <!-- Details (FULLY FIXED) -->
+  <div>
+    <h1 class="text-5xl font-bold text-white" x-text="product.name"></h1>
+    <p class="text-[#ff1493] text-2xl mt-3" x-text="product.desc"></p>
+
+    <!-- Trust badges -->
+    <div class="flex gap-2 mt-6">
+      <span class="text-xs bg-green-900 text-green-400 px-4 py-1 rounded-full">HPLC Verified</span>
+      <span class="text-xs bg-amber-900 text-amber-400 px-4 py-1 rounded-full">Cold Chain Shipping</span>
+      <span class="text-xs bg-blue-900 text-blue-400 px-4 py-1 rounded-full">Research Use Only</span>
     </div>
 
-    <!-- Details -->
-    <div>
-      <h1 class="text-5xl font-bold text-white" x-text="product.name"></h1>
-      <p class="text-[#ff1493] text-2xl mt-3" x-text="product.desc"></p>
-
-      <!-- Trust badges -->
-      <div class="flex gap-2 mt-6">
-        <span class="text-xs bg-green-900 text-green-400 px-4 py-1 rounded-full">HPLC Verified</span>
-        <span class="text-xs bg-amber-900 text-amber-400 px-4 py-1 rounded-full">Cold Chain Shipping</span>
-        <span class="text-xs bg-blue-900 text-blue-400 px-4 py-1 rounded-full">Research Use Only</span>
+    <!-- DOSE + QUANTITY SELECTOR ON PRODUCT PAGE -->
+    <div class="mt-8">
+      <p class="text-sm text-zinc-400 mb-3">Select Dose</p>
+      <div class="grid grid-cols-3 sm:grid-cols-5 gap-3">
+        <template x-for="variant in product.doses" :key="variant.mg || variant.ml">
+          <button
+            @click="product.selectedDose = (variant.mg || variant.ml); product.price = variant.price; product.quantity = 1"
+            :disabled="variant.stock <= 0"
+            class="relative py-3 px-4 rounded-2xl font-medium transition text-sm"
+            :class="{
+              'bg-[#ff1493] text-white ring-2 ring-pink-500 scale-105': product.selectedDose === (variant.mg || variant.ml),
+              'bg-zinc-800 text-zinc-400 cursor-not-allowed': variant.stock <= 0,
+              'bg-zinc-800 hover:bg-zinc-700': product.selectedDose !== (variant.mg || variant.ml) && variant.stock > 0
+            }">
+            <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
+            
+            <!-- Stock badge -->
+            <span class="absolute -top-1 -right-1 text-[10px] font-bold px-2 py-0.5 rounded-full"
+                  :class="{
+                    'bg-red-600 text-white': variant.stock === 0,
+                    'bg-orange-500 text-white': variant.stock > 0 && variant.stock <= 5,
+                    'bg-green-600 text-white': variant.stock > 5
+                  }">
+              <span x-text="variant.stock === 0 ? 'OUT' : variant.stock <= 5 ? variant.stock + ' left' : 'IN'"></span>
+            </span>
+          </button>
+        </template>
       </div>
+    </div>
 
-<!-- DOSE + QUANTITY SELECTOR ON PRODUCT PAGE -->
-<div class="mt-8">
-  <p class="text-sm text-zinc-400 mb-3">Select Dose</p>
-  <div class="grid grid-cols-3 sm:grid-cols-5 gap-3">
-    <template x-for="variant in currentProduct.doses" :key="variant.mg || variant.ml">
-      <button
-        @click="currentProduct.selectedDose = (variant.mg || variant.ml); currentProduct.price = variant.price; currentProduct.quantity = 1"
-        :disabled="variant.stock <= 0"
-        :class="{
-          'bg-[#ff1493] text-white ring-2 ring-pink-500 scale-105': currentProduct.selectedDose === (variant.mg || variant.ml),
-          'bg-zinc-800 text-zinc-400 cursor-not-allowed': variant.stock <= 0,
-          'bg-zinc-800 hover:bg-zinc-700': currentProduct.selectedDose !== (variant.mg || variant.ml) && variant.stock > 0
-        }"
-        class="py-3 px-4 rounded-2xl font-medium transition text-sm">
-        <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
-        
-        <!-- Stock badge -->
-        <span class="absolute -top-1 -right-1 text-[10px] font-bold px-2 py-0.5 rounded-full"
-              :class="{
-                'bg-red-600 text-white': variant.stock === 0,
-                'bg-orange-500 text-white': variant.stock > 0 && variant.stock <= 5,
-                'bg-green-600 text-white': variant.stock > 5
-              }">
-          <span x-text="variant.stock === 0 ? 'OUT' : variant.stock <= 5 ? variant.stock + ' left' : 'IN'"></span>
-        </span>
-      </button>
-    </template>
+    <!-- Quantity Selector (only shows after dose selected) -->
+    <div x-show="product.selectedDose" class="flex items-center justify-center gap-6 mt-8">
+      <button @click="decrementQty()" class="w-12 h-12 bg-zinc-800 hover:bg-zinc-700 rounded-2xl text-3xl font-light transition">−</button>
+      <span class="text-4xl font-bold w-12 text-center" x-text="product.quantity || 1"></span>
+      <button @click="incrementQty()" class="w-12 h-12 bg-zinc-800 hover:bg-zinc-700 rounded-2xl text-3xl font-light transition">+</button>
+    </div>
+
+    <!-- ADD TO CART BUTTON – disabled until dose selected (same as main page) -->
+    <button 
+      @click="addToCartWithDose()"
+      :disabled="!product.selectedDose"
+      class="mt-10 w-full py-5 rounded-3xl font-semibold text-xl transition-all"
+      :class="product.selectedDose 
+        ? 'bg-white text-black hover:bg-zinc-200' 
+        : 'bg-zinc-700 text-zinc-400 cursor-not-allowed'">
+      <span x-text="product.selectedDose ? 'ADD TO CART' : 'SELECT DOSE FIRST'"></span>
+    </button>
   </div>
-</div>
-
-<!-- Quantity Selector (only shows after dose is selected) -->
-  <div x-show="currentProduct.selectedDose" class="flex items-center justify-center gap-6 mt-8">
-    <button @click="decrementQty()" class="w-12 h-12 bg-zinc-800 hover:bg-zinc-700 rounded-2xl text-3xl font-light transition">−</button>
-    <span class="text-4xl font-bold w-12 text-center" x-text="currentProduct.quantity || 1"></span>
-    <button @click="incrementQty()" class="w-12 h-12 bg-zinc-800 hover:bg-zinc-700 rounded-2xl text-3xl font-light transition">+</button>
-  </div>
-
-<!-- ADD TO CART BUTTON -->
-  <button 
-    @click="addToCartWithDose(currentProduct)"
-    :disabled="!currentProduct.selectedDose"
-    class="mt-10 w-full py-5 rounded-3xl font-semibold text-xl transition-all"
-    :class="currentProduct.selectedDose ? 'bg-white text-black hover:bg-zinc-200' : 'bg-zinc-700 text-zinc-400 cursor-not-allowed'">
-    {{ currentProduct.selectedDose ? 'ADD TO CART' : 'SELECT DOSE FIRST' }}
-  </button>
 </div>
 <!-- 3. SMALL WHITE FDA DISCLAIMER (exact width match + solid black text) -->
   <div class="mt-12 bg-white text-black py-8 px-8 rounded-3xl border border-zinc-200 max-w-2xl mx-auto">
