@@ -231,11 +231,14 @@ div[x-show="showGate"] > div {
     </div>
   </div>
 
+
 <!-- UPGRADED HERO -->
     <section class="relative pt-16 pb-24 bg-black overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/60 to-black"></div>
       <div class="max-w-5xl mx-auto px-6 relative z-10 text-center">
-        <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDcza3c5Z3NmeDF1cXR4YTRhbDhpZ2xhdjkzbmM2eXVxb3BtOWZhaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/5MKtgf36tYGe7SG2Ae/giphy.gif" 
+        <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDcza3c5Z3NmeDF1cXR4YTRhbDhpZ2xhdjkzbmM2eXVxb3BtOWZhaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/5MKtgf36tYGe7SG2Ae/giphy.gif" loading="eager" 
+     decoding="async" 
+     fetchpriority="high"
              class="mx-auto h-72 md:h-96 drop-shadow-[0_0_80px_#ff1493] animate-pulse-slow">
         <h1 class="text-6xl md:text-7xl font-bold tracking-tighter mt-8 text-white">
           Precision Research<br><span class="text-[#ff1493]">Compounds</span>
@@ -291,7 +294,9 @@ div[x-show="showGate"] > div {
         <img 
           :src="product.image" 
           :alt="product.name"
-          @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'"
+          @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'"loading="lazy"
+     decoding="async"
+     fetchpriority="low"
           class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500">
 
         <div class="p-6">
@@ -346,7 +351,7 @@ div[x-show="showGate"] > div {
   
            <button @click.stop="addToCartWithDose(product)"
               :disabled="!product.selectedDose"
-              class="mt-8 w-full py-4 rounded-3xl font-semibold transition-all"
+              class="mt-8 w-full py-4 rounded-3xl font-semibold transition-all touch-manipulation active:scale-95"
               :class="product.selectedDose 
                 ? 'bg-white text-black hover:bg-zinc-200' 
                 : 'bg-zinc-700 text-zinc-400 cursor-not-allowed'">
@@ -1144,6 +1149,14 @@ div[x-show="showGate"] > div {
   </div>
 </div>
 
+<script>
+  // Defer non-critical scripts
+  window.addEventListener('load', () => {
+    const scripts = document.querySelectorAll('script[data-defer]');
+    scripts.forEach(s => { s.src = s.getAttribute('data-src'); });
+  });
+</script>
+
 </body>
 </html>
 
@@ -1351,10 +1364,9 @@ filteredProducts() {
             price: variant.price,
            qty: product.quantity || 1
           });
-        this.saveCart();
-        this.cartOpen = true;
-        this.currentProduct = null;
-      },
+           this.saveCart();
+                         this.showToast("✅ Added to cart!");
+         },
         incrementQty(product) {
                    if (!product.selectedDose) return;
                    product.quantity = (product.quantity || 1) + 1;
