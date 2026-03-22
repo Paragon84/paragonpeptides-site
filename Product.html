@@ -52,19 +52,20 @@
         <span class="text-xs bg-blue-900 text-blue-400 px-4 py-1 rounded-full">Research Use Only</span>
       </div>
 
- <div class="mt-6 sm:mt-8">
-  <label class="block text-sm text-zinc-400 mb-2 uppercase tracking-wider font-medium">Select Dose</label>
-  <div class="grid grid-cols-3 sm:grid-cols-5 gap-3 dose-grid">
-    <template x-for="variant in product.doses" :key="variant.mg || variant.ml">
+<!-- DOSE + QUANTITY SELECTOR ON PRODUCT PAGE -->
+<div class="mt-8">
+  <p class="text-sm text-zinc-400 mb-3">Select Dose</p>
+  <div class="grid grid-cols-3 sm:grid-cols-5 gap-3">
+    <template x-for="variant in currentProduct.doses" :key="variant.mg || variant.ml">
       <button
-        @click="toggleDose(variant)"
+        @click="currentProduct.selectedDose = (variant.mg || variant.ml); currentProduct.price = variant.price; currentProduct.quantity = 1"
         :disabled="variant.stock <= 0"
         :class="{
-          'bg-[#ff1493] text-white ring-2 ring-pink-500 scale-105': isSelected(variant),
-          'bg-zinc-800 text-zinc-400 cursor-not-allowed opacity-60': variant.stock <= 0,
-          'bg-zinc-900 hover:bg-zinc-800 border border-zinc-700': !isSelected(variant) && variant.stock > 0
+          'bg-[#ff1493] text-white ring-2 ring-pink-500 scale-105': currentProduct.selectedDose === (variant.mg || variant.ml),
+          'bg-zinc-800 text-zinc-400 cursor-not-allowed': variant.stock <= 0,
+          'bg-zinc-800 hover:bg-zinc-700': currentProduct.selectedDose !== (variant.mg || variant.ml) && variant.stock > 0
         }"
-        class="py-3 px-4 rounded-xl font-medium transition text-sm sm:text-base flex flex-col items-center justify-center min-h-[52px]">
+        class="py-3 px-4 rounded-2xl font-medium transition text-sm">
         <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
         
         <!-- Stock badge -->
@@ -81,16 +82,22 @@
   </div>
 </div>
 
-      <!-- Price + Add to Cart -->
-      <div class="mt-10 flex items-end gap-6">
-        <div class="text-6xl font-bold text-white" x-text="'$' + price"></div>
-        <button @click="addToCart()" 
-                class="flex-1 bg-[#ff1493] hover:bg-pink-600 py-5 rounded-3xl font-bold text-xl transition">
-          ADD TO CART
-        </button>
-      </div>
-    </div>
+<!-- Quantity Selector (only shows after dose is selected) -->
+  <div x-show="currentProduct.selectedDose" class="flex items-center justify-center gap-6 mt-8">
+    <button @click="decrementQty()" class="w-12 h-12 bg-zinc-800 hover:bg-zinc-700 rounded-2xl text-3xl font-light transition">−</button>
+    <span class="text-4xl font-bold w-12 text-center" x-text="currentProduct.quantity || 1"></span>
+    <button @click="incrementQty()" class="w-12 h-12 bg-zinc-800 hover:bg-zinc-700 rounded-2xl text-3xl font-light transition">+</button>
   </div>
+
+<!-- ADD TO CART BUTTON -->
+  <button 
+    @click="addToCartWithDose(currentProduct)"
+    :disabled="!currentProduct.selectedDose"
+    class="mt-10 w-full py-5 rounded-3xl font-semibold text-xl transition-all"
+    :class="currentProduct.selectedDose ? 'bg-white text-black hover:bg-zinc-200' : 'bg-zinc-700 text-zinc-400 cursor-not-allowed'">
+    {{ currentProduct.selectedDose ? 'ADD TO CART' : 'SELECT DOSE FIRST' }}
+  </button>
+</div>
 <!-- 3. SMALL WHITE FDA DISCLAIMER (exact width match + solid black text) -->
   <div class="mt-12 bg-white text-black py-8 px-8 rounded-3xl border border-zinc-200 max-w-2xl mx-auto">
     <div class="text-center">
@@ -132,21 +139,20 @@ function app() {
     price: 0,
     isLoading: true,
     supabase: null,
-    selectedVariant: null,
-    selectedPrice: 0,
+    cart: [],                     // ← added
 
     async init() {
       const urlParams = new URLSearchParams(window.location.search);
       const id = parseInt(urlParams.get('id'));
-      
+     
       this.supabase = supabase.createClient(
         'https://lydlmgzavepcdtreeoto.supabase.co',
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5ZGxtZ3phdmVwY2R0cmVlb3RvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NDA3MTksImV4cCI6MjA4OTQxNjcxOX0.-F_lSkO6_Wz4-FnNwsPkib-k31_xEe5sgrC4WDaOOSk'
       );
-      
+     
       const { data } = await this.supabase.from('products').select('*');
       this.product = data.find(p => p.id === id);
-      
+     
       if (this.product && this.product.doses && this.product.doses.length) {
         const first = this.product.doses[0];
         this.selectedDose = first.mg || first.ml;
@@ -155,51 +161,51 @@ function app() {
       this.isLoading = false;
     },
 
-    isSelected(variant) {
-      return this.selectedVariant === variant;
-    },
-
-    selectDose(variant) {
+    toggleDose(variant) {
       this.selectedDose = variant.mg || variant.ml;
       this.price = variant.price;
     },
 
-    toggleDose(variant) {
-      if (this.selectedVariant === variant) {
-        this.selectedVariant = null;
-        this.selectedPrice = 0;
-      } else {
-        this.selectedVariant = variant;
-        this.selectedPrice = variant.price || 0;
-      }
+    incrementQty() {
+      this.product.quantity = (this.product.quantity || 1) + 1;
     },
 
-    addToCart() {
-      if (!this.product || !this.selectedDose) {
-        return alert("Please select a dose");
-      }
+    decrementQty() {
+      this.product.quantity = Math.max(1, (this.product.quantity || 1) - 1);
+    },
+
+    saveCart() {
+      localStorage.setItem('paragonCart', JSON.stringify(this.cart));
+    },
+
+    addToCartWithDose() {
+      if (!this.selectedDose) return alert("Select a dose");
       const variant = this.product.doses.find(v => (v.mg || v.ml) === this.selectedDose);
-      
-      let cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
-      const existing = cart.find(i => i.id === this.product.id && i.dose === this.selectedDose);
-      
-      if (existing) existing.qty++;
-      else cart.push({
-        id: this.product.id,
-        name: this.product.name,
-        image: this.product.image,
-        dose: this.selectedDose,
-        unit: variant.mg ? 'mg' : 'ml',
-        price: variant.price,
-        qty: 1
-      });
-      
-      localStorage.setItem('paragonCart', JSON.stringify(cart));
-      alert("✅ Added to cart! Return to shop to checkout.");
+      if (!variant || variant.stock <= 0) return alert("Out of stock");
+
+      let existing = this.cart.find(i => i.id === this.product.id && i.dose === this.selectedDose);
+      if (existing) {
+        existing.qty += (this.product.quantity || 1);
+      } else {
+        this.cart.push({
+          id: this.product.id,
+          name: this.product.name,
+          image: this.product.image,
+          dose: this.selectedDose,
+          unit: variant.mg ? 'mg' : 'ml',
+          price: variant.price,
+          qty: this.product.quantity || 1
+        });
+      }
+
+      this.saveCart();
+      alert("✅ Added to cart! Returning to shop...");
+
+      // REDIRECT TO MAIN PAGE
+      setTimeout(() => {
+        window.location.href = '/index.html';   // change to '/' if your main page is just index.html
+      }, 800);
     }
-  }
+  };
 }
 </script>
-
-</body>
-</html>
