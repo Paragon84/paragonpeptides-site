@@ -209,6 +209,17 @@ function app() {
       localStorage.setItem('paragonCart', JSON.stringify(this.cart));
     },
 
+     viewProduct(p) {
+        this.currentProduct = JSON.parse(JSON.stringify(p));
+        const first = p.doses.find(v => v.stock > 0) || p.doses[0];
+        this.currentProduct.selectedDose = first ? (first.mg || first.ml) : null;
+        this.currentProduct.price = first ? first.price : 0;
+      },
+             getSelectedVariant() {
+               if (!this.currentProduct || !this.currentProduct.doses) return null;
+              return this.currentProduct.doses.find(v => v.mg ===   this.selectedDose) || this.currentProduct.doses[0];
+      },
+
     addToCartWithDose() {
       if (!this.selectedDose) return alert("Select a dose");
       
