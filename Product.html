@@ -140,6 +140,11 @@
   </div>
 </div>
 
+<!-- TOAST -->
+<div id="toast" class="hidden fixed bottom-8 left-1/2 -translate-x-1/2 bg-zinc-900 border border-[#ff1493] text-white px-8 py-4 rounded-3xl shadow-2xl z-[9999]">
+  ✅ Added to cart!
+</div>
+
 <script>
 function app() {
   return {
@@ -250,9 +255,6 @@ toggleDose(product, variant) {
       localStorage.setItem('paragonCart', JSON.stringify(cart));
       this.showToast("✅ Added to cart!");
 
-      setTimeout(() => {
-        window.location.href = '/index.html';
-      }, 700);
     }
   };
 }
