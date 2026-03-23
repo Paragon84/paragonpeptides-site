@@ -199,35 +199,35 @@ function app() {
       this.quantity = 1;
     },
 
-    incrementQty() {
-      this.quantity = (this.quantity || 1) + 1;
-    },
-
-    decrementQty() {
-      this.quantity = Math.max(1, (this.quantity || 1) - 1);
-    },
 
     addToCartWithDose() {
       if (!this.selectedDose) return alert("Select a dose");
       const variant = this.product.doses.find(v => (v.mg || v.ml) === this.selectedDose);
       if (!variant || variant.stock <= 0) return alert("Out of stock");
 
-      let cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
-      let existing = cart.find(i => i.id === this.product.id && i.dose === this.selectedDose);
-
-      if (existing) {
-        existing.qty += (this.quantity || 1);
-      } else {
-        cart.push({
-          id: this.product.id,
-          name: this.product.name,
-          image: this.product.image,
-          dose: this.selectedDose,
-          unit: variant.mg ? 'mg' : 'ml',
-          price: variant.price,
-          qty: this.quantity || 1
-        });
-      }
+let existing = this.cart.find(i => i.id === product.id && i.dose === product.selectedDose);
+        if (existing) 
+          existing.qty+=(product.quantity || 1);
+        else this.cart.push({
+            id: product.id,
+            name: product.name,
+            image: product.image,
+            dose: product.selectedDose,
+            unit: variant.mg ? 'mg' : 'ml',
+            price: variant.price,
+           qty: product.quantity || 1
+          });
+           this.saveCart();
+           this.showToast("✅ Added to cart!");
+         },
+        incrementQty(product) {
+                   if (!product.selectedDose) return;
+                   product.quantity = (product.quantity || 1) + 1;
+              },
+        decrementQty(product) {
+                   if (!product.selectedDose) return;
+                   product.quantity = Math.max(1, (product.quantity || 1) - 1);
+               },
 
       localStorage.setItem('paragonCart', JSON.stringify(cart));
       this.showToast("✅ Added to cart!");
