@@ -145,46 +145,66 @@ function app() {
     product: null,
     selectedDose: null,
     price: 0,
+    quantity: 1,
     isLoading: true,
     supabase: null,
-    cart: [],                     // ← added
+    cart: [],
 
     async init() {
       const urlParams = new URLSearchParams(window.location.search);
       const id = parseInt(urlParams.get('id'));
-     
+
       this.supabase = supabase.createClient(
         'https://lydlmgzavepcdtreeoto.supabase.co',
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5ZGxtZ3phdmVwY2R0cmVlb3RvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NDA3MTksImV4cCI6MjA4OTQxNjcxOX0.-F_lSkO6_Wz4-FnNwsPkib-k31_xEe5sgrC4WDaOOSk'
       );
-     
+
       const { data } = await this.supabase.from('products').select('*');
       this.product = data.find(p => p.id === id);
 
-     this.loadCart();
+      // Load existing cart so nothing disappears
+      this.loadCart();
+
+      // Safe default dose + quantity
       if (this.product && this.product.doses && this.product.doses.length) {
-        const first = this.product.doses[0];
+        const first = this.product.doses.find(v => v.stock > 0) || this.product.doses[0];
         this.selectedDose = first.mg || first.ml;
         this.price = first.price;
+        this.quantity = 1;
       }
+
       this.isLoading = false;
+    },
+
+    loadCart() {
+      try {
+        this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
+      } catch (e) {
+        this.cart = [];
+      }
+    },
+
+    showToast(msg) {
+      const toast = document.getElementById('toast');
+      if (toast) {
+        toast.textContent = msg;
+        toast.classList.remove('hidden');
+        setTimeout(() => toast.classList.add('hidden'), 2800);
+      }
     },
 
     toggleDose(variant) {
       this.selectedDose = variant.mg || variant.ml;
       this.price = variant.price;
+      this.quantity = 1;
     },
 
     incrementQty() {
-      this.product.quantity = (this.product.quantity || 1) + 1;
+      this.quantity = (this.quantity || 1) + 1;
     },
 
     decrementQty() {
-      this.product.quantity = Math.max(1, (this.product.quantity || 1) - 1);
-    },
-
-    saveCart() {
-      localStorage.setItem('paragonCart', JSON.stringify(this.cart));
+      this.quantity = Math.max(1, (this.quantity || 1) - 1);
     },
 
     addToCartWithDose() {
@@ -193,29 +213,28 @@ function app() {
       if (!variant || variant.stock <= 0) return alert("Out of stock");
 
       let cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
+      let existing = cart.find(i => i.id === this.product.id && i.dose === this.selectedDose);
 
-      let existing = this.cart.find(i => i.id === this.product.id && i.dose === this.selectedDose);
       if (existing) {
-        existing.qty += (this.product.quantity || 1);
+        existing.qty += (this.quantity || 1);
       } else {
-        this.cart.push({
+        cart.push({
           id: this.product.id,
           name: this.product.name,
           image: this.product.image,
           dose: this.selectedDose,
           unit: variant.mg ? 'mg' : 'ml',
           price: variant.price,
-          qty: this.product.quantity || 1
+          qty: this.quantity || 1
         });
       }
 
-      this.saveCart();
-      alert("✅ Added to cart! Returning to shop...");
+      localStorage.setItem('paragonCart', JSON.stringify(cart));
+      this.showToast("✅ Added to cart!");
 
-      // REDIRECT TO MAIN PAGE
       setTimeout(() => {
-        window.location.href = '/index.html';   // change to '/' if your main page is just index.html
-      }, 800);
+        window.location.href = '/index.html';
+      }, 700);
     }
   };
 }
