@@ -1190,6 +1190,33 @@ div[x-show="showGate"] > div {
   <span id="toast-text"></span>
 </div>
 
+<!-- MOBILE SCROLL GLOW – Glows automatically when you scroll to each card -->
+<script>
+  function initScrollGlow() {
+    const cards = document.querySelectorAll('.product-card');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        } else {
+          entry.target.classList.remove('in-view');
+        }
+      });
+    }, {
+      threshold: 0.35,
+      rootMargin: "0px 0px -15% 0px"
+    });
+
+    cards.forEach(card => observer.observe(card));
+  }
+
+  // Run after Alpine loads the products
+  window.addEventListener('load', () => {
+    setTimeout(initScrollGlow, 1200);
+  });
+</script>
+
 </body>
 </html>
 
