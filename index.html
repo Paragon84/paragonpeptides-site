@@ -254,30 +254,24 @@ div[x-show="showGate"] > div {
     </div>
   </div>
 
-   <!-- HERO -->
-    <section class="relative pt-16 pb-24 bg-gradient-to-b from-black via-zinc-950 to-black text-center overflow-hidden">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6">
-        <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDcza3c5Z3NmeDF1cXR4YTRhbDhpZ2xhdjkzbmM2eXVxb3BtOWZhaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/5MKtgf36tYGe7SG2Ae/giphy.gif" loading="lazy"
-             class="mx-auto mb-8 h-40 sm:h-48 md:h-72 lg:h-96 drop-shadow-[0_0_60px_rgba(236,72,153,0.6)] rounded-lg transition-all duration-500 hover:drop-shadow-[0_0_80px_rgba(236,72,153,0.8)] hover:scale-105"
-             alt="Paragon Peptides Animated Logo"
-             loading="lazy"
-             style="background: transparent !important; mix-blend-mode: screen; opacity: 0.95;">
-             <div class="max-w-7xl mx-auto px-6 py-20 sm:py-28 lg:py-36 flex flex-col items-center text-center">
-        <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold text-white leading-tight tracking-tight">
-          Precision Research<br>
-          <span class="text-[#ff1493]">Compounds</span>
-        </h1>
-        <p class="mt-6 text-lg sm:text-xl text-zinc-400 max-w-2xl leading-relaxed">
-          Premium peptides &amp; research chemicals — rigorously tested at 99.5%+ purity. Trusted by scientists and laboratories worldwide.
-        </p>
-        <div class="mt-10 flex flex-col sm:flex-row gap-4">
-          <a href="#shop" class="bg-[#ff1493] hover:bg-pink-600 text-white font-semibold px-10 py-4 rounded-2xl text-lg transition">
-            Browse Catalog
-          </a>
-          <a @click="showFaqsPage = true" class="border border-zinc-700 hover:border-[#ff1493] text-white font-semibold px-10 py-4 rounded-2xl text-lg transition cursor-pointer">
-            Learn More
-          </a>
-        </div>
+<!-- HERO - STATIC FULL BLEED (image only - no text/buttons) -->
+<section class="relative h-screen w-full overflow-hidden">
+  <!-- Static Background Image – full stretch, no blur -->
+  <div class="absolute inset-0 bg-cover bg-center"
+       style="background-image: url('https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExa2d4M2Q1ZXQwNm5vdHkweW96ZzgxNTRwdzZhZTBmYXBzZXl2OGZ0cCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/VkBO81kLSrNZHbzMnP/giphy.gif');"loading="lazy"
+       decoding="async"
+       fetchpriority="low">
+  </div>
+
+  <!-- Dark gradient overlay -->
+  <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/60 to-black/90"></div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center text-white/70 text-xs tracking-widest">
+    <span>SCROLL TO EXPLORE</span>
+    <div class="w-px h-12 bg-gradient-to-b from-transparent via-white/50 to-transparent mt-3"></div>
+  </div>
+</section>
 
     <!-- STICKY TRUST BAR -->
     <div class="bg-zinc-950 border-y border-zinc-800 py-6 sticky top-0 z-40">
