@@ -7,6 +7,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-elevatezoom/1.0.0/jquery.elevatezoom.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Satoshi:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     [x-cloak] { display: none !important; }
@@ -35,8 +36,12 @@
 <div class="grid lg:grid-cols-2 gap-12">
   <!-- Image -->
   <div>
-    <img :src="product.image"
-         @error="$el.src='https://i.imgur.com/jXQlcWB.png'"
+    <img :src="product.image"loading="lazy"
+     decoding="async"
+     fetchpriority="low"
+         @error="$el.src='https://i.imgur.com/jXQlcWB.png'"loading="lazy"
+     decoding="async"
+     fetchpriority="low"
          class="w-full rounded-3xl shadow-2xl" alt="Product Image">
   </div>
 
@@ -93,7 +98,7 @@
     <button 
       @click="addToCartWithDose()"
       :disabled="!product.selectedDose"
-      class="mt-10 w-full py-5 rounded-3xl font-semibold text-xl transition-all"
+      class="mt-10 w-full py-5 rounded-3xl font-semibold text-xl transition-all touch-manipulation active:scale-95"
       :class="product.selectedDose 
         ? 'bg-white text-black hover:bg-zinc-200' 
         : 'bg-zinc-700 text-zinc-400 cursor-not-allowed'">
@@ -155,7 +160,8 @@ function app() {
      
       const { data } = await this.supabase.from('products').select('*');
       this.product = data.find(p => p.id === id);
-     
+
+     this.loadCart();
       if (this.product && this.product.doses && this.product.doses.length) {
         const first = this.product.doses[0];
         this.selectedDose = first.mg || first.ml;
@@ -185,6 +191,8 @@ function app() {
       if (!this.selectedDose) return alert("Select a dose");
       const variant = this.product.doses.find(v => (v.mg || v.ml) === this.selectedDose);
       if (!variant || variant.stock <= 0) return alert("Out of stock");
+
+      let cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
 
       let existing = this.cart.find(i => i.id === this.product.id && i.dose === this.selectedDose);
       if (existing) {
