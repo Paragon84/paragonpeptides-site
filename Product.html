@@ -191,11 +191,15 @@ function app() {
       }
     },
 
-    toggleDose(variant) {
-      this.selectedDose = variant.mg || variant.ml;
-      this.price = variant.price;
-      this.product.quantity = 1;
-    },
+toggleDose(product, variant) {
+  const doseValue = variant.mg || variant.ml;
+  if (product.selectedDose === doseValue) {
+    product.selectedDose = null;
+  } else {
+    product.selectedDose = doseValue;
+    product.price = variant.price;
+  }
+},
 
     incrementQty() {
       this.product.quantity = (this.product.quantity || 1) + 1;
