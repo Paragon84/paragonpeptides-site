@@ -34,39 +34,18 @@
     ← Back to Shop
   </button>
 
-<div class="flex flex-col items-center md:items-start">
-    <div class="relative bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 shadow-2xl group cursor-zoom-in max-w-xl w-full"
-         @mousemove="
-            let img = $el.querySelector('img');
-            let x = ($event.offsetX / $el.offsetWidth) * 100;
-            let y = ($event.offsetY / $el.offsetHeight) * 100;
-            img.style.transformOrigin = x + '% ' + y + '%';
-         "
-         @mouseleave="$el.querySelector('img').style.transformOrigin = 'center center'">
-        
-        <img :src="activeImage || product.image" 
-             @error="$el.src='https://i.imgur.com/jXQlcWB.png'"
-             class="w-full h-auto object-cover transition-transform duration-500 ease-out group-hover:scale-150" 
-             alt="Featured Product Image">
-    </div>
+<div class="grid lg:grid-cols-2 gap-12">
+  <!-- Image -->
+  <div>
+    <img :src="product.image"loading="lazy"
+     decoding="async"
+     fetchpriority="low"
+         @error="$el.src='https://i.imgur.com/jXQlcWB.png'"loading="lazy"
+     decoding="async"
+     fetchpriority="low"
+         class="w-full rounded-3xl shadow-2xl" alt="Product Image">
+  </div>
 
-    <div class="flex gap-3 mt-6 overflow-x-auto pb-2 w-full max-w-xl scrollbar-hide">
-        <button @click="activeImage = product.image" 
-                :class="activeImage === product.image ? 'border-[#ff1493]' : 'border-zinc-800'"
-                class="w-20 h-20 flex-shrink-0 rounded-xl border-2 overflow-hidden transition-all bg-zinc-900">
-            <img :src="product.image" class="w-full h-full object-cover">
-        </button>
-
-        <template x-for="variant in product.doses" :key="variant.mg || variant.ml">
-            <button x-show="variant.image" 
-                    @click="activeImage = variant.image" 
-                    :class="activeImage === variant.image ? 'border-[#ff1493]' : 'border-zinc-800'"
-                    class="w-20 h-20 flex-shrink-0 rounded-xl border-2 overflow-hidden transition-all bg-zinc-900">
-                <img :src="variant.image" class="w-full h-full object-cover">
-            </button>
-        </template>
-    </div>
-</div>
   <!-- Details (FULLY FIXED) -->
   <div>
     <h1 class="text-5xl font-bold text-white" x-text="product.name"></h1>
@@ -170,7 +149,6 @@
 function app() {
   return {
     product: null,
-    activeImage: null,
     selectedDose: null,
     price: 0,
     isLoading: true,
@@ -189,18 +167,17 @@ function app() {
       const { data } = await this.supabase.from('products').select('*');
       this.product = data.find(p => p.id === id);
 
-    if (this.product) {
-                this.activeImage = this.product.image; // Set initial image
-                
-                if (this.product.doses && this.product.doses.length) {
-                    const first = this.product.doses.find(v => v.stock > 0) || this.product.doses[0];
-                    this.selectedDose = first.mg || first.ml;
-                    this.price = first.price;
-                    this.product.quantity = 1;
-                }
-            }
-            this.isLoading = false;
-        },
+      this.loadCart();
+
+      if (this.product && this.product.doses && this.product.doses.length) {
+        const first = this.product.doses.find(v => v.stock > 0) || this.product.doses[0];
+        this.selectedDose = first.mg || first.ml;
+        this.price = first.price;
+        this.product.quantity = 1;
+      }
+
+      this.isLoading = false;
+    },
 
     loadCart() {
       try {
@@ -219,16 +196,15 @@ function app() {
       }
     },
 
-toggleDose(variant) {
-            this.selectedDose = variant.mg || variant.ml;
-            this.price = variant.price;
-            this.product.quantity = 1;
-            
-            // If the dose has a specific image in the JSON, switch to it
-            if (variant.image) {
-                this.activeImage = variant.image;
-            }
-        },
+toggleDose(product, variant) {
+  const doseValue = variant.mg || variant.ml;
+  if (product.selectedDose === doseValue) {
+    product.selectedDose = null;
+  } else {
+    product.selectedDose = doseValue;
+    product.price = variant.price;
+  }
+},
 
     incrementQty() {
       this.product.quantity = (this.product.quantity || 1) + 1;
