@@ -656,20 +656,20 @@ div[x-show="showGate"] > div {
       action="https://formspree.io/f/mlgpeovo"
       method="POST"
       class="space-y-6"
-      x-init="$nextTick(() => {
-        if (typeof turnstile !== 'undefined') {
-          turnstile.render('#turnstile-widget', {
-            sitekey: '0x4AAAAAACvMhPFPuYZYQZxO',
-            theme: 'dark'
-          });
-        }
-      })">
+      x-effect="if (checkoutPage) { 
+        $nextTick(() => {
+          if (typeof turnstile !== 'undefined' && document.getElementById('turnstile-widget')?.innerHTML === '') {
+            turnstile.render('#turnstile-widget', {
+              sitekey: '0x4AAAAAACvMhPFPuYZYQZxO',
+              theme: 'dark'
+            });
+          }
+        });
+      }">
 
-  <!-- Cloudflare Turnstile -->
   <div class="flex justify-center my-8">
-    <div id="turnstile-widget"></div>
+    <div id="turnstile-widget" style="min-height: 65px;"></div>
   </div>
-
     <div class="grid grid-cols-2 gap-4">
       <div>
         <label class="block text-sm text-zinc-400 mb-2">First Name *</label>
