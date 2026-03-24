@@ -34,25 +34,35 @@
     ← Back to Shop
   </button>
 
-<div class="space-y-4">
-    <div class="relative bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 shadow-2xl">
+<div class="flex flex-col items-center md:items-start">
+    <div class="relative bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 shadow-2xl group cursor-zoom-in max-w-xl w-full"
+         @mousemove="
+            let img = $el.querySelector('img');
+            let x = ($event.offsetX / $el.offsetWidth) * 100;
+            let y = ($event.offsetY / $el.offsetHeight) * 100;
+            img.style.transformOrigin = x + '% ' + y + '%';
+         "
+         @mouseleave="$el.querySelector('img').style.transformOrigin = 'center center'">
+        
         <img :src="activeImage || product.image" 
              @error="$el.src='https://i.imgur.com/jXQlcWB.png'"
-             class="w-full h-auto object-cover transition-all duration-300" 
+             class="w-full h-auto object-cover transition-transform duration-500 ease-out group-hover:scale-150" 
              alt="Featured Product Image">
     </div>
 
-    <div class="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+    <div class="flex gap-3 mt-6 overflow-x-auto pb-2 w-full max-w-xl scrollbar-hide">
         <button @click="activeImage = product.image" 
-                :class="activeImage === product.image ? 'border-[#ff1493] scale-105' : 'border-zinc-800 hover:border-zinc-500'"
+                :class="activeImage === product.image ? 'border-[#ff1493]' : 'border-zinc-800'"
                 class="w-20 h-20 flex-shrink-0 rounded-xl border-2 overflow-hidden transition-all bg-zinc-900">
             <img :src="product.image" class="w-full h-full object-cover">
         </button>
 
         <template x-for="variant in product.doses" :key="variant.mg || variant.ml">
-            <button @click="activeImage = variant.image || product.image" 
-                    class="w-20 h-20 flex-shrink-0 rounded-xl border-2 border-zinc-800 hover:border-[#ff1493] overflow-hidden transition-all bg-zinc-900">
-                <img :src="variant.image || product.image" class="w-full h-full object-cover opacity-60 hover:opacity-100">
+            <button x-show="variant.image" 
+                    @click="activeImage = variant.image" 
+                    :class="activeImage === variant.image ? 'border-[#ff1493]' : 'border-zinc-800'"
+                    class="w-20 h-20 flex-shrink-0 rounded-xl border-2 overflow-hidden transition-all bg-zinc-900">
+                <img :src="variant.image" class="w-full h-full object-cover">
             </button>
         </template>
     </div>
