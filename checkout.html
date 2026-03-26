@@ -167,10 +167,10 @@
     <span>I agree to the <a href="#" class="text-[#ff1493] hover:underline">Store Policies</a></span>
   </label>
 
-  <!-- NEW THIRD CHECKBOX -->
+ <!-- Third checkbox with pink clickable "how to pay" -->
   <label class="flex items-start gap-3 cursor-pointer">
     <input type="checkbox" x-model="agreedToPaymentInstructions" class="mt-1 w-5 h-5 accent-[#ff1493]">
-    <span>I have read how to pay</span>
+    <span>I have read <a href="#" class="text-[#ff1493] hover:underline">how to pay</a></span>
   </label>
 </div>
 
@@ -337,6 +337,7 @@ function app() {
     couponCode: '',
     appliedCoupon: null,
     couponMessage: '',
+    agreedToPaymentInstructions: false,
 
     init() {
       this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
