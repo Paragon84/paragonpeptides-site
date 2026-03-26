@@ -372,13 +372,13 @@ function app() {
 handleCheckoutSubmit() {
   const form = document.getElementById('checkout-form');
 
-  // This enforces all the "required" fields
+  // Enforce required fields
   if (!form.checkValidity()) {
     form.reportValidity();
     return;
   }
 
-  if (!this.agreedToTOS || !this.agreedToPolicies || !this.agreedToPaymentInstructions) {
+if (!this.agreedToTOS || !this.agreedToPolicies || !this.agreedToPaymentInstructions) {
     alert("Please agree to all required terms");
     return;
   }
@@ -387,12 +387,15 @@ handleCheckoutSubmit() {
 
   const orderNumber = "PP-" + Math.floor(100000 + Math.random() * 900000);
   document.getElementById('hidden_order_number').value = orderNumber;
-  document.getElementById('hidden_total').value = '$' + this.discountedTotal.toFixed(2);
+  document.getElementById('hidden_total').value = '$' + this.discountedTotal;
 
+  // IMPROVED: Include dose information clearly
   let itemsText = '';
   this.cart.forEach(item => {
-    itemsText += `${item.name} (${item.qty} × $${item.price}) = $${(item.price * item.qty).toFixed(2)}\n`;
+    const doseInfo = item.dose ? ` (${item.dose}${item.unit || 'mg'})` : '';
+    itemsText += `${item.name}${doseInfo} × ${item.qty} - $${(item.price * item.qty).toFixed(2)}\n`;
   });
+
   document.getElementById('hidden_cart_items').value = itemsText || 'No items';
 
   const formData = new FormData(form);
@@ -406,6 +409,7 @@ handleCheckoutSubmit() {
     if (response.ok) {
       this.lastOrderNumber = orderNumber;
       this.successOpen = true;
+      this.cart = [];
       localStorage.removeItem('paragonCart');
     } else {
       alert("Submission failed. Please try again.");
@@ -418,7 +422,6 @@ handleCheckoutSubmit() {
     this.isSubmitting = false;
   });
 },
-
     copyToClipboard(text) {
       navigator.clipboard.writeText(text).then(() => {
         this.orderCopied = true;
