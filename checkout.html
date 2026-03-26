@@ -158,6 +158,25 @@
       <input type="hidden" name="cart_items" id="hidden_cart_items">
       <input type="hidden" name="_subject" value="New Paragon Peptides Order">
 
+<!-- Agreement Checkboxes -->
+<div class="mt-8 space-y-4 text-sm text-zinc-300">
+  <label class="flex items-start gap-3 cursor-pointer">
+    <input type="checkbox" x-model="agreedToTOS" class="mt-1 w-5 h-5 accent-[#ff1493] cursor-pointer">
+    <span>
+      I agree to the 
+      <a href="#" @click.prevent="window.location.href = '/#faqs'" class="text-[#ff1493] hover:underline">Terms of Service</a>
+    </span>
+  </label>
+  
+  <label class="flex items-start gap-3 cursor-pointer">
+    <input type="checkbox" x-model="agreedToPolicies" class="mt-1 w-5 h-5 accent-[#ff1493] cursor-pointer">
+    <span>
+      I agree to the 
+      <a href="#" @click.prevent="window.location.href = '/#faqs'" class="text-[#ff1493] hover:underline">Store Policies</a>
+    </span>
+  </label>
+</div>
+
       <!-- Submit Button -->
       <button type="button" @click="handleCheckoutSubmit()"
               :disabled="isSubmitting || !agreedToTOS || !agreedToPolicies"
@@ -232,6 +251,8 @@ function app() {
     successOpen: false,
     lastOrderNumber: '',
     orderCopied: false,
+    agreedToTOS: false,
+    agreedToPolicies: false,
 
     init() {
       this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
