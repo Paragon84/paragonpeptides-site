@@ -156,17 +156,23 @@
           <textarea name="order_notes" rows="4" class="w-full bg-zinc-950 border border-zinc-800 rounded-3xl px-6 py-4 text-white focus:outline-none focus:border-[#ff1493]" placeholder="Notes about your order..."></textarea>
         </div>
 
-        <!-- Agreement Checkboxes -->
         <div class="mt-8 space-y-4 text-sm text-zinc-300">
-          <label class="flex items-start gap-3 cursor-pointer">
-            <input type="checkbox" x-model="agreedToTOS" class="mt-1 w-5 h-5 accent-[#ff1493]">
-            <span>I agree to the <a href="#" class="text-[#ff1493] hover:underline">Terms of Service</a></span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer">
-            <input type="checkbox" x-model="agreedToPolicies" class="mt-1 w-5 h-5 accent-[#ff1493]">
-            <span>I agree to the <a href="#" class="text-[#ff1493] hover:underline">Store Policies</a></span>
-          </label>
-        </div>
+  <label class="flex items-start gap-3 cursor-pointer">
+    <input type="checkbox" x-model="agreedToTOS" class="mt-1 w-5 h-5 accent-[#ff1493]">
+    <span>I agree to the <a href="#" class="text-[#ff1493] hover:underline">Terms of Service</a></span>
+  </label>
+  
+  <label class="flex items-start gap-3 cursor-pointer">
+    <input type="checkbox" x-model="agreedToPolicies" class="mt-1 w-5 h-5 accent-[#ff1493]">
+    <span>I agree to the <a href="#" class="text-[#ff1493] hover:underline">Store Policies</a></span>
+  </label>
+
+  <!-- NEW THIRD CHECKBOX -->
+  <label class="flex items-start gap-3 cursor-pointer">
+    <input type="checkbox" x-model="agreedToPaymentInstructions" class="mt-1 w-5 h-5 accent-[#ff1493]">
+    <span>I have read how to pay</span>
+  </label>
+</div>
 
         <!-- Hidden fields -->
         <input type="hidden" name="order_number" id="hidden_order_number">
@@ -175,12 +181,12 @@
         <input type="hidden" name="_subject" value="New Paragon Peptides Order">
 
         <!-- Submit Button -->
-        <button type="submit"
-                :disabled="isSubmitting"
-                class="w-full mt-8 py-6 rounded-3xl font-semibold text-2xl text-white transition disabled:opacity-50"
-                :class="isSubmitting ? 'bg-zinc-700' : 'bg-[#ff1493] hover:bg-pink-600'">
-          <span x-text="isSubmitting ? 'Processing...' : 'Place Secure Order'"></span>
-        </button>
+        <button type="button" @click="handleCheckoutSubmit()"
+        :disabled="isSubmitting || !agreedToTOS || !agreedToPolicies || !agreedToPaymentInstructions"
+        class="w-full mt-8 py-6 rounded-3xl font-semibold text-2xl text-white transition disabled:opacity-50"
+        :class="isSubmitting ? 'bg-zinc-700' : 'bg-[#ff1493] hover:bg-pink-600'">
+  <span x-text="isSubmitting ? 'Processing...' : 'Place Secure Order'"></span>
+</button>
       </form>
     </div>
 
