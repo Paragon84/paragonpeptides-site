@@ -184,7 +184,7 @@
       </form>
     </div>
 
-    <!-- RIGHT COLUMN: Order Summary + Payment Instructions -->
+    <!-- RIGHT COLUMN: Order Summary + Coupon + Payment Instructions -->
     <div class="lg:sticky lg:top-12 h-fit bg-zinc-950 border border-zinc-800 rounded-3xl p-8">
       
       <h2 class="text-2xl font-semibold text-white mb-6">Your Order</h2>
@@ -196,73 +196,92 @@
           </div>
         </template>
       </div>
-      
+
       <div class="border-t border-zinc-800 pt-6 space-y-2">
         <div class="flex justify-between"><span>Subtotal</span><span x-text="'$' + cartTotal.toFixed(2)"></span></div>
         <div class="flex justify-between"><span>Shipping</span><span x-text="cartTotal >= 250 ? 'Free' : '$12.99'"></span></div>
         <div class="flex justify-between text-2xl font-bold border-t border-zinc-800 pt-4"><span>Total</span><span x-text="'$' + discountedTotal"></span></div>
       </div>
 
-<!-- Payment Instructions – Click-to-Reveal Accordion (Instructions Only) -->
-<div class="mt-12 space-y-4">
-  <h3 class="text-xl font-semibold text-white mb-6">How to Pay</h3>
-
-  <!-- Venmo -->
-  <div class="border border-zinc-800 rounded-xl overflow-hidden">
-    <button @click="activePayment = activePayment === 'venmo' ? null : 'venmo'"
-            class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
-      <span class="text-lg font-medium text-[#ff1493]">Pay with Venmo</span>
-      <span x-text="activePayment === 'venmo' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
-    </button>
-    <div x-show="activePayment === 'venmo'" class="px-6 pb-6 bg-zinc-950 overflow-hidden text-zinc-300">
-      <p class="mt-4">1. Complete your order first to receive your order number.</p>
-      <p class="mt-4">2. Open Venmo and send the exact total amount.</p>
-      <p class="mt-4 font-bold text-white">***** IMPORTANT NOTE *****</p>
-      <p class="mt-2 text-sm">• Use only the digits of your order number in the note.<br>
-      • DO NOT turn on Purchase Protection.<br>
-      • Do not add any extra text in the note.</p>
-    </div>
-  </div>
-
-  <!-- Cash App -->
-  <div class="border border-zinc-800 rounded-xl overflow-hidden">
-    <button @click="activePayment = activePayment === 'cashapp' ? null : 'cashapp'"
-            class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
-      <span class="text-lg font-medium text-[#ff1493]">Pay with Cash App</span>
-      <span x-text="activePayment === 'cashapp' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
-    </button>
-    <div x-show="activePayment === 'cashapp'" class="px-6 pb-6 bg-zinc-950 overflow-hidden text-zinc-300">
-      <p class="mt-4">1. Complete your order first to receive your order number.</p>
-      <p class="mt-4">2. Send the total via Cash App to <strong>$ParagonPeps</strong>.</p>
-      <p class="mt-4 text-sm"><strong>Include your order number in the memo.</strong></p>
-    </div>
-  </div>
-
-  <!-- Bitcoin -->
-  <div class="border border-zinc-800 rounded-xl overflow-hidden">
-    <button @click="activePayment = activePayment === 'bitcoin' ? null : 'bitcoin'"
-            class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
-      <span class="text-lg font-medium text-[#ff1493]">Pay with Bitcoin</span>
-      <span x-text="activePayment === 'bitcoin' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
-    </button>
-    <div x-show="activePayment === 'bitcoin'" class="px-6 pb-6 bg-zinc-950 overflow-hidden text-zinc-300">
-      <p class="mt-4 text-center">Send the exact total amount to this Bitcoin address:</p>
-      <div class="bg-black p-4 rounded-xl mt-4 text-center">
-        <p class="font-mono text-sm break-all text-[#ff1493]">bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw</p>
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&amp;data=bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw"
-             class="mx-auto mt-4 rounded-xl" alt="Bitcoin QR Code">
+      <!-- COUPON INPUT – restored right after Total -->
+      <div class="mt-8">
+        <label class="block text-sm text-zinc-400 mb-2">Have a coupon?</label>
+        <div class="flex gap-2">
+          <input type="text" x-model="couponCode" placeholder="Coupon code"
+                 class="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+          <button @click="applyCoupon()"
+                  class="bg-[#ff1493] hover:bg-pink-600 px-6 py-3 rounded-lg font-medium text-white transition">
+            Apply
+          </button>
+        </div>
+        <p x-show="couponMessage" 
+           :class="{'text-green-400': appliedCoupon, 'text-red-400': !appliedCoupon}"
+           class="mt-2 text-sm" x-text="couponMessage"></p>
+        <template x-if="appliedCoupon">
+          <button @click="removeCoupon()" class="mt-2 text-sm text-red-400 hover:text-red-300">
+            Remove coupon
+          </button>
+        </template>
       </div>
-      <button @click="copyToClipboard('bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw')"
-              class="mt-6 w-full bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-white">
-        Copy Bitcoin Address
-      </button>
-      <p class="text-xs text-zinc-500 mt-4 text-center">Include your order number in the transaction memo.</p>
+
+      <!-- Payment Instructions – Instructions Only -->
+      <div class="mt-12 space-y-4">
+        <h3 class="text-xl font-semibold text-white mb-6">How to Pay</h3>
+
+        <!-- Venmo -->
+        <div class="border border-zinc-800 rounded-xl overflow-hidden">
+          <button @click="activePayment = activePayment === 'venmo' ? null : 'venmo'"
+                  class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
+            <span class="text-lg font-medium text-[#ff1493]">Pay with Venmo</span>
+            <span x-text="activePayment === 'venmo' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
+          </button>
+          <div x-show="activePayment === 'venmo'" class="px-6 pb-6 bg-zinc-950 overflow-hidden text-zinc-300">
+            <p class="mt-4">1. Complete your order first to receive your order number.</p>
+            <p class="mt-4">2. Open Venmo and send the exact total amount.</p>
+            <p class="mt-4 font-bold text-white">***** IMPORTANT NOTE *****</p>
+            <p class="mt-2 text-sm">• Use only the digits of your order number in the note.<br>
+            • DO NOT turn on Purchase Protection.<br>
+            • Do not add any extra text in the note.</p>
+          </div>
+        </div>
+
+        <!-- Cash App -->
+        <div class="border border-zinc-800 rounded-xl overflow-hidden">
+          <button @click="activePayment = activePayment === 'cashapp' ? null : 'cashapp'"
+                  class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
+            <span class="text-lg font-medium text-[#ff1493]">Pay with Cash App</span>
+            <span x-text="activePayment === 'cashapp' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
+          </button>
+          <div x-show="activePayment === 'cashapp'" class="px-6 pb-6 bg-zinc-950 overflow-hidden text-zinc-300">
+            <p class="mt-4">1. Complete your order first to receive your order number.</p>
+            <p class="mt-4">2. Send the total via Cash App to <strong>$ParagonPeps</strong>.</p>
+            <p class="mt-4 text-sm"><strong>Include your order number in the memo.</strong></p>
+          </div>
+        </div>
+
+        <!-- Bitcoin -->
+        <div class="border border-zinc-800 rounded-xl overflow-hidden">
+          <button @click="activePayment = activePayment === 'bitcoin' ? null : 'bitcoin'"
+                  class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
+            <span class="text-lg font-medium text-[#ff1493]">Pay with Bitcoin</span>
+            <span x-text="activePayment === 'bitcoin' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
+          </button>
+          <div x-show="activePayment === 'bitcoin'" class="px-6 pb-6 bg-zinc-950 overflow-hidden text-zinc-300">
+            <p class="mt-4 text-center">Send the exact total amount to this Bitcoin address:</p>
+            <div class="bg-black p-4 rounded-xl mt-4 text-center">
+              <p class="font-mono text-sm break-all text-[#ff1493]">bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw</p>
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&amp;data=bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw"
+                   class="mx-auto mt-4 rounded-xl" alt="Bitcoin QR Code">
+            </div>
+            <button @click="copyToClipboard('bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw')"
+                    class="mt-6 w-full bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-white">
+              Copy Bitcoin Address
+            </button>
+            <p class="text-xs text-zinc-500 mt-4 text-center">Include your order number in the transaction memo.</p>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-    </div>
-  </div>
-</div>
 
 <!-- SUCCESS MODAL -->
 <div x-show="successOpen" class="fixed inset-0 z-[100001] bg-black/90 flex items-center justify-center p-4">
@@ -309,6 +328,9 @@ function app() {
     lastOrderNumber: '',
     orderCopied: false,
     activePayment: null,
+    couponCode: '',
+    appliedCoupon: null,
+    couponMessage: '',
 
     init() {
       this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
@@ -355,6 +377,23 @@ function app() {
         localStorage.removeItem('paragonCart');
       }, 800);
     },
+
+   applyCoupon() {
+        const code = this.couponCode.trim().toUpperCase();
+        const valid = { 'RESEARCH15': 15, 'WELCOME10': 10 };
+        if (valid[code]) {
+          this.appliedCoupon = { discountPercent: valid[code] };
+          this.couponMessage = `Applied ${valid[code]}% off!`;
+        } else {
+          this.couponMessage = 'Invalid code';
+          this.appliedCoupon = null;
+        }
+      },
+
+      removeCoupon() {
+        this.appliedCoupon = null;
+        this.couponMessage = '';
+      },
 
     copyToClipboard(text) {
       navigator.clipboard.writeText(text).then(() => {
