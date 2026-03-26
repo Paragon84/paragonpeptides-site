@@ -255,15 +255,23 @@ div[x-show="showGate"] > div {
     </div>
   </div>
 
-<!-- HERO - STATIC FULL BLEED (image only - no text/buttons) -->
+<!-- === HERO - MP4 VIDEO (Optimized & Fast) === -->
 <section class="relative h-screen w-full overflow-hidden">
-  <!-- Static Background Image – full stretch, no blur -->
-  <div class="absolute inset-0 bg-cover bg-center"
-       style="background-image: url('https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExa2d4M2Q1ZXQwNm5vdHkweW96ZzgxNTRwdzZhZTBmYXBzZXl2OGZ0cCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/VkBO81kLSrNZHbzMnP/giphy.gif');">
-  </div>
+
+  <!-- MP4 Video Background -->
+  <video 
+    autoplay 
+    loop 
+    muted 
+    playsinline 
+    class="absolute inset-0 w-full h-full object-cover">
+    <source src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/hero-video.mp4.mp4"
+            type="video/mp4">
+  </video>
 
   <!-- Dark gradient overlay -->
   <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/60 to-black/90"></div>
+
 
   <!-- Scroll indicator -->
   <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center text-white/70 text-xs tracking-widest">
@@ -285,15 +293,32 @@ div[x-show="showGate"] > div {
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
   <div class="group block cursor-pointer">
-    <div @click="window.location.href = 'product.html?id=118'" 
+    <div @click="window.location.href = 'product.html?id=111'" 
          class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-[#ff1493] transition-all duration-300 relative">
-      <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/reta-10mg.jpg" 
+      <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/reta-20mg-thumb.webp" 
            class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
       <div class="absolute top-4 right-4 bg-[#ff1493] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">#1 BESTSELLER</div>
       <div class="p-6 text-center">
         <h3 class="text-xl font-semibold text-white">Retatrutide</h3>
-        <p class="text-zinc-400 text-sm">10 mg • $49</p>
-        <button @click.stop="quickAddToCart(118, 'Retatrutide', '10mg', 129)" 
+        <p class="text-zinc-400 text-sm">20 mg • $49</p>
+        <button @click.stop="quickAddToCart(111, 'Retatrutide', '20mg', 49)" 
+                class="mt-4 w-full bg-white hover:bg-zinc-200 text-black font-semibold py-3 rounded-2xl transition">
+          Quick Add
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="group block cursor-pointer">
+    <div @click="window.location.href = 'product.html?id=112'" 
+         class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-[#ff1493] transition-all duration-300 relative">
+      <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/tirz-20mg-thumb.webp" 
+           class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
+      <div class="absolute top-4 right-4 bg-[#ff1493] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">#2 BESTSELLER</div>
+      <div class="p-6 text-center">
+        <h3 class="text-xl font-semibold text-white">Tirzepatide</h3>
+        <p class="text-zinc-400 text-sm">20 mg • $69</p>
+        <button @click.stop="quickAddToCart(112, 'Tirzepatide', '20mg', 69)" 
                 class="mt-4 w-full bg-white hover:bg-zinc-200 text-black font-semibold py-3 rounded-2xl transition">
           Quick Add
         </button>
@@ -304,30 +329,13 @@ div[x-show="showGate"] > div {
   <div class="group block cursor-pointer">
     <div @click="window.location.href = 'product.html?id=119'" 
          class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-[#ff1493] transition-all duration-300 relative">
-      <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/tirz-20mg.jpg" 
-           class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
-      <div class="absolute top-4 right-4 bg-[#ff1493] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">#2 BESTSELLER</div>
-      <div class="p-6 text-center">
-        <h3 class="text-xl font-semibold text-white">Tirzepatide</h3>
-        <p class="text-zinc-400 text-sm">20 mg • $69</p>
-        <button @click.stop="quickAddToCart(119, 'Tirzepatide', '20mg', 199)" 
-                class="mt-4 w-full bg-white hover:bg-zinc-200 text-black font-semibold py-3 rounded-2xl transition">
-          Quick Add
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <div class="group block cursor-pointer">
-    <div @click="window.location.href = 'product.html?id=120'" 
-         class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-[#ff1493] transition-all duration-300 relative">
-      <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/bpc-157-5mg.jpg" 
+      <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/bpc-157-10mg-thumb.webp" 
            class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
       <div class="absolute top-4 right-4 bg-[#ff1493] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">#3 BESTSELLER</div>
       <div class="p-6 text-center">
         <h3 class="text-xl font-semibold text-white">BPC-157</h3>
-        <p class="text-zinc-400 text-sm">5 mg • $49</p>
-        <button @click.stop="quickAddToCart(120, 'BPC-157', '5mg', 49)" 
+        <p class="text-zinc-400 text-sm">10 mg • $49</p>
+        <button @click.stop="quickAddToCart(119, 'BPC-157', '10mg', 49)" 
                 class="mt-4 w-full bg-white hover:bg-zinc-200 text-black font-semibold py-3 rounded-2xl transition">
           Quick Add
         </button>
