@@ -395,6 +395,15 @@ function app() {
         this.couponMessage = '';
       },
 
+  get discountedTotal() {
+        let subtotal = this.cartTotal;
+        let shipping = subtotal >= 250 ? 0 : 12.99;
+        let total = subtotal + shipping;
+        if (!this.appliedCoupon) return total.toFixed(2);
+        const discount = subtotal * (this.appliedCoupon.discountPercent / 100);
+        return Math.max(0, total - discount).toFixed(2);
+      },
+
     copyToClipboard(text) {
       navigator.clipboard.writeText(text).then(() => {
         this.orderCopied = true;
