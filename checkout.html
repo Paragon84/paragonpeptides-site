@@ -139,12 +139,12 @@
           <h2 class="text-2xl font-semibold text-white mb-4">Shipping</h2>
           <div class="space-y-4">
             <label class="flex items-center gap-3">
-              <input type="radio" name="shipping_method" value="ups_ground" checked class="w-5 h-5 accent-[#ff1493]">
-              <span>UPS Ground (3–5 business days) – $12.99</span>
+              <input type="radio" name="shipping_method" value="usps_ground" checked class="w-5 h-5 accent-[#ff1493]">
+              <span>USPS Ground Advantage (3–5 business days) – $12.99</span>
             </label>
             <label class="flex items-center gap-3">
-              <input type="radio" name="shipping_method" value="ups_2day" class="w-5 h-5 accent-[#ff1493]">
-              <span>UPS 2nd Day Air – $29.99</span>
+              <input type="radio" name="shipping_method" value="usps_2day" class="w-5 h-5 accent-[#ff1493]">
+              <span>USPS Priority $29.99</span>
             </label>
             <label class="flex items-center gap-3">
               <input type="radio" name="shipping_method" value="free_over_250" class="w-5 h-5 accent-[#ff1493]">
@@ -369,10 +369,11 @@ function app() {
       this.cartTotal = this.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
       this.discountedTotal = this.cartTotal + (this.cartTotal >= 250 ? 0 : 12.99);
     },
+
 handleCheckoutSubmit() {
   const form = document.getElementById('checkout-form');
 
-  // This enforces all the "required" fields
+  // Enforce required fields
   if (!form.checkValidity()) {
     form.reportValidity();
     return;
@@ -387,13 +388,19 @@ handleCheckoutSubmit() {
 
   const orderNumber = "PP-" + Math.floor(100000 + Math.random() * 900000);
   document.getElementById('hidden_order_number').value = orderNumber;
-  document.getElementById('hidden_total').value = '$' + this.discountedTotal.toFixed(2);
+  document.getElementById('hidden_total').value = '$' + this.discountedTotal;
 
-  let itemsText = '';
-  this.cart.forEach(item => {
-    itemsText += `${item.name} (${item.qty} × $${item.price}) = $${(item.price * item.qty).toFixed(2)}\n`;
-  });
-  document.getElementById('hidden_cart_items').value = itemsText || 'No items';
+  // IMPROVED: Include dose + unit in a clean, readable format
+  const cartDetails = this.cart.map(item => {
+    const doseInfo = item.dose ? ` ${item.dose}${item.unit || 'mg'}` : '';
+    return `${item.name}${doseInfo} × ${item.qty} - $${(item.price * item.qty).toFixed(2)}`;
+  }).join('\n');
+
+  document.getElementById('hidden_cart_items').value = cartDetails || 'No items';
+
+  // Optional: You can also add a separate doses summary if you want
+  // document.getElementById('hidden_doses_summary').value = 
+  //   this.cart.map(item => `${item.name}: ${item.dose}${item.unit || 'mg'}`).join(', ');
 
   const formData = new FormData(form);
 
@@ -406,7 +413,8 @@ handleCheckoutSubmit() {
     if (response.ok) {
       this.lastOrderNumber = orderNumber;
       this.successOpen = true;
-      localStorage.removeItem('paragonCart');
+      this.cart = [];                    // Clear cart in memory
+      localStorage.removeItem('paragonCart'); // Clear saved cart
     } else {
       alert("Submission failed. Please try again.");
     }
