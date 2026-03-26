@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checkout - Paragon Peptides</title>
+<link rel="icon" href="https://i.imgur.com/jXQlcWB.png" type="image/png">
+<link rel="icon" href="/favicon.png?v=2" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="https://i.imgur.com/jXQlcWB.png" sizes="180x180">
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Satoshi:wght@400;500;700&display=swap" rel="stylesheet">
@@ -320,6 +323,28 @@
     </div>
   </div>
 </div>
+
+<!-- PAYMENT UPDATE ALERT MODAL -->
+<div x-show="showPaymentAlert" @click.away="showPaymentAlert = false"
+     class="fixed inset-0 z-[100001] flex items-center justify-center bg-black/80 backdrop-blur-sm" x-transition>
+  <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-lg w-full mx-4 p-8 relative shadow-2xl">
+    <button @click="showPaymentAlert = false" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-2xl">×</button>
+    
+    <h2 class="text-2xl font-bold text-white mb-6 text-center">IMPORTANT LEGAL NOTICE PLEASE READ</h2>
+    
+    <div class="text-zinc-300 space-y-4 text-center">
+      <p>NOT FOR HUMAN CONSUMPTION.</p>
+      <p>The Products on this website are for legitimate Research use only. They are not intended to prevent, treat or cure any illness or disease.</p>
+      <p>By submitting I agree you acknowledge and understand these Terms.</p>
+    </div>
+
+    <button @click="showPaymentAlert = false" 
+            class="mt-8 w-full bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-lg text-white transition">
+      I Understand — Continue Checkout
+    </button>
+  </div>
+</div>
+
 
 <script>
 function app() {
