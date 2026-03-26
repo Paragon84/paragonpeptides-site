@@ -329,15 +329,11 @@ function app() {
     discountedTotal: 0,
     agreedToTOS: false,
     agreedToPolicies: false,
+    agreedToPaymentInstructions: false,
     isSubmitting: false,
     successOpen: false,
     lastOrderNumber: '',
     orderCopied: false,
-    activePayment: null,
-    couponCode: '',
-    appliedCoupon: null,
-    couponMessage: '',
-    agreedToPaymentInstructions: false,
 
     init() {
       this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
@@ -350,16 +346,8 @@ function app() {
     },
 
     handleCheckoutSubmit() {
-      const form = document.getElementById('checkout-form');
-      
-      // This enforces all required fields
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-
-      if (!this.agreedToTOS || !this.agreedToPolicies) {
-        alert("Please agree to the Terms and Policies");
+      if (!this.agreedToTOS || !this.agreedToPolicies || !this.agreedToPaymentInstructions) {
+        alert("Please agree to all required terms");
         return;
       }
 
@@ -375,41 +363,29 @@ function app() {
       });
       document.getElementById('hidden_cart_items').value = itemsText || 'No items';
 
-      form.submit();
+      const form = document.getElementById('checkout-form');
 
-      this.lastOrderNumber = orderNumber;
-      this.successOpen = true;
-
-      setTimeout(() => {
-        localStorage.removeItem('paragonCart');
-      }, 800);
-    },
-
-   applyCoupon() {
-        const code = this.couponCode.trim().toUpperCase();
-        const valid = { 'RESEARCH15': 15, 'WELCOME10': 10 };
-        if (valid[code]) {
-          this.appliedCoupon = { discountPercent: valid[code] };
-          this.couponMessage = `Applied ${valid[code]}% off!`;
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(response => {
+        if (response.ok) {
+          this.lastOrderNumber = orderNumber;
+          this.successOpen = true;
+          localStorage.removeItem('paragonCart');
         } else {
-          this.couponMessage = 'Invalid code';
-          this.appliedCoupon = null;
+          alert("Submission failed. Please try again.");
         }
-      },
-
-      removeCoupon() {
-        this.appliedCoupon = null;
-        this.couponMessage = '';
-      },
-
-  get discountedTotal() {
-        let subtotal = this.cartTotal;
-        let shipping = subtotal >= 250 ? 0 : 12.99;
-        let total = subtotal + shipping;
-        if (!this.appliedCoupon) return total.toFixed(2);
-        const discount = subtotal * (this.appliedCoupon.discountPercent / 100);
-        return Math.max(0, total - discount).toFixed(2);
-      },
+      })
+      .catch(() => {
+        alert("Network error. Please try again.");
+      })
+      .finally(() => {
+        this.isSubmitting = false;
+      });
+    },
 
     copyToClipboard(text) {
       navigator.clipboard.writeText(text).then(() => {
