@@ -369,11 +369,10 @@ function app() {
       this.cartTotal = this.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
       this.discountedTotal = this.cartTotal + (this.cartTotal >= 250 ? 0 : 12.99);
     },
-
 handleCheckoutSubmit() {
   const form = document.getElementById('checkout-form');
 
-  // Enforce required fields
+  // This enforces all the "required" fields
   if (!form.checkValidity()) {
     form.reportValidity();
     return;
@@ -388,19 +387,13 @@ handleCheckoutSubmit() {
 
   const orderNumber = "PP-" + Math.floor(100000 + Math.random() * 900000);
   document.getElementById('hidden_order_number').value = orderNumber;
-  document.getElementById('hidden_total').value = '$' + this.discountedTotal;
+  document.getElementById('hidden_total').value = '$' + this.discountedTotal.toFixed(2);
 
-  // IMPROVED: Include dose + unit in a clean, readable format
-  const cartDetails = this.cart.map(item => {
-    const doseInfo = item.dose ? ` ${item.dose}${item.unit || 'mg'}` : '';
-    return `${item.name}${doseInfo} × ${item.qty} - $${(item.price * item.qty).toFixed(2)}`;
-  }).join('\n');
-
-  document.getElementById('hidden_cart_items').value = cartDetails || 'No items';
-
-  // Optional: You can also add a separate doses summary if you want
-  // document.getElementById('hidden_doses_summary').value = 
-  //   this.cart.map(item => `${item.name}: ${item.dose}${item.unit || 'mg'}`).join(', ');
+  let itemsText = '';
+  this.cart.forEach(item => {
+    itemsText += `${item.name} (${item.qty} × $${item.price}) = $${(item.price * item.qty).toFixed(2)}\n`;
+  });
+  document.getElementById('hidden_cart_items').value = itemsText || 'No items';
 
   const formData = new FormData(form);
 
@@ -413,8 +406,7 @@ handleCheckoutSubmit() {
     if (response.ok) {
       this.lastOrderNumber = orderNumber;
       this.successOpen = true;
-      this.cart = [];                    // Clear cart in memory
-      localStorage.removeItem('paragonCart'); // Clear saved cart
+      localStorage.removeItem('paragonCart');
     } else {
       alert("Submission failed. Please try again.");
     }
