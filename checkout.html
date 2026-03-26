@@ -21,11 +21,16 @@
   </button>
 
   <div class="grid lg:grid-cols-2 gap-12">
-    <!-- LEFT COLUMN: Billing Form -->
+    <!-- LEFT: Billing Form -->
     <div>
       <h1 class="text-4xl font-bold text-white mb-8">Checkout</h1>
 
-      <form id="checkout-form" action="https://formspree.io/f/mlgpeovo" method="POST" class="space-y-6">
+      <form id="checkout-form" 
+            @submit.prevent="handleCheckoutSubmit"
+            action="https://formspree.io/f/mlgpeovo" 
+            method="POST" 
+            class="space-y-6">
+
         <div class="space-y-6">
           <h2 class="text-2xl font-semibold text-white mb-4">Billing Details</h2>
           
@@ -148,45 +153,38 @@
         <!-- Order Notes -->
         <div class="mt-12">
           <h2 class="text-2xl font-semibold text-white mb-4">Order Notes (optional)</h2>
-          <textarea name="order_notes" rows="4" class="w-full bg-zinc-950 border border-zinc-800 rounded-3xl px-6 py-4 text-white focus:outline-none focus:border-[#ff1493]" placeholder="Notes about your order, e.g. special instructions for delivery."></textarea>
+          <textarea name="order_notes" rows="4" class="w-full bg-zinc-950 border border-zinc-800 rounded-3xl px-6 py-4 text-white focus:outline-none focus:border-[#ff1493]" placeholder="Notes about your order..."></textarea>
         </div>
+
+        <!-- Agreement Checkboxes -->
+        <div class="mt-8 space-y-4 text-sm text-zinc-300">
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" x-model="agreedToTOS" class="mt-1 w-5 h-5 accent-[#ff1493]">
+            <span>I agree to the <a href="#" class="text-[#ff1493] hover:underline">Terms of Service</a></span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" x-model="agreedToPolicies" class="mt-1 w-5 h-5 accent-[#ff1493]">
+            <span>I agree to the <a href="#" class="text-[#ff1493] hover:underline">Store Policies</a></span>
+          </label>
+        </div>
+
+        <!-- Hidden fields -->
+        <input type="hidden" name="order_number" id="hidden_order_number">
+        <input type="hidden" name="order_total" id="hidden_total">
+        <input type="hidden" name="cart_items" id="hidden_cart_items">
+        <input type="hidden" name="_subject" value="New Paragon Peptides Order">
+
+        <!-- Submit Button -->
+        <button type="submit"
+                :disabled="isSubmitting"
+                class="w-full mt-8 py-6 rounded-3xl font-semibold text-2xl text-white transition disabled:opacity-50"
+                :class="isSubmitting ? 'bg-zinc-700' : 'bg-[#ff1493] hover:bg-pink-600'">
+          <span x-text="isSubmitting ? 'Processing...' : 'Place Secure Order'"></span>
+        </button>
       </form>
-
-      <!-- Hidden fields -->
-      <input type="hidden" name="order_number" id="hidden_order_number">
-      <input type="hidden" name="order_total" id="hidden_total">
-      <input type="hidden" name="cart_items" id="hidden_cart_items">
-      <input type="hidden" name="_subject" value="New Paragon Peptides Order">
-
-<!-- Agreement Checkboxes -->
-<div class="mt-8 space-y-4 text-sm text-zinc-300">
-  <label class="flex items-start gap-3 cursor-pointer">
-    <input type="checkbox" x-model="agreedToTOS" class="mt-1 w-5 h-5 accent-[#ff1493] cursor-pointer">
-    <span>
-      I agree to the 
-      <a href="#" @click.prevent="window.location.href = '/#faqs'" class="text-[#ff1493] hover:underline">Terms of Service</a>
-    </span>
-  </label>
-  
-  <label class="flex items-start gap-3 cursor-pointer">
-    <input type="checkbox" x-model="agreedToPolicies" class="mt-1 w-5 h-5 accent-[#ff1493] cursor-pointer">
-    <span>
-      I agree to the 
-      <a href="#" @click.prevent="window.location.href = '/#faqs'" class="text-[#ff1493] hover:underline">Store Policies</a>
-    </span>
-  </label>
-</div>
-
-      <!-- Submit Button -->
-      <button type="button" @click="handleCheckoutSubmit()"
-              :disabled="isSubmitting || !agreedToTOS || !agreedToPolicies"
-              class="w-full mt-8 py-6 rounded-3xl font-semibold text-2xl text-white transition disabled:opacity-50"
-              :class="isSubmitting ? 'bg-zinc-700' : 'bg-[#ff1493] hover:bg-pink-600'">
-        <span x-text="isSubmitting ? 'Processing...' : 'Place Secure Order'"></span>
-      </button>
     </div>
 
-    <!-- RIGHT COLUMN: Order Summary -->
+    <!-- RIGHT: Order Summary -->
     <div class="lg:sticky lg:top-12 h-fit bg-zinc-950 border border-zinc-800 rounded-3xl p-8">
       <h2 class="text-2xl font-semibold text-white mb-6">Your Order</h2>
       <div class="space-y-4 mb-8">
@@ -210,7 +208,6 @@
 <div x-show="successOpen" class="fixed inset-0 z-[100001] bg-black/90 flex items-center justify-center p-4">
   <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto p-8 relative">
     <button @click="successOpen = false" class="absolute top-4 right-4 text-4xl leading-none text-zinc-400 hover:text-white">×</button>
-    
     <div class="text-center">
       <div class="text-6xl mb-4">🎉</div>
       <h2 class="text-4xl font-bold text-white mb-2">Order Received!</h2>
@@ -251,8 +248,6 @@ function app() {
     successOpen: false,
     lastOrderNumber: '',
     orderCopied: false,
-    agreedToTOS: false,
-    agreedToPolicies: false,
 
     init() {
       this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
@@ -265,10 +260,19 @@ function app() {
     },
 
     handleCheckoutSubmit() {
+      const form = document.getElementById('checkout-form');
+      
+      // This enforces all required fields
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
       if (!this.agreedToTOS || !this.agreedToPolicies) {
         alert("Please agree to the Terms and Policies");
         return;
       }
+
       this.isSubmitting = true;
 
       const orderNumber = "PP-" + Math.floor(100000 + Math.random() * 900000);
@@ -281,7 +285,6 @@ function app() {
       });
       document.getElementById('hidden_cart_items').value = itemsText || 'No items';
 
-      const form = document.getElementById('checkout-form');
       form.submit();
 
       this.lastOrderNumber = orderNumber;
