@@ -4,9 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checkout - Paragon Peptides</title>
-<link rel="icon" href="https://i.imgur.com/jXQlcWB.png" type="image/png">
-<link rel="icon" href="/favicon.png?v=2" type="image/png" sizes="32x32">
-<link rel="apple-touch-icon" href="https://i.imgur.com/jXQlcWB.png" sizes="180x180">
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Satoshi:wght@400;500;700&display=swap" rel="stylesheet">
@@ -59,7 +56,8 @@
               <input type="text" name="city" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
             </div>
             <div>
-              <label class="block text-sm text-zinc-400 mb-2">State *</label>
+focus:border-[#ff1493]">
+                <<label class="block text-sm text-zinc-400 mb-2">State *</label>
               <select name="state" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
                 <option value="" disabled selected>Select a state</option>
                 <option value="AL">Alabama</option>
@@ -133,7 +131,6 @@
             <input type="email" name="email" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
           </div>
         </div>
-
         <!-- Shipping Options -->
         <div class="mt-12">
           <h2 class="text-2xl font-semibold text-white mb-4">Shipping</h2>
@@ -152,30 +149,27 @@
             </label>
           </div>
         </div>
-
         <!-- Order Notes -->
         <div class="mt-12">
           <h2 class="text-2xl font-semibold text-white mb-4">Order Notes (optional)</h2>
           <textarea name="order_notes" rows="4" class="w-full bg-zinc-950 border border-zinc-800 rounded-3xl px-6 py-4 text-white focus:outline-none focus:border-[#ff1493]" placeholder="Notes about your order..."></textarea>
         </div>
 
+        <!-- Agreement Checkboxes -->
         <div class="mt-8 space-y-4 text-sm text-zinc-300">
-  <label class="flex items-start gap-3 cursor-pointer">
-    <input type="checkbox" x-model="agreedToTOS" class="mt-1 w-5 h-5 accent-[#ff1493]">
-    <span>I agree to the <a href="#" class="text-[#ff1493] hover:underline">Terms of Service</a></span>
-  </label>
-  
-  <label class="flex items-start gap-3 cursor-pointer">
-    <input type="checkbox" x-model="agreedToPolicies" class="mt-1 w-5 h-5 accent-[#ff1493]">
-    <span>I agree to the <a href="#" class="text-[#ff1493] hover:underline">Store Policies</a></span>
-  </label>
-
- <!-- Third checkbox with pink clickable "how to pay" -->
-  <label class="flex items-start gap-3 cursor-pointer">
-    <input type="checkbox" x-model="agreedToPaymentInstructions" class="mt-1 w-5 h-5 accent-[#ff1493]">
-    <span>I have read <a href="#" class="text-[#ff1493] hover:underline">how to pay</a></span>
-  </label>
-</div>
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" x-model="agreedToTOS" class="mt-1 w-5 h-5 accent-[#ff1493]">
+            <span>I agree to the <a href="#" class="text-[#ff1493] hover:underline">Terms of Service</a></span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" x-model="agreedToPolicies" class="mt-1 w-5 h-5 accent-[#ff1493]">
+            <span>I agree to the <a href="#" class="text-[#ff1493] hover:underline">Store Policies</a></span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" x-model="agreedToPaymentInstructions" class="mt-1 w-5 h-5 accent-[#ff1493]">
+            <span>I have read <a href="#" class="text-[#ff1493] hover:underline">how to pay</a></span>
+          </label>
+        </div>
 
         <!-- Hidden fields -->
         <input type="hidden" name="order_number" id="hidden_order_number">
@@ -183,16 +177,17 @@
         <input type="hidden" name="cart_items" id="hidden_cart_items">
         <input type="hidden" name="_subject" value="New Paragon Peptides Order">
 
-       <button type="submit"
-        :disabled="isSubmitting || !agreedToTOS || !agreedToPolicies || !agreedToPaymentInstructions"
-        class="w-full mt-8 py-6 rounded-3xl font-semibold text-2xl text-white transition disabled:opacity-50"
-        :class="isSubmitting ? 'bg-zinc-700' : 'bg-[#ff1493] hover:bg-pink-600'">
-  <span x-text="isSubmitting ? 'Processing...' : 'Place Secure Order'"></span>
-</button>      
-</form>
+        <!-- Submit Button -->
+        <button type="submit"
+                :disabled="isSubmitting || !agreedToTOS || !agreedToPolicies || !agreedToPaymentInstructions"
+                class="w-full mt-8 py-6 rounded-3xl font-semibold text-2xl text-white transition disabled:opacity-50"
+                :class="isSubmitting ? 'bg-zinc-700' : 'bg-[#ff1493] hover:bg-pink-600'">
+          <span x-text="isSubmitting ? 'Processing...' : 'Place Secure Order'"></span>
+        </button>
+      </form>
     </div>
 
-    <!-- RIGHT COLUMN: Order Summary + Coupon + Payment Instructions -->
+    <!-- RIGHT COLUMN: Order Summary + Coupon + Payment     <!-- RIGHT COLUMN: Order Summary + Coupon + Payment Instructions -->
     <div class="lg:sticky lg:top-12 h-fit bg-zinc-950 border border-zinc-800 rounded-3xl p-8">
       
       <h2 class="text-2xl font-semibold text-white mb-6">Your Order</h2>
@@ -289,61 +284,23 @@
           </div>
         </div>
       </div>
-    </div>
 
-<!-- SUCCESS MODAL -->
-<div x-show="successOpen" class="fixed inset-0 z-[100001] bg-black/90 flex items-center justify-center p-4">
-  <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto p-8 relative">
-    <button @click="successOpen = false" class="absolute top-4 right-4 text-4xl leading-none text-zinc-400 hover:text-white">×</button>
-    <div class="text-center">
-      <div class="text-6xl mb-4">🎉</div>
-      <h2 class="text-4xl font-bold text-white mb-2">Order Received!</h2>
-      <p class="text-zinc-400 mb-8">Thank you! Your order has been submitted.</p>
-
-      <div class="bg-black border border-zinc-700 rounded-2xl p-6 mb-8">
-        <p class="text-sm text-zinc-400 mb-2">Your Order Number</p>
-        <p class="text-5xl font-mono font-bold text-[#ff1493] mb-4" x-text="lastOrderNumber"></p>
-        <button @click="copyToClipboard(lastOrderNumber)" 
-                class="w-full py-4 rounded-2xl font-semibold text-lg text-white transition"
-                :class="orderCopied ? 'bg-green-600' : 'bg-[#ff1493] hover:bg-pink-600'">
-          <span x-text="orderCopied ? '✅ Copied!' : 'Copy Order Number'"></span>
-        </button>
-      </div>
-
-      <p class="text-white mb-6 text-lg">Choose how you’d like to pay:</p>
-      
-      <div class="space-y-4">
-        <a href="https://venmo.com/code?user_id=3026528279461888787" target="_blank" class="block bg-[#3D95CE] hover:bg-[#2E7AB3] text-white py-5 rounded-2xl font-semibold text-xl">Pay with Venmo</a>
-        <a href="https://cash.app/$ParagonPeps" target="_blank" class="block bg-[#00C244] hover:bg-[#00A03A] text-white py-5 rounded-2xl font-semibold text-xl">Pay with Cash App</a>
-        <a href="#" @click="copyToClipboard('bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw'); alert('Bitcoin address copied!')" class="block bg-orange-600 hover:bg-orange-700 text-white py-5 rounded-2xl font-semibold text-xl">Pay with Bitcoin</a>
-      </div>
-
-      <p class="text-xs text-zinc-500 mt-8">Include your order number when paying.<br>Thank you for choosing Paragon Peptides!</p>
-    </div>
-  </div>
-</div>
-
-<!-- PAYMENT UPDATE ALERT MODAL -->
+<!-- PAYMENT                                        ALERT MODAL (kept) -->
 <div x-show="showPaymentAlert" @click.away="showPaymentAlert = false"
      class="fixed inset-0 z-[100001] flex items-center justify-center bg-black/80 backdrop-blur-sm" x-transition>
   <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-lg w-full mx-4 p-8 relative shadow-2xl">
     <button @click="showPaymentAlert = false" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-2xl">×</button>
-    
     <h2 class="text-2xl font-bold text-white mb-6 text-center">IMPORTANT LEGAL NOTICE PLEASE READ</h2>
-    
     <div class="text-zinc-300 space-y-4 text-center">
       <p>NOT FOR HUMAN CONSUMPTION.</p>
       <p>The Products on this website are for legitimate Research use only. They are not intended to prevent, treat or cure any illness or disease.</p>
       <p>By submitting I agree you acknowledge and understand these Terms.</p>
     </div>
-
-    <button @click="showPaymentAlert = false" 
-            class="mt-8 w-full bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-lg text-white transition">
+    <button @click="showPaymentAlert = false" class="mt-8 w-full bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-lg text-white transition">
       I Understand — Continue Checkout
     </button>
   </div>
 </div>
-
 
 <script>
 function app() {
@@ -355,9 +312,6 @@ function app() {
     agreedToPolicies: false,
     agreedToPaymentInstructions: false,
     isSubmitting: false,
-    successOpen: false,
-    lastOrderNumber: '',
-    orderCopied: false,
     showPaymentAlert: true,
 
     init() {
@@ -369,63 +323,50 @@ function app() {
       this.cartTotal = this.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
       this.discountedTotal = this.cartTotal + (this.cartTotal >= 250 ? 0 : 12.99);
     },
-handleCheckoutSubmit() {
-  const form = document.getElementById('checkout-form');
 
-  // Enforce required fields
-  if (!form.checkValidity()) {
-    form.reportValidity();
-    return;
-  }
+    handleCheckoutSubmit() {
+      const form = document.getElementById('checkout-form');
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
 
-if (!this.agreedToTOS || !this.agreedToPolicies || !this.agreedToPaymentInstructions) {
-    alert("Please agree to all required terms");
-    return;
-  }
+      if (!this.agreedToTOS || !this.agreedToPolicies || !this.agreedToPaymentInstructions) {
+        alert("Please agree to all required terms");
+        return;
+      }
 
-  this.isSubmitting = true;
+      this.isSubmitting = true;
 
-  const orderNumber = "PP-" + Math.floor(100000 + Math.random() * 900000);
-  document.getElementById('hidden_order_number').value = orderNumber;
-  document.getElementById('hidden_total').value = '$' + this.discountedTotal;
+      const orderNumber = "PP-" + Math.floor(100000 + Math.random() * 900000);
+      document.getElementById('hidden_order_number').value = orderNumber;
+      document.getElementById('hidden_total').value = '$' + this.discountedTotal.toFixed(2);
 
-  // IMPROVED: Include dose information clearly
-  let itemsText = '';
-  this.cart.forEach(item => {
-    const doseInfo = item.dose ? ` (${item.dose}${item.unit || 'mg'})` : '';
-    itemsText += `${item.name}${doseInfo} × ${item.qty} - $${(item.price * item.qty).toFixed(2)}\n`;
-  });
+      let itemsText = '';
+      this.cart.forEach(item => {
+        itemsText += `${item.name} (${item.qty} × $${item.price}) = $${(item.price * item.qty).toFixed(2)}\n`;
+      });
+      document.getElementById('hidden_cart_items').value = itemsText || 'No items';
 
-  document.getElementById('hidden_cart_items').value = itemsText || 'No items';
-
-  const formData = new FormData(form);
-
-  fetch(form.action, {
-    method: 'POST',
-    body: formData,
-    headers: { 'Accept': 'application/json' }
-  })
-  .then(response => {
-    if (response.ok) {
-      this.lastOrderNumber = orderNumber;
-      this.successOpen = true;
-      this.cart = [];
-      localStorage.removeItem('paragonCart');
-    } else {
-      alert("Submission failed. Please try again.");
-    }
-  })
-  .catch(() => {
-    alert("Network error. Please try again.");
-  })
-  .finally(() => {
-    this.isSubmitting = false;
-  });
-},
-    copyToClipboard(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        this.orderCopied = true;
-        setTimeout(() => this.orderCopied = false, 2500);
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(response => {
+        if (response.ok) {
+          // Redirect to thank-you page with order number
+          window.location.href = `/thank-you.html?order_number=${orderNumber}`;
+          localStorage.removeItem('paragonCart');
+        } else {
+          alert("Submission failed. Please try again.");
+        }
+      })
+      .catch(() => {
+        alert("Network error. Please try again.");
+      })
+      .finally(() => {
+        this.isSubmitting = false;
       });
     }
   };

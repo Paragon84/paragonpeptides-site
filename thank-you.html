@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You - Paragon Peptides</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Satoshi:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    h1, h2 { font-family: 'Satoshi', sans-serif; }
+  </style>
+</head>
+<body class="bg-black text-white min-h-screen flex items-center justify-center p-6" x-data="thankYou()" x-init="init()">
+
+<div class="max-w-lg w-full text-center">
+  <div class="text-7xl mb-6">🎉</div>
+  <h1 class="text-5xl font-bold mb-2 text-white">Order Received!</h1>
+  <p class="text-zinc-400 text-xl mb-10">Thank you for your purchase with Paragon Peptides.</p>
+
+  <!-- Order Number -->
+  <div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-8 mb-10">
+    <p class="text-sm text-zinc-400 mb-3">YOUR ORDER NUMBER</p>
+    <p class="text-5xl font-mono font-bold text-[#ff1493] mb-6" x-text="orderNumber || 'PP-XXXXXX'"></p>
+    
+    <button @click="copyOrderNumber()" 
+            class="w-full py-4 rounded-2xl font-semibold text-lg transition"
+            :class="copied ? 'bg-green-600' : 'bg-[#ff1493] hover:bg-pink-600'">
+      <span x-text="copied ? '✅ Copied!' : 'Copy Order Number'"></span>
+    </button>
+  </div>
+
+  <p class="text-white text-lg mb-8">Please complete payment using one of the methods below:</p>
+
+  <div class="space-y-4">
+    <a href="https://venmo.com/code?user_id=3026528279461888787" target="_blank"
+       class="block bg-[#3D95CE] hover:bg-[#2E7AB3] text-white py-5 rounded-2xl font-semibold text-xl transition">
+      Pay with Venmo
+    </a>
+
+    <a href="https://cash.app/$ParagonPeps" target="_blank"
+       class="block bg-[#00C244] hover:bg-[#00A03A] text-white py-5 rounded-2xl font-semibold text-xl transition">
+      Pay with Cash App
+    </a>
+
+    <a href="#" @click="copyBitcoinAddress()"
+       class="block bg-orange-600 hover:bg-orange-700 text-white py-5 rounded-2xl font-semibold text-xl transition">
+      Pay with Bitcoin
+    </a>
+  </div>
+
+  <div class="mt-12 text-xs text-zinc-500">
+    Include your order number when paying.<br>
+    We will process your order as soon as payment is received.
+  </div>
+
+  <p class="text-zinc-500 mt-10 text-sm">
+    Questions? Email us at <a href="mailto:paragonpeps@gmail.com" class="text-[#ff1493]">paragonpeps@gmail.com</a>
+  </p>
+</div>
+
+<script>
+function thankYou() {
+  return {
+    orderNumber: '',
+    copied: false,
+
+    init() {
+      const params = new URLSearchParams(window.location.search);
+      this.orderNumber = params.get('order_number') || 'PP-XXXXXX';
+    },
+
+    copyOrderNumber() {
+      navigator.clipboard.writeText(this.orderNumber).then(() => {
+        this.copied = true;
+        setTimeout(() => this.copied = false, 2500);
+      });
+    },
+
+    copyBitcoinAddress() {
+      const address = 'bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw';
+      navigator.clipboard.writeText(address).then(() => {
+        alert('Bitcoin address copied! Paste into your wallet.');
+      });
+    }
+  };
+}
+</script>
+</body>
+</html>
