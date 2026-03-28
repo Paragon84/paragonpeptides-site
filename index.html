@@ -676,7 +676,9 @@ div[x-show="showGate"] > div {
         <div class="flex-1 overflow-auto space-y-6">
           <template x-for="(item, i) in cart" :key="i">
            <div class="flex gap-6 border-b border-zinc-800 pb-6">
-  <img :src="item.image" class="w-24 h-24 object-cover rounded-xl">
+  <img :src="item.image || 'https://i.imgur.com/jXQlcWB.png'" 
+     class="w-24 h-24 object-cover rounded-xl" 
+     alt="">
   <div class="flex-1">
     <h4 class="font-medium text-lg" x-text="item.name"></h4>
     <p class="text-sm text-zinc-400 mt-1" x-text="'Dose: ' + item.dose + (item.unit || 'mg')"></p>
@@ -1117,35 +1119,31 @@ filteredProducts() {
       },
 
 
-      addToCartWithDose(product) {
-        if (!product.selectedDose) return alert("Select a dose");
-        const variant = product.doses.find(v => (v.mg || v.ml) === product.selectedDose);
-        if (!variant || variant.stock <= 0) return alert("Out of stock");
-        
-        let existing = this.cart.find(i => i.id === product.id && i.dose === product.selectedDose);
-        if (existing) 
-          existing.qty+=(product.quantity || 1);
-        else this.cart.push({
-            id: product.id,
-            name: product.name,
-            image: product.image,
-            dose: product.selectedDose,
-            unit: variant.mg ? 'mg' : 'ml',
-            price: variant.price,
-           qty: product.quantity || 1
-          });
-           this.saveCart();
-           this.showToast("✅ Added to cart!");
-         },
-        incrementQty(product) {
-                   if (!product.selectedDose) return;
-                   product.quantity = (product.quantity || 1) + 1;
-              },
-        decrementQty(product) {
-                   if (!product.selectedDose) return;
-                   product.quantity = Math.max(1, (product.quantity || 1) - 1);
-               },
+quickAddToCart(id, name, dose, price) {
+  // Find the real product from Supabase so we get the correct image URL
+  const realProduct = this.products.find(p => p.id === id);
+  
+  const newItem = {
+    id: id,
+    name: name,
+    image: realProduct ? realProduct.image : `https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/${name.toLowerCase().replace(/ /g,'-')}-thumb.webp`,
+    dose: dose,
+    unit: dose.includes('mg') ? 'mg' : 'ml',
+    price: price,
+    qty: 1
+  };
 
+  let existing = this.cart.find(i => i.id === id && i.dose === dose);
+
+  if (existing) {
+    existing.qty++;
+  } else {
+    this.cart.push(newItem);
+  }
+
+  this.saveCart();
+  this.showToast(`✅ ${name} added to cart!`);
+},
       saveCart() {
         localStorage.setItem('paragonCart', JSON.stringify(this.cart));
       },
