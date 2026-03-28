@@ -40,32 +40,35 @@
       </button>
     </div>
 
-    <!-- Payment Instructions -->
+    <!-- Revised Payment Section -->
     <p class="text-white text-lg mb-8 text-center">Please complete payment using one of the methods below:</p>
     
-    <div class="grid md:grid-cols-3 gap-4 mb-12">
+    <div class="grid md:grid-cols-3 gap-6 mb-12">
       <!-- Venmo -->
       <a href="https://venmo.com/code?user_id=3026528279461888787" target="_blank"
-         class="block bg-[#3D95CE] hover:bg-[#2E7AB3] text-white rounded-3xl p-8 text-center transition-all">
-        <div class="text-3xl mb-4">💸</div>
-        <div class="font-semibold text-xl">Venmo</div>
-        <p class="text-sm mt-2 opacity-90">Send payment + order number in memo</p>
+         class="group block bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 hover:border-[#ff1493] rounded-3xl p-8 text-center transition-all">
+        <div class="text-4xl mb-4">💸</div>
+        <div class="font-semibold text-2xl mb-2">Venmo</div>
+        <p class="text-sm text-zinc-400">Send payment + order number in memo</p>
+        <p class="text-xs text-[#ff1493] mt-6 font-medium">OPEN VENMO →</p>
       </a>
 
       <!-- Cash App -->
       <a href="https://cash.app/$ParagonPeps" target="_blank"
-         class="block bg-[#00C244] hover:bg-[#00A03A] text-white rounded-3xl p-8 text-center transition-all">
-        <div class="text-3xl mb-4">$</div>
-        <div class="font-semibold text-xl">Cash App</div>
-        <p class="text-sm mt-2 opacity-90">Include order number in memo</p>
+         class="group block bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 hover:border-[#ff1493] rounded-3xl p-8 text-center transition-all">
+        <div class="text-4xl mb-4">$</div>
+        <div class="font-semibold text-2xl mb-2">Cash App</div>
+        <p class="text-sm text-zinc-400">Send payment + order number in memo</p>
+        <p class="text-xs text-[#ff1493] mt-6 font-medium">OPEN CASH APP →</p>
       </a>
 
       <!-- Bitcoin -->
       <div @click="copyBitcoinAddress()"
-           class="block bg-orange-600 hover:bg-orange-700 text-white rounded-3xl p-8 text-center transition-all cursor-pointer">
-        <div class="text-3xl mb-4">₿</div>
-        <div class="font-semibold text-xl">Bitcoin</div>
-        <p class="text-sm mt-2 opacity-90">Send exact amount • Include order #</p>
+           class="group block bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 hover:border-[#ff1493] rounded-3xl p-8 text-center transition-all cursor-pointer">
+        <div class="text-4xl mb-4">₿</div>
+        <div class="font-semibold text-2xl mb-2">Bitcoin</div>
+        <p class="text-sm text-zinc-400">Send exact amount • Include order #</p>
+        <p class="text-xs text-[#ff1493] mt-6 font-medium">COPY ADDRESS</p>
       </div>
     </div>
 
@@ -79,11 +82,11 @@
         </div>
         <div class="flex gap-4">
           <div class="font-mono text-[#ff1493] font-bold">2</div>
-          <div>Cold-chain packaging + tracking number emailed</div>
+          <div>Confirmation Invoice emailed.</div>
         </div>
         <div class="flex gap-4">
           <div class="font-mono text-[#ff1493] font-bold">3</div>
-          <div>Shipping via USPS (3–5 business days)</div>
+          <div>Shipping via UPS (3–5 business days)</div>
         </div>
       </div>
     </div>
