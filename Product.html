@@ -58,36 +58,30 @@
       <span class="text-xs bg-blue-900 text-blue-400 px-4 py-1 rounded-full">Research Use Only</span>
     </div>
 
-    <!-- DOSE + QUANTITY SELECTOR ON PRODUCT PAGE -->
-    <div class="mt-8">
-      <p class="text-sm text-zinc-400 mb-3">Select Dose</p>
-      <div class="grid grid-cols-3 sm:grid-cols-5 gap-3">
-        <template x-for="variant in product.doses" :key="variant.mg || variant.ml">
-          <button
-            @click="product.selectedDose = (variant.mg || variant.ml); product.price = variant.price; product.quantity = 1"
-            :disabled="variant.stock <= 0"
-            class="relative py-3 px-4 rounded-2xl font-medium transition text-sm"
-            :class="{
-              'bg-[#ff1493] text-white ring-2 ring-pink-500 scale-105': product.selectedDose === (variant.mg || variant.ml),
-              'bg-zinc-800 text-zinc-400 cursor-not-allowed': variant.stock <= 0,
-              'bg-zinc-800 hover:bg-zinc-700': product.selectedDose !== (variant.mg || variant.ml) && variant.stock > 0
-            }">
-            <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
-            
-            <!-- Stock badge -->
-            <span class="absolute -top-1 -right-1 text-[10px] font-bold px-2 py-0.5 rounded-full"
-                  :class="{
-                    'bg-red-600 text-white': variant.stock === 0,
-                    'bg-orange-500 text-white': variant.stock > 0 && variant.stock <= 5,
-                    'bg-green-600 text-white': variant.stock > 5
-                  }">
-              <span x-text="variant.stock === 0 ? 'OUT' : variant.stock <= 5 ? variant.stock + ' left' : 'IN'"></span>
-            </span>
-          </button>
-        </template>
-      </div>
-    </div>
+ <!-- DOSE SELECTOR + LIVE PRICE UPDATE -->
+<div class="mt-8">
+  <label class="block text-sm text-zinc-400 mb-3">SELECT DOSE</label>
+  <div class="grid grid-cols-3 sm:grid-cols-5 gap-3">
+    <template x-for="variant in product.doses" :key="variant.mg || variant.ml">
+      <button 
+        @click="selectDoseOnProductPage(variant)"
+        :class="product.selectedDose === (variant.mg || variant.ml) ? 'bg-[#ff1493] text-white ring-2 ring-pink-500' : 'bg-zinc-800 hover:bg-zinc-700'"
+        class="py-4 rounded-2xl font-bold text-lg transition relative">
+        
+        <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
+        
+        <!-- Stock indicator -->
+        <span class="absolute -top-1 -right-1 text-[10px] px-2 py-0.5 rounded-full font-bold"
+              :class="variant.stock === 0 ? 'bg-red-600' : variant.stock <= 5 ? 'bg-orange-500' : 'bg-green-600'">
+          <span x-text="variant.stock === 0 ? 'OUT' : variant.stock + ' left'"></span>
+        </span>
+      </button>
+    </template>
+  </div>
+</div>
 
+<!-- Live Price -->
+<div class="mt-8 text-6xl font-bold text-white" x-text="'$' + (product.selectedPrice || product.doses[0].price)"></div>
     <!-- Quantity Selector (only shows after dose selected) -->
     <div x-show="product.selectedDose" class="flex items-center justify-center gap-6 mt-8">
       <button @click="decrementQty()" class="w-12 h-12 bg-zinc-800 hover:bg-zinc-700 rounded-2xl text-3xl font-light transition">−</button>
@@ -204,7 +198,12 @@ toggleDose(product, variant) {
     product.selectedDose = doseValue;
     product.price = variant.price;
   }
-},
+ },
+
+  selectDoseOnProductPage(variant) {
+     this.product.selectedDose = variant.mg || variant.ml;
+     this.product.selectedPrice = variant.price;
+   },
 
     incrementQty() {
       this.product.quantity = (this.product.quantity || 1) + 1;
@@ -244,7 +243,7 @@ toggleDose(product, variant) {
         cart.push({
           id: this.product.id,
           name: this.product.name,
-          image: this.product.image,
+          image: product.image,
           dose: this.selectedDose,
           unit: variant.mg ? 'mg' : 'ml',
           price: variant.price,
