@@ -34,17 +34,15 @@
     ← Back to Shop
   </button>
 
-<div class="grid lg:grid-cols-2 gap-12">
-  <!-- Image -->
-  <div>
-    <img :src="product.image"loading="lazy"
-     decoding="async"
-     fetchpriority="low"
-         @error="$el.src='https://i.imgur.com/jXQlcWB.png'"loading="lazy"
-     decoding="async"
-     fetchpriority="low"
-         class="w-full rounded-3xl shadow-2xl" alt="Product Image">
-  </div>
+<!-- NEW PREMIUM CARD DISPLAY (dynamic PNG) -->
+<div class="max-w-4xl mx-auto">
+  <img 
+    :src="getCardImageUrl()" 
+    @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'"
+    class="w-full rounded-3xl shadow-2xl border border-zinc-800 mx-auto"
+    alt="Product Card"
+    loading="eager">
+</div>
 
   <!-- Details (FULLY FIXED) -->
   <div>
@@ -58,27 +56,20 @@
       <span class="text-xs bg-blue-900 text-blue-400 px-4 py-1 rounded-full">Research Use Only</span>
     </div>
 
- <!-- DOSE SELECTOR + LIVE PRICE UPDATE -->
-<div class="mt-8">
-  <label class="block text-sm text-zinc-400 mb-3">SELECT DOSE</label>
-  <div class="grid grid-cols-3 sm:grid-cols-5 gap-3">
+<!-- DOSE SELECTOR + QUANTITY + ADD TO CART (keep your existing logic) -->
+<div class="mt-12 max-w-4xl mx-auto">
+  <p class="text-sm text-zinc-400 mb-3 text-center">Select Dose</p>
+  <div class="grid grid-cols-3 sm:grid-cols-5 gap-3 mb-8">
     <template x-for="variant in product.doses" :key="variant.mg || variant.ml">
-      <button 
-       @click="toggleDoseOnProductPage(variant)"
-        :class="product.selectedDose === (variant.mg || variant.ml) ? 'bg-[#ff1493] text-white ring-2 ring-pink-500' : 'bg-zinc-800 hover:bg-zinc-700'"
-        class="py-4 rounded-2xl font-bold text-lg transition relative">
-        
+      <button
+        @click="selectDose(variant)"
+        :class="selectedDose === (variant.mg || variant.ml) 
+          ? 'bg-[#ff1493] text-white ring-2 ring-offset-2 ring-[#ff1493]' 
+          : 'bg-zinc-900 hover:bg-zinc-800 text-white'">
         <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
-        
-        <!-- Stock indicator -->
-        <span class="absolute -top-1 -right-1 text-[10px] px-2 py-0.5 rounded-full font-bold"
-              :class="variant.stock === 0 ? 'bg-red-600' : variant.stock <= 5 ? 'bg-orange-500' : 'bg-green-600'">
-          <span x-text="variant.stock === 0 ? 'OUT' : variant.stock + ' left'"></span>
-        </span>
       </button>
     </template>
   </div>
-</div>
 
 <!-- Live Price -->
 <div class="mt-8 text-6xl font-bold text-white" x-text="product.selectedPrice ? '$' + product.selectedPrice : '—'"></div>
