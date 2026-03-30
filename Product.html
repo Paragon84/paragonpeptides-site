@@ -120,7 +120,7 @@
 function app() {
   return {
     product: null,
-    selectedDose: null,
+    selectedDose: null, // This is the master variable
     price: 0,
     isLoading: true,
     supabase: null,
@@ -142,6 +142,7 @@ function app() {
 
       if (this.product && this.product.doses && this.product.doses.length) {
         const first = this.product.doses.find(v => v.stock > 0) || this.product.doses[0];
+        // Corrected: Set top-level variable
         this.selectedDose = first.mg || first.ml;
         this.price = first.price;
         this.product.quantity = 1;
@@ -150,14 +151,46 @@ function app() {
       this.isLoading = false;
     },
 
-    loadCart() {
-      try {
-        this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
-      } catch (e) {
-        this.cart = [];
+    toggleDoseOnProductPage(variant) {
+      const doseValue = variant.mg || variant.ml;
+      
+      if (this.selectedDose === doseValue) {
+        this.selectedDose = null;
+        this.price = 0;
+      } else {
+        this.selectedDose = doseValue;
+        this.price = variant.price;
       }
     },
 
+    getCardImageUrl() {
+      // If no dose is selected, show the default product image or logo
+      if (!this.product || !this.selectedDose) {
+        return this.product?.image || 'https://i.imgur.com/jXQlcWB.png';
+      }
+
+      // 1. Format the name to match your files (e.g., "BPC-157" -> "bpc-157")
+      let name = this.product.name.toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+
+      // 2. File naming overrides
+      if (name.includes('cjc-1295')) name = 'cjc-1295-no-dac';
+      if (name === 'glow') name = 'glow'; 
+
+      // 3. Find the unit
+      const variant = this.product.doses.find(v => (v.mg || v.ml) === this.selectedDose);
+      const unit = variant?.mg ? 'mg' : 'ml';
+
+      // 4. Construct URL
+      return `https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/${name}-${this.selectedDose}${unit}.png`;
+    },
+
+    // ... (Keep your existing incrementQty, decrementQty, loadCart, and addToCartWithDose functions)
+    incrementQty() { this.product.quantity = (this.product.quantity || 1) + 1; },
+    decrementQty() { this.product.quantity = Math.max(1, (this.product.quantity || 1) - 1); },
+    loadCart() { try { this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]'); } catch (e) { this.cart = []; } },
     showToast(msg) {
       const toast = document.getElementById('toast');
       if (toast) {
@@ -166,88 +199,13 @@ function app() {
         setTimeout(() => toast.classList.add('hidden'), 2800);
       }
     },
-
-toggleDose(product, variant) {
-  const doseValue = variant.mg || variant.ml;
-  if (product.selectedDose === doseValue) {
-    product.selectedDose = null;
-  } else {
-    product.selectedDose = doseValue;
-    product.price = variant.price;
-  }
- },
-
-toggleDoseOnProductPage(variant) {
-  const doseValue = variant.mg || variant.ml;
-  
-  if (this.product.selectedDose === doseValue) {
-    // ← Click again = deselect
-    this.product.selectedDose = null;
-    this.product.selectedPrice = null;
-  } else {
-    // Select the dose
-    this.product.selectedDose = doseValue;
-    this.product.selectedPrice = variant.price;
-  }
-},
-
-    incrementQty() {
-      this.product.quantity = (this.product.quantity || 1) + 1;
-    },
-
-    decrementQty() {
-      this.product.quantity = Math.max(1, (this.product.quantity || 1) - 1);
-    },
-
-    saveCart() {
-      localStorage.setItem('paragonCart', JSON.stringify(this.cart));
-    },
-
-     viewProduct(p) {
-        this.currentProduct = JSON.parse(JSON.stringify(p));
-        const first = p.doses.find(v => v.stock > 0) || p.doses[0];
-        this.currentProduct.selectedDose = first ? (first.mg || first.ml) : null;
-        this.currentProduct.price = first ? first.price : 0;
-      },
-             getSelectedVariant() {
-               if (!this.currentProduct || !this.currentProduct.doses) return null;
-              return this.currentProduct.doses.find(v => v.mg ===   this.selectedDose) || this.currentProduct.doses[0];
-      },
-
-getCardImageUrl() {
-  if (!this.product || !this.selectedDose) {
-    return this.product?.image || 'https://i.imgur.com/jXQlcWB.png';
-  }
-
-  // 1. Convert name to lowercase and replace spaces/special chars with hyphens
-  let name = this.product.name.toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, '-') // Replaces spaces, parens, and special chars with a single hyphen
-    .replace(/^-+|-+$/g, '');    // Cleans up hyphens at the start or end
-
-  // 2. Specific Match for your "cjc-1295-no-dac" files
-  if (name.includes('cjc-1295')) name = 'cjc-1295-no-dac';
-
-  // 3. Match your Supabase unit (all your new .png files use lowercase 'mg' or 'ml')
-  const variant = this.product.doses.find(v => (v.mg || v.ml) === this.selectedDose);
-  const unit = variant?.mg ? 'mg' : 'ml';
-
-  // 4. Construct URL (Matches: name-doseunit.png)
-  return `https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/${name}-${this.selectedDose}${unit}.png`;
-},
-
     addToCartWithDose() {
       if (!this.selectedDose) return alert("Select a dose");
-      
       const variant = this.product.doses.find(v => (v.mg || v.ml) === this.selectedDose);
-      if (!variant || variant.stock <= 0) return alert("Out of stock");
-
       let cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
       let existing = cart.find(i => i.id === this.product.id && i.dose === this.selectedDose);
-
-      if (existing) {
-        existing.qty += (this.product.quantity || 1);
-      } else {
+      if (existing) { existing.qty += (this.product.quantity || 1); } 
+      else {
         cart.push({
           id: this.product.id,
           name: this.product.name,
@@ -258,10 +216,8 @@ getCardImageUrl() {
           qty: this.product.quantity || 1
         });
       }
-
       localStorage.setItem('paragonCart', JSON.stringify(cart));
       this.showToast("✅ Added to cart!");
-
     }
   };
 }
