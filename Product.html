@@ -215,24 +215,27 @@ toggleDoseOnProductPage(variant) {
       },
 
     // 🔥 NEW: Dynamic Premium Card Image (this is what was missing)
-    getCardImageUrl() {
-      if (!this.product || !this.selectedDose) {
-        return this.product?.image || 'https://i.imgur.com/jXQlcWB.png';
-      }
+getCardImageUrl() {
+  // 1. Check product existence and the CORRECT property for selectedDose
+  if (!this.product || !this.product.selectedDose) {
+    return this.product?.image || 'https://i.imgur.com/jXQlcWB.png';
+  }
 
-      let name = this.product.name.toLowerCase()
-        .replace(/ /g, '-')
-        .replace(/[^a-z0-9-]/g, '');
+  // 2. Clean the name but preserve hyphens for product codes (e.g., BPC-157)
+  let name = this.product.name.toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9-]/g, '');
 
-      // Fix special names so filenames match exactly what you uploaded
-      if (name.includes('cjc-1295')) name = 'cjc-1295-no-dac';
-      if (name.includes('semax')) name = 'semax-selank';
-      if (name.includes('bac-water')) name = 'bac-water';
-      if (name.includes('acetic-water')) name = 'acetic-water';
-      if (name.includes('melanotan')) name = 'melanotan-2';
-
-      return `https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/${name}-${this.selectedDose}-card.png`;
-    },
+  // 3. Apply your specific overrides
+  if (name.includes('cjc-1295')) name = 'cjc-1295-no-dac';
+  if (name.includes('semax')) name = 'semax-selank';
+  
+  // 4. Construct URL using the product-level selectedDose
+  const url = `https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/${name}-${this.product.selectedDose}-card.png`;
+  
+  return url;
+},
 
     addToCartWithDose() {
       if (!this.selectedDose) return alert("Select a dose");
