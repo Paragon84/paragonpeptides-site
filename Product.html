@@ -216,25 +216,26 @@ toggleDoseOnProductPage(variant) {
 
     // 🔥 NEW: Dynamic Premium Card Image (this is what was missing)
 getCardImageUrl() {
-  // 1. Check product existence and the CORRECT property for selectedDose
-  if (!this.product || !this.product.selectedDose) {
+  if (!this.product || !this.selectedDose) {
     return this.product?.image || 'https://i.imgur.com/jXQlcWB.png';
   }
 
-  // 2. Clean the name but preserve hyphens for product codes (e.g., BPC-157)
+  // 1. Clean the product name
   let name = this.product.name.toLowerCase()
     .trim()
     .replace(/\s+/g, '-')
     .replace(/[^a-z0-9-]/g, '');
 
-  // 3. Apply your specific overrides
+  // 2. Apply your specific overrides
   if (name.includes('cjc-1295')) name = 'cjc-1295-no-dac';
   if (name.includes('semax')) name = 'semax-selank';
   
-  // 4. Construct URL using the product-level selectedDose
-  const url = `https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/${name}-${this.product.selectedDose}-card.png`;
-  
-  return url;
+  // 3. Determine the unit (mg or ml)
+  const variant = this.product.doses.find(v => (v.mg || v.ml) === this.selectedDose);
+  const unit = variant?.mg ? 'mg' : 'ml';
+
+  // 4. Construct URL including the unit (e.g., -10mg-card.png)
+  return `https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/${name}-${this.selectedDose}${unit}-card.png`;
 },
 
     addToCartWithDose() {
