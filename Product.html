@@ -214,7 +214,6 @@ toggleDoseOnProductPage(variant) {
               return this.currentProduct.doses.find(v => v.mg ===   this.selectedDose) || this.currentProduct.doses[0];
       },
 
-    // 🔥 NEW: Dynamic Premium Card Image (this is what was missing)
 getCardImageUrl() {
   if (!this.product || !this.selectedDose) {
     return this.product?.image || 'https://i.imgur.com/jXQlcWB.png';
