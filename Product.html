@@ -219,21 +219,20 @@ getCardImageUrl() {
     return this.product?.image || 'https://i.imgur.com/jXQlcWB.png';
   }
 
-  // 1. Clean the name (keeps hyphens for aod-9604, cjc-1295, etc.)
+  // 1. Convert name to lowercase and replace spaces/special chars with hyphens
   let name = this.product.name.toLowerCase()
     .trim()
-    .replace(/\s+/g, '-')
-    .replace(/[^a-z0-9-]/g, (m) => m === '-' ? '-' : '');
+    .replace(/[^a-z0-9]+/g, '-') // Replaces spaces, parens, and special chars with a single hyphen
+    .replace(/^-+|-+$/g, '');    // Cleans up hyphens at the start or end
 
-  // 2. Specific Overrides to match your Supabase folder
+  // 2. Specific Match for your "cjc-1295-no-dac" files
   if (name.includes('cjc-1295')) name = 'cjc-1295-no-dac';
-  if (name.includes('semax')) name = 'semax-selank';
-  
-  // 3. Match your file casing (your .png files use lowercase 'ml')
+
+  // 3. Match your Supabase unit (all your new .png files use lowercase 'mg' or 'ml')
   const variant = this.product.doses.find(v => (v.mg || v.ml) === this.selectedDose);
   const unit = variant?.mg ? 'mg' : 'ml';
 
-  // 4. Final URL (Matches: name-doseunit.png)
+  // 4. Construct URL (Matches: name-doseunit.png)
   return `https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/${name}-${this.selectedDose}${unit}.png`;
 },
 
