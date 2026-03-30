@@ -62,7 +62,7 @@
   <div class="grid grid-cols-3 sm:grid-cols-5 gap-3 mb-8">
     <template x-for="variant in product.doses" :key="variant.mg || variant.ml">
       <button
-        @click="selectDose(variant)"
+        <button @click="toggleDoseOnProductPage(variant)" ...>
         :class="selectedDose === (variant.mg || variant.ml) 
           ? 'bg-[#ff1493] text-white ring-2 ring-offset-2 ring-[#ff1493]' 
           : 'bg-zinc-900 hover:bg-zinc-800 text-white'">
@@ -227,6 +227,26 @@ toggleDoseOnProductPage(variant) {
                if (!this.currentProduct || !this.currentProduct.doses) return null;
               return this.currentProduct.doses.find(v => v.mg ===   this.selectedDose) || this.currentProduct.doses[0];
       },
+
+    // 🔥 NEW: Dynamic Premium Card Image (this is what was missing)
+    getCardImageUrl() {
+      if (!this.product || !this.selectedDose) {
+        return this.product?.image || 'https://i.imgur.com/jXQlcWB.png';
+      }
+
+      let name = this.product.name.toLowerCase()
+        .replace(/ /g, '-')
+        .replace(/[^a-z0-9-]/g, '');
+
+      // Fix special names so filenames match exactly what you uploaded
+      if (name.includes('cjc-1295')) name = 'cjc-1295-no-dac';
+      if (name.includes('semax')) name = 'semax-selank';
+      if (name.includes('bac-water')) name = 'bac-water';
+      if (name.includes('acetic-water')) name = 'acetic-water';
+      if (name.includes('melanotan')) name = 'melanotan-2';
+
+      return `https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/${name}-${this.selectedDose}-card.png`;
+    },
 
     addToCartWithDose() {
       if (!this.selectedDose) return alert("Select a dose");
