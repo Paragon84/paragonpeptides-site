@@ -368,7 +368,7 @@ Free Priority Shipping on all orders over $199 & Free Priority Express Shipping 
         <p class="text-zinc-400 text-sm">≥99% purity • Independently tested</p>
       </div>
 
-      
+      <!-- Hover State -->
       <div class="absolute inset-0 flex flex-col items-center justify-center px-4 transition-all duration-700 opacity-0 group-hover:opacity-100">
         <!-- Gradient Overlay -->
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
@@ -576,73 +576,49 @@ Free Priority Shipping on all orders over $199 & Free Priority Express Shipping 
   </template>
 </div>
 
-<div class="bg-zinc-950 py-12 md:py-20 border-t border-b border-zinc-800" 
-     x-data="{ current: 0, total: 4, move() { this.current = (this.current + 1) % this.total; }, prev() { this.current = (this.current - 1 + this.total) % this.total; } }">
-  
+</div>
+<!-- === RESEARCH STANDARDS, DOCUMENTATION & BUYER RESOURCE CENTER === -->
+<div class="bg-zinc-950 py-20 border-t border-b border-zinc-800">
   <div class="max-w-7xl mx-auto px-6">
-    
-    <div class="flex justify-between items-end mb-10">
-      <div>
-        <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">Resource Center</h2>
-        <p class="text-zinc-500">Essential guides for laboratory research excellence.</p>
-      </div>
-      <div class="hidden md:flex gap-3">
-        <button @click="prev()" class="w-12 h-12 rounded-full border border-zinc-800 flex items-center justify-center text-white hover:bg-zinc-900 transition-all active:scale-95">←</button>
-        <button @click="move()" class="w-12 h-12 rounded-full border border-zinc-800 flex items-center justify-center text-white hover:bg-zinc-900 transition-all active:scale-95">→</button>
-      </div>
-    </div>
+    <div class="relative" x-data="{ current: 0, total: 7, move() { this.current = (this.current + 1) % this.total; }, prev() { this.current = (this.current - 1 + this.total) % this.total; } }">
+  <div class="overflow-hidden rounded-3xl">
+    <div class="flex transition-transform duration-700 ease-out" :style="{ transform: 'translateX(-' + (current * 25) + '%)' }">
 
-    <div class="relative">
-      <div class="overflow-hidden rounded-3xl">
-        <div class="flex transition-transform duration-700 ease-out" 
-             :style="'transform: translateX(-' + (current * (window.innerWidth < 768 ? 100 : 25)) + '%)'">
-
-          <div class="min-w-full md:min-w-[50%] lg:min-w-[25%] px-3">
-            <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 h-full min-h-[340px] md:min-h-[380px] hover:border-[#ff1493] transition-all group flex flex-col">
-              <h3 class="text-lg font-semibold text-white mb-4 group-hover:text-[#ff1493]">What Are Research Peptides?</h3>
-              <p class="text-zinc-400 text-sm leading-relaxed flex-1">Overview of peptide structure, classification, and laboratory research context.</p>
-              <a href="/what-is-a-peptide.html" class="inline-flex items-center text-[#ff1493] hover:text-pink-400 font-medium text-sm mt-6">Learn More →</a>
-            </div>
-          </div>
-
-          <div class="min-w-full md:min-w-[50%] lg:min-w-[25%] px-3">
-            <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 h-full min-h-[340px] md:min-h-[380px] hover:border-[#ff1493] transition-all group flex flex-col">
-              <h3 class="text-lg font-semibold text-white mb-4 group-hover:text-[#ff1493]">Storage & Handling</h3>
-              <p class="text-zinc-400 text-sm leading-relaxed flex-1">Stability controls, environmental considerations, and lab best practices.</p>
-              <a href="/storage-handling.html" class="inline-flex items-center text-[#ff1493] hover:text-pink-400 font-medium text-sm mt-6">View Guide →</a>
-            </div>
-          </div>
-
-          <div class="min-w-full md:min-w-[50%] lg:min-w-[25%] px-3">
-            <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 h-full min-h-[340px] md:min-h-[380px] hover:border-[#ff1493] transition-all group flex flex-col">
-              <h3 class="text-lg font-semibold text-white mb-4 group-hover:text-[#ff1493]">Analytical Testing</h3>
-              <p class="text-zinc-400 text-sm leading-relaxed flex-1">HPLC, mass spectrometry, and batch verification fundamentals.</p>
-              <a href="/testing-methods.html" class="inline-flex items-center text-[#ff1493] hover:text-pink-400 font-medium text-sm mt-6">Read More →</a>
-            </div>
-          </div>
-
-          <div class="min-w-full md:min-w-[50%] lg:min-w-[25%] px-3">
-            <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 h-full min-h-[340px] md:min-h-[380px] hover:border-[#ff1493] transition-all group flex flex-col">
-              <h3 class="text-lg font-semibold text-white mb-4 group-hover:text-[#ff1493]">How to Reconstitute</h3>
-              <p class="text-zinc-400 text-sm leading-relaxed flex-1">Technical instructions for peptide reconstitution and solvent selection.</p>
-              <a href="/how-to-reconstitute-peptides.html" class="inline-flex items-center text-[#ff1493] hover:text-pink-400 font-medium text-sm mt-6">Verify Documentation →</a>
-            </div>
-          </div>
-
+      <div class="min-w-[25%] px-3">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 h-full min-h-[380px] hover:border-[#ff1493] transition-all group flex flex-col">
+          <h3 class="text-lg font-semibold text-white mb-4 group-hover:text-[#ff1493]">What Are Research Peptides?</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed flex-1 line-clamp-4">Overview of peptide structure, classification, and laboratory research context.</p>
+          <a href="/what-is-a-peptide.html" class="inline-flex items-center text-[#ff1493] hover:text-pink-400 font-medium text-sm mt-6">Learn More →</a>
         </div>
       </div>
 
-      <div class="flex justify-center gap-2 mt-8 md:hidden">
-        <template x-for="i in total" :key="i">
-          <button @click="current = i-1" 
-                  :class="current === i-1 ? 'bg-[#ff1493] w-6' : 'bg-zinc-800 w-2'" 
-                  class="h-2 rounded-full transition-all duration-300"></button>
-        </template>
+      <div class="min-w-[25%] px-3">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 h-full min-h-[380px] hover:border-[#ff1493] transition-all group flex flex-col">
+          <h3 class="text-lg font-semibold text-white mb-4 group-hover:text-[#ff1493]">Storage & Handling Guidelines</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed flex-1 line-clamp-4">Stability controls, environmental considerations, and lab best practices.</p>
+          <a href="/storage-handling.html" class="inline-flex items-center text-[#ff1493] hover:text-pink-400 font-medium text-sm mt-6">View Guide →</a>
+        </div>
       </div>
 
-    </div>
+      <div class="min-w-[25%] px-3">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 h-full min-h-[380px] hover:border-[#ff1493] transition-all group flex flex-col">
+          <h3 class="text-lg font-semibold text-white mb-4 group-hover:text-[#ff1493]">Analytical Testing Methods</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed flex-1 line-clamp-4">HPLC, mass spectrometry, and batch verification fundamentals.</p>
+          <a href="/analytical-testing.html" class="inline-flex items-center text-[#ff1493] hover:text-pink-400 font-medium text-sm mt-6">Read More →</a>
+        </div>
+      </div>
+
+      <div class="min-w-[25%] px-3">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 h-full min-h-[380px] hover:border-[#ff1493] transition-all group flex flex-col">
+          <h3 class="text-lg font-semibold text-white mb-4 group-hover:text-[#ff1493]"></h3>
+          <p class="text-zinc-400 text-sm leading-relaxed flex-1 line-clamp-4">Step-by-step guide to evaluating third-party Certificates of Analysis.</p>
+          <a href="/how-to-reconstitute-peptides.html" class="inline-flex items-center text-[#ff1493] hover:text-pink-400 font-medium text-sm mt-6">Verify Documentation →</a>
+        </div>
+      </div>
+
+      </div>
   </div>
-</div>       
+</div>
 
       </div>
   </div>
