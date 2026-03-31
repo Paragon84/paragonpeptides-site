@@ -12,15 +12,6 @@
   <meta property="og:description" content="Lab-grade peptides for scientific research. Retatrutide, Tirzepatide, BPC-157 & more.">
   <meta property="og:image" content="https://i.imgur.com/4nw0O80.jpeg">
   <meta property="og:url" content="https://paragonpeptides.net">
-<!-- === GOOGLE ANALYTICS 4 === -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YDHV3JJ3KL"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-YDHV3JJ3KL');
-  </script>
-  <!-- === END GOOGLE ANALYTICS === -->
   <meta name="trustpilot-one-time-domain-verification-id"   content="95ded606-5ff5-487b-ab95-6997be5b1b4a"/>
 <!-- Favicon -->
 <link rel="icon" href="https://i.imgur.com/jXQlcWB.png" type="image/png">
@@ -168,7 +159,8 @@ div[x-show="showGate"] > div {
   <!-- MAIN SITE -->
   <div x-show="!showGate" x-cloak x-data="app()" x-init="init()">
     <!-- FLASH SALE BANNER -->
-    <div class="bg-[#ff1493] text-white text-center py-2.5 text-sm font-medium">RESEARCH USE ONLY NOT FOR HUMAN CONSUMPTION</div>
+    <div class="bg-[#ff1493] text-white text-center py-2.5 text-sm font-medium">100% Customer Satisfaction Guarantee
+Free Priority Shipping on all orders over $199 & Free Priority Express Shipping </div>
 
 <!-- HEADER – WHITE SLIDE-IN MENU WITH ALL 3 SOCIAL ICONS -->
 <header class="bg-black border-b border-zinc-800 sticky top-0 z-50">
@@ -289,6 +281,7 @@ div[x-show="showGate"] > div {
   </div>
 </section>
 
+
 <!-- === MOST ORDERED THIS MONTH (Fixed - Card Clickable + Quick Add) === -->
 <section class="py-16 bg-zinc-950 border-t border-zinc-800">
   <div class="max-w-7xl mx-auto px-6">
@@ -302,32 +295,15 @@ div[x-show="showGate"] > div {
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
   <div class="group block cursor-pointer">
-    <div @click="window.location.href = 'product.html?id=111'" 
+    <div @click="window.location.href = 'product.html?id=118'" 
          class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-[#ff1493] transition-all duration-300 relative">
-      <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/reta-20mg-thumb.webp" 
+      <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/reta-10mg.jpg" 
            class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
       <div class="absolute top-4 right-4 bg-[#ff1493] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">#1 BESTSELLER</div>
       <div class="p-6 text-center">
-        <h3 class="text-xl font-semibold text-white">Reta</h3>
-        <p class="text-zinc-400 text-sm">20 mg • $79</p>
-        <button @click.stop="quickAddToCart(111, 'Reta', '20mg', 79)" 
-                class="mt-4 w-full bg-white hover:bg-zinc-200 text-black font-semibold py-3 rounded-2xl transition">
-          Quick Add
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <div class="group block cursor-pointer">
-    <div @click="window.location.href = 'product.html?id=112'" 
-         class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-[#ff1493] transition-all duration-300 relative">
-      <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/tirz-20mg-thumb.webp" 
-           class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
-      <div class="absolute top-4 right-4 bg-[#ff1493] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">#2 BESTSELLER</div>
-      <div class="p-6 text-center">
-        <h3 class="text-xl font-semibold text-white">Tirzepatide</h3>
-        <p class="text-zinc-400 text-sm">20 mg • $69</p>
-        <button @click.stop="quickAddToCart(112, 'Tirzepatide', '20mg', 69)" 
+        <h3 class="text-xl font-semibold text-white">Retatrutide</h3>
+        <p class="text-zinc-400 text-sm">10 mg • $49</p>
+        <button @click.stop="quickAddToCart(118, 'Retatrutide', '10mg', 129)" 
                 class="mt-4 w-full bg-white hover:bg-zinc-200 text-black font-semibold py-3 rounded-2xl transition">
           Quick Add
         </button>
@@ -338,13 +314,30 @@ div[x-show="showGate"] > div {
   <div class="group block cursor-pointer">
     <div @click="window.location.href = 'product.html?id=119'" 
          class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-[#ff1493] transition-all duration-300 relative">
-      <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/bpc-157-10mg-thumb.webp" 
+      <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/tirz-20mg.jpg" 
+           class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
+      <div class="absolute top-4 right-4 bg-[#ff1493] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">#2 BESTSELLER</div>
+      <div class="p-6 text-center">
+        <h3 class="text-xl font-semibold text-white">Tirzepatide</h3>
+        <p class="text-zinc-400 text-sm">20 mg • $69</p>
+        <button @click.stop="quickAddToCart(119, 'Tirzepatide', '20mg', 199)" 
+                class="mt-4 w-full bg-white hover:bg-zinc-200 text-black font-semibold py-3 rounded-2xl transition">
+          Quick Add
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="group block cursor-pointer">
+    <div @click="window.location.href = 'product.html?id=120'" 
+         class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-[#ff1493] transition-all duration-300 relative">
+      <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/bpc-157-5mg.jpg" 
            class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
       <div class="absolute top-4 right-4 bg-[#ff1493] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">#3 BESTSELLER</div>
       <div class="p-6 text-center">
         <h3 class="text-xl font-semibold text-white">BPC-157</h3>
-        <p class="text-zinc-400 text-sm">10 mg • $49</p>
-        <button @click.stop="quickAddToCart(119, 'BPC-157', '10mg', 49)" 
+        <p class="text-zinc-400 text-sm">5 mg • $49</p>
+        <button @click.stop="quickAddToCart(120, 'BPC-157', '5mg', 49)" 
                 class="mt-4 w-full bg-white hover:bg-zinc-200 text-black font-semibold py-3 rounded-2xl transition">
           Quick Add
         </button>
@@ -356,105 +349,377 @@ div[x-show="showGate"] > div {
 
 
 <!-- SHOP GRID – UPDATED WITH DEDICATED PRODUCT PAGE INTEGRATION -->
-<div id="shop" class="max-w-7xl mx-auto px-6 py-12">
-  <h1 class="text-5xl font-bold text-center mb-12">Precision Research Compounds</h1>
-  
-  <!-- Category Filter -->
-  <div class="text-center mb-16">
-    <p class="text-zinc-400 mb-8">High-purity peptides for laboratory evaluation.</p>
-    
-    <div class="flex flex-wrap justify-center gap-3">
-      <template x-for="cat in ['all', 'metabolic', 'recovery', 'gh-secretagogue', 'specialized', 'solvents']">
-        <button 
-          @click="activeFilter = cat"
-          :class="activeFilter === cat 
-            ? 'bg-[#ff1493] text-white border-[#ff1493]' 
-            : 'bg-transparent text-zinc-500 border-zinc-800 hover:border-zinc-500'"
-          class="px-7 py-2.5 rounded-full border text-xs font-bold uppercase tracking-widest transition-all">
-          <span x-text="cat === 'all' ? 'SHOW ALL' : cat.replace('-', ' ').toUpperCase()"></span>
-        </button>
+<div id="" class="max-w-7xl mx-auto px-6 py-12">
+<!-- === FINAL POLISHED ANIMATED FEATURE CARDS (No Tilt + Vial Zoom) === -->
+<div class="text-center mb-16">
+  <h1 class="text-5xl font-bold text-white mb-3">Precision Research Compounds</h1>
+  <p class="text-zinc-400 text-xl mb-12">High-purity peptides for laboratory evaluation.</p>
+
+  <!-- Cards Grid -->
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 max-w-7xl mx-auto px-4">
+
+    <!-- 1. GLPs -->
+    <div class="group relative bg-zinc-900 border border-zinc-800 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/20">
+      
+      <!-- Default State -->
+      <div class="transition-all duration-700 group-hover:opacity-0 group-hover:-translate-y-6">
+        <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493]/10 rounded-2xl flex items-center justify-center text-3xl">🔬</div>
+        <h4 class="font-semibold text-white text-lg mb-2">GLP-1s</h4>
+        <p class="text-zinc-400 text-sm">≥99% purity • Independently tested</p>
+      </div>
+
+      <!-- Hover State -->
+      <div class="absolute inset-0 flex flex-col items-center justify-center px-4 transition-all duration-700 opacity-0 group-hover:opacity-100">
+        <!-- Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+        
+        <!-- Vial with individual hover zoom -->
+        <div class="relative w-24 h-24 mb-5 transition-transform duration-300 group-hover:scale-110">
+          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/reta-10mg.jpg" 
+               alt="GLP-1 Vial" 
+               class="w-full h-full object-contain drop-shadow-2xl hover:scale-125 transition-transform duration-500">
+        </div>
+        
+        <h4 class="relative font-semibold text-[#ff1493] text-xl mb-1">GLP-1s</h4>
+        <p class="relative text-white text-sm text-center leading-tight max-w-[190px]">
+          Powerful appetite control &amp; fat loss support
+        </p>
+      </div>
+    </div>
+
+ <!-- 2. Metabolic -->
+    <div class="group relative bg-zinc-900 border border-zinc-800 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/20">
+      <div class="transition-all duration-700 group-hover:opacity-0 group-hover:-translate-y-6">
+        <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493]/10 rounded-2xl flex items-center justify-center text-3xl">🔬</div>
+        <h4 class="font-semibold text-white text-lg mb-2">Metabolics</h4>
+        <p class="text-zinc-400 text-sm">≥99% purity • Independently tested</p>
+      </div>
+
+      <div class="absolute inset-0 flex flex-col items-center justify-center px-4 transition-all duration-700 opacity-0 group-hover:opacity-100">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+        
+        <div class="relative w-24 h-24 mb-5 transition-transform duration-300 group-hover:scale-110">
+          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/aod-9604-2mg.jpg" 
+               alt="Metabolic Vial" 
+               class="w-full h-full object-contain drop-shadow-2xl hover:scale-125 transition-transform duration-500">
+        </div>
+        
+        <h4 class="relative font-semibold text-[#ff1493] text-xl mb-1">Metabolics</h4>
+        <p class="relative text-white text-sm text-center leading-tight max-w-[190px]">
+          Boost energy &amp; accelerate fat metabolism
+        </p>
+      </div>
+    </div>
+
+    <!-- 3. Recovery -->
+    <div class="group relative bg-zinc-900 border border-zinc-800 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/20">
+      <div class="transition-all duration-700 group-hover:opacity-0 group-hover:-translate-y-6">
+        <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493]/10 rounded-2xl flex items-center justify-center text-3xl">🔬</div>
+        <h4 class="font-semibold text-white text-lg mb-2">Recovery</h4>
+        <p class="text-zinc-400 text-sm">≥99% purity • Independently tested</p>
+      </div>
+
+      <div class="absolute inset-0 flex flex-col items-center justify-center px-4 transition-all duration-700 opacity-0 group-hover:opacity-100">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+        
+        <div class="relative w-24 h-24 mb-5 transition-transform duration-300 group-hover:scale-110">
+          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/bpc-157-5mg.jpg" 
+               alt="Recovery Vial" 
+               class="w-full h-full object-contain drop-shadow-2xl hover:scale-125 transition-transform duration-500">
+        </div>
+        
+        <h4 class="relative font-semibold text-[#ff1493] text-xl mb-1">Recovery</h4>
+        <p class="relative text-white text-sm text-center leading-tight max-w-[190px]">
+          Faster healing &amp; post-workout regeneration
+        </p>
+      </div>
+    </div>
+
+    <!-- 4. Specialized -->
+    <div class="group relative bg-zinc-900 border border-zinc-800 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/20">
+      <div class="transition-all duration-700 group-hover:opacity-0 group-hover:-translate-y-6">
+        <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493]/10 rounded-2xl flex items-center justify-center text-3xl">🔬</div>
+        <h4 class="font-semibold text-white text-lg mb-2">Specialized</h4>
+        <p class="text-zinc-400 text-sm">≥99% purity • Independently tested</p>
+      </div>
+
+      <div class="absolute inset-0 flex flex-col items-center justify-center px-4 transition-all duration-700 opacity-0 group-hover:opacity-100">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+        
+        <div class="relative w-24 h-24 mb-5 transition-transform duration-300 group-hover:scale-110">
+          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/melanotan2-10mg.jpg" 
+               alt="Specialized Vial" 
+               class="w-full h-full object-contain drop-shadow-2xl hover:scale-125 transition-transform duration-500">
+        </div>
+        
+        <h4 class="relative font-semibold text-[#ff1493] text-xl mb-1">Specialized</h4>
+        <p class="relative text-white text-sm text-center leading-tight max-w-[190px]">
+          Targeted cellular healing &amp; optimization
+        </p>
+      </div>
+    </div>
+
+    <!-- 5. GH Secretagogue -->
+    <div class="group relative bg-zinc-900 border border-zinc-800 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/20">
+      <div class="transition-all duration-700 group-hover:opacity-0 group-hover:-translate-y-6">
+        <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493]/10 rounded-2xl flex items-center justify-center text-3xl">🔬</div>
+        <h4 class="font-semibold text-white text-lg mb-2">GH Secretagogue</h4>
+        <p class="text-zinc-400 text-sm">≥99% purity • Independently tested</p>
+      </div>
+
+      <div class="absolute inset-0 flex flex-col items-center justify-center px-4 transition-all duration-700 opacity-0 group-hover:opacity-100">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+        
+        <div class="relative w-24 h-24 mb-5 transition-transform duration-300 group-hover:scale-110">
+          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/tesamorelin-10mg.jpg" 
+               alt="GH Secretagogue Vial" 
+               class="w-full h-full object-contain drop-shadow-2xl hover:scale-125 transition-transform duration-500">
+        </div>
+        
+        <h4 class="relative font-semibold text-[#ff1493] text-xl mb-1">GH Secretagogue</h4>
+        <p class="relative text-white text-sm text-center leading-tight max-w-[190px]">
+          Stimulate natural muscle growth &amp; recovery
+        </p>
+      </div>
+    </div>
+
+    <!-- 6. Solvents -->
+    <div class="group relative bg-zinc-900 border border-zinc-800 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/20">
+      <div class="transition-all duration-700 group-hover:opacity-0 group-hover:-translate-y-6">
+        <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493]/10 rounded-2xl flex items-center justify-center text-3xl">🔬</div>
+        <h4 class="font-semibold text-white text-lg mb-2">Solvents</h4>
+        <p class="text-zinc-400 text-sm">≥99% purity • Independently tested</p>
+      </div>
+
+      <div class="absolute inset-0 flex flex-col items-center justify-center px-4 transition-all duration-700 opacity-0 group-hover:opacity-100">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+        
+        <div class="relative w-24 h-24 mb-5 transition-transform duration-300 group-hover:scale-110">
+          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/bac-water-10ml.jpg" 
+               alt="Solvents Vial" 
+               class="w-full h-full object-contain drop-shadow-2xl hover:scale-125 transition-transform duration-500">
+        </div>
+        
+        <h4 class="relative font-semibold text-[#ff1493] text-xl mb-1">Solvents</h4>
+        <p class="relative text-white text-sm text-center leading-tight max-w-[190px]">
+          For reconstituting lyophilized peptides
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- === FULL SHOP SECTION – UPDATED MOBILE 2-COLUMN (exactly like profoundaminos.com) === -->
+<div id="shop-results" class="max-w-7xl mx-auto px-6 py-12">
+
+  <!-- GLP -->
+  <div class="mb-16" x-show="glpProducts().length > 0">
+    <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+      <span class="text-[#ff1493]">GLPs</span>
+    </h2>
+    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <template x-for="product in glpProducts()" :key="product.id">
+        <div class="product-card group bg-zinc-900/50 border border-zinc-800 rounded-3xl overflow-hidden hover:border-[#ff1493] transition-all duration-500 cursor-pointer"
+             @click="window.location.href = '/product.html?id=' + product.id">
+          <img :src="product.image" :alt="product.name" @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'" loading="lazy"
+               class="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+          <div class="p-4 sm:p-6">
+            <h3 class="text-lg sm:text-xl font-bold text-white line-clamp-2" x-text="product.name"></h3>
+            <div class="mt-1 flex items-baseline gap-2">
+              <span class="text-2xl sm:text-3xl font-bold text-white" x-text="product.price ? '$' + product.price : '$' + (product.doses[0]?.price || 0)"></span>
+              <span class="text-zinc-400 text-sm">/vial</span>
+            </div>
+            <button @click.stop="addToCartWithDose(product)"
+                    class="mt-4 w-full py-3.5 rounded-2xl font-semibold text-sm sm:text-base transition-all active:scale-95 bg-white text-black hover:bg-zinc-200">
+              ADD TO CART
+            </button>
+          </div>
+        </div>
       </template>
     </div>
   </div>
 
-  <!-- Products Grid -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-    <template x-for="product in filteredProducts" :key="product.id">
-      <div 
-     <div class="product-card group bg-zinc-900/50 border border-zinc-800 rounded-3xl overflow-hidden hover:border-[#ff1493] transition-all duration-500 cursor-pointer"
-     @click="window.location.href = '/product.html?id=' + product.id">
-  <img :src="product.image" :alt="product.name" class="w-full h-56 object-cover group-hover:
-
-        <img 
-          :src="product.image" 
-          :alt="product.name"
-          @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'"loading="lazy"
-     decoding="async"
-     fetchpriority="low"
-          class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500">
-
-        <div class="p-6">
-          <h3 class="text-2xl font-bold text-white" x-text="product.name"></h3>
-          <p class="text-zinc-400 text-sm mt-1 line-clamp-2" x-text="product.desc"></p>
-
-          <!-- Trust Badges -->
-          <div class="flex flex-wrap gap-2 mt-4">
-            <span class="text-[10px] bg-green-900 text-green-400 px-3 py-1 rounded-full font-medium">HPLC Verified</span>
-            <span class="text-[10px] bg-amber-900 text-amber-400 px-3 py-1 rounded-full font-medium">Cold Chain</span>
-            <span class="text-[10px] bg-blue-900 text-blue-400 px-3 py-1 rounded-full font-medium">Research Use Only</span>
-          </div>
-
-          <!-- Dose Buttons + Live Stock -->
-          <div class="flex flex-wrap gap-2 mt-6">
-            <template x-for="variant in product.doses" :key="variant.mg || variant.ml">
-              <button
-                @click.stop="toggleDose(product, variant)"
-                :disabled="variant.stock <= 0"
-                :class="{
-                  'bg-[#ff1493] text-white ring-2 ring-pink-500 scale-105': product.selectedDose === (variant.mg || variant.ml),
-                  'opacity-50 cursor-not-allowed': variant.stock <= 0
-                }"
-                class="px-6 py-3 rounded-2xl text-sm font-medium transition-all relative flex flex-col items-center min-h-[52px]">
-                <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
-                <span class="absolute -top-1 -right-1 text-[10px] font-bold px-2 py-0.5 rounded-full"
-                      :class="{
-                        'bg-red-600 text-white': variant.stock === 0,
-                        'bg-orange-500 text-white': variant.stock > 0 && variant.stock <= 5,
-                        'bg-green-600 text-white': variant.stock > 5
-                      }">
-                  <span x-text="variant.stock === 0 ? 'OUT' : variant.stock <= 5 ? variant.stock + ' left' : 'IN'"></span>
-                </span>
-              </button>
-            </template>
-          </div>
-
-<!-- QUANTITY SELECTOR (appears after dose selected) -->
-      <div x-show="product.selectedDose" class="flex items-center justify-center gap-6 mt-6">
-        <button @click.stop="decrementQty(product)" class="w-10 h-10 bg-zinc-800 hover:bg-zinc-700 rounded-2xl text-2xl font-medium transition">−</button>
-        <span class="text-2xl font-bold w-8 text-center" x-text="product.quantity || 1"></span>
-        <button @click.stop="incrementQty(product)" class="w-10 h-10 bg-zinc-800 hover:bg-zinc-700 rounded-2xl text-2xl font-medium transition">+</button>
-      </div>
-
-          <!-- Price & Quick Add to Cart -->
-          <div class="mt-6 flex justify-between items-end">
-            <div>
-              <span class="text-3xl font-bold" 
-                    x-text="product.price ? '$' + product.price : '$' + (product.doses[0]?.price || 0)"></span>
-              <span class="text-zinc-400">/vial</span>
+  <!-- Metabolic -->
+  <div class="mb-16" x-show="metabolicProducts().length > 0">
+    <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+      <span class="text-[#ff1493]">Metabolic</span>
+    </h2>
+    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <template x-for="product in metabolicProducts()" :key="product.id">
+        <div class="product-card group bg-zinc-900/50 border border-zinc-800 rounded-3xl overflow-hidden hover:border-[#ff1493] transition-all duration-500 cursor-pointer"
+             @click="window.location.href = '/product.html?id=' + product.id">
+          <img :src="product.image" :alt="product.name" @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'" loading="lazy"
+               class="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+          <div class="p-4 sm:p-6">
+            <h3 class="text-lg sm:text-xl font-bold text-white line-clamp-2" x-text="product.name"></h3>
+            <div class="mt-1 flex items-baseline gap-2">
+              <span class="text-2xl sm:text-3xl font-bold text-white" x-text="product.price ? '$' + product.price : '$' + (product.doses[0]?.price || 0)"></span>
+              <span class="text-zinc-400 text-sm">/vial</span>
             </div>
-  
-           <button @click.stop="addToCartWithDose(product)"
-              :disabled="!product.selectedDose"
-              class="mt-8 w-full py-4 rounded-3xl font-semibold transition-all touch-manipulation active:scale-95"
-              :class="product.selectedDose 
-                ? 'bg-white text-black hover:bg-zinc-200' 
-                : 'bg-zinc-700 text-zinc-400 cursor-not-allowed'">
-        <span x-text="product.selectedDose ? 'ADD TO CART' : 'SELECT DOSE FIRST'"></span>
-      </button>
+            <button @click.stop="addToCartWithDose(product)"
+                    class="mt-4 w-full py-3.5 rounded-2xl font-semibold text-sm sm:text-base transition-all active:scale-95 bg-white text-black hover:bg-zinc-200">
+              ADD TO CART
+            </button>
+          </div>
+        </div>
+      </template>
     </div>
   </div>
- </div>
-    </template>
+
+  <!-- Specialized -->
+  <div class="mb-16" x-show="specializedProducts().length > 0">
+    <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+      <span class="text-[#ff1493]">Specialized</span>
+    </h2>
+    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <template x-for="product in specializedProducts()" :key="product.id">
+        <div class="product-card group bg-zinc-900/50 border border-zinc-800 rounded-3xl overflow-hidden hover:border-[#ff1493] transition-all duration-500 cursor-pointer"
+             @click="window.location.href = '/product.html?id=' + product.id">
+          <img :src="product.image" :alt="product.name" @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'" loading="lazy"
+               class="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+          <div class="p-4 sm:p-6">
+            <h3 class="text-lg sm:text-xl font-bold text-white line-clamp-2" x-text="product.name"></h3>
+            <div class="mt-1 flex items-baseline gap-2">
+              <span class="text-2xl sm:text-3xl font-bold text-white" x-text="product.price ? '$' + product.price : '$' + (product.doses[0]?.price || 0)"></span>
+              <span class="text-zinc-400 text-sm">/vial</span>
+            </div>
+            <button @click.stop="addToCartWithDose(product)"
+                    class="mt-4 w-full py-3.5 rounded-2xl font-semibold text-sm sm:text-base transition-all active:scale-95 bg-white text-black hover:bg-zinc-200">
+              ADD TO CART
+            </button>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <!-- Recovery -->
+  <div class="mb-16" x-show="recoveryProducts().length > 0">
+    <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+      <span class="text-[#ff1493]">Recovery</span>
+    </h2>
+    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <template x-for="product in recoveryProducts()" :key="product.id">
+        <div class="product-card group bg-zinc-900/50 border border-zinc-800 rounded-3xl overflow-hidden hover:border-[#ff1493] transition-all duration-500 cursor-pointer"
+             @click="window.location.href = '/product.html?id=' + product.id">
+          <img :src="product.image" :alt="product.name" @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'" loading="lazy"
+               class="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+          <div class="p-4 sm:p-6">
+            <h3 class="text-lg sm:text-xl font-bold text-white line-clamp-2" x-text="product.name"></h3>
+            <div class="mt-1 flex items-baseline gap-2">
+              <span class="text-2xl sm:text-3xl font-bold text-white" x-text="product.price ? '$' + product.price : '$' + (product.doses[0]?.price || 0)"></span>
+              <span class="text-zinc-400 text-sm">/vial</span>
+            </div>
+            <button @click.stop="addToCartWithDose(product)"
+                    class="mt-4 w-full py-3.5 rounded-2xl font-semibold text-sm sm:text-base transition-all active:scale-95 bg-white text-black hover:bg-zinc-200">
+              ADD TO CART
+            </button>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <!-- GH Secretagogue -->
+  <div class="mb-16" x-show="ghProducts().length > 0">
+    <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+      <span class="text-[#ff1493]">GH Secretagogue</span>
+    </h2>
+    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <template x-for="product in ghProducts()" :key="product.id">
+        <div class="product-card group bg-zinc-900/50 border border-zinc-800 rounded-3xl overflow-hidden hover:border-[#ff1493] transition-all duration-500 cursor-pointer"
+             @click="window.location.href = '/product.html?id=' + product.id">
+          <img :src="product.image" :alt="product.name" @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'" loading="lazy"
+               class="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+          <div class="p-4 sm:p-6">
+            <h3 class="text-lg sm:text-xl font-bold text-white line-clamp-2" x-text="product.name"></h3>
+            <div class="mt-1 flex items-baseline gap-2">
+              <span class="text-2xl sm:text-3xl font-bold text-white" x-text="product.price ? '$' + product.price : '$' + (product.doses[0]?.price || 0)"></span>
+              <span class="text-zinc-400 text-sm">/vial</span>
+            </div>
+            <button @click.stop="addToCartWithDose(product)"
+                    class="mt-4 w-full py-3.5 rounded-2xl font-semibold text-sm sm:text-base transition-all active:scale-95 bg-white text-black hover:bg-zinc-200">
+              ADD TO CART
+            </button>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <!-- Solvents -->
+  <div class="mb-16" x-show="solventsProducts().length > 0">
+    <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+      <span class="text-[#ff1493]">Solvents</span>
+    </h2>
+    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <template x-for="product in solventsProducts()" :key="product.id">
+        <div class="product-card group bg-zinc-900/50 border border-zinc-800 rounded-3xl overflow-hidden hover:border-[#ff1493] transition-all duration-500 cursor-pointer"
+             @click="window.location.href = '/product.html?id=' + product.id">
+          <img :src="product.image" :alt="product.name" @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'" loading="lazy"
+               class="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+          <div class="p-4 sm:p-6">
+            <h3 class="text-lg sm:text-xl font-bold text-white line-clamp-2" x-text="product.name"></h3>
+            <div class="mt-1 flex items-baseline gap-2">
+              <span class="text-2xl sm:text-3xl font-bold text-white" x-text="product.price ? '$' + product.price : '$' + (product.doses[0]?.price || 0)"></span>
+              <span class="text-zinc-400 text-sm">/vial</span>
+            </div>
+            <button @click.stop="addToCartWithDose(product)"
+                    class="mt-4 w-full py-3.5 rounded-2xl font-semibold text-sm sm:text-base transition-all active:scale-95 bg-white text-black hover:bg-zinc-200">
+              ADD TO CART
+            </button>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+
+</div>
+<!-- === RESEARCH STANDARDS, DOCUMENTATION & BUYER RESOURCE CENTER === -->
+<div class="bg-zinc-950 py-20 border-t border-b border-zinc-800">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="relative" x-data="{ current: 0, total: 7, move() { this.current = (this.current + 1) % this.total; }, prev() { this.current = (this.current - 1 + this.total) % this.total; } }">
+  <div class="overflow-hidden rounded-3xl">
+    <div class="flex transition-transform duration-700 ease-out" :style="{ transform: 'translateX(-' + (current * 25) + '%)' }">
+
+      <div class="min-w-[25%] px-3">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 h-full min-h-[380px] hover:border-[#ff1493] transition-all group flex flex-col">
+          <h3 class="text-lg font-semibold text-white mb-4 group-hover:text-[#ff1493]">What Are Research Peptides?</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed flex-1 line-clamp-4">Overview of peptide structure, classification, and laboratory research context.</p>
+          <a href="/what-is-a-peptide.html" class="inline-flex items-center text-[#ff1493] hover:text-pink-400 font-medium text-sm mt-6">Learn More →</a>
+        </div>
+      </div>
+
+      <div class="min-w-[25%] px-3">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 h-full min-h-[380px] hover:border-[#ff1493] transition-all group flex flex-col">
+          <h3 class="text-lg font-semibold text-white mb-4 group-hover:text-[#ff1493]">Storage & Handling Guidelines</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed flex-1 line-clamp-4">Stability controls, environmental considerations, and lab best practices.</p>
+          <a href="/storage-handling.html" class="inline-flex items-center text-[#ff1493] hover:text-pink-400 font-medium text-sm mt-6">View Guide →</a>
+        </div>
+      </div>
+
+      <div class="min-w-[25%] px-3">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 h-full min-h-[380px] hover:border-[#ff1493] transition-all group flex flex-col">
+          <h3 class="text-lg font-semibold text-white mb-4 group-hover:text-[#ff1493]">Analytical Testing Methods</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed flex-1 line-clamp-4">HPLC, mass spectrometry, and batch verification fundamentals.</p>
+          <a href="/analytical-testing.html" class="inline-flex items-center text-[#ff1493] hover:text-pink-400 font-medium text-sm mt-6">Read More →</a>
+        </div>
+      </div>
+
+      <div class="min-w-[25%] px-3">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 h-full min-h-[380px] hover:border-[#ff1493] transition-all group flex flex-col">
+          <h3 class="text-lg font-semibold text-white mb-4 group-hover:text-[#ff1493]"></h3>
+          <p class="text-zinc-400 text-sm leading-relaxed flex-1 line-clamp-4">Step-by-step guide to evaluating third-party Certificates of Analysis.</p>
+          <a href="/how-to-reconstitute-peptides.html" class="inline-flex items-center text-[#ff1493] hover:text-pink-400 font-medium text-sm mt-6">Verify Documentation →</a>
+        </div>
+      </div>
+
+      </div>
+  </div>
+</div>
+
+      </div>
   </div>
 </div>
 
@@ -504,16 +769,61 @@ div[x-show="showGate"] > div {
   </div>
 </div>
 
-<footer class="bg-black py-16 border-t border-zinc-800">
-  <div class="max-w-7xl mx-auto px-6 text-center">
-    <!-- Top links row -->
-    <div class="flex flex-wrap justify-center gap-x-8 gap-y-3 text-zinc-400 text-sm font-medium mb-12">
- <a @click="showGetInTouchModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Get in Touch</a>
-      <a @click="showSupportModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Support</a>
-      <a @click="showFaqsPage = true" class="hover:text-[#ff1493] transition cursor-pointer">FAQs &amp; Policies</a>
-      <a @click="showAccountModal = true" class="hover:text-[#ff1493] transition cursor-pointer">My Account</a>
-    </div>
+<!-- === FULL-WIDTH WHITE PAGE-BREAK FOOTER (with your exact links) === -->
+<div class="bg-white text-black py-16 border-t border-zinc-200 w-full">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid md:grid-cols-12 gap-12">
 
+      <!-- Left Column: Trustpilot + Company Info -->
+      <div class="md:col-span-4">
+        <div class="flex items-center gap-3 mb-6">
+          <img src="https://i.imgur.com/jXQlcWB.png" alt="Paragon Peptides" class="h-9 w-9">
+          <span class="text-2xl font-bold tracking-tight">Paragon Peptides</span>
+        </div>
+        
+        <!-- Trustpilot Widget Slot -->
+        <div class="flex items-center gap-4 bg-zinc-100 rounded-3xl px-6 py-4 mb-8">
+          <div class="text-4xl">★★★★★</div>
+          <div>
+            <p class="font-semibold">5-Star Rated on Trustpilot</p>
+            <a href="YOUR_TRUSTPILOT_LINK_HERE" target="_blank" class="text-[#ff1493] hover:underline text-sm">
+              View all reviews →
+            </a>
+          </div>
+        </div>
+
+        <p class="text-sm text-zinc-600 leading-relaxed">
+          Premium research peptides for laboratory use only.<br>
+          HPLC-verified • Cold-chain shipping • For research purposes exclusively.
+        </p>
+      </div>
+
+      <!-- Middle Column: Quick Links (now vertical with your exact links) -->
+      <div class="md:col-span-4">
+        <h4 class="font-semibold mb-6 text-lg">Quick Links</h4>
+        <div class="flex flex-col gap-y-4 text-sm">
+          <a @click="showGetInTouchModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Get in Touch</a>
+          <a @click="showSupportModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Support</a>
+          <a @click="showFaqsPage = true" class="hover:text-[#ff1493] transition cursor-pointer">FAQs &amp; Policies</a>
+          <a @click="showAccountModal = true" class="hover:text-[#ff1493] transition cursor-pointer">My Account</a>
+        </div>
+      </div>
+
+      <!-- Right Column: Newsletter -->
+      <div class="md:col-span-4">
+        <h4 class="font-semibold mb-6 text-lg">Research Updates</h4>
+        <p class="text-sm text-zinc-600 mb-6">Get early access to new compounds, flash sales, and lab insights.</p>
+        
+        <form class="flex gap-3">
+          <input type="email" placeholder="your@email.com" 
+                 class="flex-1 bg-zinc-100 border border-zinc-300 focus:border-[#ff1493] rounded-3xl px-6 py-4 text-black outline-none">
+          <button type="submit"
+                  class="bg-black text-white px-8 rounded-3xl font-semibold hover:bg-[#ff1493] transition">
+            Join
+          </button>
+        </form>
+      </div>
+    </div>
 <!-- Social Icons – Centered, consistent size, official colors -->
 <div class="flex justify-center items-center gap-8 sm:gap-12 mb-12">
   
@@ -521,30 +831,34 @@ div[x-show="showGate"] > div {
     <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.332.014 7.052.072 2.578.27 0 2.85 0 7.328c-.014 1.28-.014 1.689-.014 5.948 0 4.259.014 4.668.014 5.948 0 4.478 2.578 7.058 7.052 7.256 1.28.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.474-.198 7.052-2.778 7.052-7.256 0-1.28.014-1.689.014-5.948 0-4.259-.014-4.668-.014-5.948C24 2.85 21.422.27 16.948.072 15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a4 4 0 110-8 4 4 0 010 8zm7.846-10.162a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/></svg>
   </a>
 
-  <a href="https://www.tiktok.com/@paragon_peptides" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#ff1493] hover:scale-110 transition duration-200">
-    <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.1-3.44-3.37-3.42-5.72-.03-1.91.82-3.75 2.22-5.04 1.39-1.3 3.32-1.97 5.24-1.8v4.17c-1.12-.17-2.31.19-3.1 1.02-.74.77-1.1 1.91-.9 2.99.32 1.73 1.85 3 3.6 3.06 1.42.06 2.82-.73 3.44-1.98.33-.65.42-1.39.42-2.11V.02z"/></svg>
-  </a>
-
+ <!-- TikTok Icon - Now BLACK by default -->
+<a href="https://www.tiktok.com/@paragon_peptides" 
+   target="_blank" 
+   rel="noopener noreferrer" 
+   class="text-black hover:text-[#ff1493] hover:scale-110 transition duration-200">
+  <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.1-3.44-3.37-3.42-5.72-.03-1.91.82-3.75 2.22-5.04 1.39-1.3 3.32-1.97 5.24-1.8v4.17c-1.12-.17-2.31.19-3.1 1.02-.74.77-1.1 1.91-.9 2.99.32 1.73 1.85 3 3.6 3.06 1.42.06 2.82-.73 3.44-1.98.33-.65.42-1.39.42-2.11V.02z"/>
+  </svg>
+</a>
   <a href="https://t.me/Paragonpeptides" target="_blank" rel="noopener noreferrer" class="text-[#0088cc] hover:text-[#ff1493] hover:scale-110 transition duration-200">
     <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M20.665 3.717L2.934 10.554C2.425 10.736 2.417 11.035 2.833 11.183L7.833 12.917L17.833 6.917C18.167 6.667 18.5 6.833 18.167 7.083L10.167 14.083L9.833 19.083C9.833 19.583 10.167 19.75 10.583 19.583L13.167 18.083L17.833 21.083C18.833 21.583 19.167 21.083 19.417 20.083L21.917 4.083C22.167 3.083 21.667 2.717 20.665 3.717Z"/></svg>
   </a>
 
 </div>
-    <!-- Disclaimer -->
-   <div class="max-w-2xl mx-auto text-[13px] leading-relaxed tracking-wide text-zinc-400 font-light mb-8">
-      © 2026 Paragon Peptides • For research use only. Not for human consumption.<br>
-      Products are not intended to diagnose, treat, or cure any condition.<br>
-      By purchasing, you confirm you are 21 or older and conducting scientific research.
-    </div>
 
-    <!-- Admin button -->
+    <!-- Bottom Copyright -->
+    <div class="mt-16 pt-8 border-t border-zinc-200 text-center text-xs text-zinc-500">
+      © 2026 Paragon Peptides • All Rights Reserved • For research use only. Not for human consumption.
+Products are not intended to diagnose, treat, or cure any condition.
+By purchasing, you confirm you are 21 or older and conducting scientific research.
+<!-- Admin button -->
     <button @click="openStockManager()"
             class="text-xs text-zinc-600 hover:text-[#ff1493] block mx-auto">
       Site Tools
     </button>
+    </div>
   </div>
-</footer>
-
+</div>
   <!-- DEDICATED FAQ PAGE (full-screen like profoundaminos.com) -->
   <div x-show="showFaqsPage" class="fixed inset-0 bg-black z-[99999] overflow-auto" x-transition>
     <div class="max-w-4xl mx-auto px-6 py-12">
@@ -723,9 +1037,7 @@ div[x-show="showGate"] > div {
         <div class="flex-1 overflow-auto space-y-6">
           <template x-for="(item, i) in cart" :key="i">
            <div class="flex gap-6 border-b border-zinc-800 pb-6">
-  <img :src="item.image || 'https://i.imgur.com/jXQlcWB.png'" 
-     class="w-24 h-24 object-cover rounded-xl" 
-     alt="">
+  <img :src="item.image" class="w-24 h-24 object-cover rounded-xl">
   <div class="flex-1">
     <h4 class="font-medium text-lg" x-text="item.name"></h4>
     <p class="text-sm text-zinc-400 mt-1" x-text="'Dose: ' + item.dose + (item.unit || 'mg')"></p>
@@ -749,13 +1061,363 @@ div[x-show="showGate"] > div {
   </div>
   <!-- Optional: Shipping note -->
   <p class="text-sm text-zinc-400 mb-4" x-text="cartTotal >= 250 ? 'Free Shipping Eligible' : 'Shipping calculated at checkout'"></p>
- <button @click="window.location.href = '/checkout.html'" class="w-full bg-white text-black py-5 rounded-3xl font-semibold">
-  Proceed to Checkout
-</button>
+  <button @click="proceedToCheckout()" 
+          class="w-full bg-white text-black py-5 rounded-3xl font-semibold text-xl hover:bg-gray-200 transition">
+    Proceed to Checkout
+  </button>
       </div>
       </div>
     </div>
 
+<!-- DEDICATED CHECKOUT PAGE (full-screen like profoundaminos.com) -->
+<div x-show="checkoutPage" class="fixed inset-0 bg-black z-[100000] overflow-auto" x-transition>
+  <div class="max-w-7xl mx-auto px-6 py-12">
+    <!-- Back button -->
+    <button @click="checkoutPage = false" class="mb-8 flex items-center gap-2 text-[#ff1493] hover:text-pink-400 font-medium">
+      ← Return to Cart
+    </button>
+
+    <div class="grid lg:grid-cols-2 gap-12">
+      <!-- LEFT COLUMN: Billing & Shipping Form -->
+      <div>
+        <h1 class="text-4xl font-bold text-white mb-8">Checkout</h1>
+
+<form id="checkout-form"
+      @submit.prevent="handleCheckoutSubmit"
+      action="https://formspree.io/f/mlgpeovo"
+      method="POST"
+      class="space-y-6">
+
+  <!-- Billing Details -->
+  <div class="space-y-6">
+    <h2 class="text-2xl font-semibold text-white mb-4">Billing Details</h2>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm text-zinc-400 mb-2">First Name *</label>
+        <input type="text" name="first_name" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+      </div>
+      <div>
+        <label class="block text-sm text-zinc-400 mb-2">Last Name *</label>
+        <input type="text" name="last_name" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-sm text-zinc-400 mb-2">Company Name (optional)</label>
+      <input type="text" name="company" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+    </div>
+
+    <div>
+      <label class="block text-sm text-zinc-400 mb-2">Country / Region *</label>
+      <select name="country" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+        <option>United States</option>
+        <option>Canada</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="block text-sm text-zinc-400 mb-2">Street Address *</label>
+      <input type="text" name="address_line1" required placeholder="House number and street name" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493] mb-2">
+      <input type="text" name="address_line2" placeholder="Apartment, suite, unit, etc. (optional)" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm text-zinc-400 mb-2">Town / City *</label>
+        <input type="text" name="city" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+      </div>
+      <div>
+        <label class="block text-sm text-zinc-400 mb-2">State *</label>
+  <select name="state" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+    <option value="" disabled selected>Select a state</option>
+    <option value="AL">Alabama</option>
+    <option value="AK">Alaska</option>
+    <option value="AZ">Arizona</option>
+    <option value="AR">Arkansas</option>
+    <option value="CA">California</option>
+    <option value="CO">Colorado</option>
+    <option value="CT">Connecticut</option>
+    <option value="DE">Delaware</option>
+    <option value="FL">Florida</option>
+    <option value="GA">Georgia</option>
+    <option value="HI">Hawaii</option>
+    <option value="ID">Idaho</option>
+    <option value="IL">Illinois</option>
+    <option value="IN">Indiana</option>
+    <option value="IA">Iowa</option>
+    <option value="KS">Kansas</option>
+    <option value="KY">Kentucky</option>
+    <option value="LA">Louisiana</option>
+    <option value="ME">Maine</option>
+    <option value="MD">Maryland</option>
+    <option value="MA">Massachusetts</option>
+    <option value="MI">Michigan</option>
+    <option value="MN">Minnesota</option>
+    <option value="MS">Mississippi</option>
+    <option value="MO">Missouri</option>
+    <option value="MT">Montana</option>
+    <option value="NE">Nebraska</option>
+    <option value="NV">Nevada</option>
+    <option value="NH">New Hampshire</option>
+    <option value="NJ">New Jersey</option>
+    <option value="NM">New Mexico</option>
+    <option value="NY">New York</option>
+    <option value="NC">North Carolina</option>
+    <option value="ND">North Dakota</option>
+    <option value="OH">Ohio</option>
+    <option value="OK">Oklahoma</option>
+    <option value="OR">Oregon</option>
+    <option value="PA">Pennsylvania</option>
+    <option value="RI">Rhode Island</option>
+    <option value="SC">South Carolina</option>
+    <option value="SD">South Dakota</option>
+    <option value="TN">Tennessee</option>
+    <option value="TX">Texas</option>
+    <option value="UT">Utah</option>
+    <option value="VT">Vermont</option>
+    <option value="VA">Virginia</option>
+    <option value="WA">Washington</option>
+    <option value="WV">West Virginia</option>
+    <option value="WI">Wisconsin</option>
+    <option value="WY">Wyoming</option>
+    <!-- Optional: Washington DC -->
+    <option value="DC">District of Columbia</option>
+</select>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm text-zinc-400 mb-2">ZIP Code *</label>
+        <input type="text" name="zip" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+      </div>
+      <div>
+        <label class="block text-sm text-zinc-400 mb-2">Phone *</label>
+        <input type="tel" name="phone" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-sm text-zinc-400 mb-2">Email Address *</label>
+      <input type="email" name="email" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+    </div>
+  </div>
+
+  <!-- Shipping Options -->
+  <div class="mt-12">
+    <h2 class="text-2xl font-semibold text-white mb-4">Shipping</h2>
+    <div class="space-y-4">
+      <label class="flex items-center gap-3">
+        <input type="radio" name="shipping_method" value="ups_ground" checked class="w-5 h-5 accent-[#ff1493]">
+        <span>UPS Ground (3–5 business days) – $12.99</span>
+      </label>
+      <label class="flex items-center gap-3">
+        <input type="radio" name="shipping_method" value="ups_2day" class="w-5 h-5 accent-[#ff1493]">
+        <span>UPS 2nd Day Air – $29.99</span>
+      </label>
+      <label class="flex items-center gap-3">
+        <input type="radio" name="shipping_method" value="free_over_250" class="w-5 h-5 accent-[#ff1493]">
+        <span>Free Shipping (orders over $250)</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Order Notes -->
+  <div class="mt-12">
+    <h2 class="text-2xl font-semibold text-white mb-4">Order Notes (optional)</h2>
+    <textarea name="order_notes" rows="4" class="w-full bg-zinc-950 border border-zinc-800 rounded-3xl px-6 py-4 text-white focus:outline-none focus:border-[#ff1493]" placeholder="Notes about your order, e.g. special instructions for delivery."></textarea>
+  </div>
+
+  <!-- Hidden Fields – REQUIRED for cart data -->
+  <input type="hidden" name="order_number" id="hidden_order_number">
+  <input type="hidden" name="order_total" id="hidden_total">
+  <input type="hidden" name="cart_items" id="hidden_cart_items">
+  <input type="hidden" name="_subject" value="New Paragon Peptides Order">
+
+<!-- Agreement Checkboxes – must be checked to enable submit (like profoundaminos.com) -->
+<div class="mt-8 space-y-4 text-sm text-zinc-300">
+  <label class="flex items-start gap-3 cursor-pointer">
+    <input type="checkbox" x-model="agreedToTOS" class="mt-1 w-5 h-5 accent-[#ff1493] cursor-pointer">
+    <span>
+      I agree to the 
+      <a href="#" class="text-[#ff1493] hover:underline" target="_blank">Terms of Service</a>
+    </span>
+  </label>
+
+  <label class="flex items-start gap-3 cursor-pointer">
+    <input type="checkbox" x-model="agreedToPolicies" class="mt-1 w-5 h-5 accent-[#ff1493] cursor-pointer">
+    <span>
+      I agree to the 
+      <a href="#" class="text-[#ff1493] hover:underline" target="_blank">Store Policies</a>
+    </span>
+  </label>
+</div>
+ <!-- Submit Button with Loading & Error Handling -->
+<!-- Submit Button with Loading & Error Handling -->
+<button type="button"
+        @click="handleCheckoutSubmit()"
+        :disabled="isSubmitting || !agreedToTOS || !agreedToPolicies"
+        class="w-full py-6 rounded-3xl font-semibold text-2xl text-white transition disabled:opacity-50 disabled:cursor-not-allowed"
+        :class="isSubmitting ? 'bg-zinc-700' : 'bg-[#ff1493] hover:bg-pink-600'">
+  <span x-text="isSubmitting ? 'Processing...' : 'Place Secure Order'"></span>
+</button>
+
+              <!-- Error / Success Messages -->
+              <div x-show="formError" class="text-red-400 text-center text-sm mt-4" x-text="formError"></div>
+              <div x-show="formSuccess" class="text-green-400 text-center text-sm mt-4">
+                Order submitted successfully! Check your email for confirmation.
+              </div>
+
+
+      <p class="text-center text-sm text-zinc-500 mt-6">
+        Your personal data will be used to process your order...
+      </p>
+
+    </form>
+
+    </div>
+      <!-- RIGHT COLUMN: Order Summary + Payment -->
+      <div class="lg:sticky lg:top-12 h-fit bg-zinc-950 border border-zinc-800 rounded-3xl p-8">
+        <h2 class="text-2xl font-semibold text-white mb-6">Your Order</h2>
+
+<div class="space-y-4 mb-8">
+  <!-- Products -->
+  <div class="flex justify-between text-zinc-300">
+    <span>Product</span>
+    <span>Subtotal</span>
+  </div>
+  <div class="border-t border-zinc-800 pt-4">
+    <template x-for="item in cart" :key="item.id">
+      <div class="flex justify-between py-2">
+        <span x-text="item.name + ' × ' + item.qty"></span>
+        <span x-text="'$' + (item.price * item.qty).toFixed(2)"></span>
+      </div>
+    </template>
+  </div>
+
+  <!-- Subtotal -->
+  <div class="flex justify-between border-t border-zinc-800 pt-4 font-semibold text-white">
+    <span>Subtotal</span>
+    <span x-text="'$' + cartTotal.toFixed(2)"></span>
+  </div>
+
+  <!-- Shipping -->
+  <div class="flex justify-between">
+    <span>Shipping</span>
+    <span x-text="cartTotal >= 250 ? 'Free' : '$12.99'"></span>
+  </div>
+
+  <!-- Coupon Discount (only if applied) -->
+  <template x-if="appliedCoupon">
+    <div class="flex justify-between text-green-400">
+      <span>Discount (<span x-text="appliedCoupon.discountPercent + '%'"></span>)</span>
+      <span x-text="'-$' + ((cartTotal * (appliedCoupon.discountPercent / 100)).toFixed(2))"></span>
+    </div>
+  </template>
+
+  <!-- Final Total -->
+  <div class="flex justify-between text-xl font-bold text-white border-t border-zinc-800 pt-4">
+    <span>Total</span>
+    <span x-text="'$' + discountedTotal"></span>
+  </div>
+</div>
+
+<!-- Coupon Input -->
+<div class="mb-8">
+  <label class="block text-sm text-zinc-400 mb-2">Have a coupon?</label>
+  <div class="flex gap-2">
+    <input type="text" x-model="couponCode" placeholder="Coupon code" 
+           class="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+    <button @click="applyCoupon()" 
+            class="bg-[#ff1493] hover:bg-pink-600 px-6 py-3 rounded-lg font-medium text-white transition">
+      Apply
+    </button>
+  </div>
+
+  <!-- Coupon message -->
+  <p x-show="couponMessage" 
+     :class="{'text-green-400': appliedCoupon, 'text-red-400': !appliedCoupon}"
+     class="mt-2 text-sm" 
+     x-text="couponMessage"></p>
+
+  <!-- Remove coupon button -->
+  <template x-if="appliedCoupon">
+    <button @click="removeCoupon()" class="mt-2 text-sm text-red-400 hover:text-red-300">
+      Remove coupon
+    </button>
+  </template>
+</div>
+
+<!-- Payment Instructions – Click-to-Reveal Accordion (exact Profound Aminos style) -->
+<div class="mt-12 space-y-4">
+  <h3 class="text-xl font-semibold text-white mb-6">How to Pay</h3>
+
+<div class="border border-zinc-800 rounded-xl overflow-hidden">
+    <button @click="activePayment = activePayment === 'venmo' ? null : 
+<div class="border border-zinc-800 rounded-xl overflow-hidden">
+    <button @click="activePayment = activePayment === 'venmo' ? null : 'venmo'"
+            class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
+      <span class="text-lg font-medium text-[#ff1493]">Pay with Venmo</span>
+      <span x-text="activePayment === 'venmo' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
+    </button>
+    <div x-show="activePayment === 'venmo'" class="px-6 pb-6 bg-zinc-950 overflow-hidden text-zinc-300">
+      <p class="mt-4">Place your order first then follow instructions to pay with Venmo.</p>
+      <p class="mt-4 font-bold text-white">*****NOTE*****</p>
+      <p class="mt-2 text-sm">PLEASE DO NOT TURN ON PURCHASE OPTION.<br>ORDER # DIGITS ONLY IN THE NOTE!</p>
+      <a href="https://venmo.com/code?user_id=3026528279461888787&amp;created=1772988492" 
+         target="_blank" rel="noopener noreferrer"
+         class="block mt-6 w-full bg-[#3D95CE] hover:bg-[#2E7AB3] text-white font-semibold py-5 rounded-2xl text-center text-xl transition">
+        Open Venmo & Pay Now
+      </a>
+    </div>
+  </div>
+
+  <!-- CASH APP -->
+  <div class="border border-zinc-800 rounded-xl overflow-hidden">
+    <button @click="activePayment = activePayment === 'cashapp' ? null : 'cashapp'"
+            class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
+      <span class="text-lg font-medium text-[#ff1493]">Pay with Cash App</span>
+      <span x-text="activePayment === 'cashapp' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
+    </button>
+    <div x-show="activePayment === 'cashapp'" class="px-6 pb-6 bg-zinc-950 overflow-hidden text-zinc-300">
+      <p class="mt-4">Send the total via Cash App. Include your order number in the memo.</p>
+      <a href="https://cash.app/$ParagonPeps" 
+         target="_blank" rel="noopener noreferrer"
+         class="block mt-6 w-full bg-[#00C244] hover:bg-[#00A03A] text-white font-semibold py-5 rounded-2xl text-center text-xl transition">
+        Open Cash App & Pay Now
+      </a>
+    </div>
+  </div>
+
+  <!-- BITCOIN WITH QR CODE -->
+  <div class="border border-zinc-800 rounded-xl overflow-hidden">
+    <button @click="activePayment = activePayment === 'bitcoin' ? null : 'bitcoin'"
+            class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
+      <span class="text-lg font-medium text-[#ff1493]">Pay with Bitcoin</span>
+      <span x-text="activePayment === 'bitcoin' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
+    </button>
+    <div x-show="activePayment === 'bitcoin'" class="px-6 pb-6 bg-zinc-950 overflow-hidden text-zinc-300">
+      <p class="mt-4 text-center">Send exact amount to this Bitcoin address:</p>
+      <div class="bg-black p-4 rounded-xl mt-4 text-center">
+        <p class="font-mono text-sm break-all text-[#ff1493]">bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw</p>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&amp;data=bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw" 
+             class="mx-auto mt-4 rounded-xl" alt="Bitcoin QR Code">
+      </div>
+      <button @click="copyToClipboard('bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw')"
+              class="mt-6 w-full bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-white">
+        Copy Bitcoin Address
+      </button>
+      <p class="text-xs text-zinc-500 mt-4 text-center">Include your order number in the transaction memo.</p>
+    </div>
+  </div>
+</div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Payment Update Alert Modal – OUTSIDE the checkout page block -->
 <div x-show="showPaymentAlert" 
@@ -799,6 +1461,62 @@ div[x-show="showGate"] > div {
       </div>
     </div>
 
+<!-- SUCCESS MODAL – Scrollable on mobile, smaller padding -->
+<div x-show="successOpen" class="fixed inset-0 z-[100001] bg-black/90 flex items-center justify-center p-4 overflow-hidden">
+  <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 text-center relative shadow-2xl success-modal">
+    <!-- Close button – always visible at top-right -->
+    <button @click="successOpen = false; orderCopied = false" 
+            class="absolute top-3 right-3 sm:top-4 sm:right-4 text-zinc-400 hover:text-white text-3xl sm:text-4xl font-bold focus:outline-none z-10">
+      ×
+    </button>
+
+    <div class="text-6xl sm:text-8xl mb-4 sm:mb-6">🎉</div>
+    <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 text-white">Order Received!</h2>
+    <p class="text-base sm:text-xl text-zinc-300 mb-6">
+      Thank you! Your order has been submitted successfully.
+    </p>
+
+    <div class="bg-black border border-zinc-700 rounded-2xl p-6 mb-6">
+      <p class="text-base sm:text-lg text-zinc-400 mb-3">
+        Your Order Number (paste in Venmo/Cash App note):
+      </p>
+      <p class="text-4xl sm:text-5xl md:text-6xl font-mono font-bold text-[#ff1493] mb-4 break-all" x-text="lastOrderNumber || '—'"></p>
+
+      <button @click="copyOrderNumber()"
+              class="w-full py-4 rounded-2xl font-semibold text-lg sm:text-xl text-white transition flex items-center justify-center gap-3"
+              :class="orderCopied ? 'bg-green-600' : 'bg-[#ff1493] hover:bg-pink-600'">
+        <span x-text="orderCopied ? '✅ Copied!' : 'Copy Order Number'"></span>
+      </button>
+    </div>
+<!-- DIRECT PAYMENT LINKS IN SUCCESS MODAL -->
+<div class="grid grid-cols-3 gap-4 mt-8">
+  <a href="https://venmo.com/code?user_id=3026528279461888787" 
+     target="_blank" 
+     class="bg-[#3D95CE] hover:bg-[#2E7AB3] py-4 rounded-2xl text-center text-sm font-medium transition">
+    Venmo
+  </a>
+  <a href="https://cash.app/$ParagonPeps" 
+     target="_blank" 
+     class="bg-[#00C244] hover:bg-[#00A03A] py-4 rounded-2xl text-center text-sm font-medium transition">
+    Cash App
+  </a>
+  <a href="#" 
+     @click="copyToClipboard('bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw'); alert('Bitcoin address copied! Paste in your wallet.')"
+     class="bg-orange-600 hover:bg-orange-700 py-4 rounded-2xl text-center text-sm font-medium transition">
+    Bitcoin
+  </a>
+</div>
+
+    <p class="text-sm sm:text-base text-zinc-400 mb-6">
+      Your order is confirmed! Copy the number above, close this modal, and complete payment below using Venmo, Cash App, or Bitcoin.
+    </p>
+
+    <button @click="successOpen = false; orderCopied = false"
+            class="w-full bg-zinc-800 hover:bg-zinc-700 py-4 rounded-3xl font-semibold text-lg sm:text-xl text-white transition">
+      Close & Proceed to Payment
+    </button>
+  </div>
+</div>
 
 <!-- STOCK MANAGER (hidden admin panel) -->
 <div x-show="showStockManager" class="fixed inset-0 bg-black/90 z-[99999] overflow-auto">
@@ -894,6 +1612,7 @@ div[x-show="showGate"] > div {
   <span id="toast-text"></span>
 </div>
 
+
 <!-- MOBILE SCROLL GLOW – Glows automatically when you scroll to each card -->
 <script>
   function initScrollGlow() {
@@ -940,6 +1659,7 @@ div[x-show="showGate"] > div {
     return {
       // --- UI State ---
       cartOpen: false,
+      checkoutPage: false,
       successOpen: false,
       showAccountModal: false,
       showGetInTouchModal: false,
@@ -976,17 +1696,16 @@ div[x-show="showGate"] > div {
       couponCode: '',
       appliedCoupon: null,
       couponMessage: '',
+              // Newsletter popup
+             showNewsletter: false,
+             newsletterEmail: '',
+             newsletterSubmitting: false,
+             newsletterSuccess: false,
 
-      // --- Contact Form ---
+      //...................................................................................................................................... --- Contact Form ---
       isSubmittingGetInTouch: false,
       getInTouchSuccess: false,
       getInTouchError: null,
-
-              // Newsletter popup
-      showNewsletter: false,
-      newsletterEmail: '',
-      newsletterSubmitting: false,
-      newsletterSuccess: false,
 
 toggleDose(product, variant) {
   const doseValue = variant.mg || variant.ml;
@@ -1017,6 +1736,12 @@ subscribeNewsletter() {
       alert("✅ 15% discount code sent to your email! Code: RESEARCH15");
     }, 3000);
   }, 1200);
+},
+
+copyOrderNumber() {
+  navigator.clipboard.writeText(this.lastOrderNumber);
+  this.orderCopied = true;
+  setTimeout(() => this.orderCopied = false, 2000);
 },
 
 
@@ -1051,6 +1776,7 @@ init() {
     }, 4000);
   }
 },
+
       waitForsupabase(maxAttempts = 20, delay = 300) {
         return new Promise((resolve, reject) => {
           let attempts = 0;
@@ -1081,19 +1807,19 @@ init() {
         }
       },
 
-      async loadProducts() {
-        this.isLoading = true;
-        try {
-          const { data, error } = await this.supabase.from('products').select('*');
-          if (error) throw error;
-          this.products = data || [];
-          console.log('[LOAD] Success:', this.products.length);
-        } catch (e) {
-          console.error('[LOAD] Error:', e.message);
-        } finally {
-          this.isLoading = false;
-        }
-      },
+    async loadProducts() {
+  this.isLoading = true;
+  try {
+    const { data, error } = await this.supabase.from('products').select('*');
+    if (error) throw error;
+    this.products = data || [];
+    console.log("All categories from Supabase:", [...new Set(this.products.map(p => p.category))]);   // ← ADD THIS LINE
+  } catch (e) {
+    console.error('[LOAD] Error:', e.message);
+  } finally {
+    this.isLoading = false;
+  }
+},
 
 quickAddToCart(id, name, dose, price) {
   // 1. Prepare the item object to match your site's cart structure
@@ -1121,40 +1847,15 @@ quickAddToCart(id, name, dose, price) {
   this.showToast(`✅ ${name} added to cart!`);
 },
 
-// Add this method anywhere in app():
-subscribeNewsletter() {
-  this.newsletterSubmitting = true;
-  
-  // Simulate sending to Mailerlite / Formspree (replace with your real endpoint if needed)
-  setTimeout(() => {
-    this.newsletterSubmitting = false;
-    this.newsletterSuccess = true;
-    
-    // Optional: show success message for 4 seconds then close
-    setTimeout(() => {
-      this.showNewsletter = true;
-      this.newsletterSuccess = false;
-      this.newsletterEmail = '';
-      
-      // Show a toast that they got 15% off code
-      alert("✅ 15% discount code sent to your email! Code: RESEARCH15");
-    }, 3000);
-  }, 1200);
-},
-
       // --- Computed ---
 filteredProducts() {
   return this.products.filter(product => {
-    // 1. Check the Search Bar
     const matchesSearch = product.name.toLowerCase().includes(this.searchTerm.toLowerCase());
-    
-    // 2. Check the Category Buttons
     const matchesCategory = this.activeFilter === 'all' || product.category === this.activeFilter;
-    
-    // Only show if BOTH are true
     return matchesSearch && matchesCategory;
   });
 },
+
       get cartTotal() {
         return this.cart.reduce((sum, item) => sum + (item.price * (item.qty || 1)), 0);
       },
@@ -1169,12 +1870,17 @@ filteredProducts() {
       },
 
       // --- Logic Methods ---
-      handleSearch() {
-        if (this.searchTerm.trim().length > 0) {
-          const shop = document.getElementById('shop');
-          if (shop) shop.scrollIntoView({ behavior: 'smooth' });
-        }
-      },
+     handleSearch() {
+  if (this.searchTerm.trim().length > 0) {
+    const results = document.getElementById('shop-results');
+    if (results) {
+      results.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' // This ensures it lines up with the top of the screen
+      });
+    }
+  }
+},
         openProduct(product) {
                   if (product && product.id) {
                   window.location.href = '/product.html?id=' + product.id;
@@ -1193,31 +1899,35 @@ filteredProducts() {
       },
 
 
-quickAddToCart(id, name, dose, price) {
-  // Find the real product from Supabase so we get the correct image URL
-  const realProduct = this.products.find(p => p.id === id);
-  
-  const newItem = {
-    id: id,
-    name: name,
-    image: realProduct ? realProduct.image : `https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/${name.toLowerCase().replace(/ /g,'-')}-thumb.webp`,
-    dose: dose,
-    unit: dose.includes('mg') ? 'mg' : 'ml',
-    price: price,
-    qty: 1
-  };
+      addToCartWithDose(product) {
+        if (!product.selectedDose) return alert("Select a dose");
+        const variant = product.doses.find(v => (v.mg || v.ml) === product.selectedDose);
+        if (!variant || variant.stock <= 0) return alert("Out of stock");
+        
+        let existing = this.cart.find(i => i.id === product.id && i.dose === product.selectedDose);
+        if (existing) 
+          existing.qty+=(product.quantity || 1);
+        else this.cart.push({
+            id: product.id,
+            name: product.name,
+            image: product.image,
+            dose: product.selectedDose,
+            unit: variant.mg ? 'mg' : 'ml',
+            price: variant.price,
+           qty: product.quantity || 1
+          });
+           this.saveCart();
+           this.showToast("✅ Added to cart!");
+         },
+        incrementQty(product) {
+                   if (!product.selectedDose) return;
+                   product.quantity = (product.quantity || 1) + 1;
+              },
+        decrementQty(product) {
+                   if (!product.selectedDose) return;
+                   product.quantity = Math.max(1, (product.quantity || 1) - 1);
+               },
 
-  let existing = this.cart.find(i => i.id === id && i.dose === dose);
-
-  if (existing) {
-    existing.qty++;
-  } else {
-    this.cart.push(newItem);
-  }
-
-  this.saveCart();
-  this.showToast(`✅ ${name} added to cart!`);
-},
       saveCart() {
         localStorage.setItem('paragonCart', JSON.stringify(this.cart));
       },
@@ -1257,6 +1967,26 @@ quickAddToCart(id, name, dose, price) {
                  }
                },
 
+// === UPDATED CATEGORY LOGIC (Now Search-Aware) ===
+glpProducts() {
+  return this.filteredProducts().filter(p => p.category === 'GLP');
+},
+metabolicProducts() {
+  return this.filteredProducts().filter(p => p.category === 'metabolic');
+},
+specializedProducts() {
+  return this.filteredProducts().filter(p => p.category === 'specialized');
+},
+recoveryProducts() {
+  return this.filteredProducts().filter(p => p.category === 'recovery');
+},
+ghProducts() {
+  return this.filteredProducts().filter(p => p.category === 'gh-secretagogue');
+},
+solventsProducts() {
+  return this.filteredProducts().filter(p => p.category === 'solvents');
+},
+
       applyCoupon() {
         const code = this.couponCode.trim().toUpperCase();
         const valid = { 'RESEARCH15': 15, 'WELCOME10': 10 };
@@ -1281,38 +2011,7 @@ quickAddToCart(id, name, dose, price) {
         });
       },
 
-subscribeNewsletter() {
-  if (!this.newsletterEmail) return;
-
-  this.newsletterSubmitting = true;
-
-  fetch('https://formspree.io/f/mreopbyk', {   // ←←← PASTE YOUR NEW NEWSLETTER URL HERE
-    method: 'POST',
-    headers: { 'Accept': 'application/json' },
-    body: JSON.stringify({
-      email: this.newsletterEmail,
-      message: 'Newsletter signup – send 15% discount code RESEARCH15'
-    })
-  })
-  .then(response => {
-    if (response.ok) {
-      this.newsletterSuccess = true;
-      setTimeout(() => {
-        this.showNewsletter = false;
-        this.newsletterSuccess = false;
-        this.newsletterEmail = '';
-      }, 2500);
-    } else {
-      alert("Submission failed. Please try again.");
-    }
-  })
-  .catch(() => {
-    alert("Network error. Please try again.");
-  })
-  .finally(() => {
-    this.newsletterSubmitting = false;
-  });
-},   
+   
 
 async handleCheckoutSubmit() {
   this.isSubmitting = true;
@@ -1330,7 +2029,7 @@ async handleCheckoutSubmit() {
 
   // Submit to Formspree
   try {
-    const response = await fetch("https://formspree.io/f/mreopbyk", {
+    const response = await fetch("https://formspree.io/f/mlgpeovo", {
       method: "POST",
       body: new FormData(form),
       headers: { 'Accept': 'application/json' }
