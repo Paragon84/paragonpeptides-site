@@ -510,170 +510,71 @@ Free Priority Shipping on all orders over $199 & Free Priority Express Shipping 
   </div>
 </div>
 
-<!-- === FULL SHOP SECTION – UPDATED MOBILE 2-COLUMN (exactly like profoundaminos.com) === -->
-<div id="shop-results" class="max-w-7xl mx-auto px-6 py-12">
+<div id="shop-results" class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
 
-  <!-- GLP -->
-  <div class="mb-16" x-show="glpProducts().length > 0">
-    <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
-      <span class="text-[#ff1493]">GLPs</span>
-    </h2>
-    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <template x-for="product in glpProducts()" :key="product.id">
-        <div class="product-card group bg-zinc-900/50 border border-zinc-800 rounded-3xl overflow-hidden hover:border-[#ff1493] transition-all duration-500 cursor-pointer"
-             @click="window.location.href = '/product.html?id=' + product.id">
-          <img :src="product.image" :alt="product.name" @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'" loading="lazy"
-               class="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="p-4 sm:p-6">
-            <h3 class="text-lg sm:text-xl font-bold text-white line-clamp-2" x-text="product.name"></h3>
-            <div class="mt-1 flex items-baseline gap-2">
-              <span class="text-2xl sm:text-3xl font-bold text-white" x-text="product.price ? '$' + product.price : '$' + (product.doses[0]?.price || 0)"></span>
-              <span class="text-zinc-400 text-sm">/vial</span>
-            </div>
-            <button @click.stop="addToCartWithDose(product)"
-                    class="mt-4 w-full py-3.5 rounded-2xl font-semibold text-sm sm:text-base transition-all active:scale-95 bg-white text-black hover:bg-zinc-200">
-              ADD TO CART
-            </button>
-          </div>
-        </div>
-      </template>
-    </div>
-  </div>
+  <template x-for="category in [
+    { name: 'GLPs', products: glpProducts() },
+    { name: 'Metabolic', products: metabolicProducts() },
+    { name: 'Specialized', products: specializedProducts() },
+    { name: 'Recovery', products: recoveryProducts() },
+    { name: 'GH Secretagogue', products: ghProducts() },
+    { name: 'Solvents', products: solventsProducts() }
+  ]" :key="category.name">
+    
+    <div class="mb-16" x-show="category.products.length > 0">
+      <h2 class="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-3">
+        <span class="text-[#ff1493]" x-text="category.name"></span>
+      </h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
+        <template x-for="product in category.products" :key="product.id" 
+                  x-init="if(product.doses.length === 1) { product.selectedDose = (product.doses[0].mg || product.doses[0].ml); product.price = product.doses[0].price; }">
+          
+          <div class="product-card group bg-zinc-900/50 border border-zinc-800 rounded-2xl md:rounded-3xl overflow-hidden hover:border-[#ff1493] transition-all duration-500 cursor-pointer flex flex-col"
+               @click="window.location.href = '/product.html?id=' + product.id">
+            
+            <img :src="product.image" :alt="product.name" @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'" 
+                 class="w-full h-32 md:h-56 object-cover group-hover:scale-105 transition-transform duration-500">
+            
+            <div class="p-3 md:p-6 flex-1 flex flex-col">
+              <h3 class="text-sm md:text-2xl font-bold text-white truncate" x-text="product.name"></h3>
+              
+              <p class="hidden md:block text-zinc-400 text-sm mt-1 line-clamp-2" x-text="product.desc"></p>
 
-  <!-- Metabolic -->
-  <div class="mb-16" x-show="metabolicProducts().length > 0">
-    <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
-      <span class="text-[#ff1493]">Metabolic</span>
-    </h2>
-    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <template x-for="product in metabolicProducts()" :key="product.id">
-        <div class="product-card group bg-zinc-900/50 border border-zinc-800 rounded-3xl overflow-hidden hover:border-[#ff1493] transition-all duration-500 cursor-pointer"
-             @click="window.location.href = '/product.html?id=' + product.id">
-          <img :src="product.image" :alt="product.name" @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'" loading="lazy"
-               class="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="p-4 sm:p-6">
-            <h3 class="text-lg sm:text-xl font-bold text-white line-clamp-2" x-text="product.name"></h3>
-            <div class="mt-1 flex items-baseline gap-2">
-              <span class="text-2xl sm:text-3xl font-bold text-white" x-text="product.price ? '$' + product.price : '$' + (product.doses[0]?.price || 0)"></span>
-              <span class="text-zinc-400 text-sm">/vial</span>
-            </div>
-            <button @click.stop="addToCartWithDose(product)"
-                    class="mt-4 w-full py-3.5 rounded-2xl font-semibold text-sm sm:text-base transition-all active:scale-95 bg-white text-black hover:bg-zinc-200">
-              ADD TO CART
-            </button>
-          </div>
-        </div>
-      </template>
-    </div>
-  </div>
+              <div class="flex flex-wrap gap-1 md:gap-2 mt-3 md:mt-6" x-show="product.doses.length > 1">
+                <template x-for="variant in product.doses" :key="variant.mg || variant.ml">
+                  <button @click.stop="toggleDose(product, variant)" 
+                          :disabled="variant.stock <= 0" 
+                          :class="{ 'bg-[#ff1493] text-white ring-1 md:ring-2 ring-pink-500': product.selectedDose === (variant.mg || variant.ml), 'opacity-50 cursor-not-allowed': variant.stock <= 0 }" 
+                          class="px-2 py-1 md:px-6 md:py-3 rounded-lg md:rounded-2xl text-[10px] md:text-sm font-medium bg-zinc-800 transition-all flex flex-col items-center">
+                    <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
+                  </button>
+                </template>
+              </div>
 
-  <!-- Specialized -->
-  <div class="mb-16" x-show="specializedProducts().length > 0">
-    <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
-      <span class="text-[#ff1493]">Specialized</span>
-    </h2>
-    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <template x-for="product in specializedProducts()" :key="product.id">
-        <div class="product-card group bg-zinc-900/50 border border-zinc-800 rounded-3xl overflow-hidden hover:border-[#ff1493] transition-all duration-500 cursor-pointer"
-             @click="window.location.href = '/product.html?id=' + product.id">
-          <img :src="product.image" :alt="product.name" @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'" loading="lazy"
-               class="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="p-4 sm:p-6">
-            <h3 class="text-lg sm:text-xl font-bold text-white line-clamp-2" x-text="product.name"></h3>
-            <div class="mt-1 flex items-baseline gap-2">
-              <span class="text-2xl sm:text-3xl font-bold text-white" x-text="product.price ? '$' + product.price : '$' + (product.doses[0]?.price || 0)"></span>
-              <span class="text-zinc-400 text-sm">/vial</span>
-            </div>
-            <button @click.stop="addToCartWithDose(product)"
-                    class="mt-4 w-full py-3.5 rounded-2xl font-semibold text-sm sm:text-base transition-all active:scale-95 bg-white text-black hover:bg-zinc-200">
-              ADD TO CART
-            </button>
-          </div>
-        </div>
-      </template>
-    </div>
-  </div>
+              <div class="mt-2 text-[10px] md:text-xs text-zinc-500 font-bold uppercase tracking-wider" x-show="product.doses.length === 1">
+                Standard Dose: <span class="text-white" x-text="(product.doses[0].mg || product.doses[0].ml) + (product.doses[0].mg ? 'mg' : 'ml')"></span>
+              </div>
 
-  <!-- Recovery -->
-  <div class="mb-16" x-show="recoveryProducts().length > 0">
-    <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
-      <span class="text-[#ff1493]">Recovery</span>
-    </h2>
-    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <template x-for="product in recoveryProducts()" :key="product.id">
-        <div class="product-card group bg-zinc-900/50 border border-zinc-800 rounded-3xl overflow-hidden hover:border-[#ff1493] transition-all duration-500 cursor-pointer"
-             @click="window.location.href = '/product.html?id=' + product.id">
-          <img :src="product.image" :alt="product.name" @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'" loading="lazy"
-               class="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="p-4 sm:p-6">
-            <h3 class="text-lg sm:text-xl font-bold text-white line-clamp-2" x-text="product.name"></h3>
-            <div class="mt-1 flex items-baseline gap-2">
-              <span class="text-2xl sm:text-3xl font-bold text-white" x-text="product.price ? '$' + product.price : '$' + (product.doses[0]?.price || 0)"></span>
-              <span class="text-zinc-400 text-sm">/vial</span>
-            </div>
-            <button @click.stop="addToCartWithDose(product)"
-                    class="mt-4 w-full py-3.5 rounded-2xl font-semibold text-sm sm:text-base transition-all active:scale-95 bg-white text-black hover:bg-zinc-200">
-              ADD TO CART
-            </button>
-          </div>
-        </div>
-      </template>
-    </div>
-  </div>
+              <div class="mt-auto pt-4 flex flex-col md:flex-row md:justify-between md:items-end gap-2">
+                <div class="flex items-baseline gap-1">
+                  <span class="text-lg md:text-3xl font-bold text-white" x-text="product.price ? '$' + product.price : '$' + (product.doses[0]?.price || 0)"></span>
+                  <span class="text-[10px] md:text-sm text-zinc-400">/vial</span>
+                </div>
+                
+                <button @click.stop="addToCartWithDose(product)" 
+                        class="w-full md:w-auto py-2 md:py-4 px-4 md:px-8 rounded-xl md:rounded-3xl font-semibold text-[10px] md:text-base transition-all active:scale-95 bg-white text-black hover:bg-[#ff1493] hover:text-white">
+                  <span x-text="product.selectedDose ? 'ADD' : 'SELECT'"></span>
+                </button>
+              </div>
 
-  <!-- GH Secretagogue -->
-  <div class="mb-16" x-show="ghProducts().length > 0">
-    <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
-      <span class="text-[#ff1493]">GH Secretagogue</span>
-    </h2>
-    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <template x-for="product in ghProducts()" :key="product.id">
-        <div class="product-card group bg-zinc-900/50 border border-zinc-800 rounded-3xl overflow-hidden hover:border-[#ff1493] transition-all duration-500 cursor-pointer"
-             @click="window.location.href = '/product.html?id=' + product.id">
-          <img :src="product.image" :alt="product.name" @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'" loading="lazy"
-               class="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="p-4 sm:p-6">
-            <h3 class="text-lg sm:text-xl font-bold text-white line-clamp-2" x-text="product.name"></h3>
-            <div class="mt-1 flex items-baseline gap-2">
-              <span class="text-2xl sm:text-3xl font-bold text-white" x-text="product.price ? '$' + product.price : '$' + (product.doses[0]?.price || 0)"></span>
-              <span class="text-zinc-400 text-sm">/vial</span>
             </div>
-            <button @click.stop="addToCartWithDose(product)"
-                    class="mt-4 w-full py-3.5 rounded-2xl font-semibold text-sm sm:text-base transition-all active:scale-95 bg-white text-black hover:bg-zinc-200">
-              ADD TO CART
-            </button>
           </div>
-        </div>
-      </template>
+        </template>
+      </div>
     </div>
-  </div>
-
-  <!-- Solvents -->
-  <div class="mb-16" x-show="solventsProducts().length > 0">
-    <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
-      <span class="text-[#ff1493]">Solvents</span>
-    </h2>
-    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <template x-for="product in solventsProducts()" :key="product.id">
-        <div class="product-card group bg-zinc-900/50 border border-zinc-800 rounded-3xl overflow-hidden hover:border-[#ff1493] transition-all duration-500 cursor-pointer"
-             @click="window.location.href = '/product.html?id=' + product.id">
-          <img :src="product.image" :alt="product.name" @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'" loading="lazy"
-               class="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="p-4 sm:p-6">
-            <h3 class="text-lg sm:text-xl font-bold text-white line-clamp-2" x-text="product.name"></h3>
-            <div class="mt-1 flex items-baseline gap-2">
-              <span class="text-2xl sm:text-3xl font-bold text-white" x-text="product.price ? '$' + product.price : '$' + (product.doses[0]?.price || 0)"></span>
-              <span class="text-zinc-400 text-sm">/vial</span>
-            </div>
-            <button @click.stop="addToCartWithDose(product)"
-                    class="mt-4 w-full py-3.5 rounded-2xl font-semibold text-sm sm:text-base transition-all active:scale-95 bg-white text-black hover:bg-zinc-200">
-              ADD TO CART
-            </button>
-          </div>
-        </div>
-      </template>
-    </div>
-  </div>
+  </template>
+</div>
 
 </div>
 <!-- === RESEARCH STANDARDS, DOCUMENTATION & BUYER RESOURCE CENTER === -->
