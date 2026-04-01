@@ -167,21 +167,20 @@ input:focus, select:focus, textarea:focus {
         </div>
 
         <!-- Agreement Checkboxes -->
-        <div class="mt-8 space-y-4 text-sm text-zinc-300">
-          <label class="flex items-start gap-3 cursor-pointer">
-            <input type="checkbox" x-model="agreedToTOS" class="mt-1 w-5 h-5 accent-[#ff1493]">
-            <span>I agree to the <a href="#" class="text-[#ff1493] hover:underline">Terms of Service</a></span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer">
-            <input type="checkbox" x-model="agreedToPolicies" class="mt-1 w-5 h-5 accent-[#ff1493]">
-            <span>I agree to the <a href="#" class="text-[#ff1493] hover:underline">Store Policies</a></span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer">
-            <input type="checkbox" x-model="agreedToPaymentInstructions" class="mt-1 w-5 h-5 accent-[#ff1493]">
-            <span>I have read <a href="#" class="text-[#ff1493] hover:underline">how to pay</a></span>
-          </label>
-        </div>
+        <label class="flex items-start gap-3 cursor-pointer">
+  <input type="checkbox" x-model="agreedToTOS" class="mt-1 w-5 h-5 accent-[#ff1493]">
+  <span>I agree to the <a href="/terms-and-conditions.html" target="_blank" class="text-[#ff1493] hover:underline">Terms of Service</a></span>
+</label>
 
+<label class="flex items-start gap-3 cursor-pointer">
+  <input type="checkbox" x-model="agreedToPolicies" class="mt-1 w-5 h-5 accent-[#ff1493]">
+  <span>I agree to the <a href="/store-policies.html" target="_blank" class="text-[#ff1493] hover:underline">Store Policies</a></span>
+</label>
+
+<label class="flex items-start gap-3 cursor-pointer">
+  <input type="checkbox" x-model="agreedToPayment" class="mt-1 w-5 h-5 accent-[#ff1493]">
+  <span>I understand the <a href="/how-to-pay.html" target="_blank" class="text-[#ff1493] hover:underline">Payment Instructions</a></span>
+</label>
 
     </form>
   </div>
