@@ -13,6 +13,17 @@
     [x-cloak] { display: none !important; }
     body { font-family: 'Inter', system-ui, sans-serif; background: #000000; color: #e2e8f0; }
     h1, h2, h3 { font-family: 'Satoshi', sans-serif; }
+/* Accessibility Boost: High Contrast Borders */
+input, select, textarea, .border-zinc-800 {
+    border-color: #ffffff !important;
+    border-width: 1px;
+}
+
+/* Optional: Make the borders glow slightly when focused so users know where they are typing */
+input:focus, select:focus, textarea:focus {
+    border-color: #ff1493 !important;
+    box-shadow: 0 0 0 2px rgba(255, 20, 147, 0.2);
+}
   </style>
 </head>
 <body class="antialiased" x-data="app()" x-init="init()">
