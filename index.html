@@ -295,7 +295,7 @@ Free Priority Shipping on all orders over $199 & Free Priority Express Shipping 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
   <div class="group block cursor-pointer">
-    <div @click="window.location.href = 'product.html?id=118'" 
+    <div @click="window.location.href = 'product.html?id=111'" 
          class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-[#ff1493] transition-all duration-300 relative">
       <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/reta-10mg.jpg" 
            class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
@@ -303,7 +303,24 @@ Free Priority Shipping on all orders over $199 & Free Priority Express Shipping 
       <div class="p-6 text-center">
         <h3 class="text-xl font-semibold text-white">Retatrutide</h3>
         <p class="text-zinc-400 text-sm">10 mg • $49</p>
-        <button @click.stop="quickAddToCart(118, 'Retatrutide', '10mg', 129)" 
+        <button @click.stop="quickAddToCart(111, 'Retatrutide', '10mg', 129)" 
+                class="mt-4 w-full bg-white hover:bg-zinc-200 text-black font-semibold py-3 rounded-2xl transition">
+          Quick Add
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="group block cursor-pointer">
+    <div @click="window.location.href = 'product.html?id=112'" 
+         class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-[#ff1493] transition-all duration-300 relative">
+      <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/tirz-20mg.jpg" 
+           class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
+      <div class="absolute top-4 right-4 bg-[#ff1493] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">#2 BESTSELLER</div>
+      <div class="p-6 text-center">
+        <h3 class="text-xl font-semibold text-white">Tirzepatide</h3>
+        <p class="text-zinc-400 text-sm">20 mg • $69</p>
+        <button @click.stop="quickAddToCart(112, 'Tirzepatide', '20mg', 199)" 
                 class="mt-4 w-full bg-white hover:bg-zinc-200 text-black font-semibold py-3 rounded-2xl transition">
           Quick Add
         </button>
@@ -314,30 +331,13 @@ Free Priority Shipping on all orders over $199 & Free Priority Express Shipping 
   <div class="group block cursor-pointer">
     <div @click="window.location.href = 'product.html?id=119'" 
          class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-[#ff1493] transition-all duration-300 relative">
-      <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/tirz-20mg.jpg" 
-           class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
-      <div class="absolute top-4 right-4 bg-[#ff1493] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">#2 BESTSELLER</div>
-      <div class="p-6 text-center">
-        <h3 class="text-xl font-semibold text-white">Tirzepatide</h3>
-        <p class="text-zinc-400 text-sm">20 mg • $69</p>
-        <button @click.stop="quickAddToCart(119, 'Tirzepatide', '20mg', 199)" 
-                class="mt-4 w-full bg-white hover:bg-zinc-200 text-black font-semibold py-3 rounded-2xl transition">
-          Quick Add
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <div class="group block cursor-pointer">
-    <div @click="window.location.href = 'product.html?id=120'" 
-         class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-[#ff1493] transition-all duration-300 relative">
       <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/bpc-157-5mg.jpg" 
            class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
       <div class="absolute top-4 right-4 bg-[#ff1493] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">#3 BESTSELLER</div>
       <div class="p-6 text-center">
         <h3 class="text-xl font-semibold text-white">BPC-157</h3>
         <p class="text-zinc-400 text-sm">5 mg • $49</p>
-        <button @click.stop="quickAddToCart(120, 'BPC-157', '5mg', 49)" 
+        <button @click.stop="quickAddToCart(119, 'BPC-157', '5mg', 49)" 
                 class="mt-4 w-full bg-white hover:bg-zinc-200 text-black font-semibold py-3 rounded-2xl transition">
           Quick Add
         </button>
@@ -350,36 +350,30 @@ Free Priority Shipping on all orders over $199 & Free Priority Express Shipping 
 
 <!-- SHOP GRID – UPDATED WITH DEDICATED PRODUCT PAGE INTEGRATION -->
 <div id="" class="max-w-7xl mx-auto px-6 py-12">
-<!-- === FINAL POLISHED ANIMATED FEATURE CARDS (No Tilt + Vial Zoom) === -->
+<!-- === FINAL POLISHED ANIMATED FEATURE CARDS (Solid Opaque + Exact #ff1493 Pink) === -->
 <div class="text-center mb-16">
   <h1 class="text-5xl font-bold text-white mb-3">Precision Research Compounds</h1>
   <p class="text-zinc-400 text-xl mb-12">High-purity peptides for laboratory evaluation.</p>
-
+  
   <!-- Cards Grid -->
   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 max-w-7xl mx-auto px-4">
-
+    
     <!-- 1. GLPs -->
-    <div class="group relative bg-zinc-900 border border-zinc-800 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/20">
-      
+    <div class="group relative bg-zinc-900 border border-[#ff1493]/40 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/30">
       <!-- Default State -->
       <div class="transition-all duration-700 group-hover:opacity-0 group-hover:-translate-y-6">
-        <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493]/10 rounded-2xl flex items-center justify-center text-3xl">🔬</div>
+        <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493] rounded-2xl flex items-center justify-center text-3xl text-white">🔬</div>
         <h4 class="font-semibold text-white text-lg mb-2">GLP-1s</h4>
         <p class="text-zinc-400 text-sm">≥99% purity • Independently tested</p>
       </div>
-
       <!-- Hover State -->
       <div class="absolute inset-0 flex flex-col items-center justify-center px-4 transition-all duration-700 opacity-0 group-hover:opacity-100">
-        <!-- Gradient Overlay -->
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-        
-        <!-- Vial with individual hover zoom -->
         <div class="relative w-24 h-24 mb-5 transition-transform duration-300 group-hover:scale-110">
-          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/reta-10mg.jpg" 
-               alt="GLP-1 Vial" 
-               class="w-full h-full object-contain drop-shadow-2xl hover:scale-125 transition-transform duration-500">
+          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/reta-10mg.jpg"
+               alt="GLP-1 Vial"
+               class="w-full h-full object-contain drop-shadow-2xl">
         </div>
-        
         <h4 class="relative font-semibold text-[#ff1493] text-xl mb-1">GLP-1s</h4>
         <p class="relative text-white text-sm text-center leading-tight max-w-[190px]">
           Powerful appetite control &amp; fat loss support
@@ -387,23 +381,20 @@ Free Priority Shipping on all orders over $199 & Free Priority Express Shipping 
       </div>
     </div>
 
- <!-- 2. Metabolic -->
-    <div class="group relative bg-zinc-900 border border-zinc-800 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/20">
+    <!-- 2. Metabolic -->
+    <div class="group relative bg-zinc-900 border border-[#ff1493]/40 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/30">
       <div class="transition-all duration-700 group-hover:opacity-0 group-hover:-translate-y-6">
-        <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493]/10 rounded-2xl flex items-center justify-center text-3xl">🔬</div>
+        <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493] rounded-2xl flex items-center justify-center text-3xl text-white">🔬</div>
         <h4 class="font-semibold text-white text-lg mb-2">Metabolics</h4>
         <p class="text-zinc-400 text-sm">≥99% purity • Independently tested</p>
       </div>
-
       <div class="absolute inset-0 flex flex-col items-center justify-center px-4 transition-all duration-700 opacity-0 group-hover:opacity-100">
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-        
         <div class="relative w-24 h-24 mb-5 transition-transform duration-300 group-hover:scale-110">
-          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/aod-9604-2mg.jpg" 
-               alt="Metabolic Vial" 
-               class="w-full h-full object-contain drop-shadow-2xl hover:scale-125 transition-transform duration-500">
+          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/aod-9604-2mg.jpg"
+               alt="Metabolic Vial"
+               class="w-full h-full object-contain drop-shadow-2xl">
         </div>
-        
         <h4 class="relative font-semibold text-[#ff1493] text-xl mb-1">Metabolics</h4>
         <p class="relative text-white text-sm text-center leading-tight max-w-[190px]">
           Boost energy &amp; accelerate fat metabolism
@@ -412,22 +403,19 @@ Free Priority Shipping on all orders over $199 & Free Priority Express Shipping 
     </div>
 
     <!-- 3. Recovery -->
-    <div class="group relative bg-zinc-900 border border-zinc-800 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/20">
+    <div class="group relative bg-zinc-900 border border-[#ff1493]/40 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/30">
       <div class="transition-all duration-700 group-hover:opacity-0 group-hover:-translate-y-6">
-        <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493]/10 rounded-2xl flex items-center justify-center text-3xl">🔬</div>
+        <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493] rounded-2xl flex items-center justify-center text-3xl text-white">🔬</div>
         <h4 class="font-semibold text-white text-lg mb-2">Recovery</h4>
         <p class="text-zinc-400 text-sm">≥99% purity • Independently tested</p>
       </div>
-
       <div class="absolute inset-0 flex flex-col items-center justify-center px-4 transition-all duration-700 opacity-0 group-hover:opacity-100">
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-        
         <div class="relative w-24 h-24 mb-5 transition-transform duration-300 group-hover:scale-110">
-          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/bpc-157-5mg.jpg" 
-               alt="Recovery Vial" 
-               class="w-full h-full object-contain drop-shadow-2xl hover:scale-125 transition-transform duration-500">
+          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/bpc-157-5mg.jpg"
+               alt="Recovery Vial"
+               class="w-full h-full object-contain drop-shadow-2xl">
         </div>
-        
         <h4 class="relative font-semibold text-[#ff1493] text-xl mb-1">Recovery</h4>
         <p class="relative text-white text-sm text-center leading-tight max-w-[190px]">
           Faster healing &amp; post-workout regeneration
@@ -436,22 +424,19 @@ Free Priority Shipping on all orders over $199 & Free Priority Express Shipping 
     </div>
 
     <!-- 4. Specialized -->
-    <div class="group relative bg-zinc-900 border border-zinc-800 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/20">
+    <div class="group relative bg-zinc-900 border border-[#ff1493]/40 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/30">
       <div class="transition-all duration-700 group-hover:opacity-0 group-hover:-translate-y-6">
-        <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493]/10 rounded-2xl flex items-center justify-center text-3xl">🔬</div>
+        <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493] rounded-2xl flex items-center justify-center text-3xl text-white">🔬</div>
         <h4 class="font-semibold text-white text-lg mb-2">Specialized</h4>
         <p class="text-zinc-400 text-sm">≥99% purity • Independently tested</p>
       </div>
-
       <div class="absolute inset-0 flex flex-col items-center justify-center px-4 transition-all duration-700 opacity-0 group-hover:opacity-100">
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-        
         <div class="relative w-24 h-24 mb-5 transition-transform duration-300 group-hover:scale-110">
-          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/melanotan2-10mg.jpg" 
-               alt="Specialized Vial" 
-               class="w-full h-full object-contain drop-shadow-2xl hover:scale-125 transition-transform duration-500">
+          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/melanotan2-10mg.jpg"
+               alt="Specialized Vial"
+               class="w-full h-full object-contain drop-shadow-2xl">
         </div>
-        
         <h4 class="relative font-semibold text-[#ff1493] text-xl mb-1">Specialized</h4>
         <p class="relative text-white text-sm text-center leading-tight max-w-[190px]">
           Targeted cellular healing &amp; optimization
@@ -460,22 +445,19 @@ Free Priority Shipping on all orders over $199 & Free Priority Express Shipping 
     </div>
 
     <!-- 5. GH Secretagogue -->
-    <div class="group relative bg-zinc-900 border border-zinc-800 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/20">
+    <div class="group relative bg-zinc-900 border border-[#ff1493]/40 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/30">
       <div class="transition-all duration-700 group-hover:opacity-0 group-hover:-translate-y-6">
-        <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493]/10 rounded-2xl flex items-center justify-center text-3xl">🔬</div>
+        <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493] rounded-2xl flex items-center justify-center text-3xl text-white">🔬</div>
         <h4 class="font-semibold text-white text-lg mb-2">GH Secretagogue</h4>
         <p class="text-zinc-400 text-sm">≥99% purity • Independently tested</p>
       </div>
-
       <div class="absolute inset-0 flex flex-col items-center justify-center px-4 transition-all duration-700 opacity-0 group-hover:opacity-100">
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-        
         <div class="relative w-24 h-24 mb-5 transition-transform duration-300 group-hover:scale-110">
-          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/tesamorelin-10mg.jpg" 
-               alt="GH Secretagogue Vial" 
-               class="w-full h-full object-contain drop-shadow-2xl hover:scale-125 transition-transform duration-500">
+          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/tesamorelin-10mg.jpg"
+               alt="GH Secretagogue Vial"
+               class="w-full h-full object-contain drop-shadow-2xl">
         </div>
-        
         <h4 class="relative font-semibold text-[#ff1493] text-xl mb-1">GH Secretagogue</h4>
         <p class="relative text-white text-sm text-center leading-tight max-w-[190px]">
           Stimulate natural muscle growth &amp; recovery
@@ -484,29 +466,25 @@ Free Priority Shipping on all orders over $199 & Free Priority Express Shipping 
     </div>
 
     <!-- 6. Solvents -->
-    <div class="group relative bg-zinc-900 border border-zinc-800 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/20">
+    <div class="group relative bg-zinc-900 border border-[#ff1493]/40 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/30">
       <div class="transition-all duration-700 group-hover:opacity-0 group-hover:-translate-y-6">
-        <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493]/10 rounded-2xl flex items-center justify-center text-3xl">🔬</div>
+        <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493] rounded-2xl flex items-center justify-center text-3xl text-white">🔬</div>
         <h4 class="font-semibold text-white text-lg mb-2">Solvents</h4>
         <p class="text-zinc-400 text-sm">≥99% purity • Independently tested</p>
       </div>
-
       <div class="absolute inset-0 flex flex-col items-center justify-center px-4 transition-all duration-700 opacity-0 group-hover:opacity-100">
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-        
         <div class="relative w-24 h-24 mb-5 transition-transform duration-300 group-hover:scale-110">
-          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/bac-water-10ml.jpg" 
-               alt="Solvents Vial" 
-               class="w-full h-full object-contain drop-shadow-2xl hover:scale-125 transition-transform duration-500">
+          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/bac-water-10ml.jpg"
+               alt="Solvents Vial"
+               class="w-full h-full object-contain drop-shadow-2xl">
         </div>
-        
         <h4 class="relative font-semibold text-[#ff1493] text-xl mb-1">Solvents</h4>
         <p class="relative text-white text-sm text-center leading-tight max-w-[190px]">
           For reconstituting lyophilized peptides
         </p>
       </div>
     </div>
-
   </div>
 </div>
 
@@ -569,7 +547,7 @@ Free Priority Shipping on all orders over $199 & Free Priority Express Shipping 
 
 </div>
 <!-- === RESEARCH STANDARDS, DOCUMENTATION & BUYER RESOURCE CENTER === -->
-<section class="bg-zinc-950 py-12 md:py-20 border-t border-b border-zinc-800" x-data="{ current: 0, total: 4 }">
+<section class="bg-zinc-950 py-12 md:py-20 border-t border-b border-zinc-800">
   <div class="max-w-7xl mx-auto px-6">
     <div class="mb-10 text-center md:text-left">
       <h2 class="text-3xl md:text-4xl font-bold text-white mb-2 uppercase tracking-tighter">Resource Center</h2>
@@ -578,27 +556,31 @@ Free Priority Shipping on all orders over $199 & Free Priority Express Shipping 
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       
-      <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 h-full min-h-[300px] hover:border-[#ff1493] transition-all group flex flex-col">
-        <h3 class="text-lg font-bold text-white mb-4 group-hover:text-[#ff1493] uppercase">What Are Peptides?</h3>
-        <p class="text-zinc-400 text-sm leading-relaxed flex-1">Overview of peptide structure, classification, and laboratory research context.</p>
+      <!-- Card 1 -->
+      <div class="bg-white border border-zinc-200 rounded-3xl p-8 h-full min-h-[300px] hover:border-[#ff1493] transition-all group flex flex-col">
+        <h3 class="text-lg font-bold text-zinc-900 mb-4 group-hover:text-[#ff1493] uppercase">What Are Peptides?</h3>
+        <p class="text-zinc-600 text-sm leading-relaxed flex-1">Overview of peptide structure, classification, and laboratory research context.</p>
         <a href="/what-is-a-peptide.html" class="inline-flex items-center text-[#ff1493] hover:text-pink-400 font-bold text-sm mt-6">LEARN MORE →</a>
       </div>
 
-      <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 h-full min-h-[300px] hover:border-[#ff1493] transition-all group flex flex-col">
-        <h3 class="text-lg font-bold text-white mb-4 group-hover:text-[#ff1493] uppercase">Storage & Handling</h3>
-        <p class="text-zinc-400 text-sm leading-relaxed flex-1">Stability controls, environmental considerations, and lab best practices.</p>
+      <!-- Card 2 -->
+      <div class="bg-white border border-zinc-200 rounded-3xl p-8 h-full min-h-[300px] hover:border-[#ff1493] transition-all group flex flex-col">
+        <h3 class="text-lg font-bold text-zinc-900 mb-4 group-hover:text-[#ff1493] uppercase">Storage & Handling</h3>
+        <p class="text-zinc-600 text-sm leading-relaxed flex-1">Stability controls, environmental considerations, and lab best practices.</p>
         <a href="/storage-handling.html" class="inline-flex items-center text-[#ff1493] hover:text-pink-400 font-bold text-sm mt-6">VIEW GUIDE →</a>
       </div>
 
-      <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 h-full min-h-[300px] hover:border-[#ff1493] transition-all group flex flex-col">
-        <h3 class="text-lg font-bold text-white mb-4 group-hover:text-[#ff1493] uppercase">Testing Methods</h3>
-        <p class="text-zinc-400 text-sm leading-relaxed flex-1">HPLC, mass spectrometry, and batch verification fundamentals.</p>
+      <!-- Card 3 -->
+      <div class="bg-white border border-zinc-200 rounded-3xl p-8 h-full min-h-[300px] hover:border-[#ff1493] transition-all group flex flex-col">
+        <h3 class="text-lg font-bold text-zinc-900 mb-4 group-hover:text-[#ff1493] uppercase">Testing Methods</h3>
+        <p class="text-zinc-600 text-sm leading-relaxed flex-1">HPLC, mass spectrometry, and batch verification fundamentals.</p>
         <a href="/testing-methods.html" class="inline-flex items-center text-[#ff1493] hover:text-pink-400 font-bold text-sm mt-6">READ MORE →</a>
       </div>
 
-      <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 h-full min-h-[300px] hover:border-[#ff1493] transition-all group flex flex-col">
-        <h3 class="text-lg font-bold text-white mb-4 group-hover:text-[#ff1493] uppercase">Reconstitution</h3>
-        <p class="text-zinc-400 text-sm leading-relaxed flex-1">Technical instructions for peptide reconstitution and solvent selection.</p>
+      <!-- Card 4 -->
+      <div class="bg-white border border-zinc-200 rounded-3xl p-8 h-full min-h-[300px] hover:border-[#ff1493] transition-all group flex flex-col">
+        <h3 class="text-lg font-bold text-zinc-900 mb-4 group-hover:text-[#ff1493] uppercase">Reconstitution</h3>
+        <p class="text-zinc-600 text-sm leading-relaxed flex-1">Technical instructions for peptide reconstitution and solvent selection.</p>
         <a href="/how-to-reconstitute-peptides.html" class="inline-flex items-center text-[#ff1493] hover:text-pink-400 font-bold text-sm mt-6">VERIFY DOCS →</a>
       </div>
 
@@ -906,7 +888,7 @@ By purchasing, you confirm you are 21 or older and conducting scientific researc
 </div>
 
 
-    <!-- CART DRAWER -->
+     <!-- CART DRAWER -->
     <div x-show="cartOpen" class="fixed inset-0 z-[99999] bg-black/60" @click="cartOpen = false"></div>
     <div x-show="cartOpen" class="fixed right-0 top-0 bottom-0 w-full max-w-md bg-zinc-900 border-l border-zinc-800 z-[99999] transition-transform" :class="{ 'translate-x-full': !cartOpen }">
       <div class="p-8 h-full flex flex-col">
@@ -923,7 +905,9 @@ By purchasing, you confirm you are 21 or older and conducting scientific researc
         <div class="flex-1 overflow-auto space-y-6">
           <template x-for="(item, i) in cart" :key="i">
            <div class="flex gap-6 border-b border-zinc-800 pb-6">
-  <img :src="item.image" class="w-24 h-24 object-cover rounded-xl">
+  <img :src="item.image || 'https://i.imgur.com/jXQlcWB.png'" 
+     class="w-24 h-24 object-cover rounded-xl" 
+     alt="">
   <div class="flex-1">
     <h4 class="font-medium text-lg" x-text="item.name"></h4>
     <p class="text-sm text-zinc-400 mt-1" x-text="'Dose: ' + item.dose + (item.unit || 'mg')"></p>
@@ -947,459 +931,38 @@ By purchasing, you confirm you are 21 or older and conducting scientific researc
   </div>
   <!-- Optional: Shipping note -->
   <p class="text-sm text-zinc-400 mb-4" x-text="cartTotal >= 250 ? 'Free Shipping Eligible' : 'Shipping calculated at checkout'"></p>
-  <button @click="proceedToCheckout()" 
-          class="w-full bg-white text-black py-5 rounded-3xl font-semibold text-xl hover:bg-gray-200 transition">
-    Proceed to Checkout
-  </button>
-      </div>
-      </div>
-    </div>
-
-<!-- DEDICATED CHECKOUT PAGE (full-screen like profoundaminos.com) -->
-<div x-show="checkoutPage" class="fixed inset-0 bg-black z-[100000] overflow-auto" x-transition>
-  <div class="max-w-7xl mx-auto px-6 py-12">
-    <!-- Back button -->
-    <button @click="checkoutPage = false" class="mb-8 flex items-center gap-2 text-[#ff1493] hover:text-pink-400 font-medium">
-      ← Return to Cart
-    </button>
-
-    <div class="grid lg:grid-cols-2 gap-12">
-      <!-- LEFT COLUMN: Billing & Shipping Form -->
-      <div>
-        <h1 class="text-4xl font-bold text-white mb-8">Checkout</h1>
-
-<form id="checkout-form"
-      @submit.prevent="handleCheckoutSubmit"
-      action="https://formspree.io/f/mlgpeovo"
-      method="POST"
-      class="space-y-6">
-
-  <!-- Billing Details -->
-  <div class="space-y-6">
-    <h2 class="text-2xl font-semibold text-white mb-4">Billing Details</h2>
-
-    <div class="grid grid-cols-2 gap-4">
-      <div>
-        <label class="block text-sm text-zinc-400 mb-2">First Name *</label>
-        <input type="text" name="first_name" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
-      </div>
-      <div>
-        <label class="block text-sm text-zinc-400 mb-2">Last Name *</label>
-        <input type="text" name="last_name" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
-      </div>
-    </div>
-
-    <div>
-      <label class="block text-sm text-zinc-400 mb-2">Company Name (optional)</label>
-      <input type="text" name="company" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
-    </div>
-
-    <div>
-      <label class="block text-sm text-zinc-400 mb-2">Country / Region *</label>
-      <select name="country" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
-        <option>United States</option>
-        <option>Canada</option>
-      </select>
-    </div>
-
-    <div>
-      <label class="block text-sm text-zinc-400 mb-2">Street Address *</label>
-      <input type="text" name="address_line1" required placeholder="House number and street name" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493] mb-2">
-      <input type="text" name="address_line2" placeholder="Apartment, suite, unit, etc. (optional)" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
-    </div>
-
-    <div class="grid grid-cols-2 gap-4">
-      <div>
-        <label class="block text-sm text-zinc-400 mb-2">Town / City *</label>
-        <input type="text" name="city" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
-      </div>
-      <div>
-        <label class="block text-sm text-zinc-400 mb-2">State *</label>
-  <select name="state" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
-    <option value="" disabled selected>Select a state</option>
-    <option value="AL">Alabama</option>
-    <option value="AK">Alaska</option>
-    <option value="AZ">Arizona</option>
-    <option value="AR">Arkansas</option>
-    <option value="CA">California</option>
-    <option value="CO">Colorado</option>
-    <option value="CT">Connecticut</option>
-    <option value="DE">Delaware</option>
-    <option value="FL">Florida</option>
-    <option value="GA">Georgia</option>
-    <option value="HI">Hawaii</option>
-    <option value="ID">Idaho</option>
-    <option value="IL">Illinois</option>
-    <option value="IN">Indiana</option>
-    <option value="IA">Iowa</option>
-    <option value="KS">Kansas</option>
-    <option value="KY">Kentucky</option>
-    <option value="LA">Louisiana</option>
-    <option value="ME">Maine</option>
-    <option value="MD">Maryland</option>
-    <option value="MA">Massachusetts</option>
-    <option value="MI">Michigan</option>
-    <option value="MN">Minnesota</option>
-    <option value="MS">Mississippi</option>
-    <option value="MO">Missouri</option>
-    <option value="MT">Montana</option>
-    <option value="NE">Nebraska</option>
-    <option value="NV">Nevada</option>
-    <option value="NH">New Hampshire</option>
-    <option value="NJ">New Jersey</option>
-    <option value="NM">New Mexico</option>
-    <option value="NY">New York</option>
-    <option value="NC">North Carolina</option>
-    <option value="ND">North Dakota</option>
-    <option value="OH">Ohio</option>
-    <option value="OK">Oklahoma</option>
-    <option value="OR">Oregon</option>
-    <option value="PA">Pennsylvania</option>
-    <option value="RI">Rhode Island</option>
-    <option value="SC">South Carolina</option>
-    <option value="SD">South Dakota</option>
-    <option value="TN">Tennessee</option>
-    <option value="TX">Texas</option>
-    <option value="UT">Utah</option>
-    <option value="VT">Vermont</option>
-    <option value="VA">Virginia</option>
-    <option value="WA">Washington</option>
-    <option value="WV">West Virginia</option>
-    <option value="WI">Wisconsin</option>
-    <option value="WY">Wyoming</option>
-    <!-- Optional: Washington DC -->
-    <option value="DC">District of Columbia</option>
-</select>
-      </div>
-    </div>
-
-    <div class="grid grid-cols-2 gap-4">
-      <div>
-        <label class="block text-sm text-zinc-400 mb-2">ZIP Code *</label>
-        <input type="text" name="zip" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
-      </div>
-      <div>
-        <label class="block text-sm text-zinc-400 mb-2">Phone *</label>
-        <input type="tel" name="phone" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
-      </div>
-    </div>
-
-    <div>
-      <label class="block text-sm text-zinc-400 mb-2">Email Address *</label>
-      <input type="email" name="email" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
-    </div>
-  </div>
-
-  <!-- Shipping Options -->
-  <div class="mt-12">
-    <h2 class="text-2xl font-semibold text-white mb-4">Shipping</h2>
-    <div class="space-y-4">
-      <label class="flex items-center gap-3">
-        <input type="radio" name="shipping_method" value="ups_ground" checked class="w-5 h-5 accent-[#ff1493]">
-        <span>UPS Ground (3–5 business days) – $12.99</span>
-      </label>
-      <label class="flex items-center gap-3">
-        <input type="radio" name="shipping_method" value="ups_2day" class="w-5 h-5 accent-[#ff1493]">
-        <span>UPS 2nd Day Air – $29.99</span>
-      </label>
-      <label class="flex items-center gap-3">
-        <input type="radio" name="shipping_method" value="free_over_250" class="w-5 h-5 accent-[#ff1493]">
-        <span>Free Shipping (orders over $250)</span>
-      </label>
-    </div>
-  </div>
-
-  <!-- Order Notes -->
-  <div class="mt-12">
-    <h2 class="text-2xl font-semibold text-white mb-4">Order Notes (optional)</h2>
-    <textarea name="order_notes" rows="4" class="w-full bg-zinc-950 border border-zinc-800 rounded-3xl px-6 py-4 text-white focus:outline-none focus:border-[#ff1493]" placeholder="Notes about your order, e.g. special instructions for delivery."></textarea>
-  </div>
-
-  <!-- Hidden Fields – REQUIRED for cart data -->
-  <input type="hidden" name="order_number" id="hidden_order_number">
-  <input type="hidden" name="order_total" id="hidden_total">
-  <input type="hidden" name="cart_items" id="hidden_cart_items">
-  <input type="hidden" name="_subject" value="New Paragon Peptides Order">
-
-<!-- Agreement Checkboxes – must be checked to enable submit (like profoundaminos.com) -->
-<div class="mt-8 space-y-4 text-sm text-zinc-300">
-  <label class="flex items-start gap-3 cursor-pointer">
-    <input type="checkbox" x-model="agreedToTOS" class="mt-1 w-5 h-5 accent-[#ff1493] cursor-pointer">
-    <span>
-      I agree to the 
-      <a href="#" class="text-[#ff1493] hover:underline" target="_blank">Terms of Service</a>
-    </span>
-  </label>
-
-  <label class="flex items-start gap-3 cursor-pointer">
-    <input type="checkbox" x-model="agreedToPolicies" class="mt-1 w-5 h-5 accent-[#ff1493] cursor-pointer">
-    <span>
-      I agree to the 
-      <a href="#" class="text-[#ff1493] hover:underline" target="_blank">Store Policies</a>
-    </span>
-  </label>
-</div>
- <!-- Submit Button with Loading & Error Handling -->
-<!-- Submit Button with Loading & Error Handling -->
-<button type="button"
-        @click="handleCheckoutSubmit()"
-        :disabled="isSubmitting || !agreedToTOS || !agreedToPolicies"
-        class="w-full py-6 rounded-3xl font-semibold text-2xl text-white transition disabled:opacity-50 disabled:cursor-not-allowed"
-        :class="isSubmitting ? 'bg-zinc-700' : 'bg-[#ff1493] hover:bg-pink-600'">
-  <span x-text="isSubmitting ? 'Processing...' : 'Place Secure Order'"></span>
+ <button @click="window.location.href = '/checkout.html'" class="w-full bg-white text-black py-5 rounded-3xl font-semibold">
+  Proceed to Checkout
 </button>
-
-              <!-- Error / Success Messages -->
-              <div x-show="formError" class="text-red-400 text-center text-sm mt-4" x-text="formError"></div>
-              <div x-show="formSuccess" class="text-green-400 text-center text-sm mt-4">
-                Order submitted successfully! Check your email for confirmation.
-              </div>
-
-
-      <p class="text-center text-sm text-zinc-500 mt-6">
-        Your personal data will be used to process your order...
-      </p>
-
-    </form>
-
-    </div>
-      <!-- RIGHT COLUMN: Order Summary + Payment -->
-      <div class="lg:sticky lg:top-12 h-fit bg-zinc-950 border border-zinc-800 rounded-3xl p-8">
-        <h2 class="text-2xl font-semibold text-white mb-6">Your Order</h2>
-
-<div class="space-y-4 mb-8">
-  <!-- Products -->
-  <div class="flex justify-between text-zinc-300">
-    <span>Product</span>
-    <span>Subtotal</span>
-  </div>
-  <div class="border-t border-zinc-800 pt-4">
-    <template x-for="item in cart" :key="item.id">
-      <div class="flex justify-between py-2">
-        <span x-text="item.name + ' × ' + item.qty"></span>
-        <span x-text="'$' + (item.price * item.qty).toFixed(2)"></span>
       </div>
-    </template>
-  </div>
-
-  <!-- Subtotal -->
-  <div class="flex justify-between border-t border-zinc-800 pt-4 font-semibold text-white">
-    <span>Subtotal</span>
-    <span x-text="'$' + cartTotal.toFixed(2)"></span>
-  </div>
-
-  <!-- Shipping -->
-  <div class="flex justify-between">
-    <span>Shipping</span>
-    <span x-text="cartTotal >= 250 ? 'Free' : '$12.99'"></span>
-  </div>
-
-  <!-- Coupon Discount (only if applied) -->
-  <template x-if="appliedCoupon">
-    <div class="flex justify-between text-green-400">
-      <span>Discount (<span x-text="appliedCoupon.discountPercent + '%'"></span>)</span>
-      <span x-text="'-$' + ((cartTotal * (appliedCoupon.discountPercent / 100)).toFixed(2))"></span>
-    </div>
-  </template>
-
-  <!-- Final Total -->
-  <div class="flex justify-between text-xl font-bold text-white border-t border-zinc-800 pt-4">
-    <span>Total</span>
-    <span x-text="'$' + discountedTotal"></span>
-  </div>
-</div>
-
-<!-- Coupon Input -->
-<div class="mb-8">
-  <label class="block text-sm text-zinc-400 mb-2">Have a coupon?</label>
-  <div class="flex gap-2">
-    <input type="text" x-model="couponCode" placeholder="Coupon code" 
-           class="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
-    <button @click="applyCoupon()" 
-            class="bg-[#ff1493] hover:bg-pink-600 px-6 py-3 rounded-lg font-medium text-white transition">
-      Apply
-    </button>
-  </div>
-
-  <!-- Coupon message -->
-  <p x-show="couponMessage" 
-     :class="{'text-green-400': appliedCoupon, 'text-red-400': !appliedCoupon}"
-     class="mt-2 text-sm" 
-     x-text="couponMessage"></p>
-
-  <!-- Remove coupon button -->
-  <template x-if="appliedCoupon">
-    <button @click="removeCoupon()" class="mt-2 text-sm text-red-400 hover:text-red-300">
-      Remove coupon
-    </button>
-  </template>
-</div>
-
-<!-- Payment Instructions – Click-to-Reveal Accordion (exact Profound Aminos style) -->
-<div class="mt-12 space-y-4">
-  <h3 class="text-xl font-semibold text-white mb-6">How to Pay</h3>
-
-<div class="border border-zinc-800 rounded-xl overflow-hidden">
-    <button @click="activePayment = activePayment === 'venmo' ? null : 
-<div class="border border-zinc-800 rounded-xl overflow-hidden">
-    <button @click="activePayment = activePayment === 'venmo' ? null : 'venmo'"
-            class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
-      <span class="text-lg font-medium text-[#ff1493]">Pay with Venmo</span>
-      <span x-text="activePayment === 'venmo' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
-    </button>
-    <div x-show="activePayment === 'venmo'" class="px-6 pb-6 bg-zinc-950 overflow-hidden text-zinc-300">
-      <p class="mt-4">Place your order first then follow instructions to pay with Venmo.</p>
-      <p class="mt-4 font-bold text-white">*****NOTE*****</p>
-      <p class="mt-2 text-sm">PLEASE DO NOT TURN ON PURCHASE OPTION.<br>ORDER # DIGITS ONLY IN THE NOTE!</p>
-      <a href="https://venmo.com/code?user_id=3026528279461888787&amp;created=1772988492" 
-         target="_blank" rel="noopener noreferrer"
-         class="block mt-6 w-full bg-[#3D95CE] hover:bg-[#2E7AB3] text-white font-semibold py-5 rounded-2xl text-center text-xl transition">
-        Open Venmo & Pay Now
-      </a>
-    </div>
-  </div>
-
-  <!-- CASH APP -->
-  <div class="border border-zinc-800 rounded-xl overflow-hidden">
-    <button @click="activePayment = activePayment === 'cashapp' ? null : 'cashapp'"
-            class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
-      <span class="text-lg font-medium text-[#ff1493]">Pay with Cash App</span>
-      <span x-text="activePayment === 'cashapp' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
-    </button>
-    <div x-show="activePayment === 'cashapp'" class="px-6 pb-6 bg-zinc-950 overflow-hidden text-zinc-300">
-      <p class="mt-4">Send the total via Cash App. Include your order number in the memo.</p>
-      <a href="https://cash.app/$ParagonPeps" 
-         target="_blank" rel="noopener noreferrer"
-         class="block mt-6 w-full bg-[#00C244] hover:bg-[#00A03A] text-white font-semibold py-5 rounded-2xl text-center text-xl transition">
-        Open Cash App & Pay Now
-      </a>
-    </div>
-  </div>
-
-  <!-- BITCOIN WITH QR CODE -->
-  <div class="border border-zinc-800 rounded-xl overflow-hidden">
-    <button @click="activePayment = activePayment === 'bitcoin' ? null : 'bitcoin'"
-            class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
-      <span class="text-lg font-medium text-[#ff1493]">Pay with Bitcoin</span>
-      <span x-text="activePayment === 'bitcoin' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
-    </button>
-    <div x-show="activePayment === 'bitcoin'" class="px-6 pb-6 bg-zinc-950 overflow-hidden text-zinc-300">
-      <p class="mt-4 text-center">Send exact amount to this Bitcoin address:</p>
-      <div class="bg-black p-4 rounded-xl mt-4 text-center">
-        <p class="font-mono text-sm break-all text-[#ff1493]">bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw</p>
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&amp;data=bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw" 
-             class="mx-auto mt-4 rounded-xl" alt="Bitcoin QR Code">
-      </div>
-      <button @click="copyToClipboard('bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw')"
-              class="mt-6 w-full bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-white">
-        Copy Bitcoin Address
-      </button>
-      <p class="text-xs text-zinc-500 mt-4 text-center">Include your order number in the transaction memo.</p>
-    </div>
-  </div>
-</div>
-
-
       </div>
     </div>
-  </div>
-</div>
 
-<!-- Payment Update Alert Modal – OUTSIDE the checkout page block -->
-<div x-show="showPaymentAlert" 
-     @click.away="showPaymentAlert = false"
-     class="fixed inset-0 z-[100001] flex items-center justify-center bg-black/80 backdrop-blur-sm"
-     x-transition>
-  <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-lg w-full mx-4 p-8 relative shadow-2xl">
-    <!-- Close button -->
-    <button @click="showPaymentAlert = false" 
-            class="absolute top-4 right-4 text-zinc-400 hover:text-white text-2xl">
+
+<!-- PAYMENT UPDATE ALERT MODAL – WHITE BACKGROUND + DARK TEXT (color-blind friendly) -->
+<div x-show="showPaymentAlert" @click.away="showPaymentAlert = false"
+     class="fixed inset-0 z-[100001] flex items-center justify-center bg-black/80 backdrop-blur-sm" x-transition>
+  <div class="bg-white border border-zinc-200 rounded-3xl max-w-lg w-full mx-4 p-8 relative shadow-2xl">
+    
+    <!-- Close button (dark) -->
+    <button @click="showPaymentAlert = false"
+            class="absolute top-4 right-4 text-zinc-900 hover:text-black text-3xl leading-none font-light">
       ×
     </button>
 
-    <h2 class="text-2xl font-bold text-white mb-6 text-center">Payment Update</h2>
+    <h2 class="text-2xl font-bold text-zinc-900 mb-6 text-center">
+      IMPORTANT LEGAL NOTICE
+    </h2>
     
-    <div class="text-zinc-300 space-y-4 text-center">
-      <p>We are currently improving our payment options. For now, Venmo, Same Day Payment, and ByteNFT are available and remain secure and reliable methods to complete your purchase.</p>
-      <p>Making Payment via Crypto payment gateways receive a 5% discount, but verification is required for security compliance, so please complete the verification process to secure your discount.</p>
-      <p>If you need any help, please contact our support team. Thank you for your patience.</p>
+    <div class="text-zinc-800 space-y-4 text-center text-[15px] leading-relaxed">
+      <p><strong>NOT FOR HUMAN CONSUMPTION.</strong></p>
+      <p>The products on this website are for legitimate research use only. They are not intended to prevent, treat, or cure any illness or disease.</p>
+      <p>By continuing, you acknowledge and understand these terms.</p>
     </div>
 
     <button @click="showPaymentAlert = false"
             class="mt-8 w-full bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-lg text-white transition">
       I Understand — Continue Checkout
-    </button>
-  </div>
-</div>
-
-    <!-- PAYMENT UPDATE ALERT MODAL -->
-    <div x-show="showPaymentAlert" @click.away="showPaymentAlert = false"
-         class="fixed inset-0 z-[100001] flex items-center justify-center bg-black/80 backdrop-blur-sm" x-transition>
-      <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-lg w-full mx-4 p-8 relative shadow-2xl">
-        <button @click="showIMPORTANT LEGAL NOTICE PLEASE READ = false" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-2xl">×</button>
-        <h2 class="text-2xl font-bold text-white mb-6 text-center">IMPORTANT LEGAL NOTICE PLEASE READ</h2>
-        <div class="text-zinc-300 space-y-4 text-center">
-          <p>NOT FOR HUMAN CONSUMPTION.</p>
-          <p>The Products on this website are for legitmitate Research use only. They are not intended to prevent, treat or cure any illness or disease.</p>
-          <p>By sumitting I agree you acknowledge and understand these Terms.</p>
-        </div>
-        <button @click="showPaymentAlert = false" class="mt-8 w-full bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-lg text-white transition">I Understand — Continue Checkout</button>
-      </div>
-    </div>
-
-<!-- SUCCESS MODAL – Scrollable on mobile, smaller padding -->
-<div x-show="successOpen" class="fixed inset-0 z-[100001] bg-black/90 flex items-center justify-center p-4 overflow-hidden">
-  <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 text-center relative shadow-2xl success-modal">
-    <!-- Close button – always visible at top-right -->
-    <button @click="successOpen = false; orderCopied = false" 
-            class="absolute top-3 right-3 sm:top-4 sm:right-4 text-zinc-400 hover:text-white text-3xl sm:text-4xl font-bold focus:outline-none z-10">
-      ×
-    </button>
-
-    <div class="text-6xl sm:text-8xl mb-4 sm:mb-6">🎉</div>
-    <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 text-white">Order Received!</h2>
-    <p class="text-base sm:text-xl text-zinc-300 mb-6">
-      Thank you! Your order has been submitted successfully.
-    </p>
-
-    <div class="bg-black border border-zinc-700 rounded-2xl p-6 mb-6">
-      <p class="text-base sm:text-lg text-zinc-400 mb-3">
-        Your Order Number (paste in Venmo/Cash App note):
-      </p>
-      <p class="text-4xl sm:text-5xl md:text-6xl font-mono font-bold text-[#ff1493] mb-4 break-all" x-text="lastOrderNumber || '—'"></p>
-
-      <button @click="copyOrderNumber()"
-              class="w-full py-4 rounded-2xl font-semibold text-lg sm:text-xl text-white transition flex items-center justify-center gap-3"
-              :class="orderCopied ? 'bg-green-600' : 'bg-[#ff1493] hover:bg-pink-600'">
-        <span x-text="orderCopied ? '✅ Copied!' : 'Copy Order Number'"></span>
-      </button>
-    </div>
-<!-- DIRECT PAYMENT LINKS IN SUCCESS MODAL -->
-<div class="grid grid-cols-3 gap-4 mt-8">
-  <a href="https://venmo.com/code?user_id=3026528279461888787" 
-     target="_blank" 
-     class="bg-[#3D95CE] hover:bg-[#2E7AB3] py-4 rounded-2xl text-center text-sm font-medium transition">
-    Venmo
-  </a>
-  <a href="https://cash.app/$ParagonPeps" 
-     target="_blank" 
-     class="bg-[#00C244] hover:bg-[#00A03A] py-4 rounded-2xl text-center text-sm font-medium transition">
-    Cash App
-  </a>
-  <a href="#" 
-     @click="copyToClipboard('bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw'); alert('Bitcoin address copied! Paste in your wallet.')"
-     class="bg-orange-600 hover:bg-orange-700 py-4 rounded-2xl text-center text-sm font-medium transition">
-    Bitcoin
-  </a>
-</div>
-
-    <p class="text-sm sm:text-base text-zinc-400 mb-6">
-      Your order is confirmed! Copy the number above, close this modal, and complete payment below using Venmo, Cash App, or Bitcoin.
-    </p>
-
-    <button @click="successOpen = false; orderCopied = false"
-            class="w-full bg-zinc-800 hover:bg-zinc-700 py-4 rounded-3xl font-semibold text-lg sm:text-xl text-white transition">
-      Close & Proceed to Payment
     </button>
   </div>
 </div>
