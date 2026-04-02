@@ -284,67 +284,69 @@ Free Priority Shipping on all orders over $250</div>
 
 <!-- === MOST ORDERED THIS MONTH (Fixed - Card Clickable + Quick Add) === -->
 <section class="py-16 bg-zinc-950 border-t border-zinc-800">
-  <div class="max-w-4xl mx-auto px-6"> 
+  <div class="max-w-7xl mx-auto px-6">
     
     <div class="flex items-center justify-center gap-3 mb-10">
       <div class="h-px w-12 bg-[#ff1493]"></div>
-      <h2 class="text-3xl font-bold tracking-tighter text-white uppercase">Most Ordered</h2>
+      <h2 class="text-3xl font-bold tracking-tighter text-white">MOST ORDERED THIS MONTH</h2>
       <div class="h-px w-12 bg-[#ff1493]"></div>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-      <div class="group block cursor-pointer" @click="window.location.href = 'product.html?id=118'">
-        <div class="bg-zinc-900 rounded-3xl overflow-hidden border border-white hover:border-[#ff1493] transition-all duration-300 relative shadow-xl">
-          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/reta-10mg.jpg" 
-               class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="absolute top-4 right-4 bg-[#ff1493] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">#1</div>
-          <div class="p-6 text-center">
-            <h3 class="text-lg font-semibold text-white truncate">Retatrutide</h3>
-            <p class="text-zinc-400 text-sm">10 mg • $49</p>
-            <button @click.stop="quickAddToCart(118, 'Retatrutide', '10mg', 49)" 
-                    class="mt-4 w-full bg-white hover:bg-zinc-200 text-black font-semibold py-2.5 rounded-2xl transition text-sm">
-              Quick Add
-            </button>
-          </div>
-        </div>
+  <div class="group block cursor-pointer">
+    <div @click="window.location.href = 'product.html?id=111'" 
+         class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-[#ff1493] transition-all duration-300 relative">
+      <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/reta-10mg.jpg" 
+           class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
+      <div class="absolute top-4 right-4 bg-[#ff1493] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">#1 BESTSELLER</div>
+      <div class="p-6 text-center">
+        <h3 class="text-xl font-semibold text-white">Retatrutide</h3>
+        <p class="text-zinc-400 text-sm">10 mg • $49</p>
+        <button @click.stop="quickAddToCart(111, 'Retatrutide', '10mg', 129)" 
+                class="mt-4 w-full bg-white hover:bg-zinc-200 text-black font-semibold py-3 rounded-2xl transition">
+          Quick Add
+        </button>
       </div>
-
-      <div class="group block cursor-pointer" @click="window.location.href = 'product.html?id=119'">
-        <div class="bg-zinc-900 rounded-3xl overflow-hidden border border-white hover:border-[#ff1493] transition-all duration-300 relative shadow-xl">
-          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/tirz-20mg.jpg" 
-               class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="absolute top-4 right-4 bg-[#ff1493] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">#2</div>
-          <div class="p-6 text-center">
-            <h3 class="text-lg font-semibold text-white truncate">Tirzepatide</h3>
-            <p class="text-zinc-400 text-sm">20 mg • $69</p>
-            <button @click.stop="quickAddToCart(119, 'Tirzepatide', '20mg', 69)" 
-                    class="mt-4 w-full bg-white hover:bg-zinc-200 text-black font-semibold py-2.5 rounded-2xl transition text-sm">
-              Quick Add
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="group block cursor-pointer" @click="window.location.href = 'product.html?id=120'">
-        <div class="bg-zinc-900 rounded-3xl overflow-hidden border border-white hover:border-[#ff1493] transition-all duration-500 relative shadow-xl">
-          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/bpc-157-5mg.jpg" 
-               class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="absolute top-4 right-4 bg-[#ff1493] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">#3</div>
-          <div class="p-6 text-center">
-            <h3 class="text-lg font-semibold text-white truncate">BPC-157</h3>
-            <p class="text-zinc-400 text-sm">5 mg • $49</p>
-            <button @click.stop="quickAddToCart(120, 'BPC-157', '5mg', 49)" 
-                    class="mt-4 w-full bg-white hover:bg-zinc-200 text-black font-semibold py-2.5 rounded-2xl transition text-sm">
-              Quick Add
-            </button>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
-</section>
+
+  <div class="group block cursor-pointer">
+    <div @click="window.location.href = 'product.html?id=112'" 
+         class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-[#ff1493] transition-all duration-300 relative">
+      <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/tirz-20mg.jpg" 
+           class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
+      <div class="absolute top-4 right-4 bg-[#ff1493] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">#2 BESTSELLER</div>
+      <div class="p-6 text-center">
+        <h3 class="text-xl font-semibold text-white">Tirzepatide</h3>
+        <p class="text-zinc-400 text-sm">20 mg • $69</p>
+        <button @click.stop="quickAddToCart(112, 'Tirzepatide', '20mg', 199)" 
+                class="mt-4 w-full bg-white hover:bg-zinc-200 text-black font-semibold py-3 rounded-2xl transition">
+          Quick Add
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="group block cursor-pointer">
+    <div @click="window.location.href = 'product.html?id=119'" 
+         class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-[#ff1493] transition-all duration-300 relative">
+      <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/bpc-157-5mg.jpg" 
+           class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
+      <div class="absolute top-4 right-4 bg-[#ff1493] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">#3 BESTSELLER</div>
+      <div class="p-6 text-center">
+        <h3 class="text-xl font-semibold text-white">BPC-157</h3>
+        <p class="text-zinc-400 text-sm">5 mg • $49</p>
+        <button @click.stop="quickAddToCart(119, 'BPC-157', '5mg', 49)" 
+                class="mt-4 w-full bg-white hover:bg-zinc-200 text-black font-semibold py-3 rounded-2xl transition">
+          Quick Add
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
 
 <!-- SHOP GRID – UPDATED WITH DEDICATED PRODUCT PAGE INTEGRATION -->
 <div id="" class="max-w-7xl mx-auto px-6 py-12">
