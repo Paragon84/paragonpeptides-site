@@ -333,11 +333,15 @@ function app() {
     cart: [],
     cartTotal: 0,
     discountedTotal: 0,
+    // Add these missing variables
+    activePayment: null, 
     agreedToTOS: false,
     agreedToPolicies: false,
-    agreedToPaymentInstructions: false,
+    agreedToPayment: false, // Match this to your x-model in the HTML
     isSubmitting: false,
     showPaymentAlert: true,
+
+    // ... rest of your init() and calculateTotals()
 
     init() {
       this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
