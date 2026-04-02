@@ -156,6 +156,7 @@ div[x-show="showGate"] > div {
       </div>
     </div>
   </div>
+
   <!-- MAIN SITE -->
   <div x-show="!showGate" x-cloak x-data="app()" x-init="init()">
     <!-- FLASH SALE BANNER -->
@@ -588,8 +589,7 @@ Free Priority Shipping on all orders over $250</div>
   </div>
 </section>
 
-   
-</div>
+   </div>
 
 <!-- INSISTENT NEWSLETTER POPUP – 15% OFF (blocks site until dismissed) -->
 <div x-show="showNewsletter" 
@@ -1119,9 +1119,9 @@ By purchasing, you confirm you are 21 or older and conducting scientific researc
       mobileMenuOpen: false,
       isLoading: true,
       showPopup: false,
-              timeLeft: 10,
-              discountCode: 'RESEARCH15',
-             copied: false,
+      timeLeft: 10,
+      discountCode: 'RESEARCH15',
+      copied: false,
 
       // --- Product & Cart Data ---
       products: [],
@@ -1145,11 +1145,11 @@ By purchasing, you confirm you are 21 or older and conducting scientific researc
       couponCode: '',
       appliedCoupon: null,
       couponMessage: '',
-              // Newsletter popup
-             showNewsletter: false,
-             newsletterEmail: '',
-             newsletterSubmitting: false,
-             newsletterSuccess: false,
+       // Newsletter popup
+      showNewsletter: false,
+      newsletterEmail: '',
+      newsletterSubmitting: false,
+      newsletterSuccess: false,
 
       //...................................................................................................................................... --- Contact Form ---
       isSubmittingGetInTouch: false,
