@@ -333,15 +333,12 @@ function app() {
     cart: [],
     cartTotal: 0,
     discountedTotal: 0,
-    // Add these missing variables
     activePayment: null, 
     agreedToTOS: false,
     agreedToPolicies: false,
-    agreedToPayment: false, // Match this to your x-model in the HTML
+    agreedToPayment: false, 
     isSubmitting: false,
     showPaymentAlert: true,
-
-    // ... rest of your init() and calculateTotals()
 
     init() {
       this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
@@ -355,12 +352,15 @@ function app() {
 
     handleCheckoutSubmit() {
       const form = document.getElementById('checkout-form');
+      
+      // Standard HTML5 validation (Email, Required fields, etc)
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
       }
 
-      if (!this.agreedToTOS || !this.agreedToPolicies || !this.agreedToPaymentInstructions) {
+      // Check for the three checkboxes
+      if (!this.agreedToTOS || !this.agreedToPolicies || !this.agreedToPayment) {
         alert("Please agree to all required terms");
         return;
       }
@@ -368,25 +368,22 @@ function app() {
       this.isSubmitting = true;
 
       const orderNumber = "PP-" + Math.floor(100000 + Math.random() * 900000);
-      document.getElementById('hidden_order_number').value = orderNumber;
-      document.getElementById('hidden_total').value = '$' + this.discountedTotal.toFixed(2);
-
-      let itemsText = '';
-      this.cart.forEach(item => {
-        itemsText += `${item.name} (${item.qty} × $${item.price}) = $${(item.price * item.qty).toFixed(2)}\n`;
-      });
-      document.getElementById('hidden_cart_items').value = itemsText || 'No items';
+      
+      // Ensure these hidden inputs exist in your form or the data won't send
+      const formData = new FormData(form);
+      formData.append('order_number', orderNumber);
+      formData.append('total_price', '$' + this.discountedTotal.toFixed(2));
 
       fetch(form.action, {
         method: 'POST',
-        body: new FormData(form),
+        body: formData,
         headers: { 'Accept': 'application/json' }
       })
       .then(response => {
         if (response.ok) {
-          // Redirect to thank-you page with order number
-          window.location.href = `/thank-you.html?order_number=${orderNumber}`;
           localStorage.removeItem('paragonCart');
+          // Success! Redirect to the thank-you page
+          window.location.href = `/thank-you.html?order_number=${orderNumber}`;
         } else {
           alert("Submission failed. Please try again.");
         }
@@ -401,5 +398,3 @@ function app() {
   };
 }
 </script>
-</body>
-</html>
