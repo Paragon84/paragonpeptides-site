@@ -13,63 +13,59 @@
     [x-cloak] { display: none !important; }
     body { font-family: 'Inter', system-ui, sans-serif; background: #000000; color: #e2e8f0; }
     h1, h2, h3 { font-family: 'Satoshi', sans-serif; }
-/* Accessibility Boost: High Contrast Borders */
-input, select, textarea, .border-zinc-800 {
-    border-color: #ffffff !important;
-    border-width: 1px;
-}
-
-/* Optional: Make the borders glow slightly when focused so users know where they are typing */
-input:focus, select:focus, textarea:focus {
-    border-color: #ff1493 !important;
-    box-shadow: 0 0 0 2px rgba(255, 20, 147, 0.2);
-}
+    
+    /* Accessibility Boost: High Contrast Borders */
+    input, select, textarea, .border-zinc-800 {
+      border-color: #ffffff !important;
+      border-width: 2px;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #ff1493 !important;
+      box-shadow: 0 0 0 3px rgba(255, 20, 147, 0.3);
+    }
   </style>
 </head>
 <body class="antialiased" x-data="app()" x-init="init()">
-
 <div class="max-w-7xl mx-auto px-6 py-12">
   <button @click="window.location.href='/'" class="mb-8 flex items-center gap-2 text-[#ff1493] hover:text-pink-400 font-medium">
     ← Return to Cart
-</button>
-<div class="max-w-2xl mx-auto space-y-12">
+  </button>
+
+  <div class="grid lg:grid-cols-2 gap-12">
     <!-- LEFT: Billing Form -->
     <div>
       <h1 class="text-4xl font-bold text-white mb-8">Checkout</h1>
-
-      <form id="checkout-form" 
+      <form id="checkout-form"
             @submit.prevent="handleCheckoutSubmit"
-            action="https://formspree.io/f/mlgpeovo" 
-            method="POST" 
+            action="https://formspree.io/f/mlgpeovo"
+            method="POST"
             class="space-y-6">
-
+        
+        <!-- Billing Details -->
         <div class="space-y-6">
           <h2 class="text-2xl font-semibold text-white mb-4">Billing Details</h2>
-          
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label class="block text-sm text-zinc-400 mb-2">First Name *</label>
-              <input type="text" name="first_name" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+              <input type="text" name="first_name" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white">
             </div>
             <div>
               <label class="block text-sm text-zinc-400 mb-2">Last Name *</label>
-              <input type="text" name="last_name" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+              <input type="text" name="last_name" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white">
             </div>
           </div>
-
           <div>
             <label class="block text-sm text-zinc-400 mb-2">Street Address *</label>
-            <input type="text" name="address" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+            <input type="text" name="address" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white">
           </div>
-
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label class="block text-sm text-zinc-400 mb-2">City *</label>
-              <input type="text" name="city" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+              <input type="text" name="city" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white">
             </div>
             <div>
-                <label class="block text-sm text-zinc-400 mb-2">State *</label>
-              <select name="state" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+              <label class="block text-sm text-zinc-400 mb-2">State *</label>
+              <select name="state" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white">
                 <option value="" disabled selected>Select a state</option>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
@@ -125,24 +121,23 @@ input:focus, select:focus, textarea:focus {
               </select>
             </div>
           </div>
-
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label class="block text-sm text-zinc-400 mb-2">ZIP Code *</label>
-              <input type="text" name="zip" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+              <input type="text" name="zip" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white">
             </div>
             <div>
               <label class="block text-sm text-zinc-400 mb-2">Phone *</label>
-              <input type="tel" name="phone" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+              <input type="tel" name="phone" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white">
             </div>
           </div>
-
           <div>
-            <label class="block text-sm text-zinc-400 mb-2">Email Address *</label> 
-            <input type="email" name="email" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+            <label class="block text-sm text-zinc-400 mb-2">Email Address *</label>
+            <input type="email" name="email" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white">
           </div>
         </div>
-        <!-- Shipping Options -->
+
+        <!-- Shipping -->
         <div class="mt-12">
           <h2 class="text-2xl font-semibold text-white mb-4">Shipping</h2>
           <div class="space-y-4">
@@ -160,38 +155,38 @@ input:focus, select:focus, textarea:focus {
             </label>
           </div>
         </div>
+
         <!-- Order Notes -->
         <div class="mt-12">
           <h2 class="text-2xl font-semibold text-white mb-4">Order Notes (optional)</h2>
-          <textarea name="order_notes" rows="4" class="w-full bg-zinc-950 border border-zinc-800 rounded-3xl px-6 py-4 text-white focus:outline-none focus:border-[#ff1493]" placeholder="Notes about your order..."></textarea>
+          <textarea name="order_notes" rows="4" class="w-full bg-zinc-950 border border-zinc-800 rounded-3xl px-6 py-4 text-white" placeholder="Notes about your order..."></textarea>
         </div>
 
         <!-- Agreement Checkboxes -->
-        <label class="flex items-start gap-3 cursor-pointer">
-  <input type="checkbox" x-model="agreedToTOS" class="mt-1 w-5 h-5 accent-[#ff1493]">
-  <span>I agree to the <a href="/terms-and-conditions.html" target="_blank" class="text-[#ff1493] hover:underline">Terms of Service</a></span>
-</label>
+        <div class="space-y-4 mt-8">
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" x-model="agreedToTOS" class="mt-1 w-5 h-5 accent-[#ff1493]">
+            <span>I agree to the <a href="/terms-and-conditions.html" target="_blank" class="text-[#ff1493] hover:underline">Terms of Service</a></span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" x-model="agreedToPolicies" class="mt-1 w-5 h-5 accent-[#ff1493]">
+            <span>I agree to the <a href="/store-policies.html" target="_blank" class="text-[#ff1493] hover:underline">Store Policies</a></span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" x-model="agreedToPayment" class="mt-1 w-5 h-5 accent-[#ff1493]">
+            <span>I understand the <a href="/how-to-pay.html" target="_blank" class="text-[#ff1493] hover:underline">Payment Instructions</a></span>
+          </label>
+        </div>
+      </form>
+    </div>
 
-<label class="flex items-start gap-3 cursor-pointer">
-  <input type="checkbox" x-model="agreedToPolicies" class="mt-1 w-5 h-5 accent-[#ff1493]">
-  <span>I agree to the <a href="/store-policies.html" target="_blank" class="text-[#ff1493] hover:underline">Store Policies</a></span>
-</label>
-
-<label class="flex items-start gap-3 cursor-pointer">
-  <input type="checkbox" x-model="agreedToPayment" class="mt-1 w-5 h-5 accent-[#ff1493]">
-  <span>I understand the <a href="/how-to-pay.html" target="_blank" class="text-[#ff1493] hover:underline">Payment Instructions</a></span>
-</label>
-
-    </form>
-  </div>
-
-  <!-- RIGHT COLUMN: Order Summary + Payment + SECURE ORDER BUTTON AT THE BOTTOM -->
-   <div class="bg-zinc-950 border border-zinc-800 rounded-3xl p-8">
-      
+    <!-- RIGHT COLUMN: Order Summary + Coupon + Payments + SECURE BUTTON AT BOTTOM -->
+    <div class="bg-zinc-950 border border-zinc-800 rounded-3xl p-8 lg:sticky lg:top-8 flex flex-col h-fit">
       <h2 class="text-2xl font-semibold text-white mb-6">Your Order</h2>
+      
       <div class="space-y-4 mb-8">
         <template x-for="item in cart" :key="item.id">
-          <div class="flex justify-between py-2">
+          <div class="flex justify-between py-2 border-b border-zinc-800">
             <span x-text="item.name + ' × ' + item.qty"></span>
             <span x-text="'$' + (item.price * item.qty).toFixed(2)"></span>
           </div>
@@ -201,38 +196,35 @@ input:focus, select:focus, textarea:focus {
       <div class="border-t border-zinc-800 pt-6 space-y-2">
         <div class="flex justify-between"><span>Subtotal</span><span x-text="'$' + cartTotal.toFixed(2)"></span></div>
         <div class="flex justify-between"><span>Shipping</span><span x-text="cartTotal >= 250 ? 'Free' : '$12.99'"></span></div>
-        <div class="flex justify-between text-2xl font-bold border-t border-zinc-800 pt-4"><span>Total</span><span x-text="'$' + discountedTotal"></span></div>
+        <div class="flex justify-between text-2xl font-bold border-t border-zinc-800 pt-4"><span>Total</span><span x-text="'$' + discountedTotal.toFixed(2)"></span></div>
       </div>
 
-      <!-- COUPON INPUT – restored right after Total -->
+      <!-- COUPON -->
       <div class="mt-8">
         <label class="block text-sm text-zinc-400 mb-2">Have a coupon?</label>
         <div class="flex gap-2">
           <input type="text" x-model="couponCode" placeholder="Coupon code"
-                 class="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
+                 class="flex-1 bg-zinc-900 border border-white rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#ff1493]">
           <button @click="applyCoupon()"
                   class="bg-[#ff1493] hover:bg-pink-600 px-6 py-3 rounded-lg font-medium text-white transition">
             Apply
           </button>
         </div>
-        <p x-show="couponMessage" 
+        <p x-show="couponMessage"
            :class="{'text-green-400': appliedCoupon, 'text-red-400': !appliedCoupon}"
            class="mt-2 text-sm" x-text="couponMessage"></p>
         <template x-if="appliedCoupon">
-          <button @click="removeCoupon()" class="mt-2 text-sm text-red-400 hover:text-red-300">
-            Remove coupon
-          </button>
+          <button @click="removeCoupon()" class="mt-2 text-sm text-red-400 hover:text-red-300">Remove coupon</button>
         </template>
       </div>
 
-      <!-- Payment Instructions – Instructions Only -->
-      <div class="mt-12 space-y-4">
+      <!-- Payment Instructions -->
+      <div class="mt-12 space-y-4 flex-1">
         <h3 class="text-xl font-semibold text-white mb-6">How to Pay</h3>
-
+        
         <!-- Venmo -->
-        <div class="border border-zinc-800 rounded-xl overflow-hidden">
-          <button @click="activePayment = activePayment === 'venmo' ? null : 'venmo'"
-                  class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
+        <div class="border border-white rounded-xl overflow-hidden">
+          <button @click="activePayment = activePayment === 'venmo' ? null : 'venmo'" class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
             <span class="text-lg font-medium text-[#ff1493]">Pay with Venmo</span>
             <span x-text="activePayment === 'venmo' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
           </button>
@@ -240,16 +232,13 @@ input:focus, select:focus, textarea:focus {
             <p class="mt-4">1. Complete your order first to receive your order number.</p>
             <p class="mt-4">2. Open Venmo and send the exact total amount.</p>
             <p class="mt-4 font-bold text-white">***** IMPORTANT NOTE *****</p>
-            <p class="mt-2 text-sm">• Use only the digits of your order number in the note.<br>
-            • DO NOT turn on Purchase Protection.<br>
-            • Do not add any extra text in the note.</p>
+            <p class="mt-2 text-sm">• Use only the digits of your order number in the note.<br>• DO NOT turn on Purchase Protection.<br>• Do not add any extra text.</p>
           </div>
         </div>
 
         <!-- Cash App -->
-        <div class="border border-zinc-800 rounded-xl overflow-hidden">
-          <button @click="activePayment = activePayment === 'cashapp' ? null : 'cashapp'"
-                  class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
+        <div class="border border-white rounded-xl overflow-hidden">
+          <button @click="activePayment = activePayment === 'cashapp' ? null : 'cashapp'" class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
             <span class="text-lg font-medium text-[#ff1493]">Pay with Cash App</span>
             <span x-text="activePayment === 'cashapp' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
           </button>
@@ -261,9 +250,8 @@ input:focus, select:focus, textarea:focus {
         </div>
 
         <!-- Bitcoin -->
-        <div class="border border-zinc-800 rounded-xl overflow-hidden">
-          <button @click="activePayment = activePayment === 'bitcoin' ? null : 'bitcoin'"
-                  class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
+        <div class="border border-white rounded-xl overflow-hidden">
+          <button @click="activePayment = activePayment === 'bitcoin' ? null : 'bitcoin'" class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
             <span class="text-lg font-medium text-[#ff1493]">Pay with Bitcoin</span>
             <span x-text="activePayment === 'bitcoin' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
           </button>
@@ -271,74 +259,59 @@ input:focus, select:focus, textarea:focus {
             <p class="mt-4 text-center">Send the exact total amount to this Bitcoin address:</p>
             <div class="bg-black p-4 rounded-xl mt-4 text-center">
               <p class="font-mono text-sm break-all text-[#ff1493]">bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw</p>
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&amp;data=bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw"
-                   class="mx-auto mt-4 rounded-xl" alt="Bitcoin QR Code">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw" class="mx-auto mt-4 rounded-xl" alt="Bitcoin QR Code">
             </div>
-            <button @click="copyToClipboard('bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw')"
-                    class="mt-6 w-full bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-white">
-              Copy Bitcoin Address
-            </button>
+            <button @click="copyToClipboard('bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw')" class="mt-6 w-full bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-white">Copy Bitcoin Address</button>
             <p class="text-xs text-zinc-500 mt-4 text-center">Include your order number in the transaction memo.</p>
           </div>
         </div>
       </div>
 
-    <!-- === SECURE PURCHASE BUTTON – NOW AT THE VERY BOTTOM OF THE RIGHT COLUMN === -->
-    <div class="mt-auto pt-8">
-      <button 
-        @click="handleCheckoutSubmit()"
-        :disabled="isSubmitting || !agreedToTOS || !agreedToPolicies"
-        class="w-full py-6 rounded-3xl font-semibold text-2xl text-white transition disabled:opacity-50 disabled:cursor-not-allowed"
-        :class="isSubmitting ? 'bg-zinc-700' : 'bg-[#ff1493] hover:bg-pink-600'">
-        <span x-text="isSubmitting ? 'Processing Secure Order...' : 'Place Secure Order'"></span>
-      </button>
-      
-      <p class="text-center text-xs text-zinc-500 mt-6">
-        Your personal data will be used to process your order...
-      </p>
+      <!-- SECURE PURCHASE BUTTON – AT THE VERY BOTTOM OF RIGHT COLUMN -->
+      <div class="mt-auto pt-8">
+        <button @click="handleCheckoutSubmit()"
+                :disabled="isSubmitting || !agreedToTOS || !agreedToPolicies || !agreedToPayment"
+                class="w-full py-6 rounded-3xl font-semibold text-2xl text-white transition disabled:opacity-50 disabled:cursor-not-allowed"
+                :class="isSubmitting ? 'bg-zinc-700' : 'bg-[#ff1493] hover:bg-pink-600'">
+          <span x-text="isSubmitting ? 'Processing Secure Order...' : 'Place Secure Order'"></span>
+        </button>
+        <p class="text-center text-xs text-zinc-500 mt-6">Your personal data will be used to process your order, support your experience, and for other purposes described in our Privacy Policy.</p>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- PAYMENT UPDATE ALERT MODAL – WHITE BACKGROUND + DARK TEXT (color-blind friendly) -->
-<div x-show="showPaymentAlert" @click.away="showPaymentAlert = false"
-     class="fixed inset-0 z-[100001] flex items-center justify-center bg-black/80 backdrop-blur-sm" x-transition>
+<!-- PAYMENT ALERT MODAL – WHITE + DARK TEXT -->
+<div x-show="showPaymentAlert" @click.away="showPaymentAlert = false" class="fixed inset-0 z-[100001] flex items-center justify-center bg-black/80 backdrop-blur-sm" x-transition>
   <div class="bg-white border border-zinc-200 rounded-3xl max-w-lg w-full mx-4 p-8 relative shadow-2xl">
-    
-    <!-- Close button (dark) -->
-    <button @click="showPaymentAlert = false"
-            class="absolute top-4 right-4 text-zinc-900 hover:text-black text-3xl leading-none font-light">
-      ×
-    </button>
-
-    <h2 class="text-2xl font-bold text-zinc-900 mb-6 text-center">
-      IMPORTANT LEGAL NOTICE
-    </h2>
-    
+    <button @click="showPaymentAlert = false" class="absolute top-4 right-4 text-zinc-900 hover:text-black text-3xl leading-none font-light">×</button>
+    <h2 class="text-2xl font-bold text-zinc-900 mb-6 text-center">IMPORTANT LEGAL NOTICE</h2>
     <div class="text-zinc-800 space-y-4 text-center text-[15px] leading-relaxed">
       <p><strong>NOT FOR HUMAN CONSUMPTION.</strong></p>
       <p>The products on this website are for legitimate research use only. They are not intended to prevent, treat, or cure any illness or disease.</p>
       <p>By continuing, you acknowledge and understand these terms.</p>
     </div>
-
-    <button @click="showPaymentAlert = false"
-            class="mt-8 w-full bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-lg text-white transition">
-      I Understand — Continue Checkout
-    </button>
+    <button @click="showPaymentAlert = false" class="mt-8 w-full bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-lg text-white transition">I Understand — Continue Checkout</button>
   </div>
 </div>
+
 <script>
 function app() {
   return {
     cart: [],
     cartTotal: 0,
     discountedTotal: 0,
-    activePayment: null, 
+    activePayment: null,
     agreedToTOS: false,
     agreedToPolicies: false,
-    agreedToPayment: false, 
+    agreedToPayment: false,
     isSubmitting: false,
     showPaymentAlert: true,
+
+    // Coupon system
+    couponCode: '',
+    appliedCoupon: null,
+    couponMessage: '',
 
     init() {
       this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
@@ -347,32 +320,63 @@ function app() {
 
     calculateTotals() {
       this.cartTotal = this.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-      this.discountedTotal = this.cartTotal + (this.cartTotal >= 250 ? 0 : 12.99);
+      let total = this.cartTotal;
+      if (this.appliedCoupon) total = total * (1 - this.appliedCoupon.discount);
+      const shipping = total >= 250 ? 0 : 12.99;
+      this.discountedTotal = total + shipping;
+    },
+
+    applyCoupon() {
+      const code = this.couponCode.trim().toUpperCase();
+      this.couponMessage = '';
+      this.appliedCoupon = null;
+
+      const validCoupons = {
+        'PARAGON15': { discount: 0.15, message: '✅ 15% off applied!' },
+        'WELCOME10': { discount: 0.10, message: '✅ 10% off applied!' },
+        'RESEARCH20': { discount: 0.20, message: '✅ 20% off applied!' }
+      };
+
+      if (validCoupons[code]) {
+        this.appliedCoupon = { code: code, discount: validCoupons[code].discount };
+        this.couponMessage = validCoupons[code].message;
+        this.calculateTotals();
+      } else {
+        this.couponMessage = '❌ Invalid coupon code';
+      }
+    },
+
+    removeCoupon() {
+      this.appliedCoupon = null;
+      this.couponCode = '';
+      this.couponMessage = '';
+      this.calculateTotals();
+    },
+
+    copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert('✅ Copied to clipboard!');
+      });
     },
 
     handleCheckoutSubmit() {
       const form = document.getElementById('checkout-form');
-      
-      // Standard HTML5 validation (Email, Required fields, etc)
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
       }
-
-      // Check for the three checkboxes
       if (!this.agreedToTOS || !this.agreedToPolicies || !this.agreedToPayment) {
         alert("Please agree to all required terms");
         return;
       }
 
       this.isSubmitting = true;
-
       const orderNumber = "PP-" + Math.floor(100000 + Math.random() * 900000);
-      
-      // Ensure these hidden inputs exist in your form or the data won't send
+
       const formData = new FormData(form);
       formData.append('order_number', orderNumber);
       formData.append('total_price', '$' + this.discountedTotal.toFixed(2));
+      formData.append('coupon_used', this.appliedCoupon ? this.appliedCoupon.code : 'none');
 
       fetch(form.action, {
         method: 'POST',
@@ -382,19 +386,16 @@ function app() {
       .then(response => {
         if (response.ok) {
           localStorage.removeItem('paragonCart');
-          // Success! Redirect to the thank-you page
           window.location.href = `/thank-you.html?order_number=${orderNumber}`;
         } else {
           alert("Submission failed. Please try again.");
         }
       })
-      .catch(() => {
-        alert("Network error. Please try again.");
-      })
-      .finally(() => {
-        this.isSubmitting = false;
-      });
+      .catch(() => alert("Network error. Please try again."))
+      .finally(() => this.isSubmitting = false);
     }
   };
 }
 </script>
+</body>
+</html>
