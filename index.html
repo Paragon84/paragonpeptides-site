@@ -1420,42 +1420,59 @@ function app() {
       });
     },
 
-    async handleCheckoutSubmit() {
-      this.isSubmitting = true;
-      this.formError = null;
-      const form = document.getElementById('checkout-form');
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        this.formError = "Please fill in all required fields.";
-        this.isSubmitting = false;
-        return;
-      }
-      if (!this.agreedToTOS || !this.agreedToPolicies || !this.agreedToPayment) {
-        alert("Please agree to all required terms");
-        this.isSubmitting = false;
-        return;
-      }
-      try {
-        const response = await fetch("https://formspree.io/f/mlgpeovo", {
-          method: "POST",
-          body: new FormData(form),
-          headers: { 'Accept': 'application/json' }
-        });
-        if (response.ok) {
-          const orderNum = "PP-" + Math.floor(100000 + Math.random() * 900000);
-          this.lastOrderNumber = orderNum;
-          this.successOpen = true;
-          this.cart = [];
-          this.saveCart();
-        } else {
-          this.formError = "Submission failed. Please try again.";
-        }
-      } catch (e) {
-        this.formError = "An error occurred. Please try again.";
-      } finally {
-        this.isSubmitting = false;
-      }
-    },
+async handleCheckoutSubmit() {
+  this.isSubmitting = true;
+  this.formError = null;
+  const form = document.getElementById('checkout-form');
+  
+  // 1. Basic validation
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    this.formError = "Please fill in all required fields.";
+    this.isSubmitting = false;
+    return;
+  }
+  if (!this.agreedToTOS || !this.agreedToPolicies || !this.agreedToPayment) {
+    alert("Please agree to all required terms");
+    this.isSubmitting = false;
+    return;
+  }
+
+  // 2. PREPARE THE DATA (This is where you add the products)
+  const formData = new FormData(form);
+  const orderNum = "PP-" + Math.floor(100000 + Math.random() * 900000);
+  
+  // Create a readable list of products
+  let itemsText = this.cart.map(item => `${item.name} (Qty: ${item.qty}) - $${(item.price * item.qty).toFixed(2)}`).join('\n');
+  
+  // Add the extra data to the form package
+  formData.append('order_number', orderNum);
+  formData.append('ordered_items', itemsText);
+  formData.append('total_price', '$' + this.discountedTotal.toFixed(2));
+
+  // 3. SEND THE DATA
+  try {
+    const response = await fetch("https://formspree.io/f/mlgpeovo", {
+      method: "POST",
+      body: formData, // Use the new formData variable here, NOT 'new FormData(form)'
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (response.ok) {
+      this.lastOrderNumber = orderNum;
+      // Redirect to thank-you page with the order number
+      window.location.href = `/thank-you.html?order_number=${orderNum}`;
+      this.cart = [];
+      this.saveCart();
+    } else {
+      this.formError = "Submission failed. Please try again.";
+    }
+  } catch (e) {
+    this.formError = "An error occurred. Please try again.";
+  } finally {
+    this.isSubmitting = false;
+  }
+},
 
     async submitGetInTouch(e) {
       this.isSubmittingGetInTouch = true;
