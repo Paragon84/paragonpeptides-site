@@ -174,7 +174,7 @@ Free Priority Shipping on all orders over $250</div>
     <!-- Desktop Nav -->
     <nav class="hidden md:flex items-center gap-x-8 text-sm font-medium text-white">
     <a @click="showGetInTouchModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Get in Touch</a>
-      <a @click="showSupportModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Support</a>
+      <a @click="showSupportModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Terms & Services</a>
       <a @click="showFaqsPage = true" class="hover:text-[#ff1493] transition cursor-pointer">FAQs & Policies</a>
       <a @click="showAccountModal = true" class="hover:text-[#ff1493] transition cursor-pointer">My Account</a>
     </nav>
@@ -224,7 +224,7 @@ Free Priority Shipping on all orders over $250</div>
   <div class="flex-1 flex flex-col px-6 py-10 text-2xl font-medium text-white gap-y-10">
     <a href="#shop" @click="mobileMenuOpen = false" class="hover:text-[#ff1493] transition">Shop</a>
     <a @click="showGetInTouchModal = true; mobileMenuOpen = false" class="hover:text-[#ff1493] transition cursor-pointer">Get in Touch</a>
-    <a @click="showSupportModal = true; mobileMenuOpen = false" class="hover:text-[#ff1493] transition cursor-pointer">Support</a>
+    <a @click="showSupportModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Terms & Services</a>
     <a @click="showFaqsPage = true; mobileMenuOpen = false" class="hover:text-[#ff1493] transition cursor-pointer">FAQs & Policies</a>
     <a @click="showAccountModal = true; mobileMenuOpen = false" class="hover:text-[#ff1493] transition cursor-pointer">My Account</a>
 
@@ -997,14 +997,33 @@ By purchasing, you confirm you are 21 or older and conducting scientific researc
   </div>
 
 
-  <!-- SUPPORT MODAL -->
-  <div x-show="showSupportModal" class="fixed inset-0 z-[99999] bg-black/70 flex items-center justify-center" @click.self="showSupportModal = false">
-    <div class="bg-zinc-900 rounded-3xl max-w-md w-full p-8">
-      <h3 class="text-3xl font-bold mb-6">Support</h3>
-      <p class="text-slate-300"> Email paragonpeps@gmail.com</p>
-      <button @click="showSupportModal = false" class="mt-8 w-full bg-[#ff1493] py-5 rounded-3xl font-semibold">Close</button>
+<!-- TERMS & SERVICES MODAL -->
+<div x-show="showSupportModal" class="fixed inset-0 z-[99999] bg-black/70 flex items-center justify-center" @click.self="showSupportModal = false">
+  <div class="bg-zinc-900 rounded-3xl max-w-2xl w-full p-8 max-h-[90vh] overflow-auto">
+    <div class="flex justify-between items-center mb-6">
+      <h3 class="text-3xl font-bold text-white">Terms & Services</h3>
+      <button @click="showSupportModal = false" class="text-4xl text-zinc-400 hover:text-white">×</button>
+    </div>
+    
+    <div class="prose prose-invert text-zinc-300 text-[15px] leading-relaxed">
+      <p><strong>Effective Date:</strong> March 31, 2026</p>
+      <p><strong>IMPORTANT NOTICE:</strong> All products sold by Paragon Peptides, LLC are strictly intended for laboratory research use only. They are not intended for human or animal consumption, or for any clinical, therapeutic, or diagnostic applications.</p>
+      
+      <p class="mt-6">By purchasing from this website, you certify that you are a qualified researcher capable of safely handling these substances and that all purchases are for legitimate research purposes only.</p>
+    </div>
+    
+    <div class="mt-10 flex flex-col gap-4">
+      <a href="/terms-and-services.html" target="_blank" 
+         class="block w-full bg-[#ff1493] hover:bg-pink-600 py-4 rounded-3xl text-center font-semibold text-white">
+        Read Full Terms & Services
+      </a>
+      <button @click="showSupportModal = false" 
+              class="w-full bg-zinc-800 hover:bg-zinc-700 py-4 rounded-3xl font-semibold">
+        Close
+      </button>
     </div>
   </div>
+</div>
 
 <!-- DYNAMIC PRODUCT MODAL (mobile-optimized) -->
   <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
