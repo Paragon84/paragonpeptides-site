@@ -375,6 +375,7 @@ function app() {
 
       const formData = new FormData(form);
       formData.append('order_number', orderNumber);
+      formData.append('Cart Items', itemsText);
       formData.append('total_price', '$' + this.discountedTotal.toFixed(2));
       formData.append('coupon_used', this.appliedCoupon ? this.appliedCoupon.code : 'none');
 
