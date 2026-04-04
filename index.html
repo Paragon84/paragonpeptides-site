@@ -577,52 +577,40 @@ Free Priority Shipping on all orders over $250</div>
 
    </div>
 
-<!-- INSISTENT NEWSLETTER POPUP – 15% OFF (blocks site until dismissed) -->
-<div x-show="showNewsletter" 
-     class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[99999] p-6"
-     @click.self="showNewsletter = false">
+<!-- NEWSLETTER POPUP – Mailchimp Integrated -->
+<div x-show="showNewsletter" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[99999] p-6" @click.self="showNewsletter = false">
   <div class="bg-zinc-900 border border-[#ff1493]/40 rounded-3xl max-w-md w-full p-10 relative shadow-2xl">
+    <button @click="showNewsletter = false" class="absolute top-6 right-6 text-zinc-400 hover:text-white text-3xl">×</button>
     
-    <!-- Close / No Thanks -->
-   <button @click="showNewsletter = false" class="mt-6 text-zinc-500 hover:text-zinc-400 text-sm underline">
-  No thanks, maybe later
-</button>
-
     <div class="text-center">
       <div class="inline-flex items-center gap-2 bg-[#ff1493]/10 text-[#ff1493] text-sm font-bold uppercase tracking-widest px-6 py-2 rounded-3xl mb-6">
         🎟️ LIMITED TIME OFFER
       </div>
-
       <h2 class="text-4xl font-bold text-white mb-3">Get 15% Off Your First Order</h2>
-      <p class="text-zinc-400 text-lg mb-8">Join the Paragon Research Community for exclusive drops, flash sales, and early access to new compounds.</p>
+      <p class="text-zinc-400 text-lg mb-8">Join the Paragon Research Community for exclusive drops and lab insights.</p>
 
-      <!-- Email Form -->
-    <form @submit.prevent="subscribeNewsletter" class="space-y-5">
-  <input type="email" 
-         x-model="newsletterEmail"
-         name="email"
-         placeholder="your@email.com"
-         required
-         class="w-full bg-black border border-zinc-700 focus:border-[#ff1493] rounded-3xl px-6 py-5 text-white placeholder-zinc-500 outline-none text-lg">
+      <form action="https://formspree.io/f/mlgpeovo" method="POST" @submit.prevent="subscribeNewsletter" class="space-y-5">
+        <input type="email" x-model="newsletterEmail" name="email" placeholder="your@email.com" required 
+               class="w-full bg-black border border-zinc-700 focus:border-[#ff1493] rounded-3xl px-6 py-5 text-white placeholder-zinc-500 outline-none text-lg">
+        
+        <!-- Hidden fields for Mailchimp + Formspree -->
+        <input type="hidden" name="_subject" value="New Newsletter Subscriber">
+        <input type="hidden" name="message" value="Newsletter signup – send 15% discount code RESEARCH15">
+        <input type="hidden" name="_optin" value="true"> <!-- Tells Formspree to trigger Mailchimp -->
 
-  <input type="hidden" name="message" value="Newsletter signup – send 15% discount code PARAGON15">
+        <button type="submit" :disabled="newsletterSubmitting" 
+                class="w-full bg-[#ff1493] hover:bg-pink-600 py-5 rounded-3xl font-semibold text-xl transition-all active:scale-95">
+          <span x-text="newsletterSubmitting ? 'Sending...' : 'Claim My 15% Discount'"></span>
+        </button>
+      </form>
 
-  <button type="submit"
-          :disabled="newsletterSubmitting"
-          class="w-full bg-[#ff1493] hover:bg-pink-600 py-5 rounded-3xl font-semibold text-xl transition-all active:scale-95">
-    <span x-text="newsletterSubmitting ? 'Sending...' : 'Claim My 15% Discount'"></span>
-  </button>
-</form>
-      <!-- No Thanks -->
       <button @click="showNewsletter = false; sessionStorage.setItem('newsletterShown', 'true')" 
-        class="mt-6 text-zinc-400 hover:text-white text-sm underline">
-  No thanks, I’ll browse without the discount
-</button>
-      <p class="text-xs text-zinc-500 mt-8">We respect your inbox • Unsubscribe anytime</p>
+              class="mt-6 text-zinc-400 hover:text-white text-sm underline">
+        No thanks, maybe later
+      </button>
     </div>
   </div>
 </div>
-
 <!-- === FULL-WIDTH WHITE PAGE-BREAK FOOTER (with your exact links) === -->
 <div class="bg-white text-black py-16 border-t border-zinc-200 w-full">
   <div class="max-w-7xl mx-auto px-6">
