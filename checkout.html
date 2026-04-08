@@ -41,8 +41,8 @@
       method="POST"
       class="space-y-6">
   
-  <input type="hidden" name="Cart_Items" :value="cart.map(item => item.name + ' x' + item.qty).join(', ')">
-  <input type="hidden" name="Total_Paid" :value="'$' + discountedTotal">
+  <input type="hidden" name="cart_items" :value="cart.map(item => item.name + ' x' + item.qty).join(', ')">
+  <input type="hidden" name="total_price" :value="'$' + discountedTotal">
 
   <div class="space-y-6">
     <h2 class="text-2xl font-semibold text-white mb-4">Billing Details</h2>
@@ -402,10 +402,12 @@ saveCart() {
   formData.append('order_number', orderNum);
   formData.append('hidden_cart_items', itemsText);
   formData.append('Subtotal', '$' + this.cartTotal.toFixed(2));
-  formData.append('total_price', '$' + this.discountedTotal);
+  formData.append('total_price', '$' + this.discountedTotal.toFixed(2));
 if (this.appliedCoupon) {
-    formData.append('coupon_code', 'PARAGON15'); // Match the field name
+    formData.append('coupon_code', this.appliedCoupon.code); 
 }
+// LOG FOR TESTING: This lets you see exactly what is being sent to the webhook
+  console.log("SENDING DATA:", Object.fromEntries(formData.entries()));
 
   // 3. Submit to Formspree
   try {
@@ -431,7 +433,6 @@ if (this.appliedCoupon) {
   } finally {
     this.isSubmitting = false;
   }
- }
  };
 }
 </script>
