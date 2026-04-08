@@ -399,13 +399,13 @@ saveCart() {
   ).join('\n');
   
   // Append calculated data to FormData
-  formData.append('Order Number', orderNum);
-  formData.append('Cart Items', itemsText);
+  formData.append('order number', orderNum);
+  formData.append('hidden_cart_items', itemsText);
   formData.append('Subtotal', '$' + this.cartTotal.toFixed(2));
-  formData.append('Total Paid', '$' + this.discountedTotal);
-  if (this.appliedCoupon) {
-    formData.append('Coupon Used', 'RESEARCH15');
-  }
+  formData.append('total_price', '$' + this.discountedTotal);
+if (this.appliedCoupon) {
+    formData.append('coupon_code', PARAGON15); // Match the field name
+}
 
   // 3. Submit to Formspree
   try {
