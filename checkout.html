@@ -403,11 +403,9 @@ saveCart() {
   formData.append('hidden_cart_items', itemsText);
   formData.append('Subtotal', '$' + this.cartTotal.toFixed(2));
   formData.append('total_price', '$' + this.discountedTotal.toFixed(2));
-if (this.appliedCoupon) {
-    formData.append('coupon_code', this.appliedCoupon.code); 
-}
-// LOG FOR TESTING: This lets you see exactly what is being sent to the webhook
-  console.log("SENDING DATA:", Object.fromEntries(formData.entries()));
+  if (this.appliedCoupon) {
+      formData.append('coupon_code', this.appliedCoupon.code);
+  }
 
   // 3. Submit to Formspree
   try {
@@ -433,6 +431,7 @@ if (this.appliedCoupon) {
   } finally {
     this.isSubmitting = false;
   }
+ }
  };
 }
 </script>
