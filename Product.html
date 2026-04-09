@@ -180,14 +180,15 @@ function app() {
       }
     },
 
-    getCardImageUrl() {
+getCardImageUrl() {
       // If no dose is selected, show the default product image or logo
       if (!this.product || !this.selectedDose) {
         return this.product?.image || 'https://i.imgur.com/jXQlcWB.png';
       }
 
-      // 1. Format the name to match your files (e.g., "BPC-157" -> "bpc-157")
-      let name = this.product.name.toLowerCase().replace(/\+/g, '-plus');
+      // 1. Format the name to match your files (Corrected Syntax)
+      let name = this.product.name.toLowerCase()
+        .replace(/\+/g, '-plus')
         .trim()
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-+|-+$/g, '');
