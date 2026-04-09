@@ -374,6 +374,8 @@ saveCart() {
   this.isSubmitting = true;
   this.formError = null;
   const form = document.getElementById('checkout-form');
+
+   console.log("✅ handleCheckoutSubmit started");
   
   // 1. Basic validation
   if (!form || !form.checkValidity()) {
@@ -382,6 +384,7 @@ saveCart() {
     this.isSubmitting = false;
     return;
   }
+   console.log("✅ Form validation passed");
 
   if (!this.agreedToTOS || !this.agreedToPolicies || !this.agreedToPayment) {
     alert("Please agree to all required terms");
@@ -415,6 +418,8 @@ saveCart() {
       headers: { 'Accept': 'application/json' }
     });
 
+    console.log("✅ Fetch response status:", response.status);
+
     if (response.ok) {
       // Clear cart before moving on
       this.cart = [];
@@ -427,6 +432,7 @@ saveCart() {
       this.formError = data.errors ? data.errors.map(e => e.message).join(', ') : "Submission failed.";
     }
   } catch (e) {
+    console.error("Fetch error:", e);
     this.formError = "A network error occurred. Please try again.";
   } finally {
     this.isSubmitting = false;
