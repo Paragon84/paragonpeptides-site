@@ -1175,7 +1175,7 @@ function app() {
           this.showNewsletter = false;
           this.newsletterSuccess = false;
           this.newsletterEmail = '';
-          alert("✅ 15% discount code sent to your email! Code: PARAGON15");
+          alert("✅ 15% discount Code: PARAGON15");
         }, 3000);
       }, 1200);
     },
@@ -1448,8 +1448,8 @@ async handleCheckoutSubmit() {
   formData.append('Subtotal', '$' + this.cartTotal.toFixed(2));
   formData.append('Total Paid', '$' + this.discountedTotal);
   if (this.appliedCoupon) {
-    formData.append('Coupon Used', 'RESEARCH15');
-  }
+     formData.append('Coupon Used', this.appliedCoupon.code || 'None');
+     }
 
   // 3. Submit to Formspree
   try {
