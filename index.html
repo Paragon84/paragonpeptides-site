@@ -1443,12 +1443,11 @@ async handleCheckoutSubmit() {
   ).join('\n');
   
   // Append calculated data to FormData
-  formData.append('Order Number', orderNum);
-  formData.append('Cart Items', itemsText);
-  formData.append('Subtotal', '$' + this.cartTotal.toFixed(2));
-  formData.append('Total Paid', '$' + this.discountedTotal);
-  if (this.appliedCoupon) {
-     formData.append('Coupon Used', this.appliedCoupon.code || 'None');
+    formData.append('order_number', orderNum);
+           formData.append('cart_items', itemsText); 
+           formData.append('total_price', '$' + this.discountedTotal.toFixed(2));
+     if (this.appliedCoupon) {
+    formData.append('Coupon Used', this.appliedCoupon.code || 'None');
      }
 
   // 3. Submit to Formspree
