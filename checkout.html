@@ -416,6 +416,16 @@ async handleCheckoutSubmit() {
 
       // Redirect to thank-you page
       window.location.href = `/thank-you.html?order_number=${orderNum}&total=${this.discountedTotal.toFixed(2)}`;
+
+// === SAFE PARALLEL WEBHOOK CALL (does NOT affect redirect) ===
+const webhookUrl = "https://lydlmgzavepcdtreeoto.supabase.co/functions/v1/order-webhook?apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5ZGxtZ3phdmVwY2R0cmVlb3RvIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3Mzg0MDcxOSwiZXhwIjoyMDg5NDE2NzE5fQ.CoXF8LCA6q78VTZh8rh0pQ9WGRLgbJJiUSF8kfg9uXw";
+
+fetch(webhookUrl, {
+  method: "POST",
+  body: formData,
+}).catch(err => console.error("Webhook parallel call failed (non-critical):", err));
+// === END OF SAFE PARALLEL CALL ===
+
     } else {
       this.formError = "Submission failed. Please try again.";
     }
