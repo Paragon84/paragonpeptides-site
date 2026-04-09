@@ -1392,7 +1392,7 @@ function app() {
 
     applyCoupon() {
       const code = this.couponCode.trim().toUpperCase();
-      const valid = { 'RESEARCH15': 15, 'WELCOME10': 10 };
+      const valid = { 'PARAGON15': 15, 'WELCOME10': 10 };
       if (valid[code]) {
         this.appliedCoupon = { discountPercent: valid[code] };
         this.couponMessage = `Applied ${valid[code]}% off!`;
@@ -1445,7 +1445,7 @@ async handleCheckoutSubmit() {
   // Append calculated data to FormData
     formData.append('order_number', orderNum);
            formData.append('cart_items', itemsText); 
-           formData.append('total_price', '$' + this.discountedTotal.toFixed(2));
+           formData.append('total_price', '$' + this.discountedTotal.toFixed);
      if (this.appliedCoupon) {
     formData.append('Coupon Used', this.appliedCoupon.code || 'None');
      }
