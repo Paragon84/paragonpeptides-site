@@ -187,7 +187,7 @@ function app() {
       }
 
       // 1. Format the name to match your files (e.g., "BPC-157" -> "bpc-157")
-      let name = this.product.name.toLowerCase()
+      let name = this.product.name.toLowerCase().replace(/\+/g, '-plus');
         .trim()
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-+|-+$/g, '');
