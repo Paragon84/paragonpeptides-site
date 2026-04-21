@@ -1366,24 +1366,33 @@ function app() {
       localStorage.setItem('paragonCart', JSON.stringify(this.cart));
     },
 
-    async saveCartToServer() {
-      if (this.cart.length === 0) return;
-      const sessionId = localStorage.getItem('sessionId') || crypto.randomUUID();
-      localStorage.setItem('sessionId', sessionId);
-      try {
-        await fetch("https://lydlmgzavepcdtreeoto.supabase.co/functions/v1/save-abandoned-cart", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            session_id: sessionId,
-            cart_items: this.cart,
-            email: null
-          })
-        });
-      } catch (e) {
-        console.log("Failed to save cart to server (non-critical)");
-      }
-    },
+async saveCartToServer() {
+  if (this.cart.length === 0 || !this.supabase) return;
+
+  const sessionId = localStorage.getItem('sessionId') || crypto.randomUUID();
+  localStorage.setItem('sessionId', sessionId);
+
+  try {
+    const { error } = await this.supabase
+      .from('abandoned_carts')
+      .upsert({
+        session_id: sessionId,
+        cart_items: this.cart,
+        email: null,
+        last_activity: new Date().toISOString()
+      }, {
+        onConflict: 'session_id'
+      });
+
+    if (error) {
+      console.log("Failed to save cart (non-critical):", error.message);
+    } else {
+      console.log("✅ Cart saved to Supabase successfully");
+    }
+  } catch (e) {
+    console.log("Failed to save cart to server (non-critical)");
+  }
+},
 
     showToast(msg) {
       const toast = document.getElementById('toast');
