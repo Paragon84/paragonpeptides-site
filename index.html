@@ -1380,14 +1380,12 @@ async saveCartToServer() {
         cart_items: this.cart,
         email: null,
         last_activity: new Date().toISOString()
-      }, {
-        onConflict: 'session_id'
       });
 
     if (error) {
-      console.log("Failed to save cart (non-critical):", error.message);
+      console.log("Failed to save cart:", error.message);
     } else {
-      console.log("✅ Cart saved to Supabase successfully");
+      console.log("✅ Cart saved to Supabase");
     }
   } catch (e) {
     console.log("Failed to save cart to server (non-critical)");
