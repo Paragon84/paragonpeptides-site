@@ -1286,7 +1286,7 @@ function app() {
       if (existing) existing.qty++;
       else this.cart.push(newItem);
       this.saveCart();
-      this.saveCartToServer(); // ← Added for abandoned cart tracking
+      //this.saveCartToServer(); // ← Added for abandoned cart tracking
       this.showToast(`✅ ${name} added to cart!`);
     },
 
@@ -1348,7 +1348,7 @@ function app() {
         });
       }
       this.saveCart();
-      this.saveCartToServer(); // ← Added for abandoned cart tracking
+      //this.saveCartToServer(); // ← Added for abandoned cart tracking
       this.showToast("✅ Added to cart!");
     },
 
