@@ -1367,55 +1367,34 @@ function app() {
     },
 
 async saveCartToServer() {
-  if (this.cart.length === 0 || !this.supabase) return;
+  if (this.cart.length === 0 || !this.supabase) {
+    console.log("saveCartToServer: No cart or no Supabase");
+    return;
+  }
 
   const sessionId = localStorage.getItem('sessionId') || crypto.randomUUID();
   localStorage.setItem('sessionId', sessionId);
 
   try {
-    // Check if this session already exists
-    const { data: existing } = await this.supabase
+    const { error } = await this.supabase
       .from('abandoned_carts')
-      .select('id')
-      .eq('session_id', sessionId)
-      .single();
+      .upsert({
+        session_id: sessionId,
+        cart_items: this.cart,
+        email: null,
+        last_activity: new Date().toISOString()
+      });
 
-    if (existing) {
-      // Update existing row
-      const { error } = await this.supabase
-        .from('abandoned_carts')
-        .update({
-          cart_items: this.cart,
-          last_activity: new Date().toISOString()
-        })
-        .eq('session_id', sessionId);
-
-      if (error) {
-        console.log("Failed to update cart:", error.message);
-      } else {
-        console.log("✅ Cart updated in Supabase");
-      }
+    if (error) {
+      console.error("saveCartToServer error:", error.message);
     } else {
-      // Insert new row
-      const { error } = await this.supabase
-        .from('abandoned_carts')
-        .insert({
-          session_id: sessionId,
-          cart_items: this.cart,
-          email: null,
-          last_activity: new Date().toISOString()
-        });
-
-      if (error) {
-        console.log("Failed to insert cart:", error.message);
-      } else {
-        console.log("✅ New cart saved to Supabase");
-      }
+      console.log("✅ Cart saved to Supabase (mobile friendly)");
     }
   } catch (e) {
-    console.log("Failed to save cart to server (non-critical)");
+    console.error("saveCartToServer failed:", e);
   }
 },
+
     showToast(msg) {
       const toast = document.getElementById('toast');
       const toastText = document.getElementById('toast-text');
