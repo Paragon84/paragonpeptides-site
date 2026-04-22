@@ -1367,13 +1367,23 @@ function app() {
     },
 
 async saveCartToServer() {
-  if (this.cart.length === 0 || !this.supabase) {
-    console.log("saveCartToServer: No cart or no Supabase");
-    return;
-  }
+  if (this.cart.length === 0 || !this.supabase) return;
 
   const sessionId = localStorage.getItem('sessionId') || crypto.randomUUID();
   localStorage.setItem('sessionId', sessionId);
+
+  // Try to get email from localStorage first
+  let userEmail = localStorage.getItem('userEmail');
+
+  // If no email saved yet, ask for it (only once)
+  if (!userEmail) {
+    userEmail = prompt("Enter your email to save your cart (optional):");
+    if (userEmail) {
+      localStorage.setItem('userEmail', userEmail);
+    } else {
+      userEmail = null; // User skipped
+    }
+  }
 
   try {
     const { error } = await this.supabase
@@ -1381,17 +1391,17 @@ async saveCartToServer() {
       .upsert({
         session_id: sessionId,
         cart_items: this.cart,
-        email: null,
+        email: userEmail,
         last_activity: new Date().toISOString()
       });
 
     if (error) {
-      console.error("saveCartToServer error:", error.message);
+      console.log("Failed to save cart:", error.message);
     } else {
-      console.log("✅ Cart saved to Supabase (mobile friendly)");
+      console.log("✅ Cart saved with email:", userEmail || "no email");
     }
   } catch (e) {
-    console.error("saveCartToServer failed:", e);
+    console.log("Failed to save cart to server (non-critical)");
   }
 },
 
