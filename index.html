@@ -490,7 +490,10 @@ Free Priority Shipping on all orders over $250</div>
       
       <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
         <template x-for="product in category.products" :key="product.id">
-          <div class="product-card group bg-zinc-900/50 border border-zinc-800 rounded-2xl md:rounded-3xl overflow-hidden hover:border-[#ff1493] transition-all flex flex-col">
+          <div 
+  class="product-card group bg-zinc-900/50 border border-zinc-800 rounded-2xl md:rounded-3xl overflow-hidden hover:border-[#ff1493] transition-all flex flex-col"
+  :data-product-id="product.id"
+>
             
             <div @click="window.location.href = '/product.html?id=' + product.id" class="cursor-pointer overflow-hidden">
               <img :src="product.image" :alt="product.name" @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'" 
