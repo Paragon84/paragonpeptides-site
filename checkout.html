@@ -194,7 +194,7 @@
     </form>
   </div>
 
- <!-- RIGHT COLUMN: Order Summary -->
+<!-- RIGHT COLUMN: Order Summary + Payment Accordion -->
 <div class="bg-zinc-950 border border-zinc-800 rounded-3xl p-8 lg:sticky lg:top-8 flex flex-col h-fit">
   <h2 class="text-2xl font-semibold text-white mb-6">Your Order</h2>
 
@@ -229,40 +229,54 @@
     <p x-show="couponMessage" :class="appliedCoupon ? 'text-green-400' : 'text-red-400'" class="mt-2 text-sm" x-text="couponMessage"></p>
   </div>
 
-  <!-- Payment Methods -->
+  <!-- PAYMENT ACCORDION -->
   <div class="mt-10 space-y-4 flex-1">
     <h3 class="text-xl font-semibold text-white mb-4">How to Pay</h3>
 
     <!-- Venmo -->
     <div class="border border-white rounded-xl overflow-hidden">
-      <button @click="activePayment = activePayment === 'venmo' ? null : 'venmo'" class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900">
+      <button @click="activePayment = activePayment === 'venmo' ? null : 'venmo'" 
+              class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
         <span class="text-[#ff1493]">Pay with Venmo</span>
-        <span x-text="activePayment === 'venmo' ? '▲' : '▼'" class="text-zinc-400"></span>
+        <span x-text="activePayment === 'venmo' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
       </button>
-      <div x-show="activePayment === 'venmo'" class="px-6 pb-6 text-sm text-zinc-300">
-        Send exact total to your Venmo. Include only your order number in the note.
+      <div x-show="activePayment === 'venmo'" class="px-6 pb-6 bg-zinc-950 text-sm text-zinc-300">
+        <p>1. Complete your order to get your order number.</p>
+        <p class="mt-2">2. Send the exact total via Venmo.</p>
+        <p class="mt-2 font-bold">Include only your order number in the note.</p>
       </div>
     </div>
 
     <!-- Cash App -->
     <div class="border border-white rounded-xl overflow-hidden">
-      <button @click="activePayment = activePayment === 'cashapp' ? null : 'cashapp'" class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900">
+      <button @click="activePayment = activePayment === 'cashapp' ? null : 'cashapp'" 
+              class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
         <span class="text-[#ff1493]">Pay with Cash App</span>
-        <span x-text="activePayment === 'cashapp' ? '▲' : '▼'" class="text-zinc-400"></span>
+        <span x-text="activePayment === 'cashapp' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
       </button>
-      <div x-show="activePayment === 'cashapp'" class="px-6 pb-6 text-sm text-zinc-300">
-        Send total to <strong>$ParagonPeps</strong>. Include your order number.
+      <div x-show="activePayment === 'cashapp'" class="px-6 pb-6 bg-zinc-950 text-sm text-zinc-300">
+        <p>1. Complete your order to get your order number.</p>
+        <p class="mt-2">2. Send the total to <strong>$ParagonPeps</strong>.</p>
+        <p class="mt-2 font-bold">Include your order number in the memo.</p>
       </div>
     </div>
 
     <!-- Bitcoin -->
     <div class="border border-white rounded-xl overflow-hidden">
-      <button @click="activePayment = activePayment === 'bitcoin' ? null : 'bitcoin'" class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900">
+      <button @click="activePayment = activePayment === 'bitcoin' ? null : 'bitcoin'" 
+              class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
         <span class="text-[#ff1493]">Pay with Bitcoin</span>
-        <span x-text="activePayment === 'bitcoin' ? '▲' : '▼'" class="text-zinc-400"></span>
+        <span x-text="activePayment === 'bitcoin' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
       </button>
-      <div x-show="activePayment === 'bitcoin'" class="px-6 pb-6 text-sm text-zinc-300">
-        Send to: <span class="font-mono text-[#ff1493]">bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw</span>
+      <div x-show="activePayment === 'bitcoin'" class="px-6 pb-6 bg-zinc-950 text-sm text-zinc-300">
+        <p>Send the exact total to this Bitcoin address:</p>
+        <div class="bg-black p-4 rounded-xl mt-3 text-center">
+          <p class="font-mono text-xs break-all text-[#ff1493]">bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw</p>
+        </div>
+        <button @click="copyToClipboard('bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw')" 
+                class="mt-4 w-full bg-[#ff1493] hover:bg-pink-600 py-3 rounded-xl font-semibold text-white text-sm">
+          Copy Bitcoin Address
+        </button>
       </div>
     </div>
   </div>
@@ -278,6 +292,7 @@
   </div>
 </div>
 
+ 
 <!-- PAYMENT ALERT MODAL – WHITE + DARK TEXT -->
 <div x-show="showPaymentAlert" @click.away="showPaymentAlert = false" class="fixed inset-0 z-[100001] flex items-center justify-center bg-black/80 backdrop-blur-sm" x-transition>
   <div class="bg-white border border-zinc-200 rounded-3xl max-w-lg w-full mx-4 p-8 relative shadow-2xl">
