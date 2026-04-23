@@ -206,6 +206,47 @@
         <div class="flex justify-between text-2xl font-bold border-t border-zinc-800 pt-4"><span>Total</span><span x-text="'$' + discountedTotal.toFixed(2)"></span></div>
       </div>
 
+</div>
+
+<!-- === LOYALTY POINTS SECTION === -->
+<div class="bg-zinc-950 border border-zinc-800 rounded-2xl p-6 mb-6">
+  <div class="flex justify-between items-center mb-4">
+    <div>
+      <p class="font-semibold text-white">Your Loyalty Points</p>
+      <p class="text-sm text-zinc-400">Earn 1 point per $1 spent</p>
+    </div>
+    <div class="text-right">
+      <p class="text-3xl font-bold text-[#ff1493]" x-text="userPoints"></p>
+      <p class="text-xs text-zinc-400">points</p>
+    </div>
+  </div>
+
+  <!-- Redeem Option -->
+  <div x-show="userPoints >= 500">
+    <div class="flex items-center justify-between bg-zinc-900 rounded-xl p-4">
+      <div>
+        <p class="font-medium">Redeem 500 points</p>
+        <p class="text-sm text-zinc-400">= $5 off this order</p>
+      </div>
+      
+      <button 
+        @click="redeemPoints()"
+        :class="pointsRedeemed ? 'bg-green-600' : 'bg-[#ff1493]'"
+        class="px-6 py-2 rounded-xl font-semibold text-white text-sm transition">
+        <span x-text="pointsRedeemed ? '✓ Redeemed' : 'Redeem Now'"></span>
+      </button>
+    </div>
+  </div>
+
+  <div x-show="userPoints < 500" class="text-center text-sm text-zinc-400 mt-3">
+    You need <span class="font-semibold text-white">{{ 500 - userPoints }}</span> more points for $5 off
+  </div>
+</div>
+<!-- === END LOYALTY POINTS === -->
+
+<!-- COUPON -->
+<div class="mt-8">
+
       <!-- COUPON -->
       <div class="mt-8">
         <label class="block text-sm text-zinc-400 mb-2">Have a coupon?</label>
@@ -280,7 +321,7 @@
                 :disabled="isSubmitting || !agreedToTOS || !agreedToPolicies || !agreedToPayment"
                 class="w-full py-6 rounded-3xl font-semibold text-2xl text-white transition disabled:opacity-50 disabled:cursor-not-allowed"
                 :class="isSubmitting ? 'bg-zinc-700' : 'bg-[#ff1493] hover:bg-pink-600'">
-          <span x-text="isSubmitting ? 'Processing Secure Order...' : 'Place Secure Order'"></span>
+          <span x-text="isSubmitting ? 'Processing Secure Order...' : 3w'Place Secure Order'"></span>
         </button>
         <p class="text-center text-xs text-zinc-500 mt-6">Your personal data will be used to process your order, support your experience, and for other purposes described in our Privacy Policy.</p>
       </div>
@@ -320,18 +361,53 @@ function app() {
     appliedCoupon: null,
     couponMessage: '',
 
+    // === LOYALTY POINTS ===
+    userPoints: 0,
+    pointsRedeemed: false,
+
     init() {
       this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
       this.calculateTotals();
+      this.loadUserPoints();
     },
 
-    calculateTotals() {
-      this.cartTotal = this.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-      let total = this.cartTotal;
-      if (this.appliedCoupon) total = total * (1 - this.appliedCoupon.discount);
-      const shipping = total >= 250 ? 0 : 12.99;
-      this.discountedTotal = total + shipping;
-    },
+calculateTotals() {
+  this.cartTotal = this.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+  let total = this.cartTotal;
+
+  if (this.appliedCoupon) {
+    total = total * (1 - this.appliedCoupon.discount);
+  }
+
+  const shipping = total >= 250 ? 0 : 12.99;
+  total = total + shipping;
+
+  // Apply $5 discount if points are redeemed
+  if (this.pointsRedeemed) {
+    total = Math.max(0, total - 5);
+  }
+
+  this.discountedTotal = total;
+},
+
+// === LOYALTY POINTS METHODS ===
+async loadUserPoints() {
+  if (!this.user) return;
+  
+  const { data } = await this.supabase
+    .from('profiles')
+    .select('points_balance')
+    .eq('id', this.user.id)
+    .single();
+
+  this.userPoints = data?.points_balance || 0;
+},
+
+redeemPoints() {
+  if (this.userPoints < 500) return;
+  this.pointsRedeemed = !this.pointsRedeemed;
+  this.calculateTotals();
+},
 
     applyCoupon() {
       const code = this.couponCode.trim().toUpperCase();
@@ -392,12 +468,12 @@ async handleCheckoutSubmit() {
   const orderNum = "PP-" + Math.floor(100000 + Math.random() * 900000);
 
   let itemsText = this.cart.map(item =>
-    `${item.name} (${item.dose}${item.unit}) x${item.qty} - $${(item.price * item.qty).toFixed(2)}`
+    `${item.name} (${item.dose}${item.unit}) x${item.qty} - $${(item.price * item.qty).toFixed}`
   ).join('\n');
 
   formData.append('order_number', orderNum);
   formData.append('hidden_cart_items', itemsText);
-  formData.append('total_price', '$' + this.discountedTotal.toFixed(2));
+  formData.append('total_price', '$' + this.discountedTotal.toFixed);
 
   try {
     // Submit to Formspree first
