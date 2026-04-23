@@ -6,6 +6,7 @@
   <title>Checkout - Paragon Peptides</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Satoshi:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="icon" href="https://i.imgur.com/jXQlcWB.png" type="image/png">
   <link rel="icon" href="/favicon.png?v=2" type="image/png" sizes="32x32">
@@ -335,6 +336,10 @@ function app() {
     appliedCoupon: null,
     couponMessage: '',
 
+    // === NEW: Magic Link Login ===
+    user: null,
+    loginEmail: '',
+
     // === LOYALTY POINTS ===
     userPoints: 0,
     pointsRedeemed: false,
@@ -342,6 +347,7 @@ function app() {
     init() {
       this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
       this.calculateTotals();
+      this.checkUser();
       this.loadUserPoints();
     },
 
@@ -362,6 +368,51 @@ calculateTotals() {
   }
 
   this.discountedTotal = total;
+},
+
+// === MAGIC LINK LOGIN ===
+async sendMagicLink() {
+  if (!this.loginEmail) {
+    alert("Please enter your email");
+    return;
+  }
+
+  const { error } = await this.supabase.auth.signInWithOtp({
+    email: this.loginEmail,
+    options: {
+      emailRedirectTo: window.location.origin + '/checkout.html'
+    }
+  });
+
+  if (error) {
+    alert("Error: " + error.message);
+  } else {
+    alert("✅ Magic link sent! Check your email and click the link.");
+    this.showAccountModal = false;
+  }
+},
+
+async checkUser() {
+  const { data: { user } } = await this.supabase.auth.getUser();
+  this.user = user;
+
+  if (user) {
+    // Load points when user is logged in
+    const { data } = await this.supabase
+      .from('profiles')
+      .select('points_balance')
+      .eq('id', user.id)
+      .single();
+
+    this.userPoints = data?.points_balance || 0;
+  }
+},
+
+async logout() {
+  await this.supabase.auth.signOut();
+  this.user = null;
+  this.userPoints = 0;
+  this.showAccountModal = false;
 },
 
 // === LOYALTY POINTS METHODS ===
