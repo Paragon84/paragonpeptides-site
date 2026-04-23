@@ -208,8 +208,8 @@
       </template>
     </div>
 
-    <!-- Loyalty Points -->
-    <div class="bg-zinc-900 border border-zinc-700 rounded-2xl p-5 mb-6">
+    <!-- Loyalty Points --> 
+   <!-- <div class="bg-zinc-900 border border-zinc-700 rounded-2xl p-5 mb-6">
       <div class="flex justify-between items-center mb-3">
         <div>
           <p class="font-semibold text-white">Loyalty Points</p>
@@ -228,6 +228,8 @@
           <span x-text="pointsRedeemed ? '✓ $5 OFF APPLIED' : 'REDEEM 500 PTS = $5 OFF'"></span>
         </button>
       </div>
+          -->
+
 
       <div x-show="userPoints < 500" class="text-center text-xs text-zinc-400">
         Need <span class="font-semibold text-white">{{ 500 - userPoints }}</span> more points for $5 off
@@ -338,18 +340,18 @@ function app() {
     couponMessage: '',
 
     // === NEW: Magic Link Login ===
-    user: null,
-    loginEmail: '',
+    //user: null,
+    //loginEmail: '',
 
     // === LOYALTY POINTS ===
-    userPoints: 0,
-    pointsRedeemed: false,
+   // userPoints: 0,
+   // pointsRedeemed: false,
 
     init() {
       this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
       this.calculateTotals();
-      this.checkUser();
-      this.loadUserPoints();
+     //this.checkUser();
+    //this.loadUserPoints();
     },
 
 calculateTotals() {
@@ -372,7 +374,7 @@ calculateTotals() {
 },
 
 // === MAGIC LINK LOGIN ===
-async sendMagicLink() {
+//async sendMagicLink() {
   if (!this.loginEmail) {
     alert("Please enter your email");
     return;
@@ -394,7 +396,7 @@ async sendMagicLink() {
 },
 
 // === LOYALTY POINTS METHODS ===
-async loadUserPoints() {
+//async loadUserPoints() {
   if (!this.user) return;
   
   const { data } = await this.supabase
@@ -406,7 +408,7 @@ async loadUserPoints() {
   this.userPoints = data?.points_balance || 0;
 },
 
-redeemPoints() {
+//redeemPoints() {
   if (this.userPoints < 500) return;
   this.pointsRedeemed = !this.pointsRedeemed;
   this.calculateTotals();
