@@ -184,7 +184,7 @@ Free Priority Shipping on all orders over $250</div>
   <input 
     type="text" 
     x-model="searchTerm" 
-    placeholder="Search compounds..." 
+    placeholder="Search peptides (e.g. Mots-C, Reta, BPC...)" 
     @input="handleSearch()" 
     class="w-full bg-zinc-950 border border-zinc-800 rounded-full pl-9 pr-4 py-3 text-sm focus:outline-none focus:border-[#ff1493] placeholder:text-zinc-400">
   
@@ -1365,17 +1365,22 @@ filteredProducts() {
   const term = this.searchTerm.toLowerCase().trim();
 
   if (!term) {
-    return this.products; // Return all if no search
+    return this.products; // Show all products when search is empty
   }
 
   return this.products.filter(product => {
     const name = product.name.toLowerCase();
     const desc = (product.desc || '').toLowerCase();
 
-    // Better matching: match any word in search term
-    const searchWords = term.split(' ');
-    const matchesName = searchWords.every(word => name.includes(word));
-    const matchesDesc = searchWords.every(word => desc.includes(word));
+    // Smart matching (handles "mots-c", "motsc", "mots c", etc.)
+    const normalizedTerm = term.replace(/[^a-z0-9]/g, '');
+    const normalizedName = name.replace(/[^a-z0-9]/g, '');
+
+    const matchesName = 
+      normalizedName.includes(normalizedTerm) || 
+      name.includes(term);
+
+    const matchesDesc = desc.includes(term);
 
     const matchesCategory = this.activeFilter === 'all' || product.category === this.activeFilter;
 
@@ -1396,12 +1401,24 @@ filteredProducts() {
       return Math.max(0, total - discount).toFixed(2);
     },
 
-    handleSearch() {
-      if (this.searchTerm.trim().length > 0) {
-        const results = document.getElementById('shop-results');
-        if (results) results.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    },
+handleSearch() {
+  const term = this.searchTerm.trim();
+
+  // Real-time filtering happens automatically via filteredProducts()
+  
+  // Auto-scroll to results when user types (works great on mobile)
+  if (term.length > 0) {
+    const resultsSection = document.getElementById('shop-results');
+    if (resultsSection) {
+      setTimeout(() => {
+        resultsSection.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start' 
+        });
+      }, 80); // Small delay for smooth feel
+    }
+  }
+},
 
     viewProduct(p) {
       this.currentProduct = JSON.parse(JSON.stringify(p));
