@@ -1030,14 +1030,53 @@ By purchasing, you confirm you are 21 or older and conducting scientific researc
   <span class="text-3xl">📩</span>
 </a>
 
-      <!-- ACCOUNT MODAL -->
-  <div x-show="showAccountModal" class="fixed inset-0 z-[99999] bg-black/70 flex items-center justify-center" @click.self="showAccountModal = false">
-    <div class="bg-zinc-900 rounded-3xl max-w-md w-full p-8">
-      <h3 class="text-3xl font-bold mb-6">My Account</h3>
-      <p class="text-slate-300 mb-6"></p>
-      <button @click="showAccountModal = false" class="w-full bg-[#ff1493] py-5 rounded-3xl font-semibold">(Coming Soon)</button>
+<!-- MY ACCOUNT + LOYALTY POINTS -->
+<div x-show="showAccountModal" class="fixed inset-0 z-[99999] bg-black/80 flex items-center justify-center" @click.self="showAccountModal = false">
+  <div class="bg-zinc-900 rounded-3xl max-w-md w-full p-8">
+    <div class="flex justify-between items-center mb-6">
+      <h3 class="text-3xl font-bold">My Account</h3>
+      <button @click="showAccountModal = false" class="text-3xl">×</button>
+    </div>
+
+    <!-- Not Logged In -->
+    <div x-show="!user">
+      <p class="text-zinc-400 mb-6">Sign in to track your loyalty points and rewards.</p>
+      
+      <input type="email" x-model="loginEmail" placeholder="your@email.com" 
+             class="w-full bg-zinc-950 border border-zinc-700 rounded-2xl px-5 py-4 mb-4 text-white">
+      
+      <button @click="sendMagicLink()" 
+              class="w-full bg-[#ff1493] py-4 rounded-2xl font-semibold text-white">
+        Send Magic Link
+      </button>
+    </div>
+
+    <!-- Logged In -->
+    <div x-show="user">
+      <div class="bg-zinc-950 rounded-2xl p-6 mb-6">
+        <p class="text-sm text-zinc-400">Welcome back!</p>
+        <p class="text-xl font-semibold text-white" x-text="user.email"></p>
+      </div>
+
+      <!-- POINTS BALANCE -->
+      <div class="bg-gradient-to-r from-[#ff1493] to-pink-600 rounded-3xl p-6 text-center mb-6">
+        <p class="text-sm opacity-80">YOUR POINTS</p>
+        <p class="text-6xl font-bold text-white" x-text="userPoints"></p>
+        <p class="text-sm mt-1">= <span x-text="'$' + (userPoints / 100).toFixed(2)"></span> off your next order</p>
+      </div>
+
+      <div class="text-center text-sm text-zinc-400 mb-6">
+        Earn 1 point for every $1 spent.<br>
+        500 points = $5 off
+      </div>
+
+      <button @click="logout()" 
+              class="w-full bg-zinc-800 hover:bg-zinc-700 py-4 rounded-2xl font-semibold text-white">
+        Sign Out
+      </button>
     </div>
   </div>
+</div>
 
 
 <!-- TERMS & SERVICES MODAL -->
@@ -1185,6 +1224,11 @@ function app() {
     discountCode: 'PARAGON15',
     copied: false,
 
+          // === LOYALTY SYSTEM ===
+    user: null,
+    loginEmail: '',
+    userPoints: 0,
+
     // --- Product & Cart Data ---
     products: [],
     currentProduct: null,
@@ -1298,6 +1342,7 @@ function app() {
       }).catch(e => {
         console.error('[INIT] Failed:', e);
         this.isLoading = false;
+        this.checkUser();
       });
       const hasSeenNewsletter = sessionStorage.getItem('newsletterShown');
       if (!hasSeenNewsletter) {
@@ -1455,6 +1500,45 @@ handleSearch() {
       });
     }
   }, 100);
+},
+
+async sendMagicLink() {
+  if (!this.loginEmail) return alert("Please enter your email");
+  
+  const { error } = await this.supabase.auth.signInWithOtp({
+    email: this.loginEmail,
+    options: { emailRedirectTo: window.location.origin }
+  });
+
+  if (error) {
+    alert("Error sending magic link: " + error.message);
+  } else {
+    alert("✅ Magic link sent! Check your email.");
+    this.showAccountModal = false;
+  }
+},
+
+async checkUser() {
+  const { data: { user } } = await this.supabase.auth.getUser();
+  this.user = user;
+
+  if (user) {
+    // Load points
+    const { data } = await this.supabase
+      .from('profiles')
+      .select('points_balance')
+      .eq('id', user.id)
+      .single();
+
+    this.userPoints = data?.points_balance || 0;
+  }
+},
+
+async logout() {
+  await this.supabase.auth.signOut();
+  this.user = null;
+  this.userPoints = 0;
+  this.showAccountModal = false;
 },
 
     viewProduct(p) {
