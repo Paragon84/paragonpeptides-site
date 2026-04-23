@@ -1365,26 +1365,20 @@ filteredProducts() {
   const term = this.searchTerm.toLowerCase().trim();
 
   if (!term) {
-    return this.products; // Show all products when search is empty
+    return this.products;
   }
 
   return this.products.filter(product => {
     const name = product.name.toLowerCase();
     const desc = (product.desc || '').toLowerCase();
 
-    // Smart matching (handles "mots-c", "motsc", "mots c", etc.)
-    const normalizedTerm = term.replace(/[^a-z0-9]/g, '');
-    const normalizedName = name.replace(/[^a-z0-9]/g, '');
-
-    const matchesName = 
-      normalizedName.includes(normalizedTerm) || 
-      name.includes(term);
-
-    const matchesDesc = desc.includes(term);
+    // Prioritize products that START with the search term
+    const startsWithMatch = name.startsWith(term);
+    const containsMatch = name.includes(term) || desc.includes(term);
 
     const matchesCategory = this.activeFilter === 'all' || product.category === this.activeFilter;
 
-    return (matchesName || matchesDesc) && matchesCategory;
+    return (startsWithMatch || containsMatch) && matchesCategory;
   });
 },
 
@@ -1402,21 +1396,35 @@ filteredProducts() {
     },
 
 handleSearch() {
-  const term = this.searchTerm.trim();
+  const term = this.searchTerm.toLowerCase().trim();
 
-  // Real-time filtering happens automatically via filteredProducts()
+  if (!term) return;
+
+  // Find the first product that matches the search
+  const matchingProducts = this.filteredProducts();
   
-  // Auto-scroll to results when user types (works great on mobile)
-  if (term.length > 0) {
-    const resultsSection = document.getElementById('shop-results');
-    if (resultsSection) {
-      setTimeout(() => {
-        resultsSection.scrollIntoView({ 
+  if (matchingProducts.length > 0) {
+    const firstMatch = matchingProducts[0];
+    
+    // Scroll to the first matching product card
+    setTimeout(() => {
+      const productCard = document.querySelector(`[data-product-id="${firstMatch.id}"]`);
+      
+      if (productCard) {
+        productCard.scrollIntoView({ 
           behavior: 'smooth', 
-          block: 'start' 
+          block: 'center' 
         });
-      }, 80); // Small delay for smooth feel
-    }
+        
+        // Optional: brief highlight effect
+        productCard.style.transition = 'box-shadow 0.3s ease';
+        productCard.style.boxShadow = '0 0 0 3px #ff1493';
+        
+        setTimeout(() => {
+          productCard.style.boxShadow = '0 0 20px rgba(255, 20, 147, 0.4)';
+        }, 800);
+      }
+    }, 100);
   }
 },
 
