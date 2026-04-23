@@ -381,39 +381,16 @@ async sendMagicLink() {
   const { error } = await this.supabase.auth.signInWithOtp({
     email: this.loginEmail,
     options: {
-      emailRedirectTo: window.location.origin + '/checkout.html'
+      emailRedirectTo: "https://paragonpeptides.net/checkout.html"
     }
   });
 
   if (error) {
-    alert("Error: " + error.message);
+    alert("Error sending magic link: " + error.message);
   } else {
     alert("✅ Magic link sent! Check your email and click the link.");
     this.showAccountModal = false;
   }
-},
-
-async checkUser() {
-  const { data: { user } } = await this.supabase.auth.getUser();
-  this.user = user;
-
-  if (user) {
-    // Load points when user is logged in
-    const { data } = await this.supabase
-      .from('profiles')
-      .select('points_balance')
-      .eq('id', user.id)
-      .single();
-
-    this.userPoints = data?.points_balance || 0;
-  }
-},
-
-async logout() {
-  await this.supabase.auth.signOut();
-  this.user = null;
-  this.userPoints = 0;
-  this.showAccountModal = false;
 },
 
 // === LOYALTY POINTS METHODS ===
