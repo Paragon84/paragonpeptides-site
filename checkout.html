@@ -194,116 +194,87 @@
     </form>
   </div>
 
-  <!-- RIGHT COLUMN: Order Summary -->
-  <div class="bg-zinc-950 border border-zinc-800 rounded-3xl p-8 lg:sticky lg:top-8 flex flex-col h-fit">
-    <h2 class="text-2xl font-semibold text-white mb-6">Your Order</h2>
+ <!-- RIGHT COLUMN: Order Summary -->
+<div class="bg-zinc-950 border border-zinc-800 rounded-3xl p-8 lg:sticky lg:top-8 flex flex-col h-fit">
+  <h2 class="text-2xl font-semibold text-white mb-6">Your Order</h2>
 
-    <!-- Cart Items -->
-    <div class="space-y-4 mb-6">
-      <template x-for="item in cart" :key="item.id">
-        <div class="flex justify-between py-2 border-b border-zinc-800">
-          <span x-text="item.name + ' × ' + item.qty"></span>
-          <span x-text="'$' + (item.price * item.qty).toFixed(2)"></span>
-        </div>
-      </template>
+  <!-- Cart Items -->
+  <div class="space-y-4 mb-6">
+    <template x-for="item in cart" :key="item.id">
+      <div class="flex justify-between py-2 border-b border-zinc-800">
+        <span x-text="item.name + ' × ' + item.qty"></span>
+        <span x-text="'$' + (item.price * item.qty).toFixed(2)"></span>
+      </div>
+    </template>
+  </div>
+
+  <!-- Totals -->
+  <div class="border-t border-zinc-800 pt-6 space-y-2">
+    <div class="flex justify-between"><span>Subtotal</span><span x-text="'$' + cartTotal.toFixed(2)"></span></div>
+    <div class="flex justify-between"><span>Shipping</span><span x-text="cartTotal >= 250 ? 'Free' : '$12.99'"></span></div>
+    <div class="flex justify-between text-2xl font-bold border-t border-zinc-800 pt-4">
+      <span>Total</span>
+      <span x-text="'$' + discountedTotal.toFixed(2)"></span>
     </div>
+  </div>
 
-    <!-- Loyalty Points --> 
-   <!-- <div class="bg-zinc-900 border border-zinc-700 rounded-2xl p-5 mb-6">
-      <div class="flex justify-between items-center mb-3">
-        <div>
-          <p class="font-semibold text-white">Loyalty Points</p>
-          <p class="text-xs text-zinc-400">1 point = $1 spent</p>
-        </div>
-        <div class="text-right">
-          <span class="text-2xl font-bold text-[#ff1493]" x-text="userPoints"></span>
-        </div>
-      </div>
-
-      <div x-show="userPoints >= 500">
-        <button 
-          @click="redeemPoints()"
-          :class="pointsRedeemed ? 'bg-green-600' : 'bg-[#ff1493] hover:bg-pink-600'"
-          class="w-full py-2.5 rounded-xl font-semibold text-sm text-white transition">
-          <span x-text="pointsRedeemed ? '✓ $5 OFF APPLIED' : 'REDEEM 500 PTS = $5 OFF'"></span>
-        </button>
-      </div>
-          -->
-
-
-      <div x-show="userPoints < 500" class="text-center text-xs text-zinc-400">
-        Need <span class="font-semibold text-white">{{ 500 - userPoints }}</span> more points for $5 off
-      </div>
+  <!-- Coupon -->
+  <div class="mt-8">
+    <label class="block text-sm text-zinc-400 mb-2">Have a coupon?</label>
+    <div class="flex gap-2">
+      <input type="text" x-model="couponCode" placeholder="Coupon code"
+             class="flex-1 bg-zinc-900 border border-white rounded-lg px-4 py-3 text-white">
+      <button @click="applyCoupon()" class="bg-[#ff1493] hover:bg-pink-600 px-6 py-3 rounded-lg font-medium text-white">Apply</button>
     </div>
+    <p x-show="couponMessage" :class="appliedCoupon ? 'text-green-400' : 'text-red-400'" class="mt-2 text-sm" x-text="couponMessage"></p>
+  </div>
 
-    <!-- Totals -->
-    <div class="border-t border-zinc-800 pt-6 space-y-2">
-      <div class="flex justify-between"><span>Subtotal</span><span x-text="'$' + cartTotal.toFixed(2)"></span></div>
-      <div class="flex justify-between"><span>Shipping</span><span x-text="cartTotal >= 250 ? 'Free' : '$12.99'"></span></div>
-      <div class="flex justify-between text-2xl font-bold border-t border-zinc-800 pt-4">
-        <span>Total</span>
-        <span x-text="'$' + discountedTotal.toFixed(2)"></span>
-      </div>
-    </div>
+  <!-- Payment Methods -->
+  <div class="mt-10 space-y-4 flex-1">
+    <h3 class="text-xl font-semibold text-white mb-4">How to Pay</h3>
 
-    <!-- Coupon -->
-    <div class="mt-8">
-      <label class="block text-sm text-zinc-400 mb-2">Have a coupon?</label>
-      <div class="flex gap-2">
-        <input type="text" x-model="couponCode" placeholder="Coupon code"
-               class="flex-1 bg-zinc-900 border border-white rounded-lg px-4 py-3 text-white">
-        <button @click="applyCoupon()" class="bg-[#ff1493] hover:bg-pink-600 px-6 py-3 rounded-lg font-medium text-white">Apply</button>
-      </div>
-      <p x-show="couponMessage" :class="appliedCoupon ? 'text-green-400' : 'text-red-400'" class="mt-2 text-sm" x-text="couponMessage"></p>
-    </div>
-
-    <!-- Payment Methods -->
-    <div class="mt-10 space-y-4 flex-1">
-      <h3 class="text-xl font-semibold text-white mb-4">How to Pay</h3>
-
-      <!-- Venmo -->
-      <div class="border border-white rounded-xl overflow-hidden">
-        <button @click="activePayment = activePayment === 'venmo' ? null : 'venmo'" class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900">
-          <span class="text-[#ff1493]">Pay with Venmo</span>
-          <span x-text="activePayment === 'venmo' ? '▲' : '▼'" class="text-zinc-400"></span>
-        </button>
-        <div x-show="activePayment === 'venmo'" class="px-6 pb-6 text-sm text-zinc-300">
-          Send exact total to your Venmo. Include only your order number in the note.
-        </div>
-      </div>
-
-      <!-- Cash App -->
-      <div class="border border-white rounded-xl overflow-hidden">
-        <button @click="activePayment = activePayment === 'cashapp' ? null : 'cashapp'" class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900">
-          <span class="text-[#ff1493]">Pay with Cash App</span>
-          <span x-text="activePayment === 'cashapp' ? '▲' : '▼'" class="text-zinc-400"></span>
-        </button>
-        <div x-show="activePayment === 'cashapp'" class="px-6 pb-6 text-sm text-zinc-300">
-          Send total to <strong>$ParagonPeps</strong>. Include your order number.
-        </div>
-      </div>
-
-      <!-- Bitcoin -->
-      <div class="border border-white rounded-xl overflow-hidden">
-        <button @click="activePayment = activePayment === 'bitcoin' ? null : 'bitcoin'" class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900">
-          <span class="text-[#ff1493]">Pay with Bitcoin</span>
-          <span x-text="activePayment === 'bitcoin' ? '▲' : '▼'" class="text-zinc-400"></span>
-        </button>
-        <div x-show="activePayment === 'bitcoin'" class="px-6 pb-6 text-sm text-zinc-300">
-          Send to: <span class="font-mono text-[#ff1493]">bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- SECURE BUTTON -->
-    <div class="mt-auto pt-8">
-      <button @click="handleCheckoutSubmit()"
-              :disabled="isSubmitting || !agreedToTOS || !agreedToPolicies || !agreedToPayment"
-              class="w-full py-6 rounded-3xl font-semibold text-2xl text-white transition disabled:opacity-50"
-              :class="isSubmitting ? 'bg-zinc-700' : 'bg-[#ff1493] hover:bg-pink-600'">
-        <span x-text="isSubmitting ? 'Processing...' : 'Place Secure Order'"></span>
+    <!-- Venmo -->
+    <div class="border border-white rounded-xl overflow-hidden">
+      <button @click="activePayment = activePayment === 'venmo' ? null : 'venmo'" class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900">
+        <span class="text-[#ff1493]">Pay with Venmo</span>
+        <span x-text="activePayment === 'venmo' ? '▲' : '▼'" class="text-zinc-400"></span>
       </button>
+      <div x-show="activePayment === 'venmo'" class="px-6 pb-6 text-sm text-zinc-300">
+        Send exact total to your Venmo. Include only your order number in the note.
+      </div>
     </div>
+
+    <!-- Cash App -->
+    <div class="border border-white rounded-xl overflow-hidden">
+      <button @click="activePayment = activePayment === 'cashapp' ? null : 'cashapp'" class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900">
+        <span class="text-[#ff1493]">Pay with Cash App</span>
+        <span x-text="activePayment === 'cashapp' ? '▲' : '▼'" class="text-zinc-400"></span>
+      </button>
+      <div x-show="activePayment === 'cashapp'" class="px-6 pb-6 text-sm text-zinc-300">
+        Send total to <strong>$ParagonPeps</strong>. Include your order number.
+      </div>
+    </div>
+
+    <!-- Bitcoin -->
+    <div class="border border-white rounded-xl overflow-hidden">
+      <button @click="activePayment = activePayment === 'bitcoin' ? null : 'bitcoin'" class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900">
+        <span class="text-[#ff1493]">Pay with Bitcoin</span>
+        <span x-text="activePayment === 'bitcoin' ? '▲' : '▼'" class="text-zinc-400"></span>
+      </button>
+      <div x-show="activePayment === 'bitcoin'" class="px-6 pb-6 text-sm text-zinc-300">
+        Send to: <span class="font-mono text-[#ff1493]">bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECURE BUTTON -->
+  <div class="mt-auto pt-8">
+    <button @click="handleCheckoutSubmit()"
+            :disabled="isSubmitting || !agreedToTOS || !agreedToPolicies || !agreedToPayment"
+            class="w-full py-6 rounded-3xl font-semibold text-2xl text-white transition disabled:opacity-50"
+            :class="isSubmitting ? 'bg-zinc-700' : 'bg-[#ff1493] hover:bg-pink-600'">
+      <span x-text="isSubmitting ? 'Processing...' : 'Place Secure Order'"></span>
+    </button>
   </div>
 </div>
 
