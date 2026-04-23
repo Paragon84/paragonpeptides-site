@@ -1361,13 +1361,27 @@ function app() {
       this.showToast(`✅ ${name} added to cart!`);
     },
 
-    filteredProducts() {
-      return this.products.filter(product => {
-        const matchesSearch = product.name.toLowerCase().includes(this.searchTerm.toLowerCase());
-        const matchesCategory = this.activeFilter === 'all' || product.category === this.activeFilter;
-        return matchesSearch && matchesCategory;
-      });
-    },
+filteredProducts() {
+  const term = this.searchTerm.toLowerCase().trim();
+
+  if (!term) {
+    return this.products; // Return all if no search
+  }
+
+  return this.products.filter(product => {
+    const name = product.name.toLowerCase();
+    const desc = (product.desc || '').toLowerCase();
+
+    // Better matching: match any word in search term
+    const searchWords = term.split(' ');
+    const matchesName = searchWords.every(word => name.includes(word));
+    const matchesDesc = searchWords.every(word => desc.includes(word));
+
+    const matchesCategory = this.activeFilter === 'all' || product.category === this.activeFilter;
+
+    return (matchesName || matchesDesc) && matchesCategory;
+  });
+},
 
     get cartTotal() {
       return this.cart.reduce((sum, item) => sum + (item.price * (item.qty || 1)), 0);
