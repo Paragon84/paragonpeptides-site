@@ -310,6 +310,7 @@
 <script>
 function app() {
   return {
+    // --- Core State ---
     cart: [],
     cartTotal: 0,
     discountedTotal: 0,
@@ -320,85 +321,27 @@ function app() {
     isSubmitting: false,
     showPaymentAlert: true,
 
-    // Coupon system
+    // --- Coupon ---
     couponCode: '',
     appliedCoupon: null,
     couponMessage: '',
 
-    // === NEW: Magic Link Login ===
-    //user: null,
-    //loginEmail: '',
-
-    // === LOYALTY POINTS ===
-   // userPoints: 0,
-   // pointsRedeemed: false,
-
     init() {
       this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
       this.calculateTotals();
-     //this.checkUser();
-    //this.loadUserPoints();
     },
 
-calculateTotals() {
-  this.cartTotal = this.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-  let total = this.cartTotal;
+    calculateTotals() {
+      this.cartTotal = this.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      let total = this.cartTotal;
 
-  if (this.appliedCoupon) {
-    total = total * (1 - this.appliedCoupon.discount);
-  }
+      if (this.appliedCoupon) {
+        total = total * (1 - this.appliedCoupon.discount);
+      }
 
-  const shipping = total >= 250 ? 0 : 12.99;
-  total = total + shipping;
-
-  // Apply $5 discount if points are redeemed
-  if (this.pointsRedeemed) {
-    total = Math.max(0, total - 5);
-  }
-
-  this.discountedTotal = total;
-},
-
-// === MAGIC LINK LOGIN ===
-//async sendMagicLink() {
-  if (!this.loginEmail) {
-    alert("Please enter your email");
-    return;
-  }
-
-  const { error } = await this.supabase.auth.signInWithOtp({
-    email: this.loginEmail,
-    options: {
-      emailRedirectTo: "https://paragonpeptides.net/checkout.html"
-    }
-  });
-
-  if (error) {
-    alert("Error sending magic link: " + error.message);
-  } else {
-    alert("✅ Magic link sent! Check your email and click the link.");
-    this.showAccountModal = false;
-  }
-},
-
-// === LOYALTY POINTS METHODS ===
-//async loadUserPoints() {
-  if (!this.user) return;
-  
-  const { data } = await this.supabase
-    .from('profiles')
-    .select('points_balance')
-    .eq('id', this.user.id)
-    .single();
-
-  this.userPoints = data?.points_balance || 0;
-},
-
-//redeemPoints() {
-  if (this.userPoints < 500) return;
-  this.pointsRedeemed = !this.pointsRedeemed;
-  this.calculateTotals();
-},
+      const shipping = total >= 250 ? 0 : 12.99;
+      this.discountedTotal = total + shipping;
+    },
 
     applyCoupon() {
       const code = this.couponCode.trim().toUpperCase();
@@ -433,75 +376,67 @@ calculateTotals() {
       });
     },
 
-saveCart() {
-  localStorage.setItem('paragonCart', JSON.stringify(this.cart));
-},
+    saveCart() {
+      localStorage.setItem('paragonCart', JSON.stringify(this.cart));
+    },
 
-async handleCheckoutSubmit() {
-  this.isSubmitting = true;
-  this.formError = null;
-  const form = document.getElementById('checkout-form');
+    async handleCheckoutSubmit() {
+      this.isSubmitting = true;
+      const form = document.getElementById('checkout-form');
 
-  if (!form || !form.checkValidity()) {
-    form.reportValidity();
-    this.formError = "Please fill in all required fields.";
-    this.isSubmitting = false;
-    return;
-  }
+      if (!form || !form.checkValidity()) {
+        form.reportValidity();
+        this.isSubmitting = false;
+        return;
+      }
 
-  if (!this.agreedToTOS || !this.agreedToPolicies || !this.agreedToPayment) {
-    alert("Please agree to all required terms");
-    this.isSubmitting = false;
-    return;
-  }
+      if (!this.agreedToTOS || !this.agreedToPolicies || !this.agreedToPayment) {
+        alert("Please agree to all required terms");
+        this.isSubmitting = false;
+        return;
+      }
 
-  const formData = new FormData(form);
-  const orderNum = "PP-" + Math.floor(100000 + Math.random() * 900000);
+      const formData = new FormData(form);
+      const orderNum = "PP-" + Math.floor(100000 + Math.random() * 900000);
 
-  let itemsText = this.cart.map(item =>
-    `${item.name} (${item.dose}${item.unit}) x${item.qty} - $${(item.price * item.qty).toFixed}`
-  ).join('\n');
+      let itemsText = this.cart.map(item =>
+        `${item.name} (${item.dose}${item.unit}) x${item.qty} - $${(item.price * item.qty).toFixed(2)}`
+      ).join('\n');
 
-  formData.append('order_number', orderNum);
-  formData.append('hidden_cart_items', itemsText);
-  formData.append('total_price', '$' + this.discountedTotal.toFixed);
+      formData.append('order_number', orderNum);
+      formData.append('hidden_cart_items', itemsText);
+      formData.append('total_price', '$' + this.discountedTotal.toFixed(2));
 
-  try {
-    // Submit to Formspree first
-    const response = await fetch("https://formspree.io/f/mlgpeovo", {
-      method: "POST",
-      body: formData,
-      headers: { 'Accept': 'application/json' }
-    });
+      try {
+        const response = await fetch("https://formspree.io/f/mlgpeovo", {
+          method: "POST",
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
 
-    if (response.ok) {
-      // Clear cart
-      this.cart = [];
-      this.saveCart();
+        if (response.ok) {
+          this.cart = [];
+          this.saveCart();
 
-      // === IMPROVED PARALLEL WEBHOOK FOR MOBILE ===
-      const webhookUrl = "https://lydlmgzavepcdtreeoto.supabase.co/functions/v1/order-webhook?apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5ZGxtZ3phdmVwY2R0cmVlb3RvIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3Mzg0MDcxOSwiZXhwIjoyMDg5NDE2NzE5fQ.CoXF8LCA6q78VTZh8rh0pQ9WGRLgbJJiUSF8kfg9uXw";
+          // Parallel webhook (mobile safe)
+          const webhookUrl = "https://lydlmgzavepcdtreeoto.supabase.co/functions/v1/order-webhook?apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5ZGxtZ3phdmVwY2R0cmVlb3RvIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3Mzg0MDcxOSwiZXhwIjoyMDg5NDE2NzE5fQ.CoXF8LCA6q78VTZh8rh0pQ9WGRLgbJJiUSF8kfg9uXw";
+          fetch(webhookUrl, {
+            method: "POST",
+            body: formData,
+            keepalive: true
+          }).catch(() => {});
 
-      fetch(webhookUrl, {
-        method: "POST",
-        body: formData,
-        keepalive: true   // This helps mobile browsers finish the request before redirect
-      }).catch(err => console.error("Webhook parallel call failed:", err));
-      // === END IMPROVED WEBHOOK ===
-
-      // Redirect (untouched)
-      window.location.href = `/thank-you.html?order_number=${orderNum}&total=${this.discountedTotal.toFixed(2)}`;
-    } else {
-      this.formError = "Submission failed. Please try again.";
+          window.location.href = `/thank-you.html?order_number=${orderNum}&total=${this.discountedTotal.toFixed(2)}`;
+        } else {
+          alert("Submission failed. Please try again.");
+        }
+      } catch (e) {
+        alert("Network error. Please try again.");
+      } finally {
+        this.isSubmitting = false;
+      }
     }
-  } catch (e) {
-    console.error("Checkout error:", e);
-    this.formError = "A network error occurred. Please try again.";
-  } finally {
-    this.isSubmitting = false;
-  }
-}
- };
+  };
 }
 </script>
 </body>
