@@ -537,6 +537,21 @@ Free Priority Shipping on all orders over $250</div>
   </template>
 </div>
 
+<!-- NO RESULTS FOUND -->
+<div x-show="searchTerm.length > 0 && filteredProducts().length === 0" class="text-center py-16">
+  <div class="max-w-md mx-auto">
+    <div class="text-6xl mb-4">🔍</div>
+    <h3 class="text-2xl font-bold text-white mb-3">No results found</h3>
+    <p class="text-zinc-400 mb-6">
+      We couldn't find anything for "<span class="text-[#ff1493]" x-text="searchTerm"></span>".
+    </p>
+    <p class="text-sm text-zinc-500">
+      Try searching for: Reta, Tirz, BPC-157, Mots-C, GHK-Cu
+    </p>
+  </div>
+</div>
+
+
 </div>
 <!-- === RESEARCH STANDARDS, DOCUMENTATION & BUYER RESOURCE CENTER === -->
 <section class="bg-zinc-950 py-12 md:py-20 border-t border-b border-zinc-800">
@@ -1408,12 +1423,16 @@ handleSearch() {
   if (!term) return;
 
   const matchingProducts = this.filteredProducts();
-  if (matchingProducts.length === 0) return;
+
+  // If no results → don't scroll, just show "No results" message
+  if (matchingProducts.length === 0) {
+    return;
+  }
 
   const firstMatch = matchingProducts[0];
 
   setTimeout(() => {
-    // 1. Try to scroll to the CATEGORY first
+    // 1. Try to scroll to CATEGORY first
     const categoryName = firstMatch.category ? firstMatch.category.toLowerCase() : null;
 
     if (categoryName) {
@@ -1424,11 +1443,11 @@ handleSearch() {
           behavior: 'smooth', 
           block: 'start' 
         });
-        return; // Stop here — category first
+        return;
       }
     }
 
-    // 2. Fallback: Scroll to the specific product (if no category found)
+    // 2. Fallback: Scroll to the specific product
     const productCard = document.querySelector(`[data-product-id="${firstMatch.id}"]`);
     if (productCard) {
       productCard.scrollIntoView({ 
