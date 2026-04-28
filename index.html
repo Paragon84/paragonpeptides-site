@@ -936,45 +936,6 @@ By purchasing, you confirm you are 21 or older and conducting scientific researc
       </div>
     </div>
 
-<!-- EMAIL COLLECTION MODAL (for abandoned cart) -->
-<div x-show="showEmailModal" x-cloak
-     class="fixed inset-0 bg-black/90 flex items-center justify-center z-[99999] p-6"
-     @click.self="showEmailModal = false">
-  
-  <div class="bg-zinc-900 border border-[#ff1493]/40 rounded-3xl max-w-md w-full p-10 relative">
-    
-    <button @click="showEmailModal = false" 
-            class="absolute top-6 right-6 text-zinc-400 hover:text-white text-3xl">×</button>
-
-    <div class="text-center">
-      <div class="text-4xl mb-4">📩</div>
-      <h3 class="text-2xl font-bold text-white mb-2">Save Your Cart</h3>
-      <p class="text-zinc-400 mb-6">Enter your email so we can remind you about items left in your cart.</p>
-
-      <input 
-        type="email" 
-        x-model="emailForCart" 
-        placeholder="your@email.com"
-        class="w-full bg-black border border-zinc-700 focus:border-[#ff1493] rounded-2xl px-5 py-4 text-white text-lg mb-4">
-
-      <div class="flex gap-3">
-        <button 
-          @click="saveEmailFromModal()"
-          class="flex-1 bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-white transition">
-          Save Email
-        </button>
-        
-        <button 
-          @click="skipEmailModal()"
-          class="flex-1 bg-zinc-800 hover:bg-zinc-700 py-4 rounded-2xl font-semibold text-white transition">
-          Skip
-        </button>
-      </div>
-      
-      <p class="text-xs text-zinc-500 mt-4">We’ll only use this to send cart reminders.</p>
-    </div>
-  </div>
-</div>
 
 
 <!-- PAYMENT UPDATE ALERT MODAL – WHITE BACKGROUND + DARK TEXT (color-blind friendly) -->
@@ -1201,11 +1162,6 @@ function app() {
     discountCode: 'PARAGON15',
     copied: false,
 
-          // === LOYALTY SYSTEM ===
-   //user: null,
-   //loginEmail: '',
-   //userPoints: 0,
-
     // --- Product & Cart Data ---
     products: [],
     currentProduct: null,
@@ -1213,10 +1169,6 @@ function app() {
     cart: [],
     searchTerm: '',
     activeFilter: 'all',
-
-          // === NEW: Email Modal State ===
-    showEmailModal: false,
-    emailForCart: '',
 
     // --- Checkout & Payment ---
     activePayment: null,
@@ -1279,33 +1231,6 @@ function app() {
       setTimeout(() => this.orderCopied = false, 2000);
     },
 
-           // === NEW: Open Email Modal ===
-      openEmailModal() {
-          // Only show once per session
-               if (sessionStorage.getItem('emailModalShown')) return;
-  
-              this.showEmailModal = true;
-             this.emailForCart = localStorage.getItem('userEmail') || '';
-           },
-            // === NEW: Save Email from Modal ===
-      saveEmailFromModal() {
-              if (this.emailForCart.trim()) {
-             localStorage.setItem('userEmail', this.emailForCart.trim());
-              }
-             this.showEmailModal = false;
-             sessionStorage.setItem('emailModalShown', 'true');
-  
-             // Now save the cart with email
-             this.saveCartToServer();
-        },
-
- 
-     skipEmailModal() {
-            this.showEmailModal = false;
-            sessionStorage.setItem('emailModalShown', 'true');
-            this.saveCartToServer(); // Save cart without email
-         },
-
     init() {
       console.log('[INIT] Starting...');
       try {
@@ -1319,7 +1244,6 @@ function app() {
       }).catch(e => {
         console.error('[INIT] Failed:', e);
         this.isLoading = false;
-        //this.checkUser();
       });
       const hasSeenNewsletter = sessionStorage.getItem('newsletterShown');
       if (!hasSeenNewsletter) {
@@ -1400,30 +1324,21 @@ function app() {
       if (existing) existing.qty++;
       else this.cart.push(newItem);
       this.saveCart();
-      this.saveCartToServer(); // ← Added for abandoned cart tracking
       this.showToast(`✅ ${name} added to cart!`);
     },
 
-filteredProducts() {
-  const term = this.searchTerm.toLowerCase().trim();
-
-  if (!term) {
-    return this.products;
-  }
-
-  return this.products.filter(product => {
-    const name = product.name.toLowerCase();
-    const desc = (product.desc || '').toLowerCase();
-
-    // Prioritize products that START with the search term
-    const startsWithMatch = name.startsWith(term);
-    const containsMatch = name.includes(term) || desc.includes(term);
-
-    const matchesCategory = this.activeFilter === 'all' || product.category === this.activeFilter;
-
-    return (startsWithMatch || containsMatch) && matchesCategory;
-  });
-},
+    filteredProducts() {
+      const term = this.searchTerm.toLowerCase().trim();
+      if (!term) return this.products;
+      return this.products.filter(product => {
+        const name = product.name.toLowerCase();
+        const desc = (product.desc || '').toLowerCase();
+        const startsWithMatch = name.startsWith(term);
+        const containsMatch = name.includes(term) || desc.includes(term);
+        const matchesCategory = this.activeFilter === 'all' || product.category === this.activeFilter;
+        return (startsWithMatch || containsMatch) && matchesCategory;
+      });
+    },
 
     get cartTotal() {
       return this.cart.reduce((sum, item) => sum + (item.price * (item.qty || 1)), 0);
@@ -1438,52 +1353,25 @@ filteredProducts() {
       return Math.max(0, total - discount).toFixed(2);
     },
 
-handleSearch() {
-  const term = this.searchTerm.toLowerCase().trim();
-
-  if (!term) return;
-
-  const matchingProducts = this.filteredProducts();
-
-  // If no results → don't scroll, just show "No results" message
-  if (matchingProducts.length === 0) {
-    return;
-  }
-
-  const firstMatch = matchingProducts[0];
-
-  setTimeout(() => {
-    // 1. Try to scroll to CATEGORY first
-    const categoryName = firstMatch.category ? firstMatch.category.toLowerCase() : null;
-
-    if (categoryName) {
-      const categorySection = document.querySelector(`.category-section[data-category="${categoryName}"]`);
-      
-      if (categorySection) {
-        categorySection.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'start' 
-        });
-        return;
-      }
-    }
-
-    // 2. Fallback: Scroll to the specific product
-    const productCard = document.querySelector(`[data-product-id="${firstMatch.id}"]`);
-    if (productCard) {
-      productCard.scrollIntoView({ 
-        behavior: 'smooth', 
-        block: 'center' 
-      });
-    }
-  }, 100);
-},
-
-// === LOYALTY SYSTEM DISABLED ===
-// async sendMagicLink() { ... }
-// async checkUser() { ... }
-// async logout() { ... }
-
+    handleSearch() {
+      const term = this.searchTerm.toLowerCase().trim();
+      if (!term) return;
+      const matchingProducts = this.filteredProducts();
+      if (matchingProducts.length === 0) return;
+      const firstMatch = matchingProducts[0];
+      setTimeout(() => {
+        const categoryName = firstMatch.category ? firstMatch.category.toLowerCase() : null;
+        if (categoryName) {
+          const categorySection = document.querySelector(`.category-section[data-category="${categoryName}"]`);
+          if (categorySection) {
+            categorySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            return;
+          }
+        }
+        const productCard = document.querySelector(`[data-product-id="${firstMatch.id}"]`);
+        if (productCard) productCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 100);
+    },
 
     viewProduct(p) {
       this.currentProduct = JSON.parse(JSON.stringify(p));
@@ -1515,7 +1403,6 @@ handleSearch() {
         });
       }
       this.saveCart();
-      this.saveCartToServer(); // ← Added for abandoned cart tracking
       this.showToast("✅ Added to cart!");
     },
 
@@ -1533,40 +1420,6 @@ handleSearch() {
       localStorage.setItem('paragonCart', JSON.stringify(this.cart));
     },
 
-async saveCartToServer() {
-  if (this.cart.length === 0 || !this.supabase) return;
-
-  const sessionId = localStorage.getItem('sessionId') || crypto.randomUUID();
-  localStorage.setItem('sessionId', sessionId);
-
-  const userEmail = localStorage.getItem('userEmail') || null;
-
-  // If no email saved yet → open the nice modal
-  if (!userEmail && !sessionStorage.getItem('emailModalShown')) {
-    this.openEmailModal();
-    return; // Wait for user to submit modal
-  }
-
-  // Otherwise save the cart
-  try {
-    const { error } = await this.supabase
-      .from('abandoned_carts')
-      .upsert({
-        session_id: sessionId,
-        cart_items: this.cart,
-        email: userEmail,
-        last_activity: new Date().toISOString()
-      });
-
-    if (error) {
-      console.log("Failed to save cart:", error.message);
-    } else {
-      console.log("✅ Cart saved with email:", userEmail || "no email");
-    }
-  } catch (e) {
-    console.log("Failed to save cart to server (non-critical)");
-  }
-},
     showToast(msg) {
       const toast = document.getElementById('toast');
       const toastText = document.getElementById('toast-text');
