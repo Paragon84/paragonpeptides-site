@@ -6,311 +6,324 @@
   <title>Checkout - Paragon Peptides</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Satoshi:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="icon" href="https://i.imgur.com/jXQlcWB.png" type="image/png">
-  <link rel="icon" href="/favicon.png?v=2" type="image/png" sizes="32x32">
   <style>
     [x-cloak] { display: none !important; }
-    body { font-family: 'Inter', system-ui, sans-serif; background: #000000; color: #e2e8f0; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #ffffff; color: #000000; }
     h1, h2, h3 { font-family: 'Satoshi', sans-serif; }
-    
-    /* Accessibility Boost: High Contrast Borders */
-    input, select, textarea, .border-zinc-800 {
-      border-color: #ffffff !important;
-      border-width: 2px;
+
+    input, select, textarea {
+      border-color: #d1d5db !important;
+      border-width: 1px;
+      background: #ffffff;
+      color: #000000;
     }
     input:focus, select:focus, textarea:focus {
       border-color: #ff1493 !important;
-      box-shadow: 0 0 0 3px rgba(255, 20, 147, 0.3);
+      box-shadow: 0 0 0 3px rgba(255, 20, 147, 0.15);
     }
-
   </style>
 </head>
 <body class="antialiased" x-data="app()" x-init="init()">
 <div class="max-w-7xl mx-auto px-6 py-12">
-  <button @click="window.location.href='/'" class="mb-8 flex items-center gap-2 text-[#ff1493] hover:text-pink-400 font-medium">
+  
+  <!-- Back Button -->
+  <button @click="window.location.href='/'" class="mb-8 flex items-center gap-2 text-[#ff1493] hover:text-pink-600 font-medium">
     ← Return to Cart
   </button>
 
-<div class="grid lg:grid-cols-2 gap-12">
-  
-  <!-- LEFT COLUMN: Billing Form -->
-  <div>
-    <h1 class="text-4xl font-bold text-white mb-8">Checkout</h1>
+  <!-- Progress Bar -->
+  <div class="flex items-center justify-center gap-4 mb-10">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-full bg-[#ff1493] flex items-center justify-center text-white text-sm font-bold">1</div>
+      <span class="text-sm text-zinc-500">Cart</span>
+    </div>
+    <div class="w-8 h-px bg-zinc-300"></div>
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-full bg-[#ff1493] flex items-center justify-center text-white text-sm font-bold">2</div>
+      <span class="text-sm text-black font-medium">Checkout</span>
+    </div>
+    <div class="w-8 h-px bg-zinc-300"></div>
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-full bg-zinc-300 flex items-center justify-center text-zinc-500 text-sm font-bold">3</div>
+      <span class="text-sm text-zinc-400">Confirmation</span>
+    </div>
+  </div>
+
+  <!-- Main Layout -->
+  <div class="grid lg:grid-cols-2 gap-12">
     
-    <form id="checkout-form"
-          @submit.prevent="handleCheckoutSubmit"
-          action="https://formspree.io/f/mlgpeovo"
-          method="POST"
-          class="space-y-6">
-
-      <!-- Hidden fields -->
-      <input type="hidden" name="order_number" :value="'PP-' + Math.floor(100000 + Math.random() * 900000)">
-      <input type="hidden" name="cart_items" :value="cart.map(item => item.name + ' x' + item.qty).join(', ')">
-      <input type="hidden" name="total_price" :value="'$' + discountedTotal.toFixed(2)">
-
-      <!-- Billing Details -->
-      <div class="space-y-6">
-        <h2 class="text-2xl font-semibold text-white mb-4">Billing Details</h2>
+    <!-- LEFT COLUMN: Billing Form -->
+    <div class="order-2 lg:order-1">
+      <h1 class="text-4xl font-bold text-black mb-8">Checkout</h1>
+      
+      <form id="checkout-form" @submit.prevent="handleCheckoutSubmit" action="https://formspree.io/f/mlgpeovo" method="POST" class="space-y-8">
         
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm text-zinc-400 mb-2">First Name *</label>
-            <input type="text" name="first_name" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white">
-          </div>
-          <div>
-            <label class="block text-sm text-zinc-400 mb-2">Last Name *</label>
-            <input type="text" name="last_name" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white">
-          </div>
-        </div>
-
+        <!-- Billing Information -->
         <div>
-          <label class="block text-sm text-zinc-400 mb-2">Street Address *</label>
-          <input type="text" name="address" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white">
+          <h2 class="text-2xl font-semibold text-black mb-5">Billing Information</h2>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+              <label class="block text-sm text-zinc-600 mb-2">First Name *</label>
+              <input type="text" name="first_name" required class="w-full border rounded-2xl px-5 py-3.5">
+            </div>
+            <div>
+              <label class="block text-sm text-zinc-600 mb-2">Last Name *</label>
+              <input type="text" name="last_name" required class="w-full border rounded-2xl px-5 py-3.5">
+            </div>
+          </div>
+          
+     <!-- Address Row - Fixed Layout -->
+<div class="mt-5">
+  <!-- City (full width on mobile, 2/3 on desktop) -->
+  <div class="mb-5">
+    <label class="block text-sm text-zinc-600 mb-2">City *</label>
+    <input type="text" name="city" required class="w-full border rounded-2xl px-5 py-3.5">
+  </div>
+
+  <!-- State + ZIP (side by side on all screens) -->
+  <div class="grid grid-cols-2 gap-5">
+    <div>
+      <label class="block text-sm text-zinc-600 mb-2">State *</label>
+      <select name="state" required class="w-full border rounded-2xl px-5 py-3.5">
+        <option value="">Select State</option>
+        <option value="AL">Alabama</option>
+        <option value="AK">Alaska</option>
+        <option value="AZ">Arizona</option>
+        <option value="AR">Arkansas</option>
+        <option value="CA">California</option>
+        <option value="CO">Colorado</option>
+        <option value="CT">Connecticut</option>
+        <option value="DE">Delaware</option>
+        <option value="FL">Florida</option>
+        <option value="GA">Georgia</option>
+        <option value="HI">Hawaii</option>
+        <option value="ID">Idaho</option>
+        <option value="IL">Illinois</option>
+        <option value="IN">Indiana</option>
+        <option value="IA">Iowa</option>
+        <option value="KS">Kansas</option>
+        <option value="KY">Kentucky</option>
+        <option value="LA">Louisiana</option>
+        <option value="ME">Maine</option>
+        <option value="MD">Maryland</option>
+        <option value="MA">Massachusetts</option>
+        <option value="MI">Michigan</option>
+        <option value="MN">Minnesota</option>
+        <option value="MS">Mississippi</option>
+        <option value="MO">Missouri</option>
+        <option value="MT">Montana</option>
+        <option value="NE">Nebraska</option>
+        <option value="NV">Nevada</option>
+        <option value="NH">New Hampshire</option>
+        <option value="NJ">New Jersey</option>
+        <option value="NM">New Mexico</option>
+        <option value="NY">New York</option>
+        <option value="NC">North Carolina</option>
+        <option value="ND">North Dakota</option>
+        <option value="OH">Ohio</option>
+        <option value="OK">Oklahoma</option>
+        <option value="OR">Oregon</option>
+        <option value="PA">Pennsylvania</option>
+        <option value="RI">Rhode Island</option>
+        <option value="SC">South Carolina</option>
+        <option value="SD">South Dakota</option>
+        <option value="TN">Tennessee</option>
+        <option value="TX">Texas</option>
+        <option value="UT">Utah</option>
+        <option value="VT">Vermont</option>
+        <option value="VA">Virginia</option>
+        <option value="WA">Washington</option>
+        <option value="WV">West Virginia</option>
+        <option value="WI">Wisconsin</option>
+        <option value="WY">Wyoming</option>
+        <option value="DC">District of Columbia</option>
+      </select>
+    </div>
+    <div>
+      <label class="block text-sm text-zinc-600 mb-2">ZIP Code *</label>
+      <input type="text" name="zip" required class="w-full border rounded-2xl px-5 py-3.5">
+    </div>
+  </div>
+</div>          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
+            <div>
+              <label class="block text-sm text-zinc-600 mb-2">Phone *</label>
+              <input type="tel" name="phone" required class="w-full border rounded-2xl px-5 py-3.5">
+            </div>
+            <div>
+              <label class="block text-sm text-zinc-600 mb-2">Email Address *</label>
+              <input type="email" name="email" required class="w-full border rounded-2xl px-5 py-3.5">
+            </div>
+          </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm text-zinc-400 mb-2">City *</label>
-            <input type="text" name="city" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white">
-          </div>
-          <div>
-            <label class="block text-sm text-zinc-400 mb-2">State *</label>
-            <select name="state" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white">
-              <option value="" disabled selected>Select a state</option>
-              <option value="AL">Alabama</option>
-              <option value="AK">Alaska</option>
-              <option value="AZ">Arizona</option>
-              <option value="AR">Arkansas</option>
-              <option value="CA">California</option>
-              <option value="CO">Colorado</option>
-              <option value="CT">Connecticut</option>
-              <option value="DE">Delaware</option>
-              <option value="FL">Florida</option>
-              <option value="GA">Georgia</option>
-              <option value="HI">Hawaii</option>
-              <option value="ID">Idaho</option>
-              <option value="IL">Illinois</option>
-              <option value="IN">Indiana</option>
-              <option value="IA">Iowa</option>
-              <option value="KS">Kansas</option>
-              <option value="KY">Kentucky</option>
-              <option value="LA">Louisiana</option>
-              <option value="ME">Maine</option>
-              <option value="MD">Maryland</option>
-              <option value="MA">Massachusetts</option>
-              <option value="MI">Michigan</option>
-              <option value="MN">Minnesota</option>
-              <option value="MS">Mississippi</option>
-              <option value="MO">Missouri</option>
-              <option value="MT">Montana</option>
-              <option value="NE">Nebraska</option>
-              <option value="NV">Nevada</option>
-              <option value="NH">New Hampshire</option>
-              <option value="NJ">New Jersey</option>
-              <option value="NM">New Mexico</option>
-              <option value="NY">New York</option>
-              <option value="NC">North Carolina</option>
-              <option value="ND">North Dakota</option>
-              <option value="OH">Ohio</option>
-              <option value="OK">Oklahoma</option>
-              <option value="OR">Oregon</option>
-              <option value="PA">Pennsylvania</option>
-              <option value="RI">Rhode Island</option>
-              <option value="SC">South Carolina</option>
-              <option value="SD">South Dakota</option>
-              <option value="TN">Tennessee</option>
-              <option value="TX">Texas</option>
-              <option value="UT">Utah</option>
-              <option value="VT">Vermont</option>
-              <option value="VA">Virginia</option>
-              <option value="WA">Washington</option>
-              <option value="WV">West Virginia</option>
-              <option value="WI">Wisconsin</option>
-              <option value="WY">Wyoming</option>
-              <option value="DC">District of Columbia</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm text-zinc-400 mb-2">ZIP Code *</label>
-            <input type="text" name="zip" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white">
-          </div>
-          <div>
-            <label class="block text-sm text-zinc-400 mb-2">Phone *</label>
-            <input type="tel" name="phone" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white">
-          </div>
-        </div>
-
+        <!-- Shipping Method -->
         <div>
-          <label class="block text-sm text-zinc-400 mb-2">Email Address *</label>
-          <input type="email" name="email" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white">
+          <h2 class="text-2xl font-semibold text-black mb-5">Shipping Method</h2>
+          <div class="space-y-3">
+            <label class="flex items-center gap-3 p-4 border border-zinc-300 rounded-2xl cursor-pointer hover:border-[#ff1493]">
+              <input type="radio" name="shipping_method" value="usps_ground" checked class="w-5 h-5 accent-[#ff1493]">
+              <div>
+                <div class="font-medium">USPS Ground Advantage</div>
+                <div class="text-sm text-zinc-600">3–5 business days • $12.99</div>
+              </div>
+            </label>
+            
+            <label class="flex items-center gap-3 p-4 border border-zinc-300 rounded-2xl cursor-pointer hover:border-[#ff1493]">
+              <input type="radio" name="shipping_method" value="usps_2day" class="w-5 h-5 accent-[#ff1493]">
+              <div>
+                <div class="font-medium">USPS Priority Express</div>
+                <div class="text-sm text-zinc-600">1–2 business days • $29.99</div>
+              </div>
+            </label>
+            
+            <label class="flex items-center gap-3 p-4 border border-zinc-300 rounded-2xl cursor-pointer hover:border-[#ff1493]">
+              <input type="radio" name="shipping_method" value="free_over_250" class="w-5 h-5 accent-[#ff1493]">
+              <div>
+                <div class="font-medium">Free Shipping</div>
+                <div class="text-sm text-zinc-600">Orders over $250</div>
+              </div>
+            </label>
+          </div>
         </div>
-      </div>
 
-      <!-- Shipping -->
-      <div class="mt-8">
-        <h2 class="text-2xl font-semibold text-white mb-4">Shipping</h2>
-        <div class="space-y-3">
-          <label class="flex items-center gap-3">
-            <input type="radio" name="shipping_method" value="usps_ground" checked class="w-5 h-5 accent-[#ff1493]">
-            <span>USPS Ground Advantage (3–5 days) – $12.99</span>
+        <!-- Order Notes -->
+        <div>
+          <h2 class="text-2xl font-semibold text-black mb-5">Order Notes (Optional)</h2>
+          <textarea name="order_notes" rows="3" class="w-full border border-zinc-300 rounded-3xl px-6 py-4" placeholder="Any special instructions..."></textarea>
+        </div>
+
+        <!-- Agreements -->
+        <div class="space-y-4 pt-4">
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" x-model="agreedToTOS" class="mt-1 w-5 h-5 accent-[#ff1493]">
+            <span class="text-sm">I agree to the <a href="/terms-and-conditions.html" target="_blank" class="text-[#ff1493] hover:underline">Terms of Service</a></span>
           </label>
-          <label class="flex items-center gap-3">
-            <input type="radio" name="shipping_method" value="usps_2day" class="w-5 h-5 accent-[#ff1493]">
-            <span>USPS Priority (2 days) – $29.99</span>
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" x-model="agreedToPolicies" class="mt-1 w-5 h-5 accent-[#ff1493]">
+            <span class="text-sm">I agree to the <a href="/store-policies.html" target="_blank" class="text-[#ff1493] hover:underline">Store Policies</a></span>
           </label>
-          <label class="flex items-center gap-3">
-            <input type="radio" name="shipping_method" value="free_over_250" class="w-5 h-5 accent-[#ff1493]">
-            <span>Free Shipping (orders over $250)</span>
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" x-model="agreedToPayment" class="mt-1 w-5 h-5 accent-[#ff1493]">
+            <span class="text-sm">I understand the <a href="/how-to-pay.html" target="_blank" class="text-[#ff1493] hover:underline">Payment Instructions</a></span>
           </label>
         </div>
-      </div>
-
-      <!-- Order Notes -->
-      <div class="mt-8">
-        <h2 class="text-2xl font-semibold text-white mb-4">Order Notes (optional)</h2>
-        <textarea name="order_notes" rows="4" class="w-full bg-zinc-950 border border-zinc-800 rounded-3xl px-6 py-4 text-white" placeholder="Special instructions..."></textarea>
-      </div>
-
-      <!-- Agreements -->
-      <div class="space-y-4 mt-8">
-        <label class="flex items-start gap-3 cursor-pointer">
-          <input type="checkbox" x-model="agreedToTOS" class="mt-1 w-5 h-5 accent-[#ff1493]">
-          <span>I agree to the <a href="/terms-and-conditions.html" target="_blank" class="text-[#ff1493] hover:underline">Terms of Service</a></span>
-        </label>
-        <label class="flex items-start gap-3 cursor-pointer">
-          <input type="checkbox" x-model="agreedToPolicies" class="mt-1 w-5 h-5 accent-[#ff1493]">
-          <span>I agree to the <a href="/store-policies.html" target="_blank" class="text-[#ff1493] hover:underline">Store Policies</a></span>
-        </label>
-        <label class="flex items-start gap-3 cursor-pointer">
-          <input type="checkbox" x-model="agreedToPayment" class="mt-1 w-5 h-5 accent-[#ff1493]">
-          <span>I understand the <a href="/how-to-pay.html" target="_blank" class="text-[#ff1493] hover:underline">Payment Instructions</a></span>
-        </label>
-      </div>
-    </form>
-  </div>
-
-<!-- RIGHT COLUMN: Order Summary + Payment Accordion -->
-<div class="bg-zinc-950 border border-zinc-800 rounded-3xl p-8 lg:sticky lg:top-8 flex flex-col h-fit">
-  <h2 class="text-2xl font-semibold text-white mb-6">Your Order</h2>
-
-  <!-- Cart Items -->
-  <div class="space-y-4 mb-6">
-    <template x-for="item in cart" :key="item.id">
-      <div class="flex justify-between py-2 border-b border-zinc-800">
-        <span x-text="item.name + ' × ' + item.qty"></span>
-        <span x-text="'$' + (item.price * item.qty).toFixed(2)"></span>
-      </div>
-    </template>
-  </div>
-
-  <!-- Totals -->
-  <div class="border-t border-zinc-800 pt-6 space-y-2">
-    <div class="flex justify-between"><span>Subtotal</span><span x-text="'$' + cartTotal.toFixed(2)"></span></div>
-    <div class="flex justify-between"><span>Shipping</span><span x-text="cartTotal >= 250 ? 'Free' : '$12.99'"></span></div>
-    <div class="flex justify-between text-2xl font-bold border-t border-zinc-800 pt-4">
-      <span>Total</span>
-      <span x-text="'$' + discountedTotal.toFixed(2)"></span>
-    </div>
-  </div>
-
-  <!-- Coupon -->
-  <div class="mt-8">
-    <label class="block text-sm text-zinc-400 mb-2">Have a coupon?</label>
-    <div class="flex gap-2">
-      <input type="text" x-model="couponCode" placeholder="Coupon code"
-             class="flex-1 bg-zinc-900 border border-white rounded-lg px-4 py-3 text-white">
-      <button @click="applyCoupon()" class="bg-[#ff1493] hover:bg-pink-600 px-6 py-3 rounded-lg font-medium text-white">Apply</button>
-    </div>
-    <p x-show="couponMessage" :class="appliedCoupon ? 'text-green-400' : 'text-red-400'" class="mt-2 text-sm" x-text="couponMessage"></p>
-  </div>
-
-  <!-- PAYMENT ACCORDION -->
-  <div class="mt-10 space-y-4 flex-1">
-    <h3 class="text-xl font-semibold text-white mb-4">How to Pay</h3>
-
-    <!-- Venmo -->
-    <div class="border border-white rounded-xl overflow-hidden">
-      <button @click="activePayment = activePayment === 'venmo' ? null : 'venmo'" 
-              class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
-        <span class="text-[#ff1493]">Pay with Venmo</span>
-        <span x-text="activePayment === 'venmo' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
-      </button>
-      <div x-show="activePayment === 'venmo'" class="px-6 pb-6 bg-zinc-950 text-sm text-zinc-300">
-        <p>1. Complete your order to get your order number.</p>
-        <p class="mt-2">2. Send the exact total via Venmo.</p>
-        <p class="mt-2 font-bold">Include only your order number in the note.</p>
-      </div>
+      </form>
     </div>
 
-    <!-- Cash App -->
-    <div class="border border-white rounded-xl overflow-hidden">
-      <button @click="activePayment = activePayment === 'cashapp' ? null : 'cashapp'" 
-              class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
-        <span class="text-[#ff1493]">Pay with Cash App</span>
-        <span x-text="activePayment === 'cashapp' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
-      </button>
-      <div x-show="activePayment === 'cashapp'" class="px-6 pb-6 bg-zinc-950 text-sm text-zinc-300">
-        <p>1. Complete your order to get your order number.</p>
-        <p class="mt-2">2. Send the total to <strong>$ParagonPeps</strong>.</p>
-        <p class="mt-2 font-bold">Include your order number in the memo.</p>
-      </div>
-    </div>
+    <!-- RIGHT COLUMN: Order Summary -->
+    <div class="order-1 lg:order-2">
+      <div class="bg-white border border-zinc-300 rounded-3xl p-8 lg:sticky lg:top-8 flex flex-col h-fit shadow-xl">
+        <h2 class="text-2xl font-semibold text-black mb-6 flex items-center justify-between">
+          <span>Your Order</span>
+          <span class="text-xs px-3 py-1 bg-zinc-100 rounded-full text-zinc-600 font-normal" x-text="cart.length + ' items'"></span>
+        </h2>
 
-    <!-- Bitcoin -->
-    <div class="border border-white rounded-xl overflow-hidden">
-      <button @click="activePayment = activePayment === 'bitcoin' ? null : 'bitcoin'" 
-              class="w-full flex justify-between items-center px-6 py-4 bg-zinc-950 hover:bg-zinc-900 text-left transition">
-        <span class="text-[#ff1493]">Pay with Bitcoin</span>
-        <span x-text="activePayment === 'bitcoin' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
-      </button>
-      <div x-show="activePayment === 'bitcoin'" class="px-6 pb-6 bg-zinc-950 text-sm text-zinc-300">
-        <p>Send the exact total to this Bitcoin address:</p>
-        <div class="bg-black p-4 rounded-xl mt-3 text-center">
-          <p class="font-mono text-xs break-all text-[#ff1493]">bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw</p>
+        <!-- Cart Items -->
+        <div class="space-y-4 mb-8 text-sm">
+          <template x-for="item in cart" :key="item.id">
+            <div class="flex justify-between">
+              <span x-text="item.name + ' × ' + item.qty"></span>
+              <span x-text="'$' + (item.price * item.qty).toFixed(2)"></span>
+            </div>
+          </template>
         </div>
-        <button @click="copyToClipboard('bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw')" 
-                class="mt-4 w-full bg-[#ff1493] hover:bg-pink-600 py-3 rounded-xl font-semibold text-white text-sm">
-          Copy Bitcoin Address
+
+        <!-- Totals -->
+        <div class="border-t border-zinc-300 pt-6 space-y-3 text-sm">
+          <div class="flex justify-between"><span>Subtotal</span><span x-text="'$' + cartTotal.toFixed(2)"></span></div>
+          <div class="flex justify-between"><span>Shipping</span><span x-text="cartTotal >= 250 ? 'Free' : '$12.99'"></span></div>
+          <div class="flex justify-between text-3xl font-bold pt-3 border-t border-zinc-300">
+            <span>Total</span>
+            <span x-text="'$' + discountedTotal.toFixed(2)"></span>
+          </div>
+        </div>
+
+        <!-- Coupon -->
+        <div class="mt-8">
+          <div class="flex gap-2">
+            <input type="text" x-model="couponCode" placeholder="Coupon code" class="flex-1 border border-zinc-300 rounded-2xl px-5 py-3">
+            <button @click="applyCoupon()" class="bg-[#ff1493] hover:bg-pink-600 px-6 py-3 rounded-2xl font-medium text-white">Apply</button>
+          </div>
+          <p x-show="couponMessage" class="mt-2 text-sm" :class="appliedCoupon ? 'text-green-600' : 'text-red-600'" x-text="couponMessage"></p>
+        </div>
+
+        <!-- Payment Methods -->
+        <div class="mt-10">
+          <h3 class="text-xl font-semibold text-black mb-5">Payment Method</h3>
+          
+          <!-- Venmo -->
+          <div class="mb-3 border border-zinc-300 rounded-2xl overflow-hidden">
+            <button @click="activePayment = activePayment === 'venmo' ? null : 'venmo'" class="w-full flex justify-between items-center px-6 py-4 hover:bg-zinc-50 transition">
+              <span class="font-medium">Venmo</span>
+              <span x-text="activePayment === 'venmo' ? '▲' : '▼'" class="text-zinc-400"></span>
+            </button>
+            <div x-show="activePayment === 'venmo'" class="px-6 pb-6 text-sm text-zinc-600 bg-white">
+              Send the total to <strong>@ParagonPeptides</strong> and include your order number.
+            </div>
+          </div>
+
+          <!-- Cash App -->
+          <div class="mb-3 border border-zinc-300 rounded-2xl overflow-hidden">
+            <button @click="activePayment = activePayment === 'cashapp' ? null : 'cashapp'" class="w-full flex justify-between items-center px-6 py-4 hover:bg-zinc-50 transition">
+              <span class="font-medium">Cash App</span>
+              <span x-text="activePayment === 'cashapp' ? '▲' : '▼'" class="text-zinc-400"></span>
+            </button>
+            <div x-show="activePayment === 'cashapp'" class="px-6 pb-6 text-sm text-zinc-600 bg-white">
+              Send to <strong>$ParagonPeps</strong> and include your order number in the memo.
+            </div>
+          </div>
+
+          <!-- Bitcoin -->
+          <div class="border border-zinc-300 rounded-2xl overflow-hidden">
+            <button @click="activePayment = activePayment === 'bitcoin' ? null : 'bitcoin'" class="w-full flex justify-between items-center px-6 py-4 hover:bg-zinc-50 transition">
+              <span class="font-medium">Bitcoin</span>
+              <span x-text="activePayment === 'bitcoin' ? '▲' : '▼'" class="text-zinc-400"></span>
+            </button>
+            <div x-show="activePayment === 'bitcoin'" class="px-6 pb-6 text-sm text-zinc-600 bg-white">
+              Send exact amount to:<br>
+              <span class="font-mono text-xs text-[#ff1493]">bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="mt-8 flex justify-center gap-6 text-xs text-zinc-500">
+          <div>🔒 SSL Secured</div>
+          <div>🛡️ Research Use Only</div>
+        </div>
+
+        <!-- Place Order Button -->
+        <button @click="handleCheckoutSubmit()"
+                :disabled="isSubmitting || !agreedToTOS || !agreedToPolicies || !agreedToPayment"
+                class="mt-8 w-full py-6 rounded-3xl font-semibold text-2xl text-white transition disabled:opacity-50"
+                :class="isSubmitting ? 'bg-zinc-400' : 'bg-[#ff1493] hover:bg-pink-600'">
+          <span x-text="isSubmitting ? 'Processing...' : 'Place Secure Order'"></span>
         </button>
       </div>
     </div>
   </div>
-
-  <!-- SECURE BUTTON -->
-  <div class="mt-auto pt-8">
-    <button @click="handleCheckoutSubmit()"
-            :disabled="isSubmitting || !agreedToTOS || !agreedToPolicies || !agreedToPayment"
-            class="w-full py-6 rounded-3xl font-semibold text-2xl text-white transition disabled:opacity-50"
-            :class="isSubmitting ? 'bg-zinc-700' : 'bg-[#ff1493] hover:bg-pink-600'">
-      <span x-text="isSubmitting ? 'Processing...' : 'Place Secure Order'"></span>
-    </button>
-  </div>
 </div>
 
- 
-<!-- PAYMENT ALERT MODAL – WHITE + DARK TEXT -->
-<div x-show="showPaymentAlert" @click.away="showPaymentAlert = false" class="fixed inset-0 z-[100001] flex items-center justify-center bg-black/80 backdrop-blur-sm" x-transition>
+<!-- Payment Alert Modal -->
+<div x-show="showPaymentAlert" class="fixed inset-0 z-[100001] flex items-center justify-center bg-black/70 backdrop-blur-sm" x-transition>
   <div class="bg-white border border-zinc-200 rounded-3xl max-w-lg w-full mx-4 p-8 relative shadow-2xl">
-    <button @click="showPaymentAlert = false" class="absolute top-4 right-4 text-zinc-900 hover:text-black text-3xl leading-none font-light">×</button>
-    <h2 class="text-2xl font-bold text-zinc-900 mb-6 text-center">IMPORTANT LEGAL NOTICE</h2>
-    <div class="text-zinc-800 space-y-4 text-center text-[15px] leading-relaxed">
+    <button @click="showPaymentAlert = false" class="absolute top-4 right-4 text-black hover:text-zinc-700 text-3xl">×</button>
+    <h2 class="text-2xl font-bold text-black mb-6 text-center">IMPORTANT LEGAL NOTICE</h2>
+    <div class="text-zinc-800 space-y-4 text-center text-[15px]">
       <p><strong>NOT FOR HUMAN CONSUMPTION.</strong></p>
-      <p>The products on this website are for legitimate research use only. They are not intended to prevent, treat, or cure any illness or disease.</p>
-      <p>By continuing, you acknowledge and understand these terms.</p>
+      <p>The products on this website are for legitimate research use only.</p>
     </div>
-    <button @click="showPaymentAlert = false" class="mt-8 w-full bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-lg text-white transition">I Understand — Continue Checkout</button>
+    <button @click="showPaymentAlert = false" class="mt-8 w-full bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-lg text-white">I Understand — Continue</button>
   </div>
 </div>
 
 <script>
 function app() {
   return {
-    // --- Core State ---
     cart: [],
     cartTotal: 0,
     discountedTotal: 0,
@@ -320,8 +333,6 @@ function app() {
     agreedToPayment: false,
     isSubmitting: false,
     showPaymentAlert: true,
-
-    // --- Coupon ---
     couponCode: '',
     appliedCoupon: null,
     couponMessage: '',
@@ -334,11 +345,7 @@ function app() {
     calculateTotals() {
       this.cartTotal = this.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
       let total = this.cartTotal;
-
-      if (this.appliedCoupon) {
-        total = total * (1 - this.appliedCoupon.discount);
-      }
-
+      if (this.appliedCoupon) total = total * (1 - this.appliedCoupon.discount);
       const shipping = total >= 250 ? 0 : 12.99;
       this.discountedTotal = total + shipping;
     },
@@ -347,49 +354,27 @@ function app() {
       const code = this.couponCode.trim().toUpperCase();
       this.couponMessage = '';
       this.appliedCoupon = null;
-
-      const validCoupons = {
+      const valid = {
         'PARAGON15': { discount: 0.15, message: '✅ 15% off applied!' },
-        'WELCOME10': { discount: 0.10, message: '✅ 10% off applied!' },
-        'RESEARCH20': { discount: 0.20, message: '✅ 20% off applied!' }
+        'WELCOME10': { discount: 0.10, message: '✅ 10% off applied!' }
       };
-
-      if (validCoupons[code]) {
-        this.appliedCoupon = { code: code, discount: validCoupons[code].discount };
-        this.couponMessage = validCoupons[code].message;
+      if (valid[code]) {
+        this.appliedCoupon = { code, discount: valid[code].discount };
+        this.couponMessage = valid[code].message;
         this.calculateTotals();
       } else {
-        this.couponMessage = '❌ Invalid coupon code';
+        this.couponMessage = '❌ Invalid coupon';
       }
-    },
-
-    removeCoupon() {
-      this.appliedCoupon = null;
-      this.couponCode = '';
-      this.couponMessage = '';
-      this.calculateTotals();
-    },
-
-    copyToClipboard(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        alert('✅ Copied to clipboard!');
-      });
-    },
-
-    saveCart() {
-      localStorage.setItem('paragonCart', JSON.stringify(this.cart));
     },
 
     async handleCheckoutSubmit() {
       this.isSubmitting = true;
       const form = document.getElementById('checkout-form');
-
-      if (!form || !form.checkValidity()) {
+      if (!form.checkValidity()) {
         form.reportValidity();
         this.isSubmitting = false;
         return;
       }
-
       if (!this.agreedToTOS || !this.agreedToPolicies || !this.agreedToPayment) {
         alert("Please agree to all required terms");
         this.isSubmitting = false;
@@ -398,10 +383,7 @@ function app() {
 
       const formData = new FormData(form);
       const orderNum = "PP-" + Math.floor(100000 + Math.random() * 900000);
-
-      let itemsText = this.cart.map(item =>
-        `${item.name} (${item.dose}${item.unit}) x${item.qty} - $${(item.price * item.qty).toFixed(2)}`
-      ).join('\n');
+      let itemsText = this.cart.map(item => `${item.name} x${item.qty}`).join(', ');
 
       formData.append('order_number', orderNum);
       formData.append('hidden_cart_items', itemsText);
@@ -416,15 +398,10 @@ function app() {
 
         if (response.ok) {
           this.cart = [];
-          this.saveCart();
-
-          // Parallel webhook (mobile safe)
+          localStorage.setItem('paragonCart', '[]');
+          
           const webhookUrl = "https://lydlmgzavepcdtreeoto.supabase.co/functions/v1/order-webhook?apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5ZGxtZ3phdmVwY2R0cmVlb3RvIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3Mzg0MDcxOSwiZXhwIjoyMDg5NDE2NzE5fQ.CoXF8LCA6q78VTZh8rh0pQ9WGRLgbJJiUSF8kfg9uXw";
-          fetch(webhookUrl, {
-            method: "POST",
-            body: formData,
-            keepalive: true
-          }).catch(() => {});
+          fetch(webhookUrl, { method: "POST", body: formData, keepalive: true }).catch(() => {});
 
           window.location.href = `/thank-you.html?order_number=${orderNum}&total=${this.discountedTotal.toFixed(2)}`;
         } else {
