@@ -54,96 +54,123 @@
   <!-- Main Layout - Mobile First -->
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
 
-    <!-- RIGHT COLUMN (Order Summary) - Shows FIRST on Mobile -->
-    <div class="order-1 lg:order-2">
-      <div class="bg-white border border-zinc-300 rounded-3xl p-6 sm:p-8 lg:sticky lg:top-8 flex flex-col h-fit shadow-xl">
-        <h2 class="text-2xl font-semibold text-black mb-6 flex items-center justify-between">
-          <span>Your Order</span>
-          <span class="text-xs px-3 py-1 bg-zinc-100 rounded-full text-zinc-600 font-normal" x-text="cart.length + ' items'"></span>
-        </h2>
+<!-- RIGHT COLUMN: Order Summary -->
+<div class="order-1 lg:order-2">
+  <div class="bg-white border border-zinc-300 rounded-3xl p-6 sm:p-8 lg:sticky lg:top-8 flex flex-col h-fit shadow-xl">
+    
+    <h2 class="text-2xl font-semibold text-black mb-6 flex items-center justify-between">
+      <span>Your Order</span>
+      <span class="text-xs px-3 py-1 bg-zinc-100 rounded-full text-zinc-600 font-normal" x-text="cart.length + ' items'"></span>
+    </h2>
 
-        <!-- Cart Items -->
-        <div class="space-y-3 mb-6 text-sm">
-          <template x-for="item in cart" :key="item.id">
-            <div class="flex justify-between">
-              <span x-text="item.name + ' × ' + item.qty"></span>
-              <span x-text="'$' + (item.price * item.qty).toFixed(2)"></span>
-            </div>
-          </template>
+    <!-- Cart Items -->
+    <div class="space-y-3 mb-6 text-sm">
+      <template x-for="item in cart" :key="item.id">
+        <div class="flex justify-between">
+          <span x-text="item.name + ' × ' + item.qty"></span>
+          <span x-text="'$' + (item.price * item.qty).toFixed(2)"></span>
         </div>
+      </template>
+    </div>
 
-        <!-- Totals -->
-        <div class="border-t border-zinc-300 pt-5 space-y-2 text-sm">
-          <div class="flex justify-between"><span>Subtotal</span><span x-text="'$' + cartTotal.toFixed(2)"></span></div>
-          <div class="flex justify-between"><span>Shipping</span><span x-text="cartTotal >= 250 ? 'Free' : '$12.99'"></span></div>
-          <div class="flex justify-between text-2xl font-bold pt-3 border-t border-zinc-300">
-            <span>Total</span>
-            <span x-text="'$' + discountedTotal.toFixed(2)"></span>
-          </div>
-        </div>
-
-        <!-- Coupon -->
-        <div class="mt-6">
-          <div class="flex gap-2">
-            <input type="text" x-model="couponCode" placeholder="Coupon code" class="flex-1 border border-zinc-300 rounded-2xl px-4 py-3 text-sm">
-            <button @click="applyCoupon()" class="bg-[#ff1493] hover:bg-pink-600 px-5 py-3 rounded-2xl font-medium text-white text-sm">Apply</button>
-          </div>
-          <p x-show="couponMessage" class="mt-2 text-sm" :class="appliedCoupon ? 'text-green-600' : 'text-red-600'" x-text="couponMessage"></p>
-        </div>
-
-        <!-- Payment Methods -->
-        <div class="mt-8">
-          <h3 class="text-xl font-semibold text-black mb-4">Payment Method</h3>
-          
-          <!-- Venmo -->
-          <div class="mb-3 border border-zinc-300 rounded-2xl overflow-hidden">
-            <button @click="activePayment = activePayment === 'venmo' ? null : 'venmo'" class="w-full flex justify-between items-center px-5 py-3.5 hover:bg-zinc-50 transition text-sm">
-              <span class="font-medium">Venmo</span>
-              <span x-text="activePayment === 'venmo' ? '▲' : '▼'" class="text-zinc-400"></span>
-            </button>
-            <div x-show="activePayment === 'venmo'" class="px-5 pb-5 text-sm text-zinc-600 bg-white">
-              Send total to <strong>@ParagonPeptides</strong> + order number.
-            </div>
-          </div>
-
-          <!-- Cash App -->
-          <div class="mb-3 border border-zinc-300 rounded-2xl overflow-hidden">
-            <button @click="activePayment = activePayment === 'cashapp' ? null : 'cashapp'" class="w-full flex justify-between items-center px-5 py-3.5 hover:bg-zinc-50 transition text-sm">
-              <span class="font-medium">Cash App</span>
-              <span x-text="activePayment === 'cashapp' ? '▲' : '▼'" class="text-zinc-400"></span>
-            </button>
-            <div x-show="activePayment === 'cashapp'" class="px-5 pb-5 text-sm text-zinc-600 bg-white">
-              Send to <strong>$ParagonPeps</strong> + order number.
-            </div>
-          </div>
-
-          <!-- Bitcoin -->
-          <div class="border border-zinc-300 rounded-2xl overflow-hidden">
-            <button @click="activePayment = activePayment === 'bitcoin' ? null : 'bitcoin'" class="w-full flex justify-between items-center px-5 py-3.5 hover:bg-zinc-50 transition text-sm">
-              <span class="font-medium">Bitcoin</span>
-              <span x-text="activePayment === 'bitcoin' ? '▲' : '▼'" class="text-zinc-400"></span>
-            </button>
-            <div x-show="activePayment === 'bitcoin'" class="px-5 pb-5 text-sm text-zinc-600 bg-white">
-              Send to: <span class="font-mono text-xs text-[#ff1493]">bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Trust Badges -->
-        <div class="mt-6 flex justify-center gap-4 text-xs text-zinc-500">
-          <div>🔒 SSL Secured</div>
-          <div>🛡️ Research Use Only</div>
-        </div>
-
-        <!-- Place Order Button -->
-        <button @click="handleCheckoutSubmit()"
-                :disabled="isSubmitting || !agreedToTOS || !agreedToPolicies || !agreedToPayment"
-                class="mt-8 w-full py-5 rounded-3xl font-semibold text-xl text-white transition disabled:opacity-50"
-                :class="isSubmitting ? 'bg-zinc-400' : 'bg-[#ff1493] hover:bg-pink-600'">
-          <span x-text="isSubmitting ? 'Processing...' : 'Place Secure Order'"></span>
-        </button>
+    <!-- Totals -->
+    <div class="border-t border-zinc-300 pt-5 space-y-2 text-sm">
+      <div class="flex justify-between"><span>Subtotal</span><span x-text="'$' + cartTotal.toFixed(2)"></span></div>
+      <div class="flex justify-between"><span>Shipping</span><span x-text="cartTotal >= 250 ? 'Free' : '$12.99'"></span></div>
+      <div class="flex justify-between text-2xl font-bold pt-3 border-t border-zinc-300">
+        <span>Total</span>
+        <span x-text="'$' + discountedTotal.toFixed(2)"></span>
       </div>
     </div>
+
+    <!-- Coupon -->
+    <div class="mt-6">
+      <div class="flex gap-2">
+        <input type="text" x-model="couponCode" placeholder="Coupon code" class="flex-1 border border-zinc-300 rounded-2xl px-4 py-3 text-sm">
+        <button @click="applyCoupon()" class="bg-[#ff1493] hover:bg-pink-600 px-5 py-3 rounded-2xl font-medium text-white text-sm">Apply</button>
+      </div>
+      <p x-show="couponMessage" class="mt-2 text-sm" :class="appliedCoupon ? 'text-green-600' : 'text-red-600'" x-text="couponMessage"></p>
+    </div>
+
+    <!-- PAYMENT METHODS (Correct Placement) -->
+    <div class="mt-8">
+      <h3 class="text-xl font-semibold text-black mb-4">Payment Method</h3>
+
+      <!-- Venmo -->
+      <div class="mb-3 border border-zinc-300 rounded-2xl overflow-hidden">
+        <button @click="activePayment = activePayment === 'venmo' ? null : 'venmo'"
+                class="w-full flex justify-between items-center px-6 py-4 hover:bg-zinc-50 transition">
+          <span class="font-medium">Pay with Venmo</span>
+          <span x-text="activePayment === 'venmo' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
+        </button>
+       
+        <div x-show="activePayment === 'venmo'" class="px-6 pb-6 text-sm text-zinc-700 bg-white">
+          <p>1. Complete your order to get your order number.</p>
+          <p class="mt-2">2. Send the exact total via Venmo.</p>
+         
+          <!-- Prominent Warning -->
+          <div class="mt-4 bg-red-100 border-2 border-red-500 text-red-700 px-5 py-4 rounded-2xl">
+            <div class="flex items-start gap-3">
+              <span class="text-3xl mt-0.5">⚠️</span>
+              <div>
+                <p class="font-extrabold text-red-700 text-base leading-tight">
+                  DO NOT TURN ON PURCHASE PROTECTION!
+                </p>
+                <p class="text-red-600 text-sm mt-1.5 font-semibold">
+                  This will delay your order until payment clears.
+                </p>
+              </div>
+            </div>
+          </div>
+         
+          <p class="mt-4 font-bold">Include only your order number in the note.</p>
+         
+          <p class="mt-3 text-red-600 font-semibold">
+            Use only the order number in the note — no other words, just the order number.
+          </p>
+        </div>
+      </div>
+
+      <!-- Cash App -->
+      <div class="mb-3 border border-zinc-300 rounded-2xl overflow-hidden">
+        <button @click="activePayment = activePayment === 'cashapp' ? null : 'cashapp'" 
+                class="w-full flex justify-between items-center px-5 py-3.5 hover:bg-zinc-50 transition text-sm">
+          <span class="font-medium">Cash App</span>
+          <span x-text="activePayment === 'cashapp' ? '▲' : '▼'" class="text-zinc-400"></span>
+        </button>
+        <div x-show="activePayment === 'cashapp'" class="px-5 pb-5 text-sm text-zinc-600 bg-white">
+          Send to <strong>$ParagonPeps</strong> + order number.
+        </div>
+      </div>
+
+      <!-- Bitcoin -->
+      <div class="border border-zinc-300 rounded-2xl overflow-hidden">
+        <button @click="activePayment = activePayment === 'bitcoin' ? null : 'bitcoin'" 
+                class="w-full flex justify-between items-center px-5 py-3.5 hover:bg-zinc-50 transition text-sm">
+          <span class="font-medium">Bitcoin</span>
+          <span x-text="activePayment === 'bitcoin' ? '▲' : '▼'" class="text-zinc-400"></span>
+        </button>
+        <div x-show="activePayment === 'bitcoin'" class="px-5 pb-5 text-sm text-zinc-600 bg-white">
+          Send to: <span class="font-mono text-xs text-[#ff1493]">bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trust Badges -->
+    <div class="mt-6 flex justify-center gap-4 text-xs text-zinc-500">
+      <div>🔒 SSL Secured</div>
+      <div>🛡️ Research Use Only</div>
+    </div>
+
+    <!-- Place Order Button -->
+    <button @click="handleCheckoutSubmit()"
+            :disabled="isSubmitting || !agreedToTOS || !agreedToPolicies || !agreedToPayment"
+            class="mt-8 w-full py-5 rounded-3xl font-semibold text-xl text-white transition disabled:opacity-50"
+            :class="isSubmitting ? 'bg-zinc-400' : 'bg-[#ff1493] hover:bg-pink-600'">
+      <span x-text="isSubmitting ? 'Processing...' : 'Place Secure Order'"></span>
+    </button>
+  </div>
+</div>
 
     <!-- LEFT COLUMN: Billing Form - Shows SECOND on Mobile -->
     <div class="order-2 lg:order-1">
