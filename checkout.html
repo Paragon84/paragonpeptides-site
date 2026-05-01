@@ -12,7 +12,7 @@
     [x-cloak] { display: none !important; }
     body { font-family: 'Inter', system-ui, sans-serif; background: #ffffff; color: #000000; }
     h1, h2, h3 { font-family: 'Satoshi', sans-serif; }
-
+    
     input, select, textarea {
       border-color: #d1d5db !important;
       border-width: 1px;
@@ -27,7 +27,7 @@
 </head>
 <body class="antialiased" x-data="app()" x-init="init()">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-
+  
   <!-- Back Button -->
   <button @click="window.location.href='/'" class="mb-6 flex items-center gap-2 text-[#ff1493] hover:text-pink-600 font-medium text-sm">
     ← Return to Cart
@@ -51,239 +51,183 @@
     </div>
   </div>
 
-  <!-- Main Layout - Mobile First -->
+  <!-- Main Layout -->
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-
-<!-- RIGHT COLUMN: Order Summary -->
-<div class="order-1 lg:order-2">
-  <div class="bg-white border border-zinc-300 rounded-3xl p-6 sm:p-8 lg:sticky lg:top-8 flex flex-col h-fit shadow-xl">
     
-    <h2 class="text-2xl font-semibold text-black mb-6 flex items-center justify-between">
-      <span>Your Order</span>
-      <span class="text-xs px-3 py-1 bg-zinc-100 rounded-full text-zinc-600 font-normal" x-text="cart.length + ' items'"></span>
-    </h2>
-
-    <!-- Cart Items -->
-    <div class="space-y-3 mb-6 text-sm">
-      <template x-for="item in cart" :key="item.id">
-        <div class="flex justify-between">
-          <span x-text="item.name + ' × ' + item.qty"></span>
-          <span x-text="'$' + (item.price * item.qty).toFixed(2)"></span>
-        </div>
-      </template>
-    </div>
-
-    <!-- Totals -->
-    <div class="border-t border-zinc-300 pt-5 space-y-2 text-sm">
-      <div class="flex justify-between"><span>Subtotal</span><span x-text="'$' + cartTotal.toFixed(2)"></span></div>
-      <div class="flex justify-between"><span>Shipping</span><span x-text="cartTotal >= 250 ? 'Free' : '$12.99'"></span></div>
-      <div class="flex justify-between text-2xl font-bold pt-3 border-t border-zinc-300">
-        <span>Total</span>
-        <span x-text="'$' + discountedTotal.toFixed(2)"></span>
-      </div>
-    </div>
-
-    <!-- Coupon -->
-    <div class="mt-6">
-      <div class="flex gap-2">
-        <input type="text" x-model="couponCode" placeholder="Coupon code" class="flex-1 border border-zinc-300 rounded-2xl px-4 py-3 text-sm">
-        <button @click="applyCoupon()" class="bg-[#ff1493] hover:bg-pink-600 px-5 py-3 rounded-2xl font-medium text-white text-sm">Apply</button>
-      </div>
-      <p x-show="couponMessage" class="mt-2 text-sm" :class="appliedCoupon ? 'text-green-600' : 'text-red-600'" x-text="couponMessage"></p>
-    </div>
-
-    <!-- PAYMENT METHODS (Correct Placement) -->
-    <div class="mt-8">
-      <h3 class="text-xl font-semibold text-black mb-4">Payment Method</h3>
-
-      <!-- Venmo -->
-      <div class="mb-3 border border-zinc-300 rounded-2xl overflow-hidden">
-        <button @click="activePayment = activePayment === 'venmo' ? null : 'venmo'"
-                class="w-full flex justify-between items-center px-6 py-4 hover:bg-zinc-50 transition">
-          <span class="font-medium">Pay with Venmo</span>
-          <span x-text="activePayment === 'venmo' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
-        </button>
-       
-        <div x-show="activePayment === 'venmo'" class="px-6 pb-6 text-sm text-zinc-700 bg-white">
-          <p>1. Complete your order to get your order number.</p>
-          <p class="mt-2">2. Send the exact total via Venmo.</p>
-         
-          <!-- Prominent Warning -->
-          <div class="mt-4 bg-red-100 border-2 border-red-500 text-red-700 px-5 py-4 rounded-2xl">
-            <div class="flex items-start gap-3">
-              <span class="text-3xl mt-0.5">⚠️</span>
-              <div>
-                <p class="font-extrabold text-red-700 text-base leading-tight">
-                  DO NOT TURN ON PURCHASE PROTECTION!
-                </p>
-                <p class="text-red-600 text-sm mt-1.5 font-semibold">
-                  This will delay your order until payment clears.
-                </p>
-              </div>
-            </div>
-          </div>
-         
-          <p class="mt-4 font-bold">Include only your order number in the note.</p>
-         
-          <p class="mt-3 text-red-600 font-semibold">
-            Use only the order number in the note — no other words, just the order number.
-          </p>
-        </div>
-      </div>
-
-      <!-- Cash App -->
-      <div class="mb-3 border border-zinc-300 rounded-2xl overflow-hidden">
-        <button @click="activePayment = activePayment === 'cashapp' ? null : 'cashapp'" 
-                class="w-full flex justify-between items-center px-5 py-3.5 hover:bg-zinc-50 transition text-sm">
-          <span class="font-medium">Cash App</span>
-          <span x-text="activePayment === 'cashapp' ? '▲' : '▼'" class="text-zinc-400"></span>
-        </button>
-        <div x-show="activePayment === 'cashapp'" class="px-5 pb-5 text-sm text-zinc-600 bg-white">
-          Send to <strong>$ParagonPeps</strong> + order number.
-        </div>
-      </div>
-
-      <!-- Bitcoin -->
-      <div class="border border-zinc-300 rounded-2xl overflow-hidden">
-        <button @click="activePayment = activePayment === 'bitcoin' ? null : 'bitcoin'" 
-                class="w-full flex justify-between items-center px-5 py-3.5 hover:bg-zinc-50 transition text-sm">
-          <span class="font-medium">Bitcoin</span>
-          <span x-text="activePayment === 'bitcoin' ? '▲' : '▼'" class="text-zinc-400"></span>
-        </button>
-        <div x-show="activePayment === 'bitcoin'" class="px-5 pb-5 text-sm text-zinc-600 bg-white">
-          Send to: <span class="font-mono text-xs text-[#ff1493]">bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Trust Badges -->
-    <div class="mt-6 flex justify-center gap-4 text-xs text-zinc-500">
-      <div>🔒 SSL Secured</div>
-      <div>🛡️ Research Use Only</div>
-    </div>
-
-    <!-- Place Order Button -->
-    <button @click="handleCheckoutSubmit()"
-            :disabled="isSubmitting || !agreedToTOS || !agreedToPolicies || !agreedToPayment"
-            class="mt-8 w-full py-5 rounded-3xl font-semibold text-xl text-white transition disabled:opacity-50"
-            :class="isSubmitting ? 'bg-zinc-400' : 'bg-[#ff1493] hover:bg-pink-600'">
-      <span x-text="isSubmitting ? 'Processing...' : 'Place Secure Order'"></span>
-    </button>
-  </div>
-</div>
-
-    <!-- LEFT COLUMN: Billing Form - Shows SECOND on Mobile -->
+    <!-- LEFT COLUMN: Billing Form -->
     <div class="order-2 lg:order-1">
       <h1 class="text-4xl font-bold text-black mb-8">Checkout</h1>
       
       <form id="checkout-form" @submit.prevent="handleCheckoutSubmit" action="https://formspree.io/f/mlgpeovo" method="POST" class="space-y-8">
         
-<!-- Billing Information -->
-<div>
-  <h2 class="text-2xl font-semibold text-black mb-5">Billing Information</h2>
-  
-  <!-- First & Last Name -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-    <div>
-      <label class="block text-sm text-zinc-600 mb-2">First Name *</label>
-      <input type="text" name="first_name" required class="w-full border rounded-2xl px-5 py-3.5">
-    </div>
-    <div>
-      <label class="block text-sm text-zinc-600 mb-2">Last Name *</label>
-      <input type="text" name="last_name" required class="w-full border rounded-2xl px-5 py-3.5">
-    </div>
-  </div>
+        <!-- Billing Information -->
+        <div>
+          <h2 class="text-2xl font-semibold text-black mb-5">Billing Information</h2>
+          
+          <!-- First & Last Name -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label class="block text-sm text-zinc-600 mb-2">First Name *</label>
+              <input 
+                type="text" 
+                name="first_name" 
+                x-model="formData.first_name"
+                @input.debounce.400ms="validateField('first_name')"
+                @blur="validateField('first_name')"
+                :class="errors.first_name ? 'border-red-500' : 'border-zinc-300'"
+                class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
+              <p x-show="errors.first_name" class="text-red-500 text-xs mt-1" x-text="errors.first_name"></p>
+            </div>
+            <div>
+              <label class="block text-sm text-zinc-600 mb-2">Last Name *</label>
+              <input 
+                type="text" 
+                name="last_name" 
+                x-model="formData.last_name"
+                @input.debounce.400ms="validateField('last_name')"
+                @blur="validateField('last_name')"
+                :class="errors.last_name ? 'border-red-500' : 'border-zinc-300'"
+                class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
+              <p x-show="errors.last_name" class="text-red-500 text-xs mt-1" x-text="errors.last_name"></p>
+            </div>
+          </div>
 
-  <!-- STREET ADDRESS (Missing Field - Now Restored) -->
-  <div class="mt-5">
-    <label class="block text-sm text-zinc-600 mb-2">Street Address *</label>
-    <input type="text" name="address" required class="w-full border rounded-2xl px-5 py-3.5">
-  </div>
+          <!-- Street Address -->
+          <div class="mt-5">
+            <label class="block text-sm text-zinc-600 mb-2">Street Address *</label>
+            <input 
+              type="text" 
+              name="address" 
+              x-model="formData.address"
+              @input.debounce.400ms="validateField('address')"
+              @blur="validateField('address')"
+              :class="errors.address ? 'border-red-500' : 'border-zinc-300'"
+              class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
+            <p x-show="errors.address" class="text-red-500 text-xs mt-1" x-text="errors.address"></p>
+          </div>
 
-  <!-- City + State + ZIP -->
-  <div class="mt-5">
-    <div class="mb-5">
-      <label class="block text-sm text-zinc-600 mb-2">City *</label>
-      <input type="text" name="city" required class="w-full border rounded-2xl px-5 py-3.5">
-    </div>
-    
-    <div class="grid grid-cols-2 gap-5">
-      <div>
-        <label class="block text-sm text-zinc-600 mb-2">State *</label>
-        <select name="state" required class="w-full border rounded-2xl px-5 py-3.5">
-          <option value="">Select State</option>
-          <option value="AL">Alabama</option>
-          <option value="AK">Alaska</option>
-          <option value="AZ">Arizona</option>
-          <option value="AR">Arkansas</option>
-          <option value="CA">California</option>
-          <option value="CO">Colorado</option>
-          <option value="CT">Connecticut</option>
-          <option value="DE">Delaware</option>
-          <option value="FL">Florida</option>
-          <option value="GA">Georgia</option>
-          <option value="HI">Hawaii</option>
-          <option value="ID">Idaho</option>
-          <option value="IL">Illinois</option>
-          <option value="IN">Indiana</option>
-          <option value="IA">Iowa</option>
-          <option value="KS">Kansas</option>
-          <option value="KY">Kentucky</option>
-          <option value="LA">Louisiana</option>
-          <option value="ME">Maine</option>
-          <option value="MD">Maryland</option>
-          <option value="MA">Massachusetts</option>
-          <option value="MI">Michigan</option>
-          <option value="MN">Minnesota</option>
-          <option value="MS">Mississippi</option>
-          <option value="MO">Missouri</option>
-          <option value="MT">Montana</option>
-          <option value="NE">Nebraska</option>
-          <option value="NV">Nevada</option>
-          <option value="NH">New Hampshire</option>
-          <option value="NJ">New Jersey</option>
-          <option value="NM">New Mexico</option>
-          <option value="NY">New York</option>
-          <option value="NC">North Carolina</option>
-          <option value="ND">North Dakota</option>
-          <option value="OH">Ohio</option>
-          <option value="OK">Oklahoma</option>
-          <option value="OR">Oregon</option>
-          <option value="PA">Pennsylvania</option>
-          <option value="RI">Rhode Island</option>
-          <option value="SC">South Carolina</option>
-          <option value="SD">South Dakota</option>
-          <option value="TN">Tennessee</option>
-          <option value="TX">Texas</option>
-          <option value="UT">Utah</option>
-          <option value="VT">Vermont</option>
-          <option value="VA">Virginia</option>
-          <option value="WA">Washington</option>
-          <option value="WV">West Virginia</option>
-          <option value="WI">Wisconsin</option>
-          <option value="WY">Wyoming</option>
-          <option value="DC">District of Columbia</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm text-zinc-600 mb-2">ZIP Code *</label>
-        <input type="text" name="zip" required class="w-full border rounded-2xl px-5 py-3.5">
-      </div>
-    </div>
-  </div>
+          <!-- City + State + ZIP -->
+          <div class="mt-5">
+            <div class="mb-5">
+              <label class="block text-sm text-zinc-600 mb-2">City *</label>
+              <input 
+                type="text" 
+                name="city" 
+                x-model="formData.city"
+                @input.debounce.400ms="validateField('city')"
+                @blur="validateField('city')"
+                :class="errors.city ? 'border-red-500' : 'border-zinc-300'"
+                class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
+              <p x-show="errors.city" class="text-red-500 text-xs mt-1" x-text="errors.city"></p>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-5">
+              <div>
+                <label class="block text-sm text-zinc-600 mb-2">State *</label>
+                <select 
+                  name="state" 
+                  x-model="formData.state"
+                  @change="validateField('state')"
+                  :class="errors.state ? 'border-red-500' : 'border-zinc-300'"
+                  class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
+                  <option value="">Select State</option>
+                  <option value="AL">Alabama</option>
+                  <option value="AK">Alaska</option>
+                  <option value="AZ">Arizona</option>
+                  <option value="AR">Arkansas</option>
+                  <option value="CA">California</option>
+                  <option value="CO">Colorado</option>
+                  <option value="CT">Connecticut</option>
+                  <option value="DE">Delaware</option>
+                  <option value="FL">Florida</option>
+                  <option value="GA">Georgia</option>
+                  <option value="HI">Hawaii</option>
+                  <option value="ID">Idaho</option>
+                  <option value="IL">Illinois</option>
+                  <option value="IN">Indiana</option>
+                  <option value="IA">Iowa</option>
+                  <option value="KS">Kansas</option>
+                  <option value="KY">Kentucky</option>
+                  <option value="LA">Louisiana</option>
+                  <option value="ME">Maine</option>
+                  <option value="MD">Maryland</option>
+                  <option value="MA">Massachusetts</option>
+                  <option value="MI">Michigan</option>
+                  <option value="MN">Minnesota</option>
+                  <option value="MS">Mississippi</option>
+                  <option value="MO">Missouri</option>
+                  <option value="MT">Montana</option>
+                  <option value="NE">Nebraska</option>
+                  <option value="NV">Nevada</option>
+                  <option value="NH">New Hampshire</option>
+                  <option value="NJ">New Jersey</option>
+                  <option value="NM">New Mexico</option>
+                  <option value="NY">New York</option>
+                  <option value="NC">North Carolina</option>
+                  <option value="ND">North Dakota</option>
+                  <option value="OH">Ohio</option>
+                  <option value="OK">Oklahoma</option>
+                  <option value="OR">Oregon</option>
+                  <option value="PA">Pennsylvania</option>
+                  <option value="RI">Rhode Island</option>
+                  <option value="SC">South Carolina</option>
+                  <option value="SD">South Dakota</option>
+                  <option value="TN">Tennessee</option>
+                  <option value="TX">Texas</option>
+                  <option value="UT">Utah</option>
+                  <option value="VT">Vermont</option>
+                  <option value="VA">Virginia</option>
+                  <option value="WA">Washington</option>
+                  <option value="WV">West Virginia</option>
+                  <option value="WI">Wisconsin</option>
+                  <option value="WY">Wyoming</option>
+                  <option value="DC">District of Columbia</option>
+                </select>
+                <p x-show="errors.state" class="text-red-500 text-xs mt-1" x-text="errors.state"></p>
+              </div>
+              <div>
+                <label class="block text-sm text-zinc-600 mb-2">ZIP Code *</label>
+                <input 
+                  type="text" 
+                  name="zip" 
+                  x-model="formData.zip"
+                  @input.debounce.400ms="validateField('zip')"
+                  @blur="validateField('zip')"
+                  :class="errors.zip ? 'border-red-500' : 'border-zinc-300'"
+                  class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
+                <p x-show="errors.zip" class="text-red-500 text-xs mt-1" x-text="errors.zip"></p>
+              </div>
+            </div>
+          </div>
 
-  <!-- Phone & Email -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-5">
-    <div>
-      <label class="block text-sm text-zinc-600 mb-2">Phone *</label>
-      <input type="tel" name="phone" required class="w-full border rounded-2xl px-5 py-3.5">
-    </div>
-    <div>
-      <label class="block text-sm text-zinc-600 mb-2">Email Address *</label>
-      <input type="email" name="email" required class="w-full border rounded-2xl px-5 py-3.5">
-    </div>
-  </div>
-</div>
+          <!-- Phone & Email -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-5">
+            <div>
+              <label class="block text-sm text-zinc-600 mb-2">Phone *</label>
+              <input 
+                type="tel" 
+                name="phone" 
+                x-model="formData.phone"
+                @input.debounce.400ms="validateField('phone')"
+                @blur="validateField('phone')"
+                :class="errors.phone ? 'border-red-500' : 'border-zinc-300'"
+                class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
+              <p x-show="errors.phone" class="text-red-500 text-xs mt-1" x-text="errors.phone"></p>
+            </div>
+            <div>
+              <label class="block text-sm text-zinc-600 mb-2">Email Address *</label>
+              <input 
+                type="email" 
+                name="email" 
+                x-model="formData.email"
+                @input.debounce.400ms="validateField('email')"
+                @blur="validateField('email')"
+                :class="errors.email ? 'border-red-500' : 'border-zinc-300'"
+                class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
+              <p x-show="errors.email" class="text-red-500 text-xs mt-1" x-text="errors.email"></p>
+            </div>
+          </div>
+        </div>
 
         <!-- Shipping Method -->
         <div>
@@ -339,6 +283,111 @@
       </form>
     </div>
 
+    <!-- RIGHT COLUMN: Order Summary -->
+    <div class="order-1 lg:order-2">
+      <div class="bg-white border border-zinc-300 rounded-3xl p-6 sm:p-8 lg:sticky lg:top-8 flex flex-col h-fit shadow-xl">
+        <h2 class="text-2xl font-semibold text-black mb-6 flex items-center justify-between">
+          <span>Your Order</span>
+          <span class="text-xs px-3 py-1 bg-zinc-100 rounded-full text-zinc-600 font-normal" x-text="cart.length + ' items'"></span>
+        </h2>
+
+        <!-- Cart Items -->
+        <div class="space-y-3 mb-6 text-sm">
+          <template x-for="item in cart" :key="item.id">
+            <div class="flex justify-between">
+              <span x-text="item.name + ' × ' + item.qty"></span>
+              <span x-text="'$' + (item.price * item.qty).toFixed(2)"></span>
+            </div>
+          </template>
+        </div>
+
+        <!-- Totals -->
+        <div class="border-t border-zinc-300 pt-5 space-y-2 text-sm">
+          <div class="flex justify-between"><span>Subtotal</span><span x-text="'$' + cartTotal.toFixed(2)"></span></div>
+          <div class="flex justify-between"><span>Shipping</span><span x-text="cartTotal >= 250 ? 'Free' : '$12.99'"></span></div>
+          <div class="flex justify-between text-2xl font-bold pt-3 border-t border-zinc-300">
+            <span>Total</span>
+            <span x-text="'$' + discountedTotal.toFixed(2)"></span>
+          </div>
+        </div>
+
+        <!-- Coupon -->
+        <div class="mt-6">
+          <div class="flex gap-2">
+            <input type="text" x-model="couponCode" placeholder="Coupon code" class="flex-1 border border-zinc-300 rounded-2xl px-4 py-3 text-sm">
+            <button @click="applyCoupon()" class="bg-[#ff1493] hover:bg-pink-600 px-5 py-3 rounded-2xl font-medium text-white text-sm">Apply</button>
+          </div>
+          <p x-show="couponMessage" class="mt-2 text-sm" :class="appliedCoupon ? 'text-green-600' : 'text-red-600'" x-text="couponMessage"></p>
+        </div>
+
+        <!-- Payment Methods -->
+        <div class="mt-8">
+          <h3 class="text-xl font-semibold text-black mb-4">Payment Method</h3>
+          
+          <!-- Venmo -->
+          <div class="mb-3 border border-zinc-300 rounded-2xl overflow-hidden">
+            <button @click="activePayment = activePayment === 'venmo' ? null : 'venmo'" class="w-full flex justify-between items-center px-6 py-4 hover:bg-zinc-50 transition">
+              <span class="font-medium">Pay with Venmo</span>
+              <span x-text="activePayment === 'venmo' ? '▲' : '▼'" class="text-xl text-zinc-400"></span>
+            </button>
+            <div x-show="activePayment === 'venmo'" class="px-6 pb-6 text-sm text-zinc-700 bg-white">
+              <p>1. Complete your order to get your order number.</p>
+              <p class="mt-2">2. Send the exact total via Venmo.</p>
+              
+              <div class="mt-4 bg-red-100 border-2 border-red-500 text-red-700 px-5 py-4 rounded-2xl">
+                <div class="flex items-start gap-3">
+                  <span class="text-3xl mt-0.5">⚠️</span>
+                  <div>
+                    <p class="font-extrabold text-red-700 text-base leading-tight">DO NOT TURN ON PURCHASE PROTECTION!</p>
+                    <p class="text-red-600 text-sm mt-1.5 font-semibold">This will delay your order until payment clears.</p>
+                  </div>
+                </div>
+              </div>
+              
+              <p class="mt-4 font-bold">Include only your order number in the note.</p>
+              <p class="mt-3 text-red-600 font-semibold">Use only the order number in the note — no other words, just the order number.</p>
+            </div>
+          </div>
+
+          <!-- Cash App -->
+          <div class="mb-3 border border-zinc-300 rounded-2xl overflow-hidden">
+            <button @click="activePayment = activePayment === 'cashapp' ? null : 'cashapp'" class="w-full flex justify-between items-center px-5 py-3.5 hover:bg-zinc-50 transition text-sm">
+              <span class="font-medium">Cash App</span>
+              <span x-text="activePayment === 'cashapp' ? '▲' : '▼'" class="text-zinc-400"></span>
+            </button>
+            <div x-show="activePayment === 'cashapp'" class="px-5 pb-5 text-sm text-zinc-600 bg-white">
+              Send to <strong>$ParagonPeps</strong> + order number.
+            </div>
+          </div>
+
+          <!-- Bitcoin -->
+          <div class="border border-zinc-300 rounded-2xl overflow-hidden">
+            <button @click="activePayment = activePayment === 'bitcoin' ? null : 'bitcoin'" class="w-full flex justify-between items-center px-5 py-3.5 hover:bg-zinc-50 transition text-sm">
+              <span class="font-medium">Bitcoin</span>
+              <span x-text="activePayment === 'bitcoin' ? '▲' : '▼'" class="text-zinc-400"></span>
+            </button>
+            <div x-show="activePayment === 'bitcoin'" class="px-5 pb-5 text-sm text-zinc-600 bg-white">
+              Send to: <span class="font-mono text-xs text-[#ff1493]">bc1qyf52536x9emcm5fu542w9atuwlfhpnd3z5xlfw</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="mt-6 flex justify-center gap-4 text-xs text-zinc-500">
+          <div>🔒 SSL Secured</div>
+          <div>🛡️ Research Use Only</div>
+        </div>
+
+        <!-- Place Order Button -->
+        <button 
+          @click="handleCheckoutSubmit()"
+          :disabled="isSubmitting || !isFormValid()"
+          class="mt-8 w-full py-6 rounded-3xl font-semibold text-2xl text-white transition disabled:opacity-50"
+          :class="isSubmitting ? 'bg-zinc-400' : 'bg-[#ff1493] hover:bg-pink-600'">
+          <span x-text="isSubmitting ? 'Processing...' : 'Place Secure Order'"></span>
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -358,15 +407,44 @@
 <script>
 function app() {
   return {
+    // Cart
     cart: [],
     cartTotal: 0,
     discountedTotal: 0,
+
+    // Form Data & Validation
+    formData: {
+      first_name: '',
+      last_name: '',
+      address: '',
+      city: '',
+      state: '',
+      zip: '',
+      phone: '',
+      email: ''
+    },
+    errors: {},
+
+    validationRules: {
+      first_name: { required: true, message: 'First name is required' },
+      last_name:  { required: true, message: 'Last name is required' },
+      address:    { required: true, message: 'Street address is required' },
+      city:       { required: true, message: 'City is required' },
+      state:      { required: true, message: 'Please select a state' },
+      zip:        { required: true, pattern: /^\d{5}(-\d{4})?$/, message: 'Please enter a valid ZIP code' },
+      phone:      { required: true, pattern: /^[\d\s\-\(\)]{10,}$/, message: 'Please enter a valid phone number' },
+      email:      { required: true, pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: 'Please enter a valid email address' }
+    },
+
+    // Payment
     activePayment: null,
     agreedToTOS: false,
     agreedToPolicies: false,
     agreedToPayment: false,
     isSubmitting: false,
     showPaymentAlert: true,
+
+    // Coupon
     couponCode: '',
     appliedCoupon: null,
     couponMessage: '',
@@ -384,36 +462,42 @@ function app() {
       this.discountedTotal = total + shipping;
     },
 
-    applyCoupon() {
-      const code = this.couponCode.trim().toUpperCase();
-      this.couponMessage = '';
-      this.appliedCoupon = null;
-      const valid = {
-        'PARAGON15': { discount: 0.15, message: '✅ 15% off applied!' },
-        'WELCOME10': { discount: 0.10, message: '✅ 10% off applied!' }
-      };
-      if (valid[code]) {
-        this.appliedCoupon = { code, discount: valid[code].discount };
-        this.couponMessage = valid[code].message;
-        this.calculateTotals();
-      } else {
-        this.couponMessage = '❌ Invalid coupon';
+    // Optimized Validation
+    validateField(field) {
+      const value = this.formData[field]?.trim() || '';
+      const rule = this.validationRules[field];
+      let error = '';
+
+      if (rule.required && !value) {
+        error = rule.message;
+      } else if (rule.pattern && value && !rule.pattern.test(value)) {
+        error = rule.message;
       }
+
+      this.errors[field] = error;
+      return !error;
+    },
+
+    validateForm() {
+      let isValid = true;
+      Object.keys(this.validationRules).forEach(field => {
+        if (!this.validateField(field)) isValid = false;
+      });
+      return isValid;
+    },
+
+    isFormValid() {
+      return Object.values(this.errors).every(e => !e);
     },
 
     async handleCheckoutSubmit() {
+      if (!this.validateForm()) {
+        alert("Please fill in all required fields correctly.");
+        return;
+      }
+
       this.isSubmitting = true;
       const form = document.getElementById('checkout-form');
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        this.isSubmitting = false;
-        return;
-      }
-      if (!this.agreedToTOS || !this.agreedToPolicies || !this.agreedToPayment) {
-        alert("Please agree to all required terms");
-        this.isSubmitting = false;
-        return;
-      }
 
       const formData = new FormData(form);
       const orderNum = "PP-" + Math.floor(100000 + Math.random() * 900000);
@@ -445,6 +529,25 @@ function app() {
         alert("Network error. Please try again.");
       } finally {
         this.isSubmitting = false;
+      }
+    },
+
+    applyCoupon() {
+      const code = this.couponCode.trim().toUpperCase();
+      this.couponMessage = '';
+      this.appliedCoupon = null;
+
+      const valid = {
+        'PARAGON15': { discount: 0.15, message: '✅ 15% off applied!' },
+        'WELCOME10': { discount: 0.10, message: '✅ 10% off applied!' }
+      };
+
+      if (valid[code]) {
+        this.appliedCoupon = { code, discount: valid[code].discount };
+        this.couponMessage = valid[code].message;
+        this.calculateTotals();
+      } else {
+        this.couponMessage = '❌ Invalid coupon';
       }
     }
   };
