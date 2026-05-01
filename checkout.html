@@ -11,23 +11,13 @@
   <style>
     [x-cloak] { display: none !important; }
     body { font-family: 'Inter', system-ui, sans-serif; background: #ffffff; color: #000000; }
-    h1, h2, h3 { font-family: 'Satoshi', sans-serif; }
-    
-    input, select, textarea {
-      border-color: #d1d5db !important;
-      border-width: 1px;
-      background: #ffffff;
-      color: #000000;
-    }
-    input:focus, select:focus, textarea:focus {
-      border-color: #ff1493 !important;
-      box-shadow: 0 0 0 3px rgba(255, 20, 147, 0.15);
-    }
+    input, select, textarea { border-color: #d1d5db !important; }
+    input:focus, select:focus, textarea:focus { border-color: #ff1493 !important; box-shadow: 0 0 0 3px rgba(255, 20, 147, 0.15); }
   </style>
 </head>
 <body class="antialiased" x-data="app()" x-init="init()">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-  
+
   <!-- Back Button -->
   <button @click="window.location.href='/'" class="mb-6 flex items-center gap-2 text-[#ff1493] hover:text-pink-600 font-medium text-sm">
     ← Return to Cart
@@ -51,10 +41,9 @@
     </div>
   </div>
 
-  <!-- Main Layout -->
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
     
-    <!-- LEFT COLUMN: Billing Form -->
+    <!-- LEFT: Billing Form -->
     <div class="order-2 lg:order-1">
       <h1 class="text-4xl font-bold text-black mb-8">Checkout</h1>
       
@@ -68,26 +57,18 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
               <label class="block text-sm text-zinc-600 mb-2">First Name *</label>
-              <input 
-                type="text" 
-                name="first_name" 
-                x-model="formData.first_name"
-                @input.debounce.400ms="validateField('first_name')"
-                @blur="validateField('first_name')"
-                :class="errors.first_name ? 'border-red-500' : 'border-zinc-300'"
-                class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
+              <input type="text" name="first_name" x-model="formData.first_name" 
+                     @input.debounce.400ms="validateField('first_name')" @blur="validateField('first_name')"
+                     :class="errors.first_name ? 'border-red-500' : 'border-zinc-300'"
+                     class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
               <p x-show="errors.first_name" class="text-red-500 text-xs mt-1" x-text="errors.first_name"></p>
             </div>
             <div>
               <label class="block text-sm text-zinc-600 mb-2">Last Name *</label>
-              <input 
-                type="text" 
-                name="last_name" 
-                x-model="formData.last_name"
-                @input.debounce.400ms="validateField('last_name')"
-                @blur="validateField('last_name')"
-                :class="errors.last_name ? 'border-red-500' : 'border-zinc-300'"
-                class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
+              <input type="text" name="last_name" x-model="formData.last_name" 
+                     @input.debounce.400ms="validateField('last_name')" @blur="validateField('last_name')"
+                     :class="errors.last_name ? 'border-red-500' : 'border-zinc-300'"
+                     class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
               <p x-show="errors.last_name" class="text-red-500 text-xs mt-1" x-text="errors.last_name"></p>
             </div>
           </div>
@@ -95,14 +76,10 @@
           <!-- Street Address -->
           <div class="mt-5">
             <label class="block text-sm text-zinc-600 mb-2">Street Address *</label>
-            <input 
-              type="text" 
-              name="address" 
-              x-model="formData.address"
-              @input.debounce.400ms="validateField('address')"
-              @blur="validateField('address')"
-              :class="errors.address ? 'border-red-500' : 'border-zinc-300'"
-              class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
+            <input type="text" name="address" x-model="formData.address" 
+                   @input.debounce.400ms="validateField('address')" @blur="validateField('address')"
+                   :class="errors.address ? 'border-red-500' : 'border-zinc-300'"
+                   class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
             <p x-show="errors.address" class="text-red-500 text-xs mt-1" x-text="errors.address"></p>
           </div>
 
@@ -110,26 +87,19 @@
           <div class="mt-5">
             <div class="mb-5">
               <label class="block text-sm text-zinc-600 mb-2">City *</label>
-              <input 
-                type="text" 
-                name="city" 
-                x-model="formData.city"
-                @input.debounce.400ms="validateField('city')"
-                @blur="validateField('city')"
-                :class="errors.city ? 'border-red-500' : 'border-zinc-300'"
-                class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
+              <input type="text" name="city" x-model="formData.city" 
+                     @input.debounce.400ms="validateField('city')" @blur="validateField('city')"
+                     :class="errors.city ? 'border-red-500' : 'border-zinc-300'"
+                     class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
               <p x-show="errors.city" class="text-red-500 text-xs mt-1" x-text="errors.city"></p>
             </div>
             
             <div class="grid grid-cols-2 gap-5">
               <div>
                 <label class="block text-sm text-zinc-600 mb-2">State *</label>
-                <select 
-                  name="state" 
-                  x-model="formData.state"
-                  @change="validateField('state')"
-                  :class="errors.state ? 'border-red-500' : 'border-zinc-300'"
-                  class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
+                <select name="state" x-model="formData.state" @change="validateField('state')"
+                        :class="errors.state ? 'border-red-500' : 'border-zinc-300'"
+                        class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
                   <option value="">Select State</option>
                   <option value="AL">Alabama</option>
                   <option value="AK">Alaska</option>
@@ -187,14 +157,10 @@
               </div>
               <div>
                 <label class="block text-sm text-zinc-600 mb-2">ZIP Code *</label>
-                <input 
-                  type="text" 
-                  name="zip" 
-                  x-model="formData.zip"
-                  @input.debounce.400ms="validateField('zip')"
-                  @blur="validateField('zip')"
-                  :class="errors.zip ? 'border-red-500' : 'border-zinc-300'"
-                  class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
+                <input type="text" name="zip" x-model="formData.zip" 
+                       @input.debounce.400ms="validateField('zip')" @blur="validateField('zip')"
+                       :class="errors.zip ? 'border-red-500' : 'border-zinc-300'"
+                       class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
                 <p x-show="errors.zip" class="text-red-500 text-xs mt-1" x-text="errors.zip"></p>
               </div>
             </div>
@@ -204,26 +170,18 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-5">
             <div>
               <label class="block text-sm text-zinc-600 mb-2">Phone *</label>
-              <input 
-                type="tel" 
-                name="phone" 
-                x-model="formData.phone"
-                @input.debounce.400ms="validateField('phone')"
-                @blur="validateField('phone')"
-                :class="errors.phone ? 'border-red-500' : 'border-zinc-300'"
-                class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
+              <input type="tel" name="phone" x-model="formData.phone" 
+                     @input.debounce.400ms="validateField('phone')" @blur="validateField('phone')"
+                     :class="errors.phone ? 'border-red-500' : 'border-zinc-300'"
+                     class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
               <p x-show="errors.phone" class="text-red-500 text-xs mt-1" x-text="errors.phone"></p>
             </div>
             <div>
               <label class="block text-sm text-zinc-600 mb-2">Email Address *</label>
-              <input 
-                type="email" 
-                name="email" 
-                x-model="formData.email"
-                @input.debounce.400ms="validateField('email')"
-                @blur="validateField('email')"
-                :class="errors.email ? 'border-red-500' : 'border-zinc-300'"
-                class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
+              <input type="email" name="email" x-model="formData.email" 
+                     @input.debounce.400ms="validateField('email')" @blur="validateField('email')"
+                     :class="errors.email ? 'border-red-500' : 'border-zinc-300'"
+                     class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
               <p x-show="errors.email" class="text-red-500 text-xs mt-1" x-text="errors.email"></p>
             </div>
           </div>
@@ -240,7 +198,6 @@
                 <div class="text-sm text-zinc-600">3–5 days • $12.99</div>
               </div>
             </label>
-            
             <label class="flex items-center gap-3 p-4 border border-zinc-300 rounded-2xl cursor-pointer hover:border-[#ff1493]">
               <input type="radio" name="shipping_method" value="usps_2day" class="w-5 h-5 accent-[#ff1493]">
               <div>
@@ -248,7 +205,6 @@
                 <div class="text-sm text-zinc-600">1–2 days • $29.99</div>
               </div>
             </label>
-            
             <label class="flex items-center gap-3 p-4 border border-zinc-300 rounded-2xl cursor-pointer hover:border-[#ff1493]">
               <input type="radio" name="shipping_method" value="free_over_250" class="w-5 h-5 accent-[#ff1493]">
               <div>
@@ -283,7 +239,7 @@
       </form>
     </div>
 
-    <!-- RIGHT COLUMN: Order Summary -->
+    <!-- RIGHT: Order Summary -->
     <div class="order-1 lg:order-2">
       <div class="bg-white border border-zinc-300 rounded-3xl p-6 sm:p-8 lg:sticky lg:top-8 flex flex-col h-fit shadow-xl">
         <h2 class="text-2xl font-semibold text-black mb-6 flex items-center justify-between">
@@ -304,7 +260,7 @@
         <!-- Totals -->
         <div class="border-t border-zinc-300 pt-5 space-y-2 text-sm">
           <div class="flex justify-between"><span>Subtotal</span><span x-text="'$' + cartTotal.toFixed(2)"></span></div>
-          <div class="flex justify-between"><span>Shipping</span><span x-text="cartTotal >= 250 ? 'Free' : '$12.99'"></span></div>
+          <div class="flex justify-between"><span>Shipping</span><span x-text="discountedTotal >= 250 ? 'Free' : '$12.99'"></span></div>
           <div class="flex justify-between text-2xl font-bold pt-3 border-t border-zinc-300">
             <span>Total</span>
             <span x-text="'$' + discountedTotal.toFixed(2)"></span>
@@ -333,7 +289,6 @@
             <div x-show="activePayment === 'venmo'" class="px-6 pb-6 text-sm text-zinc-700 bg-white">
               <p>1. Complete your order to get your order number.</p>
               <p class="mt-2">2. Send the exact total via Venmo.</p>
-              
               <div class="mt-4 bg-red-100 border-2 border-red-500 text-red-700 px-5 py-4 rounded-2xl">
                 <div class="flex items-start gap-3">
                   <span class="text-3xl mt-0.5">⚠️</span>
@@ -343,7 +298,6 @@
                   </div>
                 </div>
               </div>
-              
               <p class="mt-4 font-bold">Include only your order number in the note.</p>
               <p class="mt-3 text-red-600 font-semibold">Use only the order number in the note — no other words, just the order number.</p>
             </div>
@@ -378,7 +332,7 @@
           <div>🛡️ Research Use Only</div>
         </div>
 
-        <!-- Place Order Button -->
+        <!-- Place Secure Order Button -->
         <button 
           @click="handleCheckoutSubmit()"
           :disabled="isSubmitting || !isFormValid()"
@@ -407,21 +361,13 @@
 <script>
 function app() {
   return {
-    // Cart
+    // === STATE ===
     cart: [],
     cartTotal: 0,
     discountedTotal: 0,
 
-    // Form Data & Validation
     formData: {
-      first_name: '',
-      last_name: '',
-      address: '',
-      city: '',
-      state: '',
-      zip: '',
-      phone: '',
-      email: ''
+      first_name: '', last_name: '', address: '', city: '', state: '', zip: '', phone: '', email: ''
     },
     errors: {},
 
@@ -436,7 +382,6 @@ function app() {
       email:      { required: true, pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: 'Please enter a valid email address' }
     },
 
-    // Payment
     activePayment: null,
     agreedToTOS: false,
     agreedToPolicies: false,
@@ -444,24 +389,20 @@ function app() {
     isSubmitting: false,
     showPaymentAlert: true,
 
-    // Coupon
     couponCode: '',
     appliedCoupon: null,
     couponMessage: '',
 
-  init() {
+    // === METHODS ===
+    init() {
       this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
       this.calculateTotals();
     },
 
     calculateTotals() {
       this.cartTotal = this.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-      
       let subtotal = this.cartTotal;
-      if (this.appliedCoupon) {
-        subtotal = subtotal * (1 - this.appliedCoupon.discount);
-      }
-      
+      if (this.appliedCoupon) subtotal = subtotal * (1 - this.appliedCoupon.discount);
       const shipping = subtotal >= 250 ? 0 : 12.99;
       this.discountedTotal = subtotal + shipping;
     },
@@ -470,9 +411,32 @@ function app() {
       localStorage.setItem('paragonCart', JSON.stringify(this.cart));
     },
 
-    validateField(field) { /* same as before */ },
-    validateForm() { /* same as before */ },
-    isFormValid() { /* same as before */ },
+    validateField(field) {
+      const value = this.formData[field]?.trim() || '';
+      const rule = this.validationRules[field];
+      let error = '';
+
+      if (rule.required && !value) {
+        error = rule.message;
+      } else if (rule.pattern && value && !rule.pattern.test(value)) {
+        error = rule.message;
+      }
+
+      this.errors[field] = error;
+      return !error;
+    },
+
+    validateForm() {
+      let isValid = true;
+      Object.keys(this.validationRules).forEach(field => {
+        if (!this.validateField(field)) isValid = false;
+      });
+      return isValid;
+    },
+
+    isFormValid() {
+      return Object.keys(this.validationRules).every(field => !this.errors[field]);
+    },
 
     async handleCheckoutSubmit() {
       if (!this.validateForm()) {
@@ -535,7 +499,7 @@ function app() {
       if (valid[code]) {
         this.appliedCoupon = { code, discount: valid[code].discount };
         this.couponMessage = valid[code].message;
-        this.calculateTotals();   // ← This was missing before
+        this.calculateTotals();
       } else {
         this.couponMessage = '❌ Invalid coupon';
       }
