@@ -178,10 +178,14 @@
             </div>
             <div>
               <label class="block text-sm text-zinc-600 mb-2">Email Address *</label>
-              <input type="email" name="email" x-model="formData.email" 
-                     @input.debounce.400ms="validateField('email')" @blur="validateField('email')"
-                     :class="errors.email ? 'border-red-500' : 'border-zinc-300'"
-                     class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
+<input
+  type="email"
+  name="email"
+  x-model="formData.email"
+  @input="validateField('email')"
+  @blur="validateField('email')"
+  :class="errors.email ? 'border-red-500' : 'border-zinc-300'"
+  class="w-full border rounded-2xl px-5 py-3.5 focus:outline-none focus:border-[#ff1493]">
               <p x-show="errors.email" class="text-red-500 text-xs mt-1" x-text="errors.email"></p>
             </div>
           </div>
@@ -379,7 +383,11 @@ function app() {
       state:      { required: true, message: 'Please select a state' },
       zip:        { required: true, pattern: /^\d{5}(-\d{4})?$/, message: 'Please enter a valid ZIP code' },
       phone:      { required: true, pattern: /^[\d\s\-\(\)]{10,}$/, message: 'Please enter a valid phone number' },
-      email:      { required: true, pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: 'Please enter a valid email address' }
+      email: { 
+        required: true, 
+        pattern: /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/, 
+        message: 'Please enter a valid email address (e.g. name@domain.com)' 
+      }
     },
 
     activePayment: null,
@@ -411,20 +419,29 @@ function app() {
       localStorage.setItem('paragonCart', JSON.stringify(this.cart));
     },
 
-    validateField(field) {
-      const value = this.formData[field]?.trim() || '';
-      const rule = this.validationRules[field];
-      let error = '';
+validateField(field) {
+  const value = this.formData[field]?.trim() || '';
+  const rule = this.validationRules[field];
+  let error = '';
 
-      if (rule.required && !value) {
-        error = rule.message;
-      } else if (rule.pattern && value && !rule.pattern.test(value)) {
-        error = rule.message;
-      }
+  if (rule.required && !value) {
+    error = rule.message;
+  } 
+  else if (rule.pattern && value && !rule.pattern.test(value)) {
+    error = rule.message;
+  }
+  // Extra strict check for fake TLDs like .con, .c0m, etc.
+  else if (field === 'email' && value) {
+    const tld = value.split('.').pop().toLowerCase();
+    const fakeTLDs = ['con', 'c0m', 'netc', 'coom', 'gmai', 'yahooo'];
+    if (fakeTLDs.includes(tld)) {
+      error = 'Please enter a valid email address';
+    }
+  }
 
-      this.errors[field] = error;
-      return !error;
-    },
+  this.errors[field] = error;
+  return !error;
+},
 
     validateForm() {
       let isValid = true;
@@ -507,5 +524,3 @@ function app() {
   };
 }
 </script>
-</body>
-</html>
