@@ -2,135 +2,62 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description" content="Premium research peptides for laboratory use only. HPLC-verified Retatrutide, Tirzepatide, BPC-157, GHK-Cu & more. Fast cold-chain shipping • For research only.">
-<!-- Google tag (gtag.js) - Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YDHV3JJ3KL"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-YDHV3JJ3KL');
-  </script>
-  <title>Paragon Peptides | Precision Research Compounds – HPLC Verified</title>
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://paragonpeptides.net">
-  <!-- Open Graph -->
-  <meta property="og:title" content="Paragon Peptides | Precision Research Compounds">
-  <meta property="og:description" content="Lab-grade peptides for scientific research. Retatrutide, Tirzepatide, BPC-157 & more.">
-  <meta property="og:image" content="https://i.imgur.com/4nw0O80.jpeg">
-  <meta property="og:url" content="https://paragonpeptides.net">
-  <meta name="trustpilot-one-time-domain-verification-id"   content="95ded606-5ff5-487b-ab95-6997be5b1b4a"/>
-<!-- Favicon -->
-<link rel="icon" href="https://i.imgur.com/jXQlcWB.png" type="image/png">
-<link rel="icon" href="/favicon.png?v=2" type="image/png" sizes="32x32">
-<link rel="apple-touch-icon" href="https://i.imgur.com/jXQlcWB.png" sizes="180x180">  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+  
+  <!-- Preconnect for faster external loading -->
+  <link rel="preconnect" href="https://lydlmgzavepcdtreeoto.supabase.co">
+  <link rel="preconnect" href="https://i.imgur.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Satoshi:wght@400;500;700&display=swap" rel="stylesheet">
+  <title>Paragon Peptides | Precision Research Compounds</title>
+  
+  <!-- Critical CSS first -->
   <style>
-    [x-cloak] { display: none !important; }
-    :root { --accent: #ff1493; }
-    body { font-family: 'Inter', system-ui, sans-serif; background: #000000; color: #e2e8f0; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #000; color: #e2e8f0; }
     h1, h2, h3 { font-family: 'Satoshi', sans-serif; }
-    .product-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-    .product-card:hover { transform: translateY(-12px); box-shadow: 0 25px 30px -10px rgb(255 20 147 / 0.15); }
-    .modal { animation: modalPop 0.3s ease-out; }
-    @keyframes modalPop { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-
+    
+    /* Performance-optimized product cards */
+    .product-card {
+      transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease;
+      will-change: transform, box-shadow;
+    }
+    .product-card:hover {
+      transform: translateY(-10px) scale(1.01);
+      box-shadow: 0 0 70px rgba(255, 20, 147, 0.85);
+    }
+    .product-card.in-view {
+      animation: fastReveal 0.6s ease forwards;
+    }
+    @keyframes fastReveal {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
     /* Mobile optimizations */
     @media (max-width: 640px) {
-      .dose-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
-      .dose-grid button { padding: 0.75rem 0.5rem; font-size: 0.875rem; }
-      .max-w-lg { max-width: 95% !important; }
-      .px-6 { padding-left: 1rem; padding-right: 1rem; }
-      .py-12 { padding-top: 2rem; padding-bottom: 2rem; }
-      .modal { padding: 1.5rem !important; }
-    @media (max-width: 640px) {
-       .success-modal { 
-       max-height: 85vh !important; 
-       overflow-y: auto !important; 
-       padding: 1.25rem !important; 
-  }
-  .success-modal button { min-height: 48px !important; } /* bigger tap targets */
-}
+      .product-card { border-radius: 18px; }
+      .product-card:hover { transform: translateY(-4px) scale(1.005); }
+      .add-to-cart-btn { min-height: 48px; }
     }
-
-    /* Font loading */
-    @font-face { font-family: 'Inter'; font-display: swap; }
-    @font-face { font-family: 'Satoshi'; font-display: swap; }
-/* PERFECT SMOOTH SCROLLING – GPU acceleration without breaking centering */
-html {
-  scroll-behavior: smooth;
-}
-body {
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-y: none;
-}
-.product-card img,
-.fixed,
-.modal,
-header,
-.success-modal,
-div[x-show="showGate"] > div {
-  will-change: transform;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-}
-/* SCROLL OPTIMIZATION v3 – Content Visibility (kills the last hiccup on product grid) */
-#shop {
-  content-visibility: auto;
-  contain-intrinsic-size: 800px 1600px; /* helps browser predict scroll */
-}
-.product-card {
-  contain: layout paint;
-}
-.product-card {
-  box-shadow: 0 0 20px rgba(255, 20, 147, 0.4);
-  transition: box-shadow 0.4s ease, transform 0.4s ease;
-}
-
-.product-card:hover {
-  box-shadow: 0 0 60px rgba(255, 20, 147, 0.9);
-  transform: translateY(-8px);
-}
-
-/* Extra glow when dose is selected */
-.product-card button[aria-selected="true"] {
-  box-shadow: 0 0 40px rgba(255, 20, 147, 0.8);
-}
-
-.product-card {
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.product-card.in-view,
-.product-card:hover {
-  box-shadow: 0 0 60px rgba(255, 20, 147, 0.9) !important;
-  border-color: #ff1493 !important;
-  transform: translateY(-8px);
-}
-
-/* Extra pulse on first scroll-in */
-.product-card.in-view {
-  animation: neonPulse 1.5s ease-out forwards;
-}
-
-@keyframes neonPulse {
-  0%   { box-shadow: 0 0 30px rgba(255, 20, 147, 0.6); }
-  50%  { box-shadow: 0 0 80px rgba(255, 20, 147, 1); }
-  100% { box-shadow: 0 0 60px rgba(255, 20, 147, 0.9); }
-}
-
-
- </style>
+    
+    .premium-newsletter {
+      background: rgba(15, 15, 20, 0.96);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 20, 147, 0.15);
+    }
+  </style>
+  
+  <!-- Non-critical scripts deferred -->
+  <script src="https://cdn.tailwindcss.com" defer></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
 </head>
 <body class="antialiased" x-data="app()" x-init="init()">
+<div id="scroll-progress" style="width: 0%"></div>
 
-<!-- Noscript fallback (shows if JS is disabled) -->
+<!-- Noscript fallback -->
 <noscript>
   <div class="fixed inset-0 bg-black flex items-center justify-center text-white text-center p-6 z-[999999]">
     <div>
@@ -140,9 +67,8 @@ div[x-show="showGate"] > div {
   </div>
 </noscript>
 
-<!-- AGE GATE – Shows every visit (no persistence) + reliable on live site -->
+<!-- AGE GATE -->
 <div x-data="{ showGate: true }">
-  <!-- Age Gate Modal -->
   <div x-show="showGate" x-cloak
        class="fixed inset-0 z-[999999] flex items-center justify-center bg-black/95 backdrop-blur-xl"
        x-transition>
@@ -166,689 +92,566 @@ div[x-show="showGate"] > div {
   </div>
 
   <!-- MAIN SITE -->
- <div x-show="!showGate" x-cloak>
+  <div x-show="!showGate" x-cloak>
     <!-- FLASH SALE BANNER -->
-    <div class="bg-[#ff1493] text-white text-center py-2.5 text-sm font-medium">100% Customer Satisfaction Guarantee
-Free Priority Shipping on all orders over $250</div>
+    <div class="bg-[#ff1493] text-white text-center py-2.5 text-sm font-medium">100% Customer Satisfaction Guarantee • Free Priority Shipping on all orders over $250</div>
 
-<!-- HEADER – WHITE SLIDE-IN MENU WITH ALL 3 SOCIAL ICONS -->
-<header class="bg-black border-b border-zinc-800 sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-    <!-- Logo -->
-    <a href="#" class="flex items-center gap-3">
-      <img src="https://i.imgur.com/4nw0O80.jpeg" alt="Paragon Peptides" class="h-8 w-8">
-    </a>
+    <!-- HEADER -->
+    <header class="bg-black border-b border-zinc-800 sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-3">
+          <img src="https://i.imgur.com/4nw0O80.jpeg" alt="Paragon Peptides" class="h-8 w-8">
+        </a>
 
-    <!-- Desktop Nav -->
-    <nav class="hidden md:flex items-center gap-x-8 text-sm font-medium text-white">
-    <a @click="showGetInTouchModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Get in Touch</a>
-      <a @click="showSupportModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Terms & Services</a>
-      <a @click="showFaqsPage = true" class="hover:text-[#ff1493] transition cursor-pointer">FAQs & Policies</a>
-      <a @click="showAccountModal = true" class="hover:text-[#ff1493] transition cursor-pointer">My Account</a>
-    </nav>
- <div class="flex items-center gap-4 sm:gap-6">
-       <!-- Responsive Search Bar - Works perfectly on Mobile + Desktop -->
-<div class="relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:w-72">
-  <input 
-    type="text" 
-    x-model="searchTerm" 
-    placeholder="Search peptides (e.g. Mots-C, Reta, BPC...)" 
-    @input="handleSearch()" 
-    class="w-full bg-zinc-950 border border-zinc-800 rounded-full pl-9 pr-4 py-3 text-sm focus:outline-none focus:border-[#ff1493] placeholder:text-zinc-400">
-  
-  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 absolute left-3 top-3.5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 01-14 0 7 7 0 0114 0z" />
-  </svg>
-</div>
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex items-center gap-x-8 text-sm font-medium text-white">
+          <a @click="showGetInTouchModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Get in Touch</a>
+          <a @click="showSupportModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Terms & Services</a>
+          <a @click="showFaqsPage = true" class="hover:text-[#ff1493] transition cursor-pointer">FAQs & Policies</a>
+          <a @click="showAccountModal = true" class="hover:text-[#ff1493] transition cursor-pointer">My Account</a>
+        </nav>
 
+        <div class="flex items-center gap-4 sm:gap-6">
+          <!-- Search Bar -->
+          <div class="relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:w-72">
+            <input 
+              type="text" 
+              x-model="searchTerm" 
+              placeholder="Search peptides (e.g. Mots-C, Reta, BPC...)" 
+              @input="handleSearch()" 
+              class="w-full bg-zinc-950 border border-zinc-800 rounded-full pl-9 pr-4 py-3 text-sm focus:outline-none focus:border-[#ff1493] placeholder:text-zinc-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 absolute left-3 top-3.5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 01-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
 
-    <!-- Mobile Hamburger + Cart -->
-    <div class="flex items-center gap-6">
-      <button @click="mobileMenuOpen = !mobileMenuOpen" 
-              class="md:hidden w-11 h-11 flex items-center justify-center text-3xl text-white hover:text-[#ff1493] transition">
-        ☰
-      </button>
-      <button @click="cartOpen = true" class="relative flex items-center gap-2 text-sm font-medium text-white">
-        <span class="hidden sm:inline">Cart</span>
-        <span class="relative">
-          🛒
-          <span x-show="cart.length > 0" 
-                class="absolute -top-1 -right-1 bg-[#ff1493] text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">
-            <span x-text="cart.length"></span>
-          </span>
-        </span>
-      </button>
-    </div>
-  </div>
-</header>
-
-  <!-- MOBILE MENU – SOLID BLACK FULLSCREEN (placed outside <header> to escape its stacking context / backdrop-filter containment) -->
-<div x-show="mobileMenuOpen" x-cloak
-     class="fixed inset-0 bg-black z-[99999] md:hidden flex flex-col"
-     style="background-color: #000000 !important; overscroll-behavior: none;"
-     x-transition:enter="transition ease-out duration-200"
-     x-transition:enter-start="translate-x-full"
-     x-transition:enter-end="translate-x-0"
-     x-transition:leave="transition ease-in duration-150"
-     x-transition:leave-start="translate-x-0"
-     x-transition:leave-end="translate-x-full">
-  <div class="flex justify-between items-center p-6 border-b border-zinc-800">
-    <span class="text-2xl font-bold tracking-tight text-white">Menu</span>
-    <button @click="mobileMenuOpen = false" class="text-4xl leading-none text-white">&times;</button>
-  </div>
-  <div class="flex-1 flex flex-col px-6 py-10 text-2xl font-medium text-white gap-y-10">
-    <a href="#shop" @click="mobileMenuOpen = false" class="hover:text-[#ff1493] transition">Shop</a>
-    <a @click="showGetInTouchModal = true; mobileMenuOpen = false" class="hover:text-[#ff1493] transition cursor-pointer">Get in Touch</a>
-    <a @click="showSupportModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Terms & Services</a>
-    <a @click="showFaqsPage = true; mobileMenuOpen = false" class="hover:text-[#ff1493] transition cursor-pointer">FAQs & Policies</a>
-    <a @click="showAccountModal = true; mobileMenuOpen = false" class="hover:text-[#ff1493] transition cursor-pointer">My Account</a>
-
-    <!-- SOCIAL ICONS – ALL 3 WITH OFFICIAL COLORS & SHAPES -->
-    <div class="mt-auto p-6 border-t border-zinc-800 flex justify-center gap-8">
-<a href="https://www.tiktok.com/@paragonpeptides" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#ff1493] hover:scale-110 transition duration-200">
-  <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.1-3.44-3.37-3.42-5.72-.03-1.91.82-3.75 2.22-5.04 1.39-1.3 3.32-1.97 5.24-1.8v4.17c-1.12-.17-2.31.19-3.1 1.02-.74.77-1.1 1.91-.9 2.99.32 1.73 1.85 3 3.6 3.06 1.42.06 2.82-.73 3.44-1.98.33-.65.42-1.39.42-2.11V.02z"/>
-  </svg>
-</a>
-
-      <!-- Telegram (real paper plane icon) -->
-      <a href="https://t.me/Paragonpeptides" 
-         target="_blank" rel="noopener noreferrer" 
-         class="text-[#0088cc] hover:text-[#ff1493] hover:scale-110 transition duration-200">
-        <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20.665 3.717L2.934 10.554C2.425 10.736 2.417 11.035 2.833 11.183L7.833 12.917L17.833 6.917C18.167 6.667 18.5 6.833 18.167 7.083L10.167 14.083L9.833 19.083C9.833 19.583 10.167 19.75 10.583 19.583L13.167 18.083L17.833 21.083C18.833 21.583 19.167 21.083 19.417 20.083L21.917 4.083C22.167 3.083 21.667 2.717 20.665 3.717Z"/>
-        </svg>
-      </a>
-
-<!-- Instagram (New) -->
-    <a href="https://instagram.com/paragonpeptides" 
-       target="_blank" 
-       rel="noopener noreferrer" 
-       class="text-black hover:text-[#ff1493] hover:scale-110 transition duration-200">
-      <svg class="w-9 h-9" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.849.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.667.072 4.947.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.76 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-      </svg>
-    </a>
-     </div>
-    </div>
-  </div>
-
-<!-- === HERO - MP4 VIDEO (Optimized & Fast) === -->
-<section class="relative h-screen w-full overflow-hidden">
-
-  <!-- MP4 Video Background -->
-  <video 
-    autoplay 
-    loop 
-    muted 
-    playsinline 
-    class="absolute inset-0 w-full h-full object-cover">
-    <source src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/hero-video.mp4.mp4"
-            type="video/mp4">
-  </video>
-
-  <!-- Dark gradient overlay -->
-  <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/60 to-black/90"></div>
-
-
-  <!-- Scroll indicator -->
-  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center text-white/70 text-xs tracking-widest">
-    <span>SCROLL TO EXPLORE</span>
-    <div class="w-px h-12 bg-gradient-to-b from-transparent via-white/50 to-transparent mt-3"></div>
-  </div>
-</section>
-
-
-<!-- === MOST ORDERED THIS MONTH (Working Version) === -->
-<section class="py-16 bg-zinc-950 border-t border-zinc-800">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="flex items-center justify-center gap-3 mb-10">
-      <div class="h-px w-12 bg-[#ff1493]"></div>
-      <h2 class="text-3xl font-bold tracking-tighter text-white">MOST ORDERED THIS MONTH</h2>
-      <div class="h-px w-12 bg-[#ff1493]"></div>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="group block cursor-pointer">
-        <div @click="window.location.href = 'product.html?id=111'" class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-[#ff1493] transition-all duration-300 relative">
-          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/reta-10mg.jpg" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="absolute top-4 right-4 bg-[#ff1493] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">#1 BESTSELLER</div>
-          <div class="p-6 text-center">
-            <h3 class="text-xl font-semibold text-white">Reta</h3>
-            <p class="text-zinc-400 text-sm">10 mg • $59</p>
-            <button @click.stop="quickAddToCart(111, 'Reta', '10mg', 59)" class="mt-4 w-full bg-white hover:bg-zinc-200 text-black font-semibold py-3 rounded-2xl transition">
-              Quick Add
+          <!-- Mobile Hamburger + Cart -->
+          <div class="flex items-center gap-6">
+            <button @click="mobileMenuOpen = !mobileMenuOpen" 
+                    class="md:hidden w-11 h-11 flex items-center justify-center text-3xl text-white hover:text-[#ff1493] transition">
+              ☰
+            </button>
+            <button @click="cartOpen = true" class="relative flex items-center gap-2 text-sm font-medium text-white">
+              <span class="hidden sm:inline">Cart</span>
+              <span class="relative">
+                🛒
+                <span x-show="cart.length > 0" 
+                      class="absolute -top-1 -right-1 bg-[#ff1493] text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">
+                  <span x-text="cart.length"></span>
+                </span>
+              </span>
             </button>
           </div>
         </div>
       </div>
-      <div class="group block cursor-pointer">
-        <div @click="window.location.href = 'product.html?id=112'" class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-[#ff1493] transition-all duration-300 relative">
-          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/tirz-20mg.jpg" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="absolute top-4 right-4 bg-[#ff1493] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">#2 BESTSELLER</div>
-          <div class="p-6 text-center">
-            <h3 class="text-xl font-semibold text-white">Tirz</h3>
-            <p class="text-zinc-400 text-sm">20 mg • $79</p>
-            <button @click.stop="quickAddToCart(112, 'Tirz', '20mg', 69)" class="mt-4 w-full bg-white hover:bg-zinc-200 text-black font-semibold py-3 rounded-2xl transition">
-              Quick Add
-            </button>
-          </div>
-        </div>
+    </header>
+
+    <!-- MOBILE MENU -->
+    <div x-show="mobileMenuOpen" x-cloak
+         class="fixed inset-0 bg-black z-[99999] md:hidden flex flex-col"
+         style="background-color: #000000 !important; overscroll-behavior: none;"
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="translate-x-full"
+         x-transition:enter-end="translate-x-0"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-start="translate-x-0"
+         x-transition:leave-end="translate-x-full">
+      <div class="flex justify-between items-center p-6 border-b border-zinc-800">
+        <span class="text-2xl font-bold tracking-tight text-white">Menu</span>
+        <button @click="mobileMenuOpen = false" class="text-4xl leading-none text-white">&times;</button>
       </div>
-      <div class="group block cursor-pointer">
-        <div @click="window.location.href = 'product.html?id=119'" class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-[#ff1493] transition-all duration-300 relative">
-          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/bpc-157-5mg.jpg" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="absolute top-4 right-4 bg-[#ff1493] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">#3 BESTSELLER</div>
-          <div class="p-6 text-center">
-            <h3 class="text-xl font-semibold text-white">BPC-157</h3>
-            <p class="text-zinc-400 text-sm">5 mg • $39</p>
-            <button @click.stop="quickAddToCart(119, 'BPC-157', '5mg', 49)" class="mt-4 w-full bg-white hover:bg-zinc-200 text-black font-semibold py-3 rounded-2xl transition">
-              Quick Add
-            </button>
-          </div>
+      <div class="flex-1 flex flex-col px-6 py-10 text-2xl font-medium text-white gap-y-10">
+        <a href="#shop" @click="mobileMenuOpen = false" class="hover:text-[#ff1493] transition">Shop</a>
+        <a @click="showGetInTouchModal = true; mobileMenuOpen = false" class="hover:text-[#ff1493] transition cursor-pointer">Get in Touch</a>
+        <a @click="showSupportModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Terms & Services</a>
+        <a @click="showFaqsPage = true; mobileMenuOpen = false" class="hover:text-[#ff1493] transition cursor-pointer">FAQs & Policies</a>
+        <a @click="showAccountModal = true; mobileMenuOpen = false" class="hover:text-[#ff1493] transition cursor-pointer">My Account</a>
+
+        <!-- Social Icons -->
+        <div class="mt-auto p-6 border-t border-zinc-800 flex justify-center gap-8">
+          <a href="https://www.tiktok.com/@paragonpeptides" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#ff1493] hover:scale-110 transition duration-200">
+            <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.1-3.44-3.37-3.42-5.72-.03-1.91.82-3.75 2.22-5.04 1.39-1.3 3.32-1.97 5.24-1.8v4.17c-1.12-.17-2.31.19-3.1 1.02-.74.77-1.1 1.91-.9 2.99.32 1.73 1.85 3 3.6 3.06 1.42.06 2.82-.73 3.44-1.98.33-.65.42-1.39.42-2.11V.02z"/></svg>
+          </a>
+          <a href="https://t.me/Paragonpeptides" target="_blank" rel="noopener noreferrer" class="text-[#0088cc] hover:text-[#ff1493] hover:scale-110 transition duration-200">
+            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor"><path d="M20.665 3.717L2.934 10.554C2.425 10.736 2.417 11.035 2.833 11.183L7.833 12.917L17.833 6.917C18.167 6.667 18.5 6.833 18.167 7.083L10.167 14.083L9.833 19.083C9.833 19.583 10.167 19.75 10.583 19.583L13.167 18.083L17.833 21.083C18.833 21.583 19.167 21.083 19.417 20.083L21.917 4.083C22.167 3.083 21.667 2.717 20.665 3.717Z"/></svg>
+          </a>
+          <a href="https://instagram.com/paragonpeptides" target="_blank" rel="noopener noreferrer" class="text-black hover:text-[#ff1493] hover:scale-110 transition duration-200">
+            <svg class="w-9 h-9" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.849.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.667.072 4.947.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.76 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- SHOP GRID – UPDATED WITH DEDICATED PRODUCT PAGE INTEGRATION -->
-<div id="" class="max-w-7xl mx-auto px-6 py-12">
-<!-- === FINAL POLISHED ANIMATED FEATURE CARDS (Solid Opaque + Exact #ff1493 Pink) === -->
-<div class="text-center mb-16">
-  <h1 class="text-5xl font-bold text-white mb-3">Precision Research Compounds</h1>
-  <p class="text-zinc-400 text-xl mb-12">High-purity peptides for laboratory e valuation.</p>
-  
-  <!-- Cards Grid -->
-  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 max-w-7xl mx-auto px-4">
-    
-    <!-- 1. GLPs -->
-    <div class="group relative bg-zinc-900 border border-[#ff1493]/40 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/30">
-      <!-- Default State -->
-      <div class="transition-all duration-700 group-hover:opacity-0 group-hover:-translate-y-6">
-        <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493] rounded-2xl flex items-center justify-center text-3xl text-white">🔬</div>
-        <h4 class="font-semibold text-white text-lg mb-2">GLP-1s</h4>
-        <p class="text-zinc-400 text-sm">≥99% purity • Independently tested</p>
+    <!-- HERO -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+      <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover">
+        <source src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/hero-video.mp4.mp4" type="video/mp4">
+      </video>
+      <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/60 to-black/90"></div>
+
+      <!-- NEW SIGNATURE SCROLL INDICATOR -->
+      <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center">
+        <div class="text-[10px] tracking-[3px] text-white/60 mb-2">SCROLL TO BEGIN RESEARCH</div>
+        <div class="w-px h-16 bg-gradient-to-b from-transparent via-white/70 to-transparent"></div>
+        <div class="mt-1 text-[#ff1493] text-xs">↓</div>
       </div>
-      <!-- Hover State -->
-      <div class="absolute inset-0 flex flex-col items-center justify-center px-4 transition-all duration-700 opacity-0 group-hover:opacity-100">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-        <div class="relative w-24 h-24 mb-5 transition-transform duration-300 group-hover:scale-110">
-          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/reta-10mg.jpg"
-               alt="GLP-1 Vial"
-               class="w-full h-full object-contain drop-shadow-2xl">
+    </section>
+
+    <!-- MOST ORDERED THIS MONTH -->
+    <section class="py-16 bg-zinc-950 border-t border-zinc-800">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="flex items-center justify-center gap-3 mb-10">
+          <div class="h-px w-12 bg-[#ff1493]"></div>
+          <h2 class="text-3xl font-bold tracking-tighter text-white">MOST ORDERED THIS MONTH</h2>
+          <div class="h-px w-12 bg-[#ff1493]"></div>
         </div>
-        <h4 class="relative font-semibold text-[#ff1493] text-xl mb-1">GLP-1s</h4>
-        <p class="relative text-white text-sm text-center leading-tight max-w-[190px]">
-          Powerful appetite control &amp; fat loss support
-        </p>
-      </div>
-    </div>
-
-    <!-- 2. Metabolic -->
-    <div class="group relative bg-zinc-900 border border-[#ff1493]/40 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/30">
-      <div class="transition-all duration-700 group-hover:opacity-0 group-hover:-translate-y-6">
-        <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493] rounded-2xl flex items-center justify-center text-3xl text-white">🔬</div>
-        <h4 class="font-semibold text-white text-lg mb-2">Metabolics</h4>
-        <p class="text-zinc-400 text-sm">≥99% purity • Independently tested</p>
-      </div>
-      <div class="absolute inset-0 flex flex-col items-center justify-center px-4 transition-all duration-700 opacity-0 group-hover:opacity-100">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-        <div class="relative w-24 h-24 mb-5 transition-transform duration-300 group-hover:scale-110">
-          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/aod-9604-2mg.jpg"
-               alt="Metabolic Vial"
-               class="w-full h-full object-contain drop-shadow-2xl">
-        </div>
-        <h4 class="relative font-semibold text-[#ff1493] text-xl mb-1">Metabolics</h4>
-        <p class="relative text-white text-sm text-center leading-tight max-w-[190px]">
-          Boost energy &amp; accelerate fat metabolism
-        </p>
-      </div>
-    </div>
-
-    <!-- 3. Recovery -->
-    <div class="group relative bg-zinc-900 border border-[#ff1493]/40 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/30">
-      <div class="transition-all duration-700 group-hover:opacity-0 group-hover:-translate-y-6">
-        <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493] rounded-2xl flex items-center justify-center text-3xl text-white">🔬</div>
-        <h4 class="font-semibold text-white text-lg mb-2">Recovery</h4>
-        <p class="text-zinc-400 text-sm">≥99% purity • Independently tested</p>
-      </div>
-      <div class="absolute inset-0 flex flex-col items-center justify-center px-4 transition-all duration-700 opacity-0 group-hover:opacity-100">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-        <div class="relative w-24 h-24 mb-5 transition-transform duration-300 group-hover:scale-110">
-          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/bpc-157-5mg.jpg"
-               alt="Recovery Vial"
-               class="w-full h-full object-contain drop-shadow-2xl">
-        </div>
-        <h4 class="relative font-semibold text-[#ff1493] text-xl mb-1">Recovery</h4>
-        <p class="relative text-white text-sm text-center leading-tight max-w-[190px]">
-          Faster healing &amp; post-workout regeneration
-        </p>
-      </div>
-    </div>
-
-    <!-- 4. Specialized -->
-    <div class="group relative bg-zinc-900 border border-[#ff1493]/40 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/30">
-      <div class="transition-all duration-700 group-hover:opacity-0 group-hover:-translate-y-6">
-        <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493] rounded-2xl flex items-center justify-center text-3xl text-white">🔬</div>
-        <h4 class="font-semibold text-white text-lg mb-2">Specialized</h4>
-        <p class="text-zinc-400 text-sm">≥99% purity • Independently tested</p>
-      </div>
-      <div class="absolute inset-0 flex flex-col items-center justify-center px-4 transition-all duration-700 opacity-0 group-hover:opacity-100">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-        <div class="relative w-24 h-24 mb-5 transition-transform duration-300 group-hover:scale-110">
-          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/melanotan2-10mg.jpg"
-               alt="Specialized Vial"
-               class="w-full h-full object-contain drop-shadow-2xl">
-        </div>
-        <h4 class="relative font-semibold text-[#ff1493] text-xl mb-1">Specialized</h4>
-        <p class="relative text-white text-sm text-center leading-tight max-w-[190px]">
-          Targeted cellular healing &amp; optimization
-        </p>
-      </div>
-    </div>
-
-    <!-- 5. GH Secretagogue -->
-    <div class="group relative bg-zinc-900 border border-[#ff1493]/40 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/30">
-      <div class="transition-all duration-700 group-hover:opacity-0 group-hover:-translate-y-6">
-        <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493] rounded-2xl flex items-center justify-center text-3xl text-white">🔬</div>
-        <h4 class="font-semibold text-white text-lg mb-2">GH Secretagogue</h4>
-        <p class="text-zinc-400 text-sm">≥99% purity • Independently tested</p>
-      </div>
-      <div class="absolute inset-0 flex flex-col items-center justify-center px-4 transition-all duration-700 opacity-0 group-hover:opacity-100">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-        <div class="relative w-24 h-24 mb-5 transition-transform duration-300 group-hover:scale-110">
-          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/tesamorelin-10mg.jpg"
-               alt="GH Secretagogue Vial"
-               class="w-full h-full object-contain drop-shadow-2xl">
-        </div>
-        <h4 class="relative font-semibold text-[#ff1493] text-xl mb-1">GH Secretagogue</h4>
-        <p class="relative text-white text-sm text-center leading-tight max-w-[190px]">
-          Stimulate natural muscle growth &amp; recovery
-        </p>
-      </div>
-    </div>
-
-    <!-- 6. Solvents -->
-    <div class="group relative bg-zinc-900 border border-[#ff1493]/40 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/30">
-      <div class="transition-all duration-700 group-hover:opacity-0 group-hover:-translate-y-6">
-        <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493] rounded-2xl flex items-center justify-center text-3xl text-white">🔬</div>
-        <h4 class="font-semibold text-white text-lg mb-2">Solvents</h4>
-        <p class="text-zinc-400 text-sm">≥99% purity • Independently tested</p>
-      </div>
-      <div class="absolute inset-0 flex flex-col items-center justify-center px-4 transition-all duration-700 opacity-0 group-hover:opacity-100">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-        <div class="relative w-24 h-24 mb-5 transition-transform duration-300 group-hover:scale-110">
-          <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/bac-water-10ml.jpg"
-               alt="Solvents Vial"
-               class="w-full h-full object-contain drop-shadow-2xl">
-        </div>
-        <h4 class="relative font-semibold text-[#ff1493] text-xl mb-1">Solvents</h4>
-        <p class="relative text-white text-sm text-center leading-tight max-w-[190px]">
-          For reconstituting lyophilized peptides
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="shop-results" class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
-  <template x-for="category in [
-    { name: 'GLPs', products: glpProducts() },
-    { name: 'Metabolic', products: metabolicProducts() },
-    { name: 'Specialized', products: specializedProducts() },
-    { name: 'Recovery', products: recoveryProducts() },
-    { name: 'GH Secretagogue', products: ghProducts() },
-    { name: 'Solvents', products: solventsProducts() }
-  ]" :key="category.name">
-    
-    <div 
-  class="mb-16 category-section" 
-  :data-category="category.name.toLowerCase()" 
-  x-show="category.products.length > 0"
->
-      <h2 class="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-3 uppercase tracking-tighter">
-        <span class="text-[#ff1493]" x-text="category.name"></span>
-      </h2>
-      
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
-        <template x-for="product in category.products" :key="product.id">
-          <div 
-  class="product-card group bg-zinc-900/50 border border-zinc-800 rounded-2xl md:rounded-3xl overflow-hidden hover:border-[#ff1493] transition-all flex flex-col"
-  :data-product-id="product.id"
->
-            
-            <div @click="window.location.href = '/product.html?id=' + product.id" class="cursor-pointer overflow-hidden">
-              <img :src="product.image" :alt="product.name" @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'" 
-                   class="w-full h-32 md:h-56 object-cover group-hover:scale-110 transition-transform duration-700">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Bestsellers -->
+          <div class="group block cursor-pointer">
+            <div @click="window.location.href = 'product.html?id=111'" class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-[#ff1493] transition-all duration-300 relative">
+              <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/reta-10mg.jpg" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute top-4 right-4 bg-[#ff1493] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">#1 BESTSELLER</div>
+              <div class="p-6 text-center">
+                <h3 class="text-xl font-semibold text-white">Reta</h3>
+                <p class="text-zinc-400 text-sm">10 mg • $59</p>
+                <button @click.stop="quickAddToCart(111, 'Reta', '10mg', 59)" class="mt-4 w-full bg-white hover:bg-zinc-200 text-black font-semibold py-3 rounded-2xl transition">Quick Add</button>
+              </div>
             </div>
-            
-            <div class="p-3 md:p-6 flex-1 flex flex-col">
-              <h3 class="text-sm md:text-2xl font-bold text-white truncate" x-text="product.name"></h3>
-              
-              <div class="flex flex-wrap gap-1 mt-3" x-show="product.doses.length > 1">
-                <template x-for="variant in product.doses" :key="variant.mg || variant.ml">
-                  <button @click.stop="toggleDose(product, variant)" 
-                          :disabled="variant.stock <= 0" 
-                          :class="product.selectedDose === (variant.mg || variant.ml) ? 'bg-[#ff1493] text-white ring-1 ring-pink-500' : 'bg-zinc-800 text-zinc-400'" 
-                          class="px-2 py-1 rounded-lg text-[10px] md:text-sm font-medium transition-all">
-                    <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
-                  </button>
-                </template>
+          </div>
+          <div class="group block cursor-pointer">
+            <div @click="window.location.href = 'product.html?id=112'" class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-[#ff1493] transition-all duration-300 relative">
+              <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/tirz-20mg.jpg" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute top-4 right-4 bg-[#ff1493] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">#2 BESTSELLER</div>
+              <div class="p-6 text-center">
+                <h3 class="text-xl font-semibold text-white">Tirz</h3>
+                <p class="text-zinc-400 text-sm">20 mg • $79</p>
+                <button @click.stop="quickAddToCart(112, 'Tirz', '20mg', 79)" class="mt-4 w-full bg-white hover:bg-zinc-200 text-black font-semibold py-3 rounded-2xl transition">Quick Add</button>
               </div>
+            </div>
+          </div>
+          <div class="group block cursor-pointer">
+            <div @click="window.location.href = 'product.html?id=119'" class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-[#ff1493] transition-all duration-300 relative">
+              <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/bpc-157-5mg.jpg" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute top-4 right-4 bg-[#ff1493] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">#3 BESTSELLER</div>
+              <div class="p-6 text-center">
+                <h3 class="text-xl font-semibold text-white">BPC-157</h3>
+                <p class="text-zinc-400 text-sm">5 mg • $39</p>
+                <button @click.stop="quickAddToCart(119, 'BPC-157', '5mg', 39)" class="mt-4 w-full bg-white hover:bg-zinc-200 text-black font-semibold py-3 rounded-2xl transition">Quick Add</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-              <div class="mt-auto pt-4 flex flex-col md:flex-row md:justify-between items-center gap-2">
-                <div class="flex items-baseline gap-1">
-                  <span class="text-lg md:text-3xl font-bold text-white" x-text="'$' + (product.price || product.doses[0].price)"></span>
-                  <span class="text-[10px] text-zinc-500">/vial</span>
-                </div>
-                
-               <button @click.stop="addToCartWithDose(product)" 
-        class="w-full py-2 md:py-4 px-4 rounded-xl font-bold text-[10px] md:text-base transition-all bg-white text-black hover:bg-[#ff1493] hover:text-white">
-  <span x-text="product.selectedDose ? 'ADD TO CART' : 'SELECT A DOSE FIRST'"></span>
-</button>
+    <!-- SHOP SECTION -->
+    <div id="shop" class="max-w-7xl mx-auto px-6 py-12">
+      <!-- Feature Cards -->
+      <div class="text-center mb-16">
+        <h1 class="text-5xl font-bold text-white mb-3">Precision Research Compounds</h1>
+        <p class="text-zinc-400 text-xl mb-12">High-purity peptides for laboratory evaluation.</p>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 max-w-7xl mx-auto px-4">
+          <!-- GLP-1s -->
+          <div class="group relative bg-zinc-900 border border-[#ff1493]/40 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/30">
+            <div class="transition-all duration-700 group-hover:opacity-0 group-hover:-translate-y-6">
+              <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493] rounded-2xl flex items-center justify-center text-3xl text-white">🔬</div>
+              <h4 class="font-semibold text-white text-lg mb-2">GLP-1s</h4>
+              <p class="text-zinc-400 text-sm">≥99% purity • Independently tested</p>
+            </div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center px-4 transition-all duration-700 opacity-0 group-hover:opacity-100">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+              <div class="relative w-24 h-24 mb-5 transition-transform duration-300 group-hover:scale-110">
+                <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/reta-10mg.jpg" alt="GLP-1 Vial" class="w-full h-full object-contain drop-shadow-2xl">
               </div>
+              <h4 class="relative font-semibold text-[#ff1493] text-xl mb-1">GLP-1s</h4>
+              <p class="relative text-white text-sm text-center leading-tight max-w-[190px]">Powerful appetite control &amp; fat loss support</p>
+            </div>
+          </div>
+
+          <!-- Metabolics -->
+          <div class="group relative bg-zinc-900 border border-[#ff1493]/40 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/30">
+            <div class="transition-all duration-700 group-hover:opacity-0 group-hover:-translate-y-6">
+              <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493] rounded-2xl flex items-center justify-center text-3xl text-white">🔬</div>
+              <h4 class="font-semibold text-white text-lg mb-2">Metabolics</h4>
+              <p class="text-zinc-400 text-sm">≥99% purity • Independently tested</p>
+            </div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center px-4 transition-all duration-700 opacity-0 group-hover:opacity-100">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+              <div class="relative w-24 h-24 mb-5 transition-transform duration-300 group-hover:scale-110">
+                <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/aod-9604-2mg.jpg" alt="Metabolic Vial" class="w-full h-full object-contain drop-shadow-2xl">
+              </div>
+              <h4 class="relative font-semibold text-[#ff1493] text-xl mb-1">Metabolics</h4>
+              <p class="relative text-white text-sm text-center leading-tight max-w-[190px]">Boost energy &amp; accelerate fat metabolism</p>
+            </div>
+          </div>
+
+          <!-- Recovery -->
+          <div class="group relative bg-zinc-900 border border-[#ff1493]/40 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/30">
+            <div class="transition-all duration-700 group-hover:opacity-0 group-hover:-translate-y-6">
+              <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493] rounded-2xl flex items-center justify-center text-3xl text-white">🔬</div>
+              <h4 class="font-semibold text-white text-lg mb-2">Recovery</h4>
+              <p class="text-zinc-400 text-sm">≥99% purity • Independently tested</p>
+            </div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center px-4 transition-all duration-700 opacity-0 group-hover:opacity-100">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+              <div class="relative w-24 h-24 mb-5 transition-transform duration-300 group-hover:scale-110">
+                <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/bpc-157-5mg.jpg" alt="Recovery Vial" class="w-full h-full object-contain drop-shadow-2xl">
+              </div>
+              <h4 class="relative font-semibold text-[#ff1493] text-xl mb-1">Recovery</h4>
+              <p class="relative text-white text-sm text-center leading-tight max-w-[190px]">Faster healing &amp; post-workout regeneration</p>
+            </div>
+          </div>
+
+          <!-- Specialized -->
+          <div class="group relative bg-zinc-900 border border-[#ff1493]/40 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/30">
+            <div class="transition-all duration-700 group-hover:opacity-0 group-hover:-translate-y-6">
+              <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493] rounded-2xl flex items-center justify-center text-3xl text-white">🔬</div>
+              <h4 class="font-semibold text-white text-lg mb-2">Specialized</h4>
+              <p class="text-zinc-400 text-sm">≥99% purity • Independently tested</p>
+            </div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center px-4 transition-all duration-700 opacity-0 group-hover:opacity-100">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+              <div class="relative w-24 h-24 mb-5 transition-transform duration-300 group-hover:scale-110">
+                <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/melanotan2-10mg.jpg" alt="Specialized Vial" class="w-full h-full object-contain drop-shadow-2xl">
+              </div>
+              <h4 class="relative font-semibold text-[#ff1493] text-xl mb-1">Specialized</h4>
+              <p class="relative text-white text-sm text-center leading-tight max-w-[190px]">Targeted cellular healing &amp; optimization</p>
+            </div>
+          </div>
+
+          <!-- GH Secretagogue -->
+          <div class="group relative bg-zinc-900 border border-[#ff1493]/40 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/30">
+            <div class="transition-all duration-700 group-hover:opacity-0 group-hover:-translate-y-6">
+              <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493] rounded-2xl flex items-center justify-center text-3xl text-white">🔬</div>
+              <h4 class="font-semibold text-white text-lg mb-2">GH Secretagogue</h4>
+              <p class="text-zinc-400 text-sm">≥99% purity • Independently tested</p>
+            </div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center px-4 transition-all duration-700 opacity-0 group-hover:opacity-100">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+              <div class="relative w-24 h-24 mb-5 transition-transform duration-300 group-hover:scale-110">
+                <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/tesamorelin-10mg.jpg" alt="GH Secretagogue Vial" class="w-full h-full object-contain drop-shadow-2xl">
+              </div>
+              <h4 class="relative font-semibold text-[#ff1493] text-xl mb-1">GH Secretagogue</h4>
+              <p class="relative text-white text-sm text-center leading-tight max-w-[190px]">Stimulate natural muscle growth &amp; recovery</p>
+            </div>
+          </div>
+
+          <!-- Solvents -->
+          <div class="group relative bg-zinc-900 border border-[#ff1493]/40 hover:border-[#ff1493] rounded-3xl p-6 text-center overflow-hidden min-h-[280px] transition-all duration-500 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#ff1493]/30">
+            <div class="transition-all duration-700 group-hover:opacity-0 group-hover:-translate-y-6">
+              <div class="w-12 h-12 mx-auto mb-4 bg-[#ff1493] rounded-2xl flex items-center justify-center text-3xl text-white">🔬</div>
+              <h4 class="font-semibold text-white text-lg mb-2">Solvents</h4>
+              <p class="text-zinc-400 text-sm">≥99% purity • Independently tested</p>
+            </div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center px-4 transition-all duration-700 opacity-0 group-hover:opacity-100">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+              <div class="relative w-24 h-24 mb-5 transition-transform duration-300 group-hover:scale-110">
+                <img src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/bac-water-10ml.jpg" alt="Solvents Vial" class="w-full h-full object-contain drop-shadow-2xl">
+              </div>
+              <h4 class="relative font-semibold text-[#ff1493] text-xl mb-1">Solvents</h4>
+              <p class="relative text-white text-sm text-center leading-tight max-w-[190px]">For reconstituting lyophilized peptides</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+     <!-- SHOP GRID (search now works perfectly) -->
+    <div id="shop" class="max-w-7xl mx-auto px-6 py-12">
+      <!-- Feature cards (unchanged) ... -->
+
+      <div id="shop-results" class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+        <template x-for="category in [
+          { name: 'GLPs', products: glpProducts() },
+          { name: 'Metabolic', products: metabolicProducts() },
+          { name: 'Specialized', products: specializedProducts() },
+          { name: 'Recovery', products: recoveryProducts() },
+          { name: 'GH Secretagogue', products: ghProducts() },
+          { name: 'Solvents', products: solventsProducts() }
+        ]" :key="category.name">
+          
+          <div class="mb-16 category-section" 
+               :data-category="category.name.toLowerCase()" 
+               x-show="category.products.length > 0">
+            <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3 uppercase tracking-tighter">
+              <span class="text-[#ff1493]" x-text="category.name"></span>
+            </h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+              <template x-for="product in category.products" :key="product.id">
+                <div class="product-card group bg-zinc-900/50 border border-zinc-800 rounded-3xl overflow-hidden hover:border-[#ff1493] flex flex-col relative"
+                     :data-product-id="product.id"
+                     @mousemove="handleCardTilt($event, $el)"
+                     @mouseleave="resetCardTilt($el)">
+                  
+                  <div @click="window.location.href = '/product.html?id=' + product.id" class="cursor-pointer overflow-hidden">
+                    <img :src="getPublicImageUrl(product)" class="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-700">
+                  </div>
+                
+                  <div class="p-6 flex-1 flex flex-col">
+                    <h3 class="text-2xl font-bold text-white" x-text="product.name"></h3>
+                    
+                    <div class="flex flex-wrap gap-2 mt-4">
+                      <template x-for="variant in product.doses" :key="variant.mg || variant.ml">
+                        <button @click.stop="toggleDose(product, variant)"
+                                class="px-4 py-1.5 rounded-xl text-sm font-medium transition-all"
+                                :class="product.selectedDose === (variant.mg || variant.ml) ? 'bg-[#ff1493] text-white' : 'bg-zinc-800 text-zinc-400'">
+                          <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
+                        </button>
+                      </template>
+                    </div>
+
+                    <div class="mt-auto pt-6 flex items-center justify-between">
+                      <div class="flex items-baseline gap-1">
+                        <span class="text-3xl font-bold text-white" x-text="'$' + (product.price || product.doses[0].price)"></span>
+                        <span class="text-xs text-zinc-500">/vial</span>
+                      </div>
+                      <button @click.stop="addToCartWithDose(product)"
+                              class="add-to-cart-btn px-8 py-3.5 rounded-2xl font-bold text-sm bg-white text-black hover:bg-[#ff1493] hover:text-white">
+                        ADD TO CART
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </template>
             </div>
           </div>
         </template>
       </div>
-    </div>
-  </template>
-</div>
 
-<!-- NO RESULTS FOUND -->
-<div x-show="searchTerm.length > 0 && filteredProducts().length === 0" class="text-center py-16">
-  <div class="max-w-md mx-auto">
-    <div class="text-6xl mb-4">🔍</div>
-    <h3 class="text-2xl font-bold text-white mb-3">No results found</h3>
-    <p class="text-zinc-400 mb-6">
-      We couldn't find anything for "<span class="text-[#ff1493]" x-text="searchTerm"></span>".
-    </p>
-    <p class="text-sm text-zinc-500">
-      Try searching for: Reta, Tirz, BPC-157, Mots-C, GHK-Cu
-    </p>
-  </div>
-</div>
-
-
-</div>
-<!-- === RESEARCH STANDARDS, DOCUMENTATION & BUYER RESOURCE CENTER === -->
-<section class="bg-zinc-950 py-12 md:py-20 border-t border-b border-zinc-800">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="mb-10 text-center md:text-left">
-      <h2 class="text-3xl md:text-4xl font-bold text-white mb-2 uppercase tracking-tighter">Resource Center</h2>
-      <p class="text-zinc-500">Essential guides for laboratory research excellence.</p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      
-      <!-- Card 1 -->
-      <div class="bg-white border border-zinc-200 rounded-3xl p-8 h-full min-h-[300px] hover:border-[#ff1493] transition-all group flex flex-col">
-        <h3 class="text-lg font-bold text-zinc-900 mb-4 group-hover:text-[#ff1493] uppercase">What Are Peptides?</h3>
-        <p class="text-zinc-600 text-sm leading-relaxed flex-1">Overview of peptide structure, classification, and laboratory research context.</p>
-        <a href="/what-is-a-peptide.html" class="inline-flex items-center text-[#ff1493] hover:text-pink-400 font-bold text-sm mt-6">LEARN MORE →</a>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="bg-white border border-zinc-200 rounded-3xl p-8 h-full min-h-[300px] hover:border-[#ff1493] transition-all group flex flex-col">
-        <h3 class="text-lg font-bold text-zinc-900 mb-4 group-hover:text-[#ff1493] uppercase">Storage & Handling</h3>
-        <p class="text-zinc-600 text-sm leading-relaxed flex-1">Stability controls, environmental considerations, and lab best practices.</p>
-        <a href="/storage-handling.html" class="inline-flex items-center text-[#ff1493] hover:text-pink-400 font-bold text-sm mt-6">VIEW GUIDE →</a>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="bg-white border border-zinc-200 rounded-3xl p-8 h-full min-h-[300px] hover:border-[#ff1493] transition-all group flex flex-col">
-        <h3 class="text-lg font-bold text-zinc-900 mb-4 group-hover:text-[#ff1493] uppercase">Testing Methods</h3>
-        <p class="text-zinc-600 text-sm leading-relaxed flex-1">HPLC, mass spectrometry, and batch verification fundamentals.</p>
-        <a href="/testing-methods.html" class="inline-flex items-center text-[#ff1493] hover:text-pink-400 font-bold text-sm mt-6">READ MORE →</a>
-      </div>
-
-      <!-- Card 4 -->
-      <div class="bg-white border border-zinc-200 rounded-3xl p-8 h-full min-h-[300px] hover:border-[#ff1493] transition-all group flex flex-col">
-        <h3 class="text-lg font-bold text-zinc-900 mb-4 group-hover:text-[#ff1493] uppercase">Reconstitution</h3>
-        <p class="text-zinc-600 text-sm leading-relaxed flex-1">Technical instructions for peptide reconstitution and solvent selection.</p>
-        <a href="/how-to-reconstitute-peptides.html" class="inline-flex items-center text-[#ff1493] hover:text-pink-400 font-bold text-sm mt-6">VERIFY DOCS →</a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-   </div>
-
-<!-- NEWSLETTER POPUP – Mailchimp Integrated -->
-<div x-show="showNewsletter" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[99999] p-6" @click.self="showNewsletter = false">
-  <div class="bg-zinc-900 border border-[#ff1493]/40 rounded-3xl max-w-md w-full p-10 relative shadow-2xl">
-    <button @click="showNewsletter = false" class="absolute top-6 right-6 text-zinc-400 hover:text-white text-3xl">×</button>
-    
-    <div class="text-center">
-      <div class="inline-flex items-center gap-2 bg-[#ff1493]/10 text-[#ff1493] text-sm font-bold uppercase tracking-widest px-6 py-2 rounded-3xl mb-6">
-        🎟️ LIMITED TIME OFFER
-      </div>
-      <h2 class="text-4xl font-bold text-white mb-3">Get 15% Off Your First Order</h2>
-      <p class="text-zinc-400 text-lg mb-8">Join the Paragon Research Community for exclusive drops and lab insights.</p>
-
-      <form action="https://formspree.io/f/mlgpeovo" method="POST" @submit.prevent="subscribeNewsletter" class="space-y-5">
-        <input type="email" x-model="newsletterEmail" name="email" placeholder="your@email.com" required 
-               class="w-full bg-black border border-zinc-700 focus:border-[#ff1493] rounded-3xl px-6 py-5 text-white placeholder-zinc-500 outline-none text-lg">
-        
-        <!-- Hidden fields for Mailchimp + Formspree -->
-        <input type="hidden" name="_subject" value="New Newsletter Subscriber">
-        <input type="hidden" name="message" value="Newsletter signup – send 15% discount code RESEARCH15">
-        <input type="hidden" name="_optin" value="true"> <!-- Tells Formspree to trigger Mailchimp -->
-
-        <button type="submit" :disabled="newsletterSubmitting" 
-                class="w-full bg-[#ff1493] hover:bg-pink-600 py-5 rounded-3xl font-semibold text-xl transition-all active:scale-95">
-          <span x-text="newsletterSubmitting ? 'Sending...' : 'Claim My 15% Discount'"></span>
-        </button>
-      </form>
-
-      <button @click="showNewsletter = false; sessionStorage.setItem('newsletterShown', 'true')" 
-              class="mt-6 text-zinc-400 hover:text-white text-sm underline">
-        No thanks, maybe later
-      </button>
-    </div>
-  </div>
-</div>
-<!-- === FULL-WIDTH WHITE PAGE-BREAK FOOTER (with your exact links) === -->
-<div class="bg-white text-black py-16 border-t border-zinc-200 w-full">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="grid md:grid-cols-12 gap-12">
-
-      <!-- Left Column: Trustpilot + Company Info -->
-      <div class="md:col-span-4">
-        <div class="flex items-center gap-3 mb-6">
-          <img src="https://i.imgur.com/jXQlcWB.png" alt="Paragon Peptides" class="h-9 w-9">
-          <span class="text-2xl font-bold tracking-tight">Paragon Peptides</span>
+      <!-- NO RESULTS -->
+      <div x-show="searchTerm.length > 0 && filteredProducts().length === 0" class="text-center py-16">
+        <div class="max-w-md mx-auto">
+          <div class="text-6xl mb-4">🔍</div>
+          <h3 class="text-2xl font-bold text-white mb-3">No results found</h3>
+          <p class="text-zinc-400 mb-6">We couldn't find anything for "<span class="text-[#ff1493]" x-text="searchTerm"></span>".</p>
+          <p class="text-sm text-zinc-500">Try searching for: Reta, Tirz, BPC-157, Mots-C, GHK-Cu</p>
         </div>
-        
-        <!-- Trustpilot Widget Slot -->
-        <div class="flex items-center gap-4 bg-zinc-100 rounded-3xl px-6 py-4 mb-8">
-          <div class="text-4xl">★★★★★</div>
-          <div>
-            <p class="font-semibold">5-Star Rated on Trustpilot</p>
-            <a href="https://www.trustpilot.com/review/paragonpeptides.net"target="_blank" class="text-[#ff1493] hover:underline text-sm">
-              View all reviews →
-            </a>
+      </div>
+    </div>
+  </div>
+</div>
+      <!-- RESOURCE CENTER -->
+      <section class="resource-parallax bg-zinc-950 py-20 md:py-28 border-t border-b border-zinc-800 relative overflow-hidden"
+               style="background-image: url('https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/lab-bg-subtle.jpg'); background-attachment: fixed; background-size: cover; background-position: center;">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+          <div class="mb-14 text-center md:text-left">
+            <div class="inline-flex items-center gap-3 mb-4">
+              <div class="h-px w-8 bg-[#ff1493]"></div>
+              <span class="uppercase tracking-[3px] text-xs text-[#ff1493] font-medium">Vault Access</span>
+            </div>
+            <h2 class="text-5xl md:text-6xl font-bold text-white tracking-tighter">Research Resource Center</h2>
+            <p class="text-xl text-zinc-400 max-w-md mt-3">Essential guides for laboratory research excellence.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="resource-card group bg-white border border-zinc-200 rounded-3xl p-9 h-full min-h-[340px] flex flex-col transition-all duration-700 hover:border-[#ff1493] hover:shadow-2xl hover:shadow-[#ff1493]/10">
+              <div class="flex-1">
+                <h3 class="text-2xl font-bold text-zinc-900 mb-4 group-hover:text-[#ff1493] transition-colors">What Are Peptides?</h3>
+                <p class="text-zinc-600 text-sm leading-relaxed">Overview of peptide structure, classification, and laboratory research context.</p>
+              </div>
+              <a href="/what-is-a-peptide.html" class="mt-auto inline-flex items-center text-[#ff1493] hover:text-pink-400 font-bold text-sm">LEARN MORE →</a>
+            </div>
+            <div class="resource-card group bg-white border border-zinc-200 rounded-3xl p-9 h-full min-h-[340px] flex flex-col transition-all duration-700 hover:border-[#ff1493] hover:shadow-2xl hover:shadow-[#ff1493]/10">
+              <div class="flex-1">
+                <h3 class="text-2xl font-bold text-zinc-900 mb-4 group-hover:text-[#ff1493] transition-colors">Storage &amp; Handling</h3>
+                <p class="text-zinc-600 text-sm leading-relaxed">Stability controls, environmental considerations, and lab best practices.</p>
+              </div>
+              <a href="/storage-handling.html" class="mt-auto inline-flex items-center text-[#ff1493] hover:text-pink-400 font-bold text-sm">VIEW GUIDE →</a>
+            </div>
+            <div class="resource-card group bg-white border border-zinc-200 rounded-3xl p-9 h-full min-h-[340px] flex flex-col transition-all duration-700 hover:border-[#ff1493] hover:shadow-2xl hover:shadow-[#ff1493]/10">
+              <div class="flex-1">
+                <h3 class="text-2xl font-bold text-zinc-900 mb-4 group-hover:text-[#ff1493] transition-colors">Testing Methods</h3>
+                <p class="text-zinc-600 text-sm leading-relaxed">HPLC, mass spectrometry, and batch verification fundamentals.</p>
+              </div>
+              <a href="/testing-methods.html" class="mt-auto inline-flex items-center text-[#ff1493] hover:text-pink-400 font-bold text-sm">READ MORE →</a>
+            </div>
+            <div class="resource-card group bg-white border border-zinc-200 rounded-3xl p-9 h-full min-h-[340px] flex flex-col transition-all duration-700 hover:border-[#ff1493] hover:shadow-2xl hover:shadow-[#ff1493]/10">
+              <div class="flex-1">
+                <h3 class="text-2xl font-bold text-zinc-900 mb-4 group-hover:text-[#ff1493] transition-colors">Reconstitution</h3>
+                <p class="text-zinc-600 text-sm leading-relaxed">Technical instructions for peptide reconstitution and solvent selection.</p>
+              </div>
+              <a href="/how-to-reconstitute-peptides.html" class="mt-auto inline-flex items-center text-[#ff1493] hover:text-pink-400 font-bold text-sm">VERIFY DOCS →</a>
+            </div>
           </div>
         </div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 pointer-events-none"></div>
+      </section>
 
-        <p class="text-sm text-zinc-600 leading-relaxed">
-          Premium research peptides for laboratory use only.<br>
-          HPLC-verified • Cold-chain shipping • For research purposes exclusively.
-        </p>
-      </div>
-
-      <!-- Middle Column: Quick Links (now vertical with your exact links) -->
-      <div class="md:col-span-4">
-        <h4 class="font-semibold mb-6 text-lg">Quick Links</h4>
-        <div class="flex flex-col gap-y-4 text-sm">
-          <a @click="showGetInTouchModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Get in Touch</a>
-          <a @click="showSupportModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Support</a>
-          <a @click="showFaqsPage = true" class="hover:text-[#ff1493] transition cursor-pointer">FAQs &amp; Policies</a>
-          <a @click="showAccountModal = true" class="hover:text-[#ff1493] transition cursor-pointer">My Account</a>
+      <!-- NEWSLETTER -->
+      <div x-show="showNewsletter" class="fixed inset-0 bg-black/90 flex items-end md:items-center justify-center z-[99999]" @click.self="showNewsletter = false">
+        <div class="premium-newsletter w-full md:max-w-md rounded-t-3xl md:rounded-3xl p-8 md:p-10 shadow-2xl">
+          <div class="text-center">
+            <div class="text-[#ff1493] text-xs font-bold tracking-[2px] mb-3">EXCLUSIVE</div>
+            <h2 class="text-4xl font-bold mb-3">Join the Inner Circle</h2>
+            <p class="text-zinc-400 mb-8">Early access to new drops + 15% off your first order</p>
+            <form @submit.prevent="subscribeNewsletter" class="space-y-4">
+              <input type="email" x-model="newsletterEmail" placeholder="your@email.com" required 
+                     class="w-full bg-zinc-950 border border-zinc-700 focus:border-[#ff1493] px-5 py-4 rounded-2xl text-lg">
+              <button type="submit" class="w-full bg-[#ff1493] py-4 rounded-2xl font-semibold text-lg">Claim 15% Discount</button>
+            </form>
+            <button @click="showNewsletter = false" class="mt-4 text-sm text-zinc-500">No thanks</button>
+          </div>
         </div>
       </div>
 
-      <!-- Right Column: Newsletter -->
-      <div class="md:col-span-4">
-        <h4 class="font-semibold mb-6 text-lg">Research Updates</h4>
-        <p class="text-sm text-zinc-600 mb-6">Get early access to new compounds, flash sales, and lab insights.</p>
-        
-        <form class="flex gap-3">
-          <input type="email" placeholder="your@email.com" 
-                 class="flex-1 bg-zinc-100 border border-zinc-300 focus:border-[#ff1493] rounded-3xl px-6 py-4 text-black outline-none">
-          <button type="submit"
-                  class="bg-black text-white px-8 rounded-3xl font-semibold hover:bg-[#ff1493] transition">
-            Join
-          </button>
-        </form>
+      <!-- FOOTER -->
+      <div class="bg-white text-black py-16 border-t border-zinc-200 w-full">
+        <div class="max-w-7xl mx-auto px-6">
+          <div class="grid md:grid-cols-12 gap-12">
+            <!-- Left Column -->
+            <div class="md:col-span-4">
+              <div class="flex items-center gap-3 mb-6">
+                <img src="https://i.imgur.com/jXQlcWB.png" alt="Paragon Peptides" class="h-9 w-9">
+                <span class="text-2xl font-bold tracking-tight">Paragon Peptides</span>
+              </div>
+              <div class="flex items-center gap-4 bg-zinc-100 rounded-3xl px-6 py-4 mb-8">
+                <div class="text-4xl">★★★★★</div>
+                <div>
+                  <p class="font-semibold">5-Star Rated on Trustpilot</p>
+                  <a href="https://www.trustpilot.com/review/paragonpeptides.net" target="_blank" class="text-[#ff1493] hover:underline text-sm">View all reviews →</a>
+                </div>
+              </div>
+              <p class="text-sm text-zinc-600 leading-relaxed">
+                Premium research peptides for laboratory use only.<br>
+                HPLC-verified • Cold-chain shipping • For research purposes exclusively.
+              </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="md:col-span-4">
+              <h4 class="font-semibold mb-6 text-lg">Quick Links</h4>
+              <div class="flex flex-col gap-y-4 text-sm">
+                <a @click="showGetInTouchModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Get in Touch</a>
+                <a @click="showSupportModal = true" class="hover:text-[#ff1493] transition cursor-pointer">Support</a>
+                <a @click="showFaqsPage = true" class="hover:text-[#ff1493] transition cursor-pointer">FAQs &amp; Policies</a>
+                <a @click="showAccountModal = true" class="hover:text-[#ff1493] transition cursor-pointer">My Account</a>
+              </div>
+            </div>
+
+            <!-- Research Updates -->
+            <div class="md:col-span-4">
+              <h4 class="font-semibold mb-6 text-lg">Research Updates</h4>
+              <p class="text-sm text-zinc-600 mb-6">Get early access to new compounds, flash sales, and lab insights.</p>
+              <form class="flex gap-3">
+                <input type="email" placeholder="your@email.com" class="flex-1 bg-zinc-100 border border-zinc-300 focus:border-[#ff1493] rounded-3xl px-6 py-4 text-black outline-none">
+                <button type="submit" class="bg-black text-white px-8 rounded-3xl font-semibold hover:bg-[#ff1493] transition">Join</button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Social Icons -->
+          <div class="flex justify-center mb-12">
+            <div class="flex items-center gap-8 border border-zinc-300 rounded-2xl px-8 py-4 bg-white">
+              <a href="https://www.tiktok.com/@paragon_peptides" target="_blank" rel="noopener noreferrer" class="text-black hover:text-[#ff1493] hover:scale-110 transition duration-200">
+                <svg class="w-9 h-9" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.1-3.44-3.37-3.42-5.72-.03-1.91.82-3.75 2.22-5.04 1.39-1.3 3.32-1.97 5.24-1.8v4.17c-1.12-.17-2.31.19-3.1 1.02-.74.77-1.1 1.91-.9 2.99.32 1.73 1.85 3 3.6 3.06 1.42.06 2.82-.73 3.44-1.98.33-.65.42-1.39.42-2.11V.02z"/></svg>
+              </a>
+              <a href="https://t.me/Paragonpeptides" target="_blank" rel="noopener noreferrer" class="text-[#0088cc] hover:text-[#ff1493] hover:scale-110 transition duration-200">
+                <svg class="w-9 h-9" fill="currentColor" viewBox="0 0 24 24"><path d="M20.665 3.717L2.934 10.554C2.425 10.736 2.417 11.035 2.833 11.183L7.833 12.917L17.833 6.917C18.167 6.667 18.5 6.833 18.167 7.083L10.167 14.083L9.833 19.083C9.833 19.583 10.167 19.75 10.583 19.583L13.167 18.083L17.833 21.083C18.833 21.583 19.167 21.083 19.417 20.083L21.917 4.083C22.167 3.083 21.667 2.717 20.665 3.717Z"/></svg>
+              </a>
+              <a href="https://instagram.com/paragonpeptides" target="_blank" rel="noopener noreferrer" class="text-black hover:text-[#ff1493] hover:scale-110 transition duration-200">
+                <svg class="w-9 h-9" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.849.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.667.072 4.947.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.76 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Copyright -->
+          <div class="mt-16 pt-8 border-t border-zinc-200 text-center text-xs text-zinc-500">
+            © 2026 Paragon Peptides • All Rights Reserved • For research use only. Not for human consumption.<br>
+            Products are not intended to diagnose, treat, or cure any condition.<br>
+            By purchasing, you confirm you are 21 or older and conducting scientific research.
+            <button @click="openStockManager()" class="text-xs text-zinc-600 hover:text-[#ff1493] block mx-auto mt-4">Site Tools</button>
+          </div>
+        </div>
       </div>
     </div>
-<!-- === SOCIAL ICONS WITH BORDER (Uniform Look) === -->
-<div class="flex justify-center mb-12">
-  <div class="flex items-center gap-8 border border-zinc-300 rounded-2xl px-8 py-4 bg-white">
-    
-    <!-- TikTok -->
-    <a href="https://www.tiktok.com/@paragon_peptides" 
-       target="_blank" 
-       rel="noopener noreferrer" 
-       class="text-black hover:text-[#ff1493] hover:scale-110 transition duration-200">
-      <svg class="w-9 h-9" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.1-3.44-3.37-3.42-5.72-.03-1.91.82-3.75 2.22-5.04 1.39-1.3 3.32-1.97 5.24-1.8v4.17c-1.12-.17-2.31.19-3.1 1.02-.74.77-1.1 1.91-.9 2.99.32 1.73 1.85 3 3.6 3.06 1.42.06 2.82-.73 3.44-1.98.33-.65.42-1.39.42-2.11V.02z"/>
-      </svg>
-    </a>
-
-    <!-- Telegram -->
-    <a href="https://t.me/Paragonpeptides" 
-       target="_blank" 
-       rel="noopener noreferrer" 
-       class="text-[#0088cc] hover:text-[#ff1493] hover:scale-110 transition duration-200">
-      <svg class="w-9 h-9" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M20.665 3.717L2.934 10.554C2.425 10.736 2.417 11.035 2.833 11.183L7.833 12.917L17.833 6.917C18.167 6.667 18.5 6.833 18.167 7.083L10.167 14.083L9.833 19.083C9.833 19.583 10.167 19.75 10.583 19.583L13.167 18.083L17.833 21.083C18.833 21.583 19.167 21.083 19.417 20.083L21.917 4.083C22.167 3.083 21.667 2.717 20.665 3.717Z"/>
-      </svg>
-    </a>
-
-    <!-- Instagram (New) -->
-    <a href="https://instagram.com/paragonpeptides" 
-       target="_blank" 
-       rel="noopener noreferrer" 
-       class="text-black hover:text-[#ff1493] hover:scale-110 transition duration-200">
-      <svg class="w-9 h-9" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.849.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.667.072 4.947.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.76 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-      </svg>
-    </a>
-
   </div>
 </div>
 
-    <!-- Bottom Copyright -->
-    <div class="mt-16 pt-8 border-t border-zinc-200 text-center text-xs text-zinc-500">
-      © 2026 Paragon Peptides • All Rights Reserved • For research use only. Not for human consumption.
-Products are not intended to diagnose, treat, or cure any condition.
-By purchasing, you confirm you are 21 or older and conducting scientific research.
-<!-- Admin button -->
-    <button @click="openStockManager()"
-            class="text-xs text-zinc-600 hover:text-[#ff1493] block mx-auto">
-      Site Tools
-    </button>
+<!-- FAQ PAGE -->
+<div x-show="showFaqsPage" class="fixed inset-0 bg-black z-[99999] overflow-auto" x-transition>
+  <div class="max-w-4xl mx-auto px-6 py-12">
+    <button @click="showFaqsPage = false" class="mb-8 flex items-center gap-2 text-[#ff1493] hover:text-pink-400">← Back to Shop</button>
+    <h1 class="text-5xl font-bold text-white mb-12">Frequently Asked Questions (FAQs)</h1>
+
+    <!-- FAQ content (unchanged from your original) -->
+    <div class="mb-12">
+      <h2 class="text-2xl font-bold text-white mb-4">I had an issue with my checkout while using a coupon, and now my coupon won’t work, what should I do?</h2>
+      <p class="text-zinc-300">If your checkout is not completed properly due to a payment issue, your coupon will temporarily not work because our system thinks it has been used. In this case please wait an hour for our system to realise the coupon wasn’t used, and the coupon will automatically refresh and be ready for use again! If you have waited an hour and the coupon still doesn’t work, please reach out to support and we’ll send you a new code.</p>
     </div>
-  </div>
-</div>
-  <!-- DEDICATED FAQ PAGE (full-screen like profoundaminos.com) -->
-  <div x-show="showFaqsPage" class="fixed inset-0 bg-black z-[99999] overflow-auto" x-transition>
-    <div class="max-w-4xl mx-auto px-6 py-12">
-      <button @click="showFaqsPage = false" class="mb-8 flex items-center gap-2 text-[#ff1493] hover:text-pink-400">← Back to Shop</button>
-      
-      <h1 class="text-5xl font-bold text-white mb-12">Frequently Asked Questions (FAQs)</h1>
-
-      <!-- Coupon Issue -->
-      <div class="mb-12">
-        <h2 class="text-2xl font-bold text-white mb-4">I had an issue with my checkout while using a coupon, and now my coupon won’t work, what should I do?</h2>
-        <p class="text-zinc-300">If your checkout is not completed properly due to a payment issue, your coupon will temporarily not work because our system thinks it has been used. In this case please wait an hour for our system to realise the coupon wasn’t used, and the coupon will automatically refresh and be ready for use again! If you have waited an hour and the coupon still doesn’t work, please reach out to support and we’ll send you a new code.</p>
-      </div>
-
 
     <div class="mb-12">
-  <h2 class="text-2xl font-bold text-white mb-4">Where are your COAs?</h2>
-  <div class="text-zinc-300 leading-relaxed">
-    <p>For research compounds sold strictly for laboratory use, we do not release Certificates of Analysis (COAs) publicly or upon request.</p>
-    
-    <p>Our products are HPLC-verified in-house at ≥99% purity before every batch ships. However, we do not provide third-party COAs for the following reasons:</p>
-    
-    <ul class="list-disc pl-6 space-y-3 mt-4">
-      <li><strong>Regulatory compliance</strong> – Releasing COAs could imply the material is intended for human or clinical use, which violates our research-only policy and could create legal risk for both us and our customers.</li>
-      <li><strong>Customer privacy &amp; security</strong> – Third-party lab reports contain sensitive batch data. We protect that information to prevent counterfeiters from copying our exact testing standards.</li>
-      <li><strong>Speed &amp; focus</strong> – Every order is tested internally before it leaves our facility. We prioritize fast cold-chain shipping over paperwork that most researchers never need.</li>
-    </ul>
-    
-    <p class="mt-6">If you require independent verification for your specific project, you can always send a small sample from your vial to any accredited lab (MZ Biolabs, Janoshik, or Prime are commonly used by the community). We stand behind our in-house testing and offer a full refund if any third-party test shows purity below 98%.</p>
-    
-    <p>All products on Paragon Peptides are sold exclusively for scientific research purposes. Thank you for understanding.</p>
-  </div>
-</div>
-      <div class="mb-12">
-        <h2 class="text-2xl font-bold text-white mb-4">Can I combine coupons on one order?</h2>
-        <p class="text-zinc-300">No. Only one coupon can be used per order.</p>
+      <h2 class="text-2xl font-bold text-white mb-4">Where are your COAs?</h2>
+      <div class="text-zinc-300 leading-relaxed">
+        <p>For research compounds sold strictly for laboratory use, we do not release Certificates of Analysis (COAs) publicly or upon request.</p>
+        <p>Our products are HPLC-verified in-house at ≥99% purity before every batch ships. However, we do not provide third-party COAs for the following reasons:</p>
+        <ul class="list-disc pl-6 space-y-3 mt-4">
+          <li><strong>Regulatory compliance</strong> – Releasing COAs could imply the material is intended for human or clinical use, which violates our research-only policy and could create legal risk for both us and our customers.</li>
+          <li><strong>Customer privacy &amp; security</strong> – Third-party lab reports contain sensitive batch data. We protect that information to prevent counterfeiters from copying our exact testing standards.</li>
+          <li><strong>Speed &amp; focus</strong> – Every order is tested internally before it leaves our facility. We prioritize fast cold-chain shipping over paperwork that most researchers never need.</li>
+        </ul>
+        <p class="mt-6">If you require independent verification for your specific project, you can always send a small sample from your vial to any accredited lab (MZ Biolabs, Janoshik, or Prime are commonly used by the community). We stand behind our in-house testing and offer a full refund if any third-party test shows purity below 98%.</p>
+        <p>All products on Paragon Peptides are sold exclusively for scientific research purposes. Thank you for understanding.</p>
       </div>
+    </div>
 
-      <div class="mb-12">
-        <h2 class="text-2xl font-bold text-white mb-4">Can I use coupons during sales?</h2>
-        <p class="text-zinc-300">No.</p>
-      </div>
+    <div class="mb-12">
+      <h2 class="text-2xl font-bold text-white mb-4">Can I combine coupons on one order?</h2>
+      <p class="text-zinc-300">No. Only one coupon can be used per order.</p>
+    </div>
 
-      <!-- Store Policies -->
-      <div class="mb-12">
-        <h2 class="text-3xl font-bold text-white mb-8">Store Policies</h2>
+    <div class="mb-12">
+      <h2 class="text-2xl font-bold text-white mb-4">Can I use coupons during sales?</h2>
+      <p class="text-zinc-300">No.</p>
+    </div>
 
-        <div class="space-y-10 text-zinc-300">
-          <div>
-            <h3 class="text-xl font-bold text-white mb-3">Research Use Only</h3>
-            <p>The products on this website are for legitimate research use only. They are not intended to prevent, treat, or cure any illness or disease and are not intended for human consumption. By accessing this site, you acknowledge that you are at least 21 years of age, understand these terms, and have a legitimate research basis for buying these products.<br><br>Any reference to or discussion of human consumption of any type will result in cancellation of sale and prohibition on future ordering.<br><br>We cannot advise customers about any part of the research process, and assume that all researchers have the requisite knowledge and expertise to safely conduct their experiments and properly handle research-grade compounds.</p>
-          </div>
-          <div>
-            <h3 class="text-xl font-bold text-white mb-3">Store Refunds &amp; Returns</h3>
-            <p>For safety and quality assurance reasons, we are unable to accept returns on research products. All our products are sourced from reputable manufacturers with established safety and quality records.<br><br>We stand firmly behind the integrity of our products and are committed to your satisfaction. If you experience any issue or have concerns regarding a product you’ve received, please contact our support team — we’ll be happy to assist and ensure your concerns are properly addressed.<br></p>
-          </div>
-          <div>
-            <h3 class="text-xl font-bold text-white mb-3">Refunds</h3>
-            <p>In the event that you are not satisfied with the research product you purchase, you may contact our care team to discuss the issue.<br><br>Refunds will not be issued for purity or fill weight unless 3rd party test results are presented showing that the product is either underweight or the purity is under 98%. Upon submission of these 3rd party test results, a full refund will be issued.<br><br>Test results are only accepted from reputable testing providers, as indicated here: TrustPointe Analytics, MZ Biolabs, Janoshik Analytical, Prime.</p>
-          </div>
-          <div>
-            <h3 class="text-xl font-bold text-white mb-3">Shipping/Delivery Issues</h3>
-            <p>We ship all products using UPS Ground unless otherwise requested during order submission. Shipments are picked up between 10am-2pm each weekday, and usually arrive within 3 business days, although it may take up to 10 business days to arrive due to recent ongoing carrier delays.<br><br>Tracking information is provided upon shipment, and automatically sent to customer’s email address. Tracking should be followed to ensure safe and secure delivery of your product.<br><br>We are not responsible for stolen or redirected packages. We encourage all customers to use a secure lockbox or a drop box for package delivery to ensure safety of purchased items.<br><br><br>Please note that shipping delays do happen, and we have no control over the shipping process once the order leaves our warehouse. While we understand it is frustrating for your order to get delayed, please be patient. The vast majority of packages that are delayed in transit do ultimately get delivered.<br><br>We are not able to authorize re-shipments or refunds for packages with tracking info that states “delivered.” This includes packages delivered to an incorrect address or to a common area in an apartment building. Customers should contact the carrier to inquire about the package delivery prior to reaching out to us for assistance.<br><br>Please contact us using our contact form with any questions or concerns.<br><br>Contact us via the chat bubble for questions related to refunds and returns.</p>
-          </div>
-          <div>
-            <h3 class="text-xl font-bold text-white mb-3">Chargeback Policies</h3>
-            <p>We defend our business from fraud and theft assertively. Customers who submit chargebacks/disputes for valid fulfilled orders will be banned from our store. Please contact us about any order issues before initiating a chargeback/dispute. Most of these order issues can be worked out collaboratively to mutual satisfaction.</p>
-          </div>
+    <!-- Store Policies (unchanged) -->
+    <div class="mb-12">
+      <h2 class="text-3xl font-bold text-white mb-8">Store Policies</h2>
+      <div class="space-y-10 text-zinc-300">
+        <div>
+          <h3 class="text-xl font-bold text-white mb-3">Research Use Only</h3>
+          <p>The products on this website are for legitimate research use only. They are not intended to prevent, treat, or cure any illness or disease and are not intended for human consumption. By accessing this site, you acknowledge that you are at least 21 years of age, understand these terms, and have a legitimate research basis for buying these products.<br><br>Any reference to or discussion of human consumption of any type will result in cancellation of sale and prohibition on future ordering.<br><br>We cannot advise customers about any part of the research process, and assume that all researchers have the requisite knowledge and expertise to safely conduct their experiments and properly handle research-grade compounds.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-white mb-3">Store Refunds &amp; Returns</h3>
+          <p>For safety and quality assurance reasons, we are unable to accept returns on research products. All our products are sourced from reputable manufacturers with established safety and quality records.<br><br>We stand firmly behind the integrity of our products and are committed to your satisfaction. If you experience any issue or have concerns regarding a product you’ve received, please contact our support team — we’ll be happy to assist and ensure your concerns are properly addressed.<br></p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-white mb-3">Refunds</h3>
+          <p>In the event that you are not satisfied with the research product you purchase, you may contact our care team to discuss the issue.<br><br>Refunds will not be issued for purity or fill weight unless 3rd party test results are presented showing that the product is either underweight or the purity is under 98%. Upon submission of these 3rd party test results, a full refund will be issued.<br><br>Test results are only accepted from reputable testing providers, as indicated here: TrustPointe Analytics, MZ Biolabs, Janoshik Analytical, Prime.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-white mb-3">Shipping/Delivery Issues</h3>
+          <p>We ship all products using UPS Ground unless otherwise requested during order submission. Shipments are picked up between 10am-2pm each weekday, and usually arrive within 3 business days, although it may take up to 10 business days to arrive due to recent ongoing carrier delays.<br><br>Tracking information is provided upon shipment, and automatically sent to customer’s email address. Tracking should be followed to ensure safe and secure delivery of your product.<br><br>We are not responsible for stolen or redirected packages. We encourage all customers to use a secure lockbox or a drop box for package delivery to ensure safety of purchased items.<br><br>Please note that shipping delays do happen, and we have no control over the shipping process once the order leaves our warehouse. While we understand it is frustrating for your order to get delayed, please be patient. The vast majority of packages that are delayed in transit do ultimately get delivered.<br><br>We are not able to authorize re-shipments or refunds for packages with tracking info that states “delivered.” This includes packages delivered to an incorrect address or to a common area in an apartment building. Customers should contact the carrier to inquire about the package delivery prior to reaching out to us for assistance.<br><br>Please contact us using our contact form with any questions or concerns.<br><br>Contact us via the chat bubble for questions related to refunds and returns.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-white mb-3">Chargeback Policies</h3>
+          <p>We defend our business from fraud and theft assertively. Customers who submit chargebacks/disputes for valid fulfilled orders will be banned from our store. Please contact us about any order issues before initiating a chargeback/dispute. Most of these order issues can be worked out collaboratively to mutual satisfaction.</p>
         </div>
       </div>
-
-      <button @click="showFaqsPage = false" class="mt-12 w-full bg-[#ff1493] py-5 rounded-3xl font-semibold text-xl">Back to Shop</button>
     </div>
-  </div>
 
-<!-- DEDICATED GET IN TOUCH PAGE (exactly like profoundaminos.com/contact/) -->
+    <button @click="showFaqsPage = false" class="mt-12 w-full bg-[#ff1493] py-5 rounded-3xl font-semibold text-xl">Back to Shop</button>
+  </div>
+</div>
+
+<!-- GET IN TOUCH MODAL -->
 <div x-show="showGetInTouchModal" class="fixed inset-0 bg-black z-[99999] overflow-auto" x-transition>
   <div class="max-w-4xl mx-auto px-6 py-12">
     <button @click="showGetInTouchModal = false" class="mb-8 flex items-center gap-2 text-[#ff1493] hover:text-pink-400">← Back to Shop</button>
-    
     <h1 class="text-5xl font-bold text-white mb-12">Get in Touch</h1>
     
     <div class="text-zinc-300 leading-relaxed mb-12">
       <p class="text-xl">We’re here to help with any questions about our research compounds, orders, or lab support.</p>
-      
       <h2 class="text-3xl font-bold text-white mt-12 mb-6">Contact Customer Care</h2>
       <p>Paragon Peptides staff are available during business hours Monday–Friday to answer any questions.</p>
-      
       <div class="mt-8 space-y-6">
         <div>
           <strong class="block text-white">Mailing Address:</strong>
-          <p>Paragon Peptides<br>
-          3595 S Baldwin RD<br>
-          Lake Orion, Michigan 48359</p>
+          <p>Paragon Peptides<br>3595 S Baldwin RD<br>Lake Orion, Michigan 48359</p>
         </div>
-        
         <div>
           <strong class="block text-white">Multiple ways to reach us:</strong>
           <ul class="list-disc pl-6 space-y-2 mt-4">
@@ -859,148 +662,103 @@ By purchasing, you confirm you are 21 or older and conducting scientific researc
         </div>
       </div>
     </div>
-    
-   <!-- REAL CONTACT FORM (Formspree ready + feedback) -->
-<div class="bg-zinc-900 rounded-3xl p-10">
-  <h3 class="text-2xl font-bold text-white mb-8">Send us a message</h3>
-  
-  <form 
-    id="getintouch-form" 
-    action="https://formspree.io/f/xjgepbby" 
-    method="POST" 
-    @submit.prevent="submitGetInTouch" 
-    class="space-y-6">
-    
-    <!-- Honeypot (spam protection – leave empty) -->
-    <input type="text" name="_gotcha" style="display:none" />
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div>
-        <label class="block text-sm text-zinc-400 mb-2">Your Name</label>
-        <input type="text" name="name" required class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-[#ff1493]">
-      </div>
-      <div>
-        <label class="block text-sm text-zinc-400 mb-2">Email Address</label>
-        <input type="email" name="email" required class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-[#ff1493]">
-      </div>
+
+    <div class="bg-zinc-900 rounded-3xl p-10">
+      <h3 class="text-2xl font-bold text-white mb-8">Send us a message</h3>
+      <form id="getintouch-form" action="https://formspree.io/f/xjgepbby" method="POST" @submit.prevent="submitGetInTouch" class="space-y-6">
+        <input type="text" name="_gotcha" style="display:none">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-sm text-zinc-400 mb-2">Your Name</label>
+            <input type="text" name="name" required class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-[#ff1493]">
+          </div>
+          <div>
+            <label class="block text-sm text-zinc-400 mb-2">Email Address</label>
+            <input type="email" name="email" required class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-[#ff1493]">
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm text-zinc-400 mb-2">Subject</label>
+          <input type="text" name="subject" required placeholder="Order question, product inquiry, etc." class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-[#ff1493]">
+        </div>
+        <div>
+          <label class="block text-sm text-zinc-400 mb-2">Message</label>
+          <textarea name="message" rows="6" required class="w-full bg-zinc-950 border border-zinc-800 rounded-3xl px-5 py-4 text-white focus:outline-none focus:border-[#ff1493]" placeholder="How can we help you today?"></textarea>
+        </div>
+        <button type="submit" :disabled="isSubmittingGetInTouch" class="w-full bg-[#ff1493] hover:bg-pink-600 py-5 rounded-3xl font-semibold text-xl text-white transition disabled:opacity-50 disabled:cursor-not-allowed">
+          <span x-text="isSubmittingGetInTouch ? 'Sending...' : 'Send Message'"></span>
+        </button>
+        <div x-show="getInTouchSuccess" class="text-green-400 text-center mt-4">Message sent successfully! We'll get back to you soon.</div>
+        <div x-show="getInTouchError" class="text-red-400 text-center mt-4" x-text="getInTouchError"></div>
+      </form>
     </div>
-    
-    <div>
-      <label class="block text-sm text-zinc-400 mb-2">Subject</label>
-      <input type="text" name="subject" required placeholder="Order question, product inquiry, etc." class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-[#ff1493]">
-    </div>
-    
-    <div>
-      <label class="block text-sm text-zinc-400 mb-2">Message</label>
-      <textarea name="message" rows="6" required class="w-full bg-zinc-950 border border-zinc-800 rounded-3xl px-5 py-4 text-white focus:outline-none focus:border-[#ff1493]" placeholder="How can we help you today?"></textarea>
-    </div>
-    
-    <!-- Submit Button with Loading State -->
-    <button 
-      type="submit" 
-      :disabled="isSubmittingGetInTouch"
-      class="w-full bg-[#ff1493] hover:bg-pink-600 py-5 rounded-3xl font-semibold text-xl text-white transition disabled:opacity-50 disabled:cursor-not-allowed">
-      <span x-text="isSubmittingGetInTouch ? 'Sending...' : 'Send Message'"></span>
-    </button>
-    
-    <!-- Feedback Messages -->
-    <div x-show="getInTouchSuccess" class="text-green-400 text-center mt-4">Message sent successfully! We'll get back to you soon.</div>
-    <div x-show="getInTouchError" class="text-red-400 text-center mt-4" x-text="getInTouchError"></div>
-  </form>
-</div>
     
     <button @click="showGetInTouchModal = false" class="mt-12 w-full bg-zinc-800 hover:bg-zinc-700 py-5 rounded-3xl font-semibold text-xl">Close</button>
   </div>
 </div>
 
-
-     <!-- CART DRAWER -->
-    <div x-show="cartOpen" class="fixed inset-0 z-[99999] bg-black/60" @click="cartOpen = false"></div>
-    <div x-show="cartOpen" class="fixed right-0 top-0 bottom-0 w-full max-w-md bg-zinc-900 border-l border-zinc-800 z-[99999] transition-transform" :class="{ 'translate-x-full': !cartOpen }">
-      <div class="p-8 h-full flex flex-col">
-        <div class="flex justify-between mb-8">
-          <h3 class="text-3xl font-semibold">Your Cart</h3>
-          <button @click="cartOpen = false" class="text-4xl">×</button>
-        </div>
+<!-- CART DRAWER -->
+<div x-show="cartOpen" class="fixed inset-0 z-[99999] bg-black/60" @click="cartOpen = false"></div>
+<div x-show="cartOpen" class="fixed right-0 top-0 bottom-0 w-full max-w-md bg-zinc-900 border-l border-zinc-800 z-[99999] transition-transform" :class="{ 'translate-x-full': !cartOpen }">
+  <div class="p-8 h-full flex flex-col">
+    <div class="flex justify-between mb-8">
+      <h3 class="text-3xl font-semibold">Your Cart</h3>
+      <button @click="cartOpen = false" class="text-4xl">×</button>
+    </div>
     <div x-show="cart.length === 0" class="text-center py-12">
-    <p class="text-xl text-zinc-400 mb-6">Your cart is empty</p>
-    <button @click="cartOpen = false" class="bg-[#ff1493] text-  white py-4 px-8 rounded-2xl font-semibold hover:bg-pink-600 transition">
-    Continue Shopping
-  </button>
-</div>
-        <div class="flex-1 overflow-auto space-y-6">
-          <template x-for="(item, i) in cart" :key="i">
-           <div class="flex gap-6 border-b border-zinc-800 pb-6">
-  <img :src="item.image" 
-     @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'"
-     class="w-24 h-24 object-cover rounded-xl" 
-     alt="">
-  <div class="flex-1">
-    <h4 class="font-medium text-lg" x-text="item.name"></h4>
-    <p class="text-sm text-zinc-400 mt-1" x-text="'Dose: ' + item.dose + (item.unit || 'mg')"></p>
-    <div class="flex gap-4 mt-3">
-      <button @click="changeQty(i, -1)" class="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded">-</button>
-      <span class="font-medium py-2" x-text="item.qty"></span>
-      <button @click="changeQty(i, 1)" class="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded">+</button>
+      <p class="text-xl text-zinc-400 mb-6">Your cart is empty</p>
+      <button @click="cartOpen = false" class="bg-[#ff1493] text-white py-4 px-8 rounded-2xl font-semibold hover:bg-pink-600 transition">Continue Shopping</button>
     </div>
-  </div>
-  <div class="text-right">
-    <div class="font-semibold text-lg" x-text="'$' + (item.price * item.qty).toFixed(2)"></div>
-    <button @click="removeFromCart(i)" class="text-red-400 text-sm mt-4 hover:text-red-300 transition">Remove</button>
+    <div class="flex-1 overflow-auto space-y-6">
+      <template x-for="(item, i) in cart" :key="i">
+        <div class="flex gap-6 border-b border-zinc-800 pb-6">
+          <img :src="item.image" @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'" class="w-24 h-24 object-cover rounded-xl" alt="">
+          <div class="flex-1">
+            <h4 class="font-medium text-lg" x-text="item.name"></h4>
+            <p class="text-sm text-zinc-400 mt-1" x-text="'Dose: ' + item.dose + (item.unit || 'mg')"></p>
+            <div class="flex gap-4 mt-3">
+              <button @click="changeQty(i, -1)" class="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded">-</button>
+              <span class="font-medium py-2" x-text="item.qty"></span>
+              <button @click="changeQty(i, 1)" class="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded">+</button>
+            </div>
           </div>
-         </div>          
-       </template>
+          <div class="text-right">
+            <div class="font-semibold text-lg" x-text="'$' + (item.price * item.qty).toFixed(2)"></div>
+            <button @click="removeFromCart(i)" class="text-red-400 text-sm mt-4 hover:text-red-300 transition">Remove</button>
+          </div>
         </div>
-       <div class="pt-8 border-t border-zinc-800 sticky bottom-0 bg-zinc-900 p-6 -mx-8 -mb-8 shadow-lg z-10">
-  <div class="flex justify-between text-xl mb-6">
-    <span class="font-medium">Subtotal</span>
-    <span class="font-bold" x-text="'$' + cartTotal.toFixed(2)"></span>
-  </div>
-  <!-- Optional: Shipping note -->
-  <p class="text-sm text-zinc-400 mb-4" x-text="cartTotal >= 250 ? 'Free Shipping Eligible' : 'Shipping calculated at checkout'"></p>
- <button @click="window.location.href = '/checkout.html'" class="w-full bg-white text-black py-5 rounded-3xl font-semibold">
-  Proceed to Checkout
-</button>
-      </div>
-      </div>
+      </template>
     </div>
+    <div class="pt-8 border-t border-zinc-800 sticky bottom-0 bg-zinc-900 p-6 -mx-8 -mb-8 shadow-lg z-10">
+      <div class="flex justify-between text-xl mb-6">
+        <span class="font-medium">Subtotal</span>
+        <span class="font-bold" x-text="'$' + cartTotal.toFixed(2)"></span>
+      </div>
+      <p class="text-sm text-zinc-400 mb-4" x-text="cartTotal >= 250 ? 'Free Shipping Eligible' : 'Shipping calculated at checkout'"></p>
+      <button @click="window.location.href = '/checkout.html'" class="w-full bg-white text-black py-5 rounded-3xl font-semibold">Proceed to Checkout</button>
+    </div>
+  </div>
+</div>
 
-
-
-<!-- PAYMENT UPDATE ALERT MODAL – WHITE BACKGROUND + DARK TEXT (color-blind friendly) -->
-<div x-show="showPaymentAlert" @click.away="showPaymentAlert = false"
-     class="fixed inset-0 z-[100001] flex items-center justify-center bg-black/80 backdrop-blur-sm" x-transition>
+<!-- PAYMENT ALERT -->
+<div x-show="showPaymentAlert" @click.away="showPaymentAlert = false" class="fixed inset-0 z-[100001] flex items-center justify-center bg-black/80 backdrop-blur-sm" x-transition>
   <div class="bg-white border border-zinc-200 rounded-3xl max-w-lg w-full mx-4 p-8 relative shadow-2xl">
-    
-    <!-- Close button (dark) -->
-    <button @click="showPaymentAlert = false"
-            class="absolute top-4 right-4 text-zinc-900 hover:text-black text-3xl leading-none font-light">
-      ×
-    </button>
-
-    <h2 class="text-2xl font-bold text-zinc-900 mb-6 text-center">
-      IMPORTANT LEGAL NOTICE
-    </h2>
-    
+    <button @click="showPaymentAlert = false" class="absolute top-4 right-4 text-zinc-900 hover:text-black text-3xl leading-none font-light">×</button>
+    <h2 class="text-2xl font-bold text-zinc-900 mb-6 text-center">IMPORTANT LEGAL NOTICE</h2>
     <div class="text-zinc-800 space-y-4 text-center text-[15px] leading-relaxed">
       <p><strong>NOT FOR HUMAN CONSUMPTION.</strong></p>
       <p>The products on this website are for legitimate research use only. They are not intended to prevent, treat, or cure any illness or disease.</p>
       <p>By continuing, you acknowledge and understand these terms.</p>
     </div>
-
-    <button @click="showPaymentAlert = false"
-            class="mt-8 w-full bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-lg text-white transition">
-      I Understand — Continue Checkout
-    </button>
+    <button @click="showPaymentAlert = false" class="mt-8 w-full bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-lg text-white transition">I Understand — Continue Checkout</button>
   </div>
 </div>
 
-<!-- STOCK MANAGER (hidden admin panel) -->
+<!-- STOCK MANAGER -->
 <div x-show="showStockManager" class="fixed inset-0 bg-black/90 z-[99999] overflow-auto">
   <div class="max-w-4xl mx-auto p-8">
     <h2 class="text-3xl font-bold mb-8 text-white">Stock Manager</h2>
     <button @click="showStockManager = false" class="mb-6 text-[#ff1493] hover:underline">← Close Manager</button>
-    
     <div class="grid gap-6">
       <template x-for="product in products" :key="product.id">
         <div class="bg-zinc-900 p-6 rounded-3xl">
@@ -1009,9 +767,7 @@ By purchasing, you confirm you are 21 or older and conducting scientific researc
             <template x-for="(variant, i) in product.doses" :key="i">
               <div class="flex items-center gap-4">
                 <span class="w-20 text-zinc-300" x-text="variant.mg + ' ' + (product.unit || 'mg')"></span>
-                <input type="number" 
-                       x-model.number="variant.stock"
-                       class="bg-zinc-800 w-24 px-3 py-2 rounded-lg text-center text-white border border-zinc-700 focus:border-[#ff1493] focus:outline-none">
+                <input type="number" x-model.number="variant.stock" class="bg-zinc-800 w-24 px-3 py-2 rounded-lg text-center text-white border border-zinc-700 focus:border-[#ff1493] focus:outline-none">
                 <span class="text-xs text-zinc-400">left</span>
               </div>
             </template>
@@ -1022,98 +778,43 @@ By purchasing, you confirm you are 21 or older and conducting scientific researc
   </div>
 </div>
 
-<!-- FLOATING TELEGRAM BUTTON (#4) -->
-<a href="http://t.me/Paragonpeptides" target="_blank" rel="noopener noreferrer"
-   class="fixed bottom-6 right-6 bg-[#ff1493] text-white w-14 h-14 rounded-2xl flex items-center justify-center shadow-2xl md:hidden z-[99999] hover:scale-110 transition">
+<!-- FLOATING TELEGRAM -->
+<a href="http://t.me/Paragonpeptides" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 bg-[#ff1493] text-white w-14 h-14 rounded-2xl flex items-center justify-center shadow-2xl md:hidden z-[99999] hover:scale-110 transition">
   <span class="text-3xl">📩</span>
 </a>
 
-<!-- SIMPLE ACCOUNT MODAL (Points Disabled) -->
+<!-- ACCOUNT MODAL -->
 <div x-show="showAccountModal" class="fixed inset-0 z-[99999] bg-black/80 flex items-center justify-center" @click.self="showAccountModal = false">
   <div class="bg-zinc-900 rounded-3xl max-w-md w-full p-8">
     <div class="flex justify-between items-center mb-6">
       <h3 class="text-3xl font-bold">My Account</h3>
       <button @click="showAccountModal = false" class="text-3xl">×</button>
     </div>
-
     <p class="text-zinc-400 mb-6">Account features are currently disabled.</p>
-    
-    <button @click="showAccountModal = false" 
-            class="w-full bg-zinc-800 hover:bg-zinc-700 py-4 rounded-2xl font-semibold text-white">
-      Close
-    </button>
+    <button @click="showAccountModal = false" class="w-full bg-zinc-800 hover:bg-zinc-700 py-4 rounded-2xl font-semibold text-white">Close</button>
   </div>
 </div>
 
-
-<!-- TERMS & SERVICES MODAL -->
+<!-- TERMS MODAL -->
 <div x-show="showSupportModal" class="fixed inset-0 z-[99999] bg-black/70 flex items-center justify-center" @click.self="showSupportModal = false">
   <div class="bg-zinc-900 rounded-3xl max-w-2xl w-full p-8 max-h-[90vh] overflow-auto">
     <div class="flex justify-between items-center mb-6">
       <h3 class="text-3xl font-bold text-white">Terms & Services</h3>
       <button @click="showSupportModal = false" class="text-4xl text-zinc-400 hover:text-white">×</button>
     </div>
-    
     <div class="prose prose-invert text-zinc-300 text-[15px] leading-relaxed">
       <p><strong>Effective Date:</strong> March 31, 2026</p>
       <p><strong>IMPORTANT NOTICE:</strong> All products sold by Paragon Peptides, LLC are strictly intended for laboratory research use only. They are not intended for human or animal consumption, or for any clinical, therapeutic, or diagnostic applications.</p>
-      
       <p class="mt-6">By purchasing from this website, you certify that you are a qualified researcher capable of safely handling these substances and that all purchases are for legitimate research purposes only.</p>
     </div>
-    
     <div class="mt-10 flex flex-col gap-4">
-      <a href="/terms-and-services.html" target="_blank" 
-         class="block w-full bg-[#ff1493] hover:bg-pink-600 py-4 rounded-3xl text-center font-semibold text-white">
-        Read Full Terms & Services
-      </a>
-      <button @click="showSupportModal = false" 
-              class="w-full bg-zinc-800 hover:bg-zinc-700 py-4 rounded-3xl font-semibold">
-        Close
-      </button>
+      <a href="/terms-and-services.html" target="_blank" class="block w-full bg-[#ff1493] hover:bg-pink-600 py-4 rounded-3xl text-center font-semibold text-white">Read Full Terms & Services</a>
+      <button @click="showSupportModal = false" class="w-full bg-zinc-800 hover:bg-zinc-700 py-4 rounded-3xl font-semibold">Close</button>
     </div>
   </div>
 </div>
 
-<!-- DYNAMIC PRODUCT MODAL (mobile-optimized) -->
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-    <div class="grid md:grid-cols-2 gap-8">
-      <div class="relative">
-
-      <div>
-<template x-if="currentProduct">
-    <div>
-        <h1 x-text="currentProduct.name"></h1>
-        <p x-text="currentProduct.desc"></p>
-        <div class="grid grid-cols-3 gap-3">
-            <template x-for="variant in currentProduct.doses" :key="variant.mg || variant.ml">
-                <button @click="currentProduct.selectedDose = (variant.mg || variant.ml); currentProduct.price = variant.price"
-                        x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')">
-                </button>
-            </template>
-        </div>
-    </div>
-</template>
-
-<!-- DYNAMIC DOSE BUTTONS – FIXED & SYNCED -->
-<div class="mt-6 sm:mt-8">
-  <div class="grid grid-cols-3 sm:grid-cols-5 gap-3 dose-grid">
-    <template x-for="variant in currentProduct.doses" :key="variant.mg || variant.ml">
-      <button
-        @click="currentProduct.selectedDose = (variant.mg || variant.ml); currentProduct.price = variant.price"
-        :disabled="variant.stock <= 0"
-        :class="{
-          'bg-[#ff1493] text-white min-h-[44px] ring-2 ring-pink-500 scale-105': currentProduct.selectedDose === (variant.mg || variant.ml) && variant.stock > 0,
-          'bg-zinc-800 text-zinc-400 cursor-not-allowed opacity-60 min-h-[44px]': variant.stock <= 0,
-          'bg-zinc-800 hover:bg-zinc-700 min-h-[44px]': currentProduct.selectedDose !== (variant.mg || variant.ml) && variant.stock > 0
-        }"
-        class="py-3 px-4 rounded-xl font-medium transition text-sm sm:text-base flex items-center justify-center gap-2">
-        <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
-      </button>
-    </template>
-  </div>
-</div>
-
-<!-- GLOBAL LOADING SPINNER -->
+<!-- GLOBAL LOADING + TOAST -->
 <div x-show="isLoading" class="fixed inset-0 bg-black/90 flex items-center justify-center z-[999999]">
   <div class="text-center">
     <div class="w-12 h-12 border-4 border-[#ff1493] border-t-transparent rounded-full animate-spin mx-auto"></div>
@@ -1121,470 +822,348 @@ By purchasing, you confirm you are 21 or older and conducting scientific researc
   </div>
 </div>
 
-<!-- TOAST NOTIFICATION -->
 <div id="toast" class="hidden fixed bottom-8 left-1/2 -translate-x-1/2 bg-zinc-900 border border-[#ff1493] text-white px-8 py-4 rounded-3xl shadow-2xl z-[9999] flex items-center gap-3">
   <span id="toast-text"></span>
 </div>
 
-
-<!-- MOBILE SCROLL GLOW – Glows automatically when you scroll to each card -->
 <script>
-  function initScrollGlow() {
+  // Mobile-optimized 3D tilt (disabled on touch devices)
+  function handleCardTilt(e, card) {
+    if ('ontouchstart' in window) return;
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    const rotateX = (50 - y) * 0.35;
+    const rotateY = (x - 50) * 0.35;
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-14px) scale(1.02)`;
+  }
+
+  function resetCardTilt(card) {
+    card.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
+    card.style.transform = '';
+    setTimeout(() => {
+      card.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
+    }, 600);
+  }
+
+  // Scroll progress
+  function initScrollProgress() {
+    const progressBar = document.getElementById('scroll-progress');
+    if (!progressBar) return;
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      progressBar.style.width = scrollPercent + '%';
+    });
+  }
+
+  // Parallax + card animations
+  function initPremiumParallax() {
+    const section = document.querySelector('.resource-parallax');
+    if (!section) return;
+    const cards = section.querySelectorAll('.resource-card');
+    window.addEventListener('scroll', () => {
+      const rect = section.getBoundingClientRect();
+      const progress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)));
+      section.style.backgroundPosition = `${50 + (progress * 8)}% ${50 + (progress * -6)}%`;
+      cards.forEach((card, index) => {
+        const delay = index * 0.12;
+        const yMove = (progress - 0.5) * (28 + (index * 4));
+        const rotate = (progress - 0.5) * (index % 2 === 0 ? 1.2 : -1.2);
+        card.style.transform = `translateY(${yMove}px) rotate(${rotate}deg)`;
+        card.style.transition = `transform 0.4s cubic-bezier(0.23, 1, 0.32, 1) ${delay}s`;
+      });
+    }, { passive: true });
+    setTimeout(() => window.dispatchEvent(new Event('scroll')), 800);
+  }
+
+  function initProductCardAnimations() {
     const cards = document.querySelectorAll('.product-card');
-    
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+      entries.forEach((entry, index) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-        } else {
-          entry.target.classList.remove('in-view');
+          setTimeout(() => entry.target.classList.add('in-view'), index * 80);
+          observer.unobserve(entry.target);
         }
       });
-    }, {
-      threshold: 0.35,
-      rootMargin: "0px 0px -15% 0px"
-    });
-
+    }, { threshold: 0.25, rootMargin: "0px 0px -10% 0px" });
     cards.forEach(card => observer.observe(card));
   }
 
-  // Run after Alpine loads the products
+  function initMobileOptimizations() {
+    document.querySelectorAll('.product-card').forEach(card => card.style.touchAction = 'manipulation');
+  }
+
   window.addEventListener('load', () => {
-    setTimeout(initScrollGlow, 1200);
+    initScrollProgress();
+    initPremiumParallax();
+    initProductCardAnimations();
+    initMobileOptimizations();
   });
-</script>
 
-</body>
-</html>
+  // Alpine app
+  function app() {
+    return {
+      // UI State
+      cartOpen: false,
+      showAccountModal: false,
+      showGetInTouchModal: false,
+      showSupportModal: false,
+      showFaqsPage: false,
+      showStockManager: false,
+      showPaymentAlert: false,
+      mobileMenuOpen: false,
+      isLoading: true,
+      showNewsletter: false,
+      newsletterEmail: '',
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Paragon Peptides",
-  "url": "https://paragonpeptides.net",
-  "description": "Premium research peptides for laboratory use only. HPLC-verified compounds with fast cold-chain shipping."
-}
-</script>
+      // Data
+      products: [],
+      cart: [],
+      searchTerm: '',
+      currentProduct: null,
+      isSubmittingGetInTouch: false,
+      getInTouchSuccess: false,
+      getInTouchError: null,
+      supabase: null,
 
-<script>
-if (history.scrollRestoration) {
-    history.scrollRestoration = 'manual';
-}
+      init() {
+        console.log('[INIT] Starting...');
+        try {
+          this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
+        } catch (e) {
+          this.cart = [];
+        }
+        this.waitForSupabase().then(() => {
+          this.initializeSupabase();
+          this.loadProducts();
+        }).catch(e => {
+          console.error('[INIT] Failed:', e);
+          this.isLoading = false;
+        });
+        const hasSeenNewsletter = sessionStorage.getItem('newsletterShown');
+        if (!hasSeenNewsletter) {
+          setTimeout(() => {
+            if (!sessionStorage.getItem('newsletterShown')) this.showNewsletter = true;
+          }, 4000);
+        }
+      },
 
-function app() {
-  return {
-    // --- UI State ---
-    cartOpen: false,
-    checkoutPage: false,
-    successOpen: false,
-    showAccountModal: false,
-    showGetInTouchModal: false,
-    showSupportModal: false,
-    showFaqsPage: false,
-    showStockManager: false,
-    showPaymentAlert: false,
-    mobileMenuOpen: false,
-    isLoading: true,
-    showPopup: false,
-    timeLeft: 10,
-    discountCode: 'PARAGON15',
-    copied: false,
+      waitForSupabase(maxAttempts = 20, delay = 300) {
+        return new Promise((resolve, reject) => {
+          let attempts = 0;
+          const check = () => {
+            attempts++;
+            if (typeof supabase !== 'undefined') {
+              resolve();
+              return;
+            }
+            if (attempts >= maxAttempts) {
+              reject(new Error('Supabase timed out'));
+              return;
+            }
+            setTimeout(check, delay);
+          };
+          check();
+        });
+      },
 
-    // --- Product & Cart Data ---
-    products: [],
-    currentProduct: null,
-    selectedDose: null,
-    cart: [],
-    searchTerm: '',
-    activeFilter: 'all',
+      initializeSupabase() {
+        try {
+          this.supabase = supabase.createClient(
+            'https://lydlmgzavepcdtreeoto.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5ZGxtZ3phdmVwY2R0cmVlb3RvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NDA3MTksImV4cCI6MjA4OTQxNjcxOX0.-F_lSkO6_Wz4-FnNwsPkib-k31_xEe5sgrC4WDaOOSk'
+          );
+        } catch (e) {
+          console.error('[INIT] Client failed:', e);
+        }
+      },
 
-    // --- Checkout & Payment ---
-    activePayment: null,
-    agreedToTOS: false,
-    agreedToPolicies: false,
-    agreedToPayment: false,
-    isSubmitting: false,
-    formError: null,
-    formSuccess: false,
-    lastOrderNumber: '',
-    orderCopied: false,
+      async loadProducts() {
+        this.isLoading = true;
+        try {
+          const { data, error } = await this.supabase.from('products').select('*');
+          if (error) throw error;
+          this.products = data.map(product => {
+            if (product.doses && product.doses.length === 1) {
+              return {
+                ...product,
+                selectedDose: product.doses[0].mg || product.doses[0].ml,
+                price: product.doses[0].price,
+                quantity: 1
+              };
+            }
+            return { ...product, quantity: 1 };
+          });
+          console.log("Products Loaded & Primed");
+        } catch (e) {
+          console.error('[LOAD] Error:', e.message);
+        } finally {
+          this.isLoading = false;
+        }
+      },
 
-    // --- Coupons ---
-    couponCode: '',
-    appliedCoupon: null,
-    couponMessage: '',
+      quickAddToCart(id, name, dose, price) {
+        const filename = `${name.toLowerCase().replace(/ /g,'-')}-${dose.toLowerCase()}.jpg`;
+        const newItem = {
+          id: id,
+          name: name,
+          image: `https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/${filename}`,
+          dose: parseInt(dose),
+          unit: dose.includes('mg') ? 'mg' : 'ml',
+          price: price,
+          qty: 1
+        };
+        let existing = this.cart.find(i => i.id === id && i.dose === newItem.dose);
+        if (existing) existing.qty++;
+        else this.cart.push(newItem);
+        this.saveCart();
+        this.showToast(`✅ ${name} added to cart!`);
+      },
 
-    // --- Newsletter ---
-    showNewsletter: false,
-    newsletterEmail: '',
-    newsletterSubmitting: false,
-    newsletterSuccess: false,
+      filteredProducts() {
+        const term = this.searchTerm.toLowerCase().trim();
+        if (!term) return this.products;
+        return this.products.filter(product => {
+          const name = product.name.toLowerCase();
+          const desc = (product.desc || '').toLowerCase();
+          return name.includes(term) || desc.includes(term);
+        });
+      },
 
-    // --- Contact Form ---
-    isSubmittingGetInTouch: false,
-    getInTouchSuccess: false,
-    getInTouchError: null,
+            handleSearch() {
+              const term = this.searchTerm.toLowerCase().trim();
+             if (!term) return;
 
-    // --- Supabase ---
-    supabase: null,
+            const matchingProducts = this.filteredProducts();
+           if (matchingProducts.length === 0) return;
 
-    // === METHODS ===
-    toggleDose(product, variant) {
-      const doseValue = variant.mg || variant.ml;
-      if (product.selectedDose === doseValue) {
-        product.selectedDose = null;
-      } else {
-        product.selectedDose = doseValue;
-        product.price = variant.price;
-      }
-    },
+          const firstMatch = matchingProducts[0];
+          setTimeout(() => {
+          // Try category section first
+          const categoryName = firstMatch.category ? firstMatch.category.toLowerCase() : null;
+          if (categoryName) {
+            const categorySection = document.querySelector(`.category-section[data-category="${categoryName}"]`);
+            if (categorySection) {
+              categorySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              return;
+            }
+          }
+          // Fallback to product card (now guaranteed to exist)
+          const productCard = document.querySelector(`[data-product-id="${firstMatch.id}"]`);
+          if (productCard) productCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 100);
+      },
 
-    subscribeNewsletter() {
-      this.newsletterSubmitting = true;
-      setTimeout(() => {
-        this.newsletterSubmitting = false;
-        this.newsletterSuccess = true;
+      get cartTotal() {
+        return this.cart.reduce((sum, item) => sum + (item.price * (item.qty || 1)), 0);
+      },
+
+      getPublicImageUrl(product) {
+        if (product.image && product.image.startsWith('http')) return product.image;
+        const name = product.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        return `https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/${name}-${product.doses[0].mg || product.doses[0].ml}mg.png`;
+      },
+
+      toggleDose(product, variant) {
+        const doseValue = variant.mg || variant.ml;
+        if (product.selectedDose === doseValue) {
+          product.selectedDose = null;
+          product.price = product.originalPrice || product.price;
+        } else {
+          product.selectedDose = doseValue;
+          product.price = variant.price;
+        }
+      },
+
+      addToCartWithDose(product) {
+        if (!product.selectedDose) {
+          this.showToast("⚠️ Please select a dose first");
+          return;
+        }
+        const variant = product.doses.find(v => (v.mg || v.ml) === product.selectedDose);
+        if (!variant || variant.stock <= 0) return alert("Out of stock");
+
+        let existing = this.cart.find(i => i.id === product.id && i.dose === product.selectedDose);
+        if (existing) {
+          existing.qty += (product.quantity || 1);
+        } else {
+          this.cart.push({
+            id: product.id,
+            name: product.name,
+            image: product.image || 'https://i.imgur.com/jXQlcWB.png',
+            dose: product.selectedDose,
+            unit: variant.mg ? 'mg' : 'ml',
+            price: variant.price,
+            qty: product.quantity || 1
+          });
+        }
+        this.saveCart();
+        this.showToast("✅ Added to cart!");
+      },
+
+      saveCart() {
+        localStorage.setItem('paragonCart', JSON.stringify(this.cart));
+      },
+
+      showToast(msg) {
+        const toast = document.getElementById('toast');
+        const toastText = document.getElementById('toast-text');
+        if (toast && toastText) {
+          toastText.textContent = msg;
+          toast.classList.remove('hidden');
+          setTimeout(() => toast.classList.add('hidden'), 2200);
+        }
+      },
+
+      changeQty(i, delta) {
+        this.cart[i].qty = Math.max(1, this.cart[i].qty + delta);
+        this.saveCart();
+      },
+
+      removeFromCart(i) {
+        this.cart.splice(i, 1);
+        this.saveCart();
+      },
+
+      glpProducts() { return this.filteredProducts().filter(p => p.category === 'GLP'); },
+      metabolicProducts() { return this.filteredProducts().filter(p => p.category === 'metabolic'); },
+      specializedProducts() { return this.filteredProducts().filter(p => p.category === 'specialized'); },
+      recoveryProducts() { return this.filteredProducts().filter(p => p.category === 'recovery'); },
+      ghProducts() { return this.filteredProducts().filter(p => p.category === 'gh-secretagogue'); },
+      solventsProducts() { return this.filteredProducts().filter(p => p.category === 'solvents'); },
+
+      subscribeNewsletter() {
         setTimeout(() => {
           this.showNewsletter = false;
-          this.newsletterSuccess = false;
-          this.newsletterEmail = '';
           alert("✅ 15% discount Code: PARAGON15");
-        }, 3000);
-      }, 1200);
-    },
+          sessionStorage.setItem('newsletterShown', 'true');
+        }, 800);
+      },
 
-    copyOrderNumber() {
-      navigator.clipboard.writeText(this.lastOrderNumber);
-      this.orderCopied = true;
-      setTimeout(() => this.orderCopied = false, 2000);
-    },
-
-    init() {
-      console.log('[INIT] Starting...');
-      try {
-        this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
-      } catch (e) {
-        this.cart = [];
-      }
-      this.waitForsupabase().then(() => {
-        this.initializesupabase();
-        this.loadProducts();
-      }).catch(e => {
-        console.error('[INIT] Failed:', e);
-        this.isLoading = false;
-      });
-      const hasSeenNewsletter = sessionStorage.getItem('newsletterShown');
-      if (!hasSeenNewsletter) {
-        setTimeout(() => {
-          if (!sessionStorage.getItem('newsletterShown')) {
-            this.showNewsletter = true;
+      async submitGetInTouch(e) {
+        this.isSubmittingGetInTouch = true;
+        try {
+          const res = await fetch(e.target.action, {
+            method: 'POST',
+            body: new FormData(e.target),
+            headers: { 'Accept': 'application/json' }
+          });
+          if (res.ok) {
+            this.getInTouchSuccess = true;
+            setTimeout(() => this.showGetInTouchModal = false, 2000);
           }
-        }, 4000);
-      }
-    },
-
-    waitForsupabase(maxAttempts = 20, delay = 300) {
-      return new Promise((resolve, reject) => {
-        let attempts = 0;
-        const check = () => {
-          attempts++;
-          if (typeof supabase !== 'undefined') {
-            resolve();
-            return;
-          }
-          if (attempts >= maxAttempts) {
-            reject(new Error('Supabase timed out'));
-            return;
-          }
-          setTimeout(check, delay);
-        };
-        check();
-      });
-    },
-
-    initializesupabase() {
-      try {
-        this.supabase = supabase.createClient(
-          'https://lydlmgzavepcdtreeoto.supabase.co',
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5ZGxtZ3phdmVwY2R0cmVlb3RvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NDA3MTksImV4cCI6MjA4OTQxNjcxOX0.-F_lSkO6_Wz4-FnNwsPkib-k31_xEe5sgrC4WDaOOSk'
-        );
-      } catch (e) {
-        console.error('[INIT] Client failed:', e);
-      }
-    },
-
-    async loadProducts() {
-      this.isLoading = true;
-      try {
-        const { data, error } = await this.supabase.from('products').select('*');
-        if (error) throw error;
-        this.products = data.map(product => {
-          if (product.doses && product.doses.length === 1) {
-            return {
-              ...product,
-              selectedDose: product.doses[0].mg || product.doses[0].ml,
-              price: product.doses[0].price,
-              quantity: 1
-            };
-          }
-          return { ...product, quantity: 1 };
-        });
-        console.log("Products Loaded & Primed");
-      } catch (e) {
-        console.error('[LOAD] Error:', e.message);
-      } finally {
-        this.isLoading = false;
-      }
-    },
-
-    quickAddToCart(id, name, dose, price) {
-      const filename = `${name.toLowerCase().replace(/ /g,'-')}-${dose.toLowerCase()}.jpg`;
-      const newItem = {
-        id: id,
-        name: name,
-        image: `https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/${filename}`,
-        dose: parseInt(dose),
-        unit: dose.includes('mg') ? 'mg' : 'ml',
-        price: price,
-        qty: 1
-      };
-      let existing = this.cart.find(i => i.id === id && i.dose === newItem.dose);
-      if (existing) existing.qty++;
-      else this.cart.push(newItem);
-      this.saveCart();
-      this.showToast(`✅ ${name} added to cart!`);
-    },
-
-    filteredProducts() {
-      const term = this.searchTerm.toLowerCase().trim();
-      if (!term) return this.products;
-      return this.products.filter(product => {
-        const name = product.name.toLowerCase();
-        const desc = (product.desc || '').toLowerCase();
-        const startsWithMatch = name.startsWith(term);
-        const containsMatch = name.includes(term) || desc.includes(term);
-        const matchesCategory = this.activeFilter === 'all' || product.category === this.activeFilter;
-        return (startsWithMatch || containsMatch) && matchesCategory;
-      });
-    },
-
-    get cartTotal() {
-      return this.cart.reduce((sum, item) => sum + (item.price * (item.qty || 1)), 0);
-    },
-
-    get discountedTotal() {
-      let subtotal = this.cartTotal;
-      let shipping = subtotal >= 250 ? 0 : 12.99;
-      let total = subtotal + shipping;
-      if (!this.appliedCoupon) return total.toFixed(2);
-      const discount = subtotal * (this.appliedCoupon.discountPercent / 100);
-      return Math.max(0, total - discount).toFixed(2);
-    },
-
-    handleSearch() {
-      const term = this.searchTerm.toLowerCase().trim();
-      if (!term) return;
-      const matchingProducts = this.filteredProducts();
-      if (matchingProducts.length === 0) return;
-      const firstMatch = matchingProducts[0];
-      setTimeout(() => {
-        const categoryName = firstMatch.category ? firstMatch.category.toLowerCase() : null;
-        if (categoryName) {
-          const categorySection = document.querySelector(`.category-section[data-category="${categoryName}"]`);
-          if (categorySection) {
-            categorySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            return;
-          }
+        } finally {
+          this.isSubmittingGetInTouch = false;
         }
-        const productCard = document.querySelector(`[data-product-id="${firstMatch.id}"]`);
-        if (productCard) productCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 100);
-    },
+      },
 
-    viewProduct(p) {
-      this.currentProduct = JSON.parse(JSON.stringify(p));
-      const first = p.doses.find(v => v.stock > 0) || p.doses[0];
-      this.currentProduct.selectedDose = first ? (first.mg || first.ml) : null;
-      this.currentProduct.price = first ? first.price : 0;
-    },
-
-    addToCartWithDose(product) {
-      if (!product.selectedDose) {
-        this.showToast("⚠️ Please select a dose first");
-        return;
+      openStockManager() {
+        if (prompt("Password:") === "Cmat2221") this.showStockManager = true;
       }
-      const variant = product.doses.find(v => (v.mg || v.ml) === product.selectedDose);
-      if (!variant || variant.stock <= 0) return alert("Out of stock");
-
-      let existing = this.cart.find(i => i.id === product.id && i.dose === product.selectedDose);
-      if (existing) {
-        existing.qty += (product.quantity || 1);
-      } else {
-        this.cart.push({
-          id: product.id,
-          name: product.name,
-          image: product.image || 'https://i.imgur.com/jXQlcWB.png',
-          dose: product.selectedDose,
-          unit: variant.mg ? 'mg' : 'ml',
-          price: variant.price,
-          qty: product.quantity || 1
-        });
-      }
-      this.saveCart();
-      this.showToast("✅ Added to cart!");
-    },
-
-    incrementQty(product) {
-      if (!product.selectedDose) return;
-      product.quantity = (product.quantity || 1) + 1;
-    },
-
-    decrementQty(product) {
-      if (!product.selectedDose) return;
-      product.quantity = Math.max(1, (product.quantity || 1) - 1);
-    },
-
-    saveCart() {
-      localStorage.setItem('paragonCart', JSON.stringify(this.cart));
-    },
-
-    showToast(msg) {
-      const toast = document.getElementById('toast');
-      const toastText = document.getElementById('toast-text');
-      if (toast && toastText) {
-        toastText.textContent = msg;
-        toast.classList.remove('hidden');
-        setTimeout(() => toast.classList.add('hidden'), 2200);
-      }
-    },
-
-    changeQty(i, delta) {
-      this.cart[i].qty = Math.max(1, this.cart[i].qty + delta);
-      this.saveCart();
-    },
-
-    removeFromCart(i) {
-      this.cart.splice(i, 1);
-      this.saveCart();
-    },
-
-    glpProducts() { return this.filteredProducts().filter(p => p.category === 'GLP'); },
-    metabolicProducts() { return this.filteredProducts().filter(p => p.category === 'metabolic'); },
-    specializedProducts() { return this.filteredProducts().filter(p => p.category === 'specialized'); },
-    recoveryProducts() { return this.filteredProducts().filter(p => p.category === 'recovery'); },
-    ghProducts() { return this.filteredProducts().filter(p => p.category === 'gh-secretagogue'); },
-    solventsProducts() { return this.filteredProducts().filter(p => p.category === 'solvents'); },
-
-    applyCoupon() {
-      const code = this.couponCode.trim().toUpperCase();
-      const valid = { 'PARAGON15': 15, 'WELCOME10': 10 };
-      if (valid[code]) {
-        this.appliedCoupon = { discountPercent: valid[code] };
-        this.couponMessage = `Applied ${valid[code]}% off!`;
-      } else {
-        this.couponMessage = 'Invalid code';
-        this.appliedCoupon = null;
-      }
-    },
-
-    removeCoupon() {
-      this.appliedCoupon = null;
-      this.couponMessage = '';
-    },
-
-    copyToClipboard(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        this.orderCopied = true;
-        setTimeout(() => this.orderCopied = false, 3000);
-      });
-    },
-
-    async handleCheckoutSubmit() {
-      this.isSubmitting = true;
-      this.formError = null;
-      const form = document.getElementById('checkout-form');
-
-      if (!form || !form.checkValidity()) {
-        form.reportValidity();
-        this.formError = "Please fill in all required fields.";
-        this.isSubmitting = false;
-        return;
-      }
-      if (!this.agreedToTOS || !this.agreedToPolicies || !this.agreedToPayment) {
-        alert("Please agree to all required terms");
-        this.isSubmitting = false;
-        return;
-      }
-
-      const formData = new FormData(form);
-      const orderNum = "PP-" + Math.floor(100000 + Math.random() * 900000);
-
-      let itemsText = this.cart.map(item =>
-        `${item.name} (${item.dose}${item.unit}) x${item.qty} - $${(item.price * item.qty).toFixed(2)}`
-      ).join('\n');
-
-      formData.append('order_number', orderNum);
-      formData.append('cart_items', itemsText);
-      formData.append('total_price', '$' + this.discountedTotal);
-      if (this.appliedCoupon) {
-        formData.append('Coupon Used', this.appliedCoupon.code || 'None');
-      }
-
-      try {
-        const response = await fetch("https://formspree.io/f/mlgpeovo", {
-          method: "POST",
-          body: formData,
-          headers: { 'Accept': 'application/json' }
-        });
-        if (response.ok) {
-          this.cart = [];
-          this.saveCart();
-          window.location.href = `/thank-you.html?order_number=${orderNum}&total=${this.discountedTotal}`;
-        } else {
-          const data = await response.json();
-          this.formError = data.errors ? data.errors.map(e => e.message).join(', ') : "Submission failed.";
-        }
-      } catch (e) {
-        this.formError = "A network error occurred. Please try again.";
-      } finally {
-        this.isSubmitting = false;
-      }
-    },
-
-    async submitGetInTouch(e) {
-      this.isSubmittingGetInTouch = true;
-      try {
-        const res = await fetch(e.target.action, {
-          method: 'POST',
-          body: new FormData(e.target),
-          headers: { 'Accept': 'application/json' }
-        });
-        if (res.ok) {
-          this.getInTouchSuccess = true;
-          setTimeout(() => this.showGetInTouchModal = false, 2000);
-        }
-      } finally {
-        this.isSubmittingGetInTouch = false;
-      }
-    },
-
-    openStockManager() {
-      if (prompt("Password:") === "Cmat2221") this.showStockManager = true;
-    },
-
-    async saveStock() {
-      try {
-        for (const p of this.products) {
-          const { error } = await this.supabase.from('products').update({ doses: p.doses }).eq('id', p.id);
-          if (error) throw error;
-        }
-        console.log('Global stock sync complete');
-      } catch (e) {
-        console.error('Stock sync failed:', e.message);
-        alert("Error saving stock: " + e.message);
-      }
-    }
-  };
-}
+    };
+  }
 </script>
+</body>
+</html>
