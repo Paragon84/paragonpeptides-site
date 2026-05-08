@@ -143,28 +143,32 @@ div[x-show="showGate"] > div {
 <!-- AGE GATE – Shows every visit (no persistence) + reliable on live site -->
 <div x-data="{ showGate: true }">
   <!-- Age Gate Modal -->
-  <div x-show="showGate" x-cloak
-       class="fixed inset-0 z-[999999] flex items-center justify-center bg-black/95 backdrop-blur-xl"
-       x-transition>
-    <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-lg w-full mx-4 p-10 modal shadow-2xl">
-      <h2 class="text-3xl font-bold mb-6 text-white text-center">IMPORTANT LEGAL NOTICE</h2>
-      <div class="prose prose-invert text-zinc-300 text-[15px] text-center">
-        <p>All products are <strong>strictly for research and laboratory use only</strong>. Not for human or veterinary consumption.</p>
-        <p class="mt-4">By proceeding you confirm you are 21+ and accessing this site for legitimate scientific research purposes only.</p>
-      </div>
-      <div class="flex flex-col sm:flex-row gap-4 mt-10">
-        <button @click="showGate = false"
-                class="flex-1 bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-lg text-white transition">
-          I ACKNOWLEDGE — ENTER SITE
-        </button>
-        <a href="https://google.com"
-           class="flex-1 bg-zinc-900 hover:bg-zinc-800 py-4 rounded-2xl font-semibold text-lg text-center transition">
-          EXIT
-        </a>
-      </div>
+ <!-- AGE GATE – Fixed (uses main app state) -->
+<div x-show="showGate" x-cloak
+     class="fixed inset-0 z-[999999] flex items-center justify-center bg-black/95 backdrop-blur-xl"
+     x-transition>
+  <div class="bg-white border border-zinc-200 rounded-3xl max-w-lg w-full mx-4 p-10 modal shadow-2xl">
+    
+    <h2 class="text-3xl font-bold mb-6 text-zinc-900 text-center">IMPORTANT LEGAL NOTICE</h2>
+    
+    <div class="prose prose-invert text-zinc-700 text-[15px] text-center">
+      <p>All products are <strong>strictly for research and laboratory use only</strong>. Not for human or veterinary consumption.</p>
+      <p class="mt-4">By proceeding you confirm you are 21+ and accessing this site for legitimate scientific research purposes only.</p>
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-4 mt-10">
+      <button @click="showGate = false"
+              class="flex-1 bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-lg text-white transition">
+        I ACKNOWLEDGE — ENTER SITE
+      </button>
+      
+      <a href="https://google.com"
+         class="flex-1 bg-zinc-200 hover:bg-zinc-300 py-4 rounded-2xl font-semibold text-lg text-zinc-900 text-center transition">
+        EXIT
+      </a>
     </div>
   </div>
-
+</div>
   <!-- MAIN SITE -->
  <div x-show="!showGate" x-cloak>
     <!-- FLASH SALE BANNER -->
@@ -491,7 +495,8 @@ Free Priority Shipping on all orders over $250</div>
   </div>
 </div>
 
-<div id="shop-results" class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+<!-- SHOP GRID – CLEANED VERSION -->
+<div id="shop-results" class="max-w-7xl mx-auto px-6 py-12">
   <template x-for="category in [
     { name: 'GLPs', products: glpProducts() },
     { name: 'Metabolic', products: metabolicProducts() },
@@ -501,51 +506,43 @@ Free Priority Shipping on all orders over $250</div>
     { name: 'Solvents', products: solventsProducts() }
   ]" :key="category.name">
     
-    <div 
-  class="mb-16 category-section" 
-  :data-category="category.name.toLowerCase()" 
-  x-show="category.products.length > 0"
->
-      <h2 class="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-3 uppercase tracking-tighter">
+    <div class="mb-16 category-section" :data-category="category.name.toLowerCase()" x-show="category.products.length > 0">
+      <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3 uppercase tracking-tighter">
         <span class="text-[#ff1493]" x-text="category.name"></span>
       </h2>
       
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
         <template x-for="product in category.products" :key="product.id">
-          <div 
-  class="product-card group bg-zinc-900/50 border border-zinc-800 rounded-2xl md:rounded-3xl overflow-hidden hover:border-[#ff1493] transition-all flex flex-col"
-  :data-product-id="product.id"
->
+          <div class="product-card group bg-zinc-900/50 border border-zinc-800 rounded-3xl overflow-hidden hover:border-[#ff1493] flex flex-col">
             
             <div @click="window.location.href = '/product.html?id=' + product.id" class="cursor-pointer overflow-hidden">
               <img :src="product.image" :alt="product.name" @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'" 
-                   class="w-full h-32 md:h-56 object-cover group-hover:scale-110 transition-transform duration-700">
+                   class="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-700">
             </div>
             
-            <div class="p-3 md:p-6 flex-1 flex flex-col">
-              <h3 class="text-sm md:text-2xl font-bold text-white truncate" x-text="product.name"></h3>
+            <div class="p-6 flex-1 flex flex-col">
+              <h3 class="text-2xl font-bold text-white" x-text="product.name"></h3>
               
-              <div class="flex flex-wrap gap-1 mt-3" x-show="product.doses.length > 1">
+              <div class="flex flex-wrap gap-2 mt-4">
                 <template x-for="variant in product.doses" :key="variant.mg || variant.ml">
-                  <button @click.stop="toggleDose(product, variant)" 
-                          :disabled="variant.stock <= 0" 
-                          :class="product.selectedDose === (variant.mg || variant.ml) ? 'bg-[#ff1493] text-white ring-1 ring-pink-500' : 'bg-zinc-800 text-zinc-400'" 
-                          class="px-2 py-1 rounded-lg text-[10px] md:text-sm font-medium transition-all">
+                  <button @click.stop="toggleDose(product, variant)"
+                          class="px-4 py-1.5 rounded-xl text-sm font-medium transition-all"
+                          :class="product.selectedDose === (variant.mg || variant.ml) ? 'bg-[#ff1493] text-white' : 'bg-zinc-800 text-zinc-400'">
                     <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
                   </button>
                 </template>
               </div>
 
-              <div class="mt-auto pt-4 flex flex-col md:flex-row md:justify-between items-center gap-2">
+              <div class="mt-auto pt-6 flex items-center justify-between">
                 <div class="flex items-baseline gap-1">
-                  <span class="text-lg md:text-3xl font-bold text-white" x-text="'$' + (product.price || product.doses[0].price)"></span>
+                  <span class="text-3xl font-bold text-white" x-text="'$' + (product.price || product.doses[0].price)"></span>
                   <span class="text-[10px] text-zinc-500">/vial</span>
                 </div>
                 
-               <button @click.stop="addToCartWithDose(product)" 
-        class="w-full py-2 md:py-4 px-4 rounded-xl font-bold text-[10px] md:text-base transition-all bg-white text-black hover:bg-[#ff1493] hover:text-white">
-  <span x-text="product.selectedDose ? 'ADD TO CART' : 'SELECT A DOSE FIRST'"></span>
-</button>
+                <button @click.stop="addToCartWithDose(product)"
+                        class="add-to-cart-btn px-8 py-3.5 rounded-2xl font-bold text-sm bg-white text-black hover:bg-[#ff1493] hover:text-white">
+                  ADD TO CART
+                </button>
               </div>
             </div>
           </div>
@@ -568,7 +565,6 @@ Free Priority Shipping on all orders over $250</div>
     </p>
   </div>
 </div>
-
 
 </div>
 <!-- === RESEARCH STANDARDS, DOCUMENTATION & BUYER RESOURCE CENTER === -->
@@ -615,40 +611,47 @@ Free Priority Shipping on all orders over $250</div>
 
    </div>
 
-<!-- NEWSLETTER POPUP – Mailchimp Integrated -->
-<div x-show="showNewsletter" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[99999] p-6" @click.self="showNewsletter = false">
-  <div class="bg-zinc-900 border border-[#ff1493]/40 rounded-3xl max-w-md w-full p-10 relative shadow-2xl">
-    <button @click="showNewsletter = false" class="absolute top-6 right-6 text-zinc-400 hover:text-white text-3xl">×</button>
+<!-- NEWSLETTER POPUP – White background with pink accents -->
+<div x-show="showNewsletter" 
+     class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[99999] p-6" 
+     @click.self="showNewsletter = false">
+  
+  <div class="bg-white border border-zinc-200 rounded-3xl max-w-md w-full p-10 relative shadow-2xl">
     
+    <button @click="showNewsletter = false" 
+            class="absolute top-6 right-6 text-zinc-400 hover:text-zinc-600 text-3xl">
+      ×
+    </button>
+
     <div class="text-center">
       <div class="inline-flex items-center gap-2 bg-[#ff1493]/10 text-[#ff1493] text-sm font-bold uppercase tracking-widest px-6 py-2 rounded-3xl mb-6">
         🎟️ LIMITED TIME OFFER
       </div>
-      <h2 class="text-4xl font-bold text-white mb-3">Get 15% Off Your First Order</h2>
-      <p class="text-zinc-400 text-lg mb-8">Join the Paragon Research Community for exclusive drops and lab insights.</p>
+
+      <h2 class="text-4xl font-bold text-zinc-900 mb-3">Get 15% Off Your First Order</h2>
+      <p class="text-zinc-600 text-lg mb-8">Join the Paragon Research Community for exclusive drops and lab insights.</p>
 
       <form action="https://formspree.io/f/mlgpeovo" method="POST" @submit.prevent="subscribeNewsletter" class="space-y-5">
         <input type="email" x-model="newsletterEmail" name="email" placeholder="your@email.com" required 
-               class="w-full bg-black border border-zinc-700 focus:border-[#ff1493] rounded-3xl px-6 py-5 text-white placeholder-zinc-500 outline-none text-lg">
-        
-        <!-- Hidden fields for Mailchimp + Formspree -->
+               class="w-full bg-zinc-100 border border-zinc-300 focus:border-[#ff1493] rounded-3xl px-6 py-5 text-zinc-900 placeholder-zinc-500 outline-none text-lg">
+
         <input type="hidden" name="_subject" value="New Newsletter Subscriber">
         <input type="hidden" name="message" value="Newsletter signup – send 15% discount code RESEARCH15">
-        <input type="hidden" name="_optin" value="true"> <!-- Tells Formspree to trigger Mailchimp -->
 
         <button type="submit" :disabled="newsletterSubmitting" 
-                class="w-full bg-[#ff1493] hover:bg-pink-600 py-5 rounded-3xl font-semibold text-xl transition-all active:scale-95">
+                class="w-full bg-[#ff1493] hover:bg-pink-600 py-5 rounded-3xl font-semibold text-xl text-white transition-all active:scale-95">
           <span x-text="newsletterSubmitting ? 'Sending...' : 'Claim My 15% Discount'"></span>
         </button>
       </form>
 
       <button @click="showNewsletter = false; sessionStorage.setItem('newsletterShown', 'true')" 
-              class="mt-6 text-zinc-400 hover:text-white text-sm underline">
+              class="mt-6 text-zinc-500 hover:text-zinc-700 text-sm underline">
         No thanks, maybe later
       </button>
     </div>
   </div>
 </div>
+
 <!-- === FULL-WIDTH WHITE PAGE-BREAK FOOTER (with your exact links) === -->
 <div class="bg-white text-black py-16 border-t border-zinc-200 w-full">
   <div class="max-w-7xl mx-auto px-6">
