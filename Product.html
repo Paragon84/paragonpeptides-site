@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="https://i.imgur.com/jXQlcWB.png"   type="image/png">
+  <link rel="icon" href="https://i.imgur.com/jXQlcWB.png" type="image/png">
   <title>Paragon Peptides - Product Detail</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-elevatezoom/1.0.0/jquery.elevatezoom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-elevatezoom/1.0.0/jquery.elevatezoom.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Satoshi:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     [x-cloak] { display: none !important; }
@@ -19,7 +19,6 @@
   </style>
 </head>
 <body class="antialiased" x-data="app()" x-init="init()">
-
 <!-- Loading -->
 <div x-show="isLoading" class="fixed inset-0 bg-black flex items-center justify-center z-50">
   <div class="text-center">
@@ -28,74 +27,76 @@
   </div>
 </div>
 
-<div x-show="!isLoading && product" class="max-w-7xl mx-auto px-6 py-12">
+<!-- Main Product Content -->
+<div x-if="!isLoading && product" class="max-w-7xl mx-auto px-6 py-12">
   <!-- Back button -->
   <button @click="window.location.href='/'" class="flex items-center gap-2 text-[#ff1493] hover:text-pink-400 font-medium mb-8">
     ← Back to Shop
   </button>
 
-<!-- NEW PREMIUM CARD DISPLAY (dynamic PNG) -->
-<div class="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-  
-  <div class="lg:sticky lg:top-12">
-    <div class="max-w-[500px] mx-auto lg:mx-0">
-      <img 
-        :src="getCardImageUrl()" 
-        @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'"
-        class="w-full h-auto rounded-3xl shadow-2xl border border-zinc-800"
-        alt="Product Card"
-        loading="eager">
-    </div>
-  </div>
-<div>
-    <h1 class="text-5xl font-bold text-white" x-text="product.name"></h1>
-    <p class="text-[#ff1493] text-2xl mt-3" x-text="product.desc"></p>
-
-    <!-- Trust badges -->
-    <div class="flex gap-2 mt-6">
-      <span class="text-xs bg-green-900 text-green-400 px-4 py-1 rounded-full">HPLC Verified</span>
-      <span class="text-xs bg-amber-900 text-amber-400 px-4 py-1 rounded-full">Cold Chain Shipping</span>
-      <span class="text-xs bg-blue-900 text-blue-400 px-4 py-1 rounded-full">Research Use Only</span>
+  <!-- NEW PREMIUM CARD DISPLAY (dynamic PNG) -->
+  <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+    
+    <div class="lg:sticky lg:top-12">
+      <div class="max-w-[500px] mx-auto lg:mx-0">
+        <img 
+          :src="getCardImageUrl()" 
+          @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'"
+          class="w-full h-auto rounded-3xl shadow-2xl border border-zinc-800"
+          alt="Product Card"
+          loading="eager">
+      </div>
     </div>
 
-    <div class="bg-zinc-900/40 p-8 rounded-3xl border border-zinc-800 backdrop-blur-sm">
-      <p class="text-xs text-zinc-500 mb-4 uppercase tracking-[0.2em] font-bold">Select Concentration</p>
-      
-      <div class="grid grid-cols-3 gap-3 mb-8">
-        <template x-for="variant in product.doses" :key="variant.mg || variant.ml">
-          <button
-            @click="toggleDoseOnProductPage(variant)"
-            class="py-3 rounded-xl font-semibold transition-all duration-300"
-            :class="selectedDose === (variant.mg || variant.ml) 
-              ? 'bg-[#ff1493] text-white shadow-[0_0_20px_rgba(255,20,147,0.3)]' 
-              : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300'">
-            <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
-          </button>
-        </template>
+    <div>
+      <h1 class="text-5xl font-bold text-white" x-text="product.name"></h1>
+      <p class="text-[#ff1493] text-2xl mt-3" x-text="product.desc"></p>
+
+      <!-- Trust badges -->
+      <div class="flex gap-2 mt-6">
+        <span class="text-xs bg-green-900 text-green-400 px-4 py-1 rounded-full">HPLC Verified</span>
+        <span class="text-xs bg-amber-900 text-amber-400 px-4 py-1 rounded-full">Cold Chain Shipping</span>
+        <span class="text-xs bg-blue-900 text-blue-400 px-4 py-1 rounded-full">Research Use Only</span>
       </div>
 
-      <div class="flex items-end justify-between mb-8">
-        <div class="text-6xl font-bold text-white" x-text="price ? '$' + price : '—'"></div>
+      <div class="bg-zinc-900/40 p-8 rounded-3xl border border-zinc-800 backdrop-blur-sm">
+        <p class="text-xs text-zinc-500 mb-4 uppercase tracking-[0.2em] font-bold">Select Concentration</p>
         
-        <div class="flex items-center bg-zinc-800/50 rounded-2xl p-1 border border-zinc-700">
-          <button @click="decrementQty()" class="w-10 h-10 flex items-center justify-center hover:text-[#ff1493] text-xl">−</button>
-          <span class="text-xl font-bold w-10 text-center" x-text="product.quantity || 1"></span>
-          <button @click="incrementQty()" class="w-10 h-10 flex items-center justify-center hover:text-[#ff1493] text-xl">+</button>
+        <div class="grid grid-cols-3 gap-3 mb-8">
+          <template x-for="variant in product.doses" :key="variant.mg || variant.ml">
+            <button
+              @click="toggleDoseOnProductPage(variant)"
+              class="py-3 rounded-xl font-semibold transition-all duration-300"
+              :class="selectedDose === (variant.mg || variant.ml) 
+                ? 'bg-[#ff1493] text-white shadow-[0_0_20px_rgba(255,20,147,0.3)]' 
+                : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300'">
+              <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
+            </button>
+          </template>
         </div>
-      </div>
 
-      <button
-        @click="addToCartWithDose()"
-        :disabled="!selectedDose"
-        class="w-full py-5 rounded-2xl font-black text-xl tracking-widest transition-all active:scale-95 shadow-2xl"
-        :class="selectedDose ? 'bg-white text-black hover:bg-[#ff1493] hover:text-white' : 'bg-zinc-800 text-zinc-600 cursor-not-allowed'">
-        <span x-text="selectedDose ? 'ADD TO CART' : 'SELECT DOSE'"></span>
-      </button>
+        <div class="flex items-end justify-between mb-8">
+          <div class="text-6xl font-bold text-white" x-text="price ? '$' + price : '—'"></div>
+          
+          <div class="flex items-center bg-zinc-800/50 rounded-2xl p-1 border border-zinc-700">
+            <button @click="decrementQty()" class="w-10 h-10 flex items-center justify-center hover:text-[#ff1493] text-xl">−</button>
+            <span class="text-xl font-bold w-10 text-center" x-text="product.quantity || 1"></span>
+            <button @click="incrementQty()" class="w-10 h-10 flex items-center justify-center hover:text-[#ff1493] text-xl">+</button>
+          </div>
+        </div>
+
+        <button
+          @click="addToCartWithDose()"
+          :disabled="!selectedDose"
+          class="w-full py-5 rounded-2xl font-black text-xl tracking-widest transition-all active:scale-95 shadow-2xl"
+          :class="selectedDose ? 'bg-white text-black hover:bg-[#ff1493] hover:text-white' : 'bg-zinc-800 text-zinc-600 cursor-not-allowed'">
+          <span x-text="selectedDose ? 'ADD TO CART' : 'SELECT DOSE'"></span>
+        </button>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- 3. SMALL WHITE FDA DISCLAIMER (exact width match + solid black text) -->
+  <!-- 3. SMALL WHITE FDA DISCLAIMER -->
   <div class="mt-12 bg-white text-black py-8 px-8 rounded-3xl border border-zinc-200 max-w-2xl mx-auto">
     <div class="text-center">
       <strong class="text-xl font-bold text-black block mb-3">FDA DISCLAIMER</strong>
@@ -137,29 +138,60 @@
 function app() {
   return {
     product: null,
-    selectedDose: null, // This is the master variable
+    selectedDose: null,
     price: 0,
     isLoading: true,
     supabase: null,
     cart: [],
+    productNotFound: false,
+    attemptedId: null,
 
     async init() {
+      console.log('[Product Page] Initializing...');
+     
       const urlParams = new URLSearchParams(window.location.search);
-      const id = parseInt(urlParams.get('id'));
+      const idParam = urlParams.get('id');
+      this.attemptedId = idParam;
+      const id = parseInt(idParam, 10);
+     
+      if (!idParam || isNaN(id)) {
+        console.log('No valid product ID in URL');
+        this.productNotFound = true;
+        this.isLoading = false;
+        return;
+      }
 
       this.supabase = supabase.createClient(
         'https://lydlmgzavepcdtreeoto.supabase.co',
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5ZGxtZ3phdmVwY2R0cmVlb3RvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NDA3MTksImV4cCI6MjA4OTQxNjcxOX0.-F_lSkO6_Wz4-FnNwsPkib-k31_xEe5sgrC4WDaOOSk'
       );
 
-      const { data } = await this.supabase.from('products').select('*');
-      this.product = data.find(p => p.id === id);
+      const { data, error } = await this.supabase
+        .from('products')
+        .select('*')
+        .eq('id', id)
+        .single();
 
+      if (error || !data) {
+        console.error('Product fetch failed or not found:', error);
+        this.productNotFound = true;
+        this.product = null;
+        this.isLoading = false;
+        return;
+      }
+
+      this.product = data;
+      this.productNotFound = false;   // ← critical line that stops the ghost "Not Found" block
       this.loadCart();
+
+      window.addEventListener('storage', (e) => {
+        if (e.key === 'paragonCart') {
+          try { this.cart = JSON.parse(e.newValue || '[]'); } catch (_) {}
+        }
+      });
 
       if (this.product && this.product.doses && this.product.doses.length) {
         const first = this.product.doses.find(v => v.stock > 0) || this.product.doses[0];
-        // Corrected: Set top-level variable
         this.selectedDose = first.mg || first.ml;
         this.price = first.price;
         this.product.quantity = 1;
@@ -177,35 +209,30 @@ function app() {
       } else {
         this.selectedDose = doseValue;
         this.price = variant.price;
+        this.product.quantity = 1;
       }
     },
 
-getCardImageUrl() {
-      // If no dose is selected, show the default product image or logo
+    getCardImageUrl() {
       if (!this.product || !this.selectedDose) {
         return this.product?.image || 'https://i.imgur.com/jXQlcWB.png';
       }
 
-      // 1. Format the name to match your files (Corrected Syntax)
       let name = this.product.name.toLowerCase()
         .replace(/\+/g, '-plus')
         .trim()
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-+|-+$/g, '');
 
-      // 2. File naming overrides
       if (name.includes('cjc-1295')) name = 'cjc-1295-no-dac';
-      if (name === 'Klow') name = 'Klow'; 
+      if (name === 'Klow') name = 'Klow';
 
-      // 3. Find the unit
       const variant = this.product.doses.find(v => (v.mg || v.ml) === this.selectedDose);
       const unit = variant?.mg ? 'mg' : 'ml';
 
-      // 4. Construct URL
       return `https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/${name}-${this.selectedDose}${unit}.png`;
     },
 
-    // ... (Keep your existing incrementQty, decrementQty, loadCart, and addToCartWithDose functions)
     incrementQty() { this.product.quantity = (this.product.quantity || 1) + 1; },
     decrementQty() { this.product.quantity = Math.max(1, (this.product.quantity || 1) - 1); },
     loadCart() { try { this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]'); } catch (e) { this.cart = []; } },
@@ -222,7 +249,7 @@ getCardImageUrl() {
       const variant = this.product.doses.find(v => (v.mg || v.ml) === this.selectedDose);
       let cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
       let existing = cart.find(i => i.id === this.product.id && i.dose === this.selectedDose);
-      if (existing) { existing.qty += (this.product.quantity || 1); } 
+      if (existing) { existing.qty += (this.product.quantity || 1); }
       else {
         cart.push({
           id: this.product.id,
@@ -240,3 +267,5 @@ getCardImageUrl() {
   };
 }
 </script>
+</body>
+</html>
