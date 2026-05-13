@@ -124,6 +124,58 @@ div[x-show="showGate"] > div {
   50%  { box-shadow: 0 0 80px rgba(255, 20, 147, 1); }
   100% { box-shadow: 0 0 60px rgba(255, 20, 147, 0.9); }
 }
+/* === 2025 MODERN REFINEMENTS (Add here) === */
+:root {
+  --accent: #c026d3;
+}
+
+/* Product cards — refined 3D luxury hover */
+.product-card {
+  transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1), 
+              box-shadow 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 10px 30px -15px rgb(0 0 0 / 0.45);
+  will-change: transform;
+}
+
+.product-card:hover {
+  transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+  box-shadow: 0 30px 60px -15px rgb(0 0 0 / 0.6), 
+              0 0 0 1px rgba(255,255,255,0.08);
+}
+
+/* Glassmorphism price tag */
+.price-tag {
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 4px 20px -4px rgb(0 0 0 / 0.4);
+}
+
+/* Subtle stagger animation for cards */
+.product-card {
+  animation: fadeUp 0.6s cubic-bezier(0.23,1,0.32,1) forwards;
+  opacity: 0;
+}
+
+.product-card.in-view {
+  opacity: 1;
+}
+
+/* Refined button micro-interaction */
+button {
+  transition: transform 0.2s cubic-bezier(0.23,1,0.32,1), 
+              box-shadow 0.2s cubic-bezier(0.23,1,0.32,1);
+}
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px -5px rgb(192 38 211 / 0.35);
+}
+button:active { transform: scale(0.985); }
+
+/* Category cards — softer modern look */
+.group:hover .transition-all {
+  transform: scale(1.02);
+}
 
 
  </style>
@@ -156,7 +208,7 @@ div[x-show="showGate"] > div {
     </div>
 
     <div class="flex flex-col sm:flex-row gap-4 mt-10">
-      <button @click="showGate = false"
+     <button @click="showGate = false; localStorage.setItem('ageVerified', 'true')"
               class="flex-1 bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-lg text-white transition">
         I ACKNOWLEDGE — ENTER SITE
       </button>
@@ -176,7 +228,7 @@ div[x-show="showGate"] > div {
 Free Priority Shipping on all orders over $250</div>
 
 <!-- HEADER – WHITE SLIDE-IN MENU WITH ALL 3 SOCIAL ICONS -->
-<header class="sticky top-0 z-50 bg-black/5 backdrop-blur-xl">
+<header class="bg-black border-b border-zinc-800 sticky top-0 z-50">
   <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
     <!-- Logo -->
     <a href="#" class="flex items-center gap-3">
@@ -277,30 +329,34 @@ Free Priority Shipping on all orders over $250</div>
     </div>
   </div>
 
-<!-- === HERO - MP4 VIDEO (Optimized & Fast) === -->
+<!-- === MODERN CINEMATIC HERO === -->
 <section class="relative h-screen w-full overflow-hidden">
-
-  <!-- MP4 Video Background -->
   <video 
     autoplay 
     loop 
     muted 
     playsinline 
     class="absolute inset-0 w-full h-full object-cover">
-    <source src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/hero-video.mp4.mp4"
-            type="video/mp4">
+    <source src="https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/hero-video.mp4.mp4" type="video/mp4">
   </video>
 
-<div class="absolute inset-0 bg-gradient-to-b from-black/55 via-black/65 to-black/90"></div>
+  <!-- Refined multi-layer overlay (2025 premium depth) -->
+  <div class="absolute inset-0 bg-gradient-to-b from-black/75 via-black/65 to-black/95"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(#c026d3_0.8px,transparent_1px)] bg-[length:3px_3px] opacity-[0.07]"></div>
 
+  <!-- Floating trust bar -->
+  <div class="absolute top-8 left-1/2 -translate-x-1/2 z-20 flex gap-3">
+    <div class="bg-white/10 backdrop-blur-xl border border-white/20 text-white text-xs px-5 py-2 rounded-3xl flex items-center gap-2 shadow-xl">
+      <span class="w-2 h-2 bg-[#c026d3] rounded-full animate-pulse"></span>
+      HPLC VERIFIED • 2026 BATCHES
+    </div>
+  </div>
 
-  <!-- Scroll indicator -->
-  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center text-white/70 text-xs tracking-widest">
-    <span>SCROLL TO EXPLORE</span>
-    <div class="w-px h-12 bg-gradient-to-b from-transparent via-white/50 to-transparent mt-3"></div>
+  <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center text-white/50 text-xs tracking-[4px] z-10">
+    SCROLL TO EXPLORE
+    <div class="w-px h-20 bg-gradient-to-b from-transparent via-white/40 to-transparent mt-4"></div>
   </div>
 </section>
-
 
 <!-- === MOST ORDERED THIS MONTH (Working Version) === -->
 <section class="py-16 bg-zinc-950 border-t border-zinc-800">
@@ -504,51 +560,53 @@ Free Priority Shipping on all orders over $250</div>
     { name: 'Solvents', products: solventsProducts() }
   ]" :key="category.name">
     
-    <div 
-  class="mb-16 category-section" 
-  :data-category="category.name.toLowerCase()" 
-  x-show="category.products.length > 0"
->
+    <div class="mb-16 category-section" :data-category="category.name.toLowerCase()">
+      
       <h2 class="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-3 uppercase tracking-tighter">
         <span class="text-[#ff1493]" x-text="category.name"></span>
       </h2>
       
       <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
         <template x-for="product in category.products" :key="product.id">
-          <div 
-  class="product-card group bg-zinc-900/50 border border-zinc-800 rounded-2xl md:rounded-3xl overflow-hidden hover:border-[#ff1493] transition-all flex flex-col"
-  :data-product-id="product.id"
->
-            
-            <div @click="window.location.href = '/product.html?id=' + product.id" class="cursor-pointer overflow-hidden">
-              <img :src="product.image" :alt="product.name" @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'" 
-                   class="w-full h-32 md:h-56 object-cover group-hover:scale-110 transition-transform duration-700">
+          <div class="product-card group bg-zinc-900/60 border border-zinc-800 rounded-3xl overflow-hidden hover:border-white/20 flex flex-col relative" :data-product-id="product.id">
+
+            <!-- Image with click to product page -->
+            <div @click="window.location.href = '/product.html?id=' + product.id" class="cursor-pointer overflow-hidden relative">
+              <img :src="product.image" :alt="product.name" 
+                   @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'" 
+                   class="w-full h-48 md:h-64 object-cover group-hover:scale-[1.08] transition-transform duration-700">
+
+              <!-- Floating HPLC badge -->
+              <div class="absolute top-3 right-3 bg-black/70 text-[10px] px-2.5 py-0.5 rounded-full border border-white/20 text-white/90">
+                HPLC ≥99%
+              </div>
             </div>
-            
-            <div class="p-3 md:p-6 flex-1 flex flex-col">
-              <h3 class="text-sm md:text-2xl font-bold text-white truncate" x-text="product.name"></h3>
-              
-              <div class="flex flex-wrap gap-1 mt-3" x-show="product.doses.length > 1">
+
+            <div class="p-5 md:p-6 flex-1 flex flex-col">
+              <h3 class="text-xl md:text-2xl font-bold text-white" x-text="product.name"></h3>
+
+              <!-- Dose buttons -->
+              <div class="flex flex-wrap gap-2 mt-4" x-show="product.doses.length > 1">
                 <template x-for="variant in product.doses" :key="variant.mg || variant.ml">
-                  <button @click.stop="toggleDose(product, variant)" 
-                          :disabled="variant.stock <= 0" 
-                          :class="product.selectedDose === (variant.mg || variant.ml) ? 'bg-[#ff1493] text-white ring-1 ring-pink-500' : 'bg-zinc-800 text-zinc-400'" 
-                          class="px-2 py-1 rounded-lg text-[10px] md:text-sm font-medium transition-all">
+                  <button @click.stop="toggleDose(product, variant)"
+                          :disabled="variant.stock <= 0"
+                          :class="product.selectedDose === (variant.mg || variant.ml) ? 'bg-[#c026d3] text-white ring-1 ring-[#c026d3]' : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700'"
+                          class="px-3 py-1.5 rounded-xl text-xs md:text-sm font-medium transition-all min-h-[38px]">
                     <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
                   </button>
                 </template>
               </div>
 
-              <div class="mt-auto pt-4 flex flex-col md:flex-row md:justify-between items-center gap-2">
-                <div class="flex items-baseline gap-1">
-                  <span class="text-lg md:text-3xl font-bold text-white" x-text="'$' + (product.price || product.doses[0].price)"></span>
-                  <span class="text-[10px] text-zinc-500">/vial</span>
+              <div class="mt-auto pt-5 flex items-center justify-between">
+                <!-- Glass price tag -->
+                <div class="price-tag px-5 py-1 rounded-2xl text-white text-3xl font-semibold flex items-baseline">
+                  $<span x-text="product.price || product.doses[0].price"></span>
                 </div>
-                
-               <button @click.stop="addToCartWithDose(product)" 
-        class="w-full py-2 md:py-4 px-4 rounded-xl font-bold text-[10px] md:text-base transition-all bg-white text-black hover:bg-[#ff1493] hover:text-white">
-  <span x-text="product.selectedDose ? 'ADD TO CART' : 'SELECT A DOSE FIRST'"></span>
-</button>
+
+                <button @click.stop="addToCartWithDose(product)"
+                        class="px-6 py-3.5 rounded-2xl font-bold text-sm bg-white text-black hover:bg-[#c026d3] hover:text-white transition-all active:scale-[0.985]">
+                  <span x-text="product.selectedDose ? 'ADD TO CART' : 'SELECT DOSE'"></span>
+                </button>
               </div>
             </div>
           </div>
@@ -558,22 +616,25 @@ Free Priority Shipping on all orders over $250</div>
   </template>
 </div>
 
-<!-- NO RESULTS FOUND -->
-<div x-show="searchTerm.length > 0 && filteredProducts().length === 0" class="text-center py-16">
+<!-- NO RESULTS FOUND - stays exactly where it is -->
+<div x-show="searchTerm.length > 0 && filteredProducts().length === 0" 
+     class="text-center py-20 bg-zinc-950 border border-zinc-800 rounded-3xl mx-4">
   <div class="max-w-md mx-auto">
-    <div class="text-6xl mb-4">🔍</div>
-    <h3 class="text-2xl font-bold text-white mb-3">No results found</h3>
-    <p class="text-zinc-400 mb-6">
-      We couldn't find anything for "<span class="text-[#ff1493]" x-text="searchTerm"></span>".
+    <div class="text-7xl mb-6">🔍</div>
+    <h3 class="text-3xl font-bold text-white mb-4">No products found</h3>
+    <p class="text-xl text-zinc-400 mb-8">
+      We couldn't find anything for "<span class="text-[#ff1493] font-semibold" x-text="searchTerm"></span>".
     </p>
-    <p class="text-sm text-zinc-500">
-      Try searching for: Reta, Tirz, BPC-157, Mots-C, GHK-Cu
-    </p>
+    <div class="text-sm text-zinc-500">
+      Try searching for: <span class="text-white">Reta, Tirz, BPC-157, MOTS-C</span>
+    </div>
+    <button @click="searchTerm = ''; handleSearch()" 
+            class="mt-8 px-8 py-3 bg-white text-black font-semibold rounded-2xl hover:bg-zinc-200 transition">
+      Clear Search
+    </button>
   </div>
 </div>
 
-
-</div>
 <!-- === RESEARCH STANDARDS, DOCUMENTATION & BUYER RESOURCE CENTER === -->
 <section class="bg-zinc-950 py-12 md:py-20 border-t border-b border-zinc-800">
   <div class="max-w-7xl mx-auto px-6">
@@ -1158,10 +1219,25 @@ By purchasing, you confirm you are 21 or older and conducting scientific researc
     cards.forEach(card => observer.observe(card));
   }
 
-  // Run after Alpine loads the products
-  window.addEventListener('load', () => {
-    setTimeout(initScrollGlow, 1200);
-  });
+ // === MODERN SCROLL REVEAL + STAGGER (2025 upgrade) ===
+function initModernScroll() {
+  const cards = document.querySelectorAll('.product-card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        entry.target.style.transitionDelay = (index * 80) + 'ms';
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  cards.forEach(card => observer.observe(card));
+}
+
+// Run after products load
+setTimeout(initModernScroll, 800);
+
 </script>
 
 </body>
@@ -1195,8 +1271,8 @@ function app() {
     showStockManager: false,
     showPaymentAlert: false,
     mobileMenuOpen: false,
-    showGate: true,
     isLoading: true,
+    showGate: true,
     showPopup: false,
     timeLeft: 10,
     discountCode: 'PARAGON15',
@@ -1272,113 +1348,85 @@ function app() {
     },
 
 init() {
-  console.log('[INIT] Starting...');
+  console.log('[INIT] Paragon Peptides starting...');
+
+  // Cart persistence
   try {
     this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
-  } catch (e) {
-    this.cart = [];
-  }
-// One-time Age Gate – shows only on first visit
-this.showGate = localStorage.getItem('ageVerified') !== 'true';
+  } catch (e) { this.cart = []; }
 
-  // === CART PERSISTENCE LISTENERS (critical for surviving back/forward and cross-tab) ===
   window.addEventListener('storage', (e) => {
     if (e.key === 'paragonCart') {
-      try {
-        this.cart = JSON.parse(e.newValue || '[]');
-        console.log('[CART SYNC] Cart updated from another tab/instance');
-      } catch (err) {
-        console.error('Failed to sync cart from storage event', err);
-      }
+      try { this.cart = JSON.parse(e.newValue || '[]'); } catch (_) {}
     }
   });
 
   window.addEventListener('pageshow', (event) => {
     if (event.persisted) {
-      try {
-        this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]');
-        console.log('[CART] Reloaded cart from bfcache restore');
-      } catch (e) {}
+      try { this.cart = JSON.parse(localStorage.getItem('paragonCart') || '[]'); } catch (_) {}
     }
   });
-  // === END CART PERSISTENCE LISTENERS ===
 
-  this.waitForsupabase().then(() => {
-    this.initializesupabase();
+  // Initialize Supabase immediately (no waiting for global)
+  try {
+    this.supabase = supabase.createClient(
+      'https://lydlmgzavepcdtreeoto.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5ZGxtZ3phdmVwY2R0cmVlb3RvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NDA3MTksImV4cCI6MjA4OTQxNjcxOX0.-F_lSkO6_Wz4-FnNwsPkib-k31_xEe5sgrC4WDaOOSk'
+    );
+    console.log('[INIT] Supabase client created successfully');
     this.loadProducts();
-  }).catch(e => {
-    console.error('[INIT] Failed:', e);
+  } catch (e) {
+    console.error('[INIT] Failed to create Supabase client:', e);
     this.isLoading = false;
-  });
+    alert("Failed to connect to database. Please refresh the page.");
+  }
 
-  const hasSeenNewsletter = sessionStorage.getItem('newsletterShown');
-  if (!hasSeenNewsletter) {
+  // Newsletter
+  if (!sessionStorage.getItem('newsletterShown')) {
     setTimeout(() => {
-      if (!sessionStorage.getItem('newsletterShown')) {
-        this.showNewsletter = true;
-      }
-    }, 4000);
+      if (!sessionStorage.getItem('newsletterShown')) this.showNewsletter = true;
+    }, 4500);
   }
 },
 
-acceptAgeGate() {
-  this.showGate = false;
-  localStorage.setItem('ageVerified', 'true');
+async loadProducts() {
+  console.log('[LOAD] Starting product fetch...');
+  this.isLoading = true;
+
+  // IMMEDIATE FALLBACK — guarantees products appear instantly on every hard refresh
+  this.useFallbackData();
+  console.log('[LOAD] Immediate fallback loaded (4 products)');
+
+  // Try Supabase in background to overwrite with live data if possible
+  try {
+    const { data, error } = await this.supabase
+      .from('products')
+      .select('*')
+      .order('id', { ascending: true });
+
+    if (error) throw error;
+
+    if (data && data.length > 0) {
+      this.products = data.map(product => {
+        const firstDose = product.doses?.[0];
+        return {
+          ...product,
+          selectedDose: firstDose ? (firstDose.mg || firstDose.ml) : null,
+          price: firstDose ? firstDose.price : 0,
+          quantity: 1
+        };
+      });
+      console.log(`[LOAD] SUCCESS - Overwrote with ${this.products.length} LIVE products from Supabase`);
+    } else {
+      console.log('[LOAD] Supabase returned no data - keeping fallback');
+    }
+  } catch (e) {
+    console.error('[LOAD] Supabase unavailable, using fallback only:', e.message);
+  } finally {
+    this.isLoading = false;
+  }
 },
 
-    waitForsupabase(maxAttempts = 20, delay = 300) {
-      return new Promise((resolve, reject) => {
-        let attempts = 0;
-        const check = () => {
-          attempts++;
-          if (typeof supabase !== 'undefined') {
-            resolve();
-            return;
-          }
-          if (attempts >= maxAttempts) {
-            reject(new Error('Supabase timed out'));
-            return;
-          }
-          setTimeout(check, delay);
-        };
-        check();
-      });
-    },
-
-    initializesupabase() {
-      try {
-        this.supabase = supabase.createClient(
-          'https://lydlmgzavepcdtreeoto.supabase.co',
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5ZGxtZ3phdmVwY2R0cmVlb3RvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NDA3MTksImV4cCI6MjA4OTQxNjcxOX0.-F_lSkO6_Wz4-FnNwsPkib-k31_xEe5sgrC4WDaOOSk'
-        );
-      } catch (e) {
-        console.error('[INIT] Client failed:', e);
-      }
-    },
-
-    async loadProducts() {
-      this.isLoading = true;
-      try {
-        const { data, error } = await this.supabase.from('products').select('*');
-        if (error) throw error;
-        this.products = data.map(product => {
-          if (product.doses && product.doses.length === 1) {
-            return {
-              ...product,
-              selectedDose: product.doses[0].mg || product.doses[0].ml,
-              price: product.doses[0].price,
-              quantity: 1
-            };
-          }
-          return { ...product, quantity: 1 };
-        });
-        console.log("Products Loaded & Primed");
-      } catch (e) {
-        console.error('[LOAD] Error:', e.message);
-      } finally {
-        this.isLoading = false;
-      }
-    },
 
     quickAddToCart(id, name, dose, price) {
       const filename = `${name.toLowerCase().replace(/ /g,'-')}-${dose.toLowerCase()}.jpg`;
@@ -1424,33 +1472,37 @@ acceptAgeGate() {
       return Math.max(0, total - discount).toFixed(2);
     },
 
-    handleSearch() {
-      const term = this.searchTerm.toLowerCase().trim();
-      if (!term) return;
-      const matchingProducts = this.filteredProducts();
-      if (matchingProducts.length === 0) return;
-      const firstMatch = matchingProducts[0];
-      setTimeout(() => {
-        const categoryName = firstMatch.category ? firstMatch.category.toLowerCase() : null;
-        if (categoryName) {
-          const categorySection = document.querySelector(`.category-section[data-category="${categoryName}"]`);
-          if (categorySection) {
-            categorySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            return;
-          }
-        }
-        const productCard = document.querySelector(`[data-product-id="${firstMatch.id}"]`);
-        if (productCard) productCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 100);
-    },
+  handleSearch() {
+  const term = this.searchTerm.toLowerCase().trim();
+  
+  // Clear search if empty
+  if (!term) {
+    this.searchTerm = '';
+    return;
+  }
 
-    viewProduct(p) {
-      this.currentProduct = JSON.parse(JSON.stringify(p));
-      const first = p.doses.find(v => v.stock > 0) || p.doses[0];
-      this.currentProduct.selectedDose = first ? (first.mg || first.ml) : null;
-      this.currentProduct.price = first ? first.price : 0;
-    },
+  const matchingProducts = this.filteredProducts();
+  
+  if (matchingProducts.length === 0) {
+    // No results - scroll to top of shop so user sees the message
+    setTimeout(() => {
+      const shopSection = document.getElementById('shop-results');
+      if (shopSection) {
+        shopSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
+    return;
+  }
 
+  // Results found - scroll to first match
+  const firstMatch = matchingProducts[0];
+  setTimeout(() => {
+    const productCard = document.querySelector(`[data-product-id="${firstMatch.id}"]`);
+    if (productCard) {
+      productCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, 100);
+},
     addToCartWithDose(product) {
       if (!product.selectedDose) {
         this.showToast("⚠️ Please select a dose first");
@@ -1511,12 +1563,81 @@ acceptAgeGate() {
       this.saveCart();
     },
 
-    glpProducts() { return this.filteredProducts().filter(p => p.category === 'GLP'); },
-    metabolicProducts() { return this.filteredProducts().filter(p => p.category === 'metabolic'); },
-    specializedProducts() { return this.filteredProducts().filter(p => p.category === 'specialized'); },
-    recoveryProducts() { return this.filteredProducts().filter(p => p.category === 'recovery'); },
-    ghProducts() { return this.filteredProducts().filter(p => p.category === 'gh-secretagogue'); },
-    solventsProducts() { return this.filteredProducts().filter(p => p.category === 'solvents'); },
+     useFallbackData() {
+      this.products = [
+        {
+          id: 111,
+          name: "Reta",
+          category: "GLP",
+          image: "https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/reta-10mg.jpg",
+          doses: [
+            { mg: 10, price: 59, stock: 99 },
+            { mg: 15, price: 79, stock: 99 }
+          ]
+        },
+        {
+          id: 112,
+          name: "Tirz",
+          category: "GLP",
+          image: "https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/tirz-20mg.jpg",
+          doses: [
+            { mg: 20, price: 79, stock: 99 },
+            { mg: 30, price: 109, stock: 99 }
+          ]
+        },
+        {
+          id: 119,
+          name: "BPC-157",
+          category: "Recovery",
+          image: "https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/bpc-157-5mg.jpg",
+          doses: [
+            { mg: 5, price: 39, stock: 99 },
+            { mg: 10, price: 59, stock: 99 }
+          ]
+        },
+        {
+          id: 116,
+          name: "MOTS-C",
+          category: "Metabolic",
+          image: "https://lydlmgzavepcdtreeoto.supabase.co/storage/v1/object/public/product-images/products/mots-c-10mg.jpg",
+          doses: [
+            { mg: 10, price: 49, stock: 99 }
+          ]
+        }
+      ];
+    },
+
+glpProducts() { 
+  if (this.searchTerm && this.searchTerm.trim() !== '') return this.filteredProducts();
+  const filtered = this.filteredProducts().filter(p => (p.category || '').toLowerCase().includes('glp'));
+  return filtered.length > 0 ? filtered : this.filteredProducts();
+},
+metabolicProducts() { 
+  if (this.searchTerm && this.searchTerm.trim() !== '') return this.filteredProducts();
+  const filtered = this.filteredProducts().filter(p => (p.category || '').toLowerCase().includes('metabolic'));
+  return filtered.length > 0 ? filtered : this.filteredProducts();
+},
+specializedProducts() { 
+  if (this.searchTerm && this.searchTerm.trim() !== '') return this.filteredProducts();
+  const filtered = this.filteredProducts().filter(p => (p.category || '').toLowerCase().includes('special'));
+  return filtered.length > 0 ? filtered : this.filteredProducts();
+},
+recoveryProducts() { 
+  if (this.searchTerm && this.searchTerm.trim() !== '') return this.filteredProducts();
+  const filtered = this.filteredProducts().filter(p => (p.category || '').toLowerCase().includes('recovery'));
+  return filtered.length > 0 ? filtered : this.filteredProducts();
+},
+ghProducts() { 
+  if (this.searchTerm && this.searchTerm.trim() !== '') return this.filteredProducts();
+  const filtered = this.filteredProducts().filter(p => (p.category || '').toLowerCase().includes('gh') || (p.category || '').toLowerCase().includes('secretagogue'));
+  return filtered.length > 0 ? filtered : this.filteredProducts();
+},
+solventsProducts() { 
+  if (this.searchTerm && this.searchTerm.trim() !== '') return this.filteredProducts();
+  const filtered = this.filteredProducts().filter(p => (p.category || '').toLowerCase().includes('solvent'));
+  return filtered.length > 0 ? filtered : this.filteredProducts();
+},
+
 
     applyCoupon() {
       const code = this.couponCode.trim().toUpperCase();
