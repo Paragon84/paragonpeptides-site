@@ -151,15 +151,6 @@ div[x-show="showGate"] > div {
   box-shadow: 0 4px 20px -4px rgb(0 0 0 / 0.4);
 }
 
-/* Subtle stagger animation for cards */
-.product-card {
-  animation: fadeUp 0.6s cubic-bezier(0.23,1,0.32,1) forwards;
-  opacity: 0;
-}
-
-.product-card.in-view {
-  opacity: 1;
-}
 
 /* Refined button micro-interaction */
 button {
@@ -177,6 +168,80 @@ button:active { transform: scale(0.985); }
   transform: scale(1.02);
 }
 
+/* === PREMIUM GLASS + NEON DEPTH (Mobile Optimized) === */
+.product-card {
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), 
+              box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 10px 30px -15px rgb(0 0 0 / 0.5);
+  will-change: transform;
+}
+
+/* Desktop Hover */
+.product-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 30px 60px -15px rgb(0 0 0 / 0.7), 
+              0 0 0 1px rgba(255, 20, 147, 0.3);
+}
+
+/* Mobile Tap Effect */
+.product-card:active {
+  transform: scale(0.97);
+  box-shadow: 0 15px 40px -10px rgb(192 38 211 / 0.5);
+  border-color: #c026d3;
+}
+
+/* === AURUMX-STYLE 3D FOOTER REVEAL === */
+.parallax-reveal {
+  perspective: 1400px;
+  opacity: 0;
+  transform: translateY(80px) rotateX(18deg) scale(0.96);
+  transition: all 1.3s cubic-bezier(0.21, 0.98, 0.32, 1);
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+
+.parallax-reveal.visible {
+  opacity: 1;
+  transform: translateY(0) rotateX(0deg) scale(1);
+}
+
+/* Layered depth inside footer */
+.parallax-reveal .footer-content {
+  transition: transform 1.6s cubic-bezier(0.21, 0.98, 0.32, 1);
+  transform: translateZ(0);
+}
+
+.parallax-reveal.visible .footer-content {
+  transform: translateZ(40px);
+}
+
+/* Copyright bar (bottom layer) */
+.parallax-reveal .copyright-bar {
+  transition: transform 1.8s cubic-bezier(0.21, 0.98, 0.32, 1);
+  transform: translateZ(-20px);
+}
+
+.parallax-reveal.visible .copyright-bar {
+  transform: translateZ(0);
+}
+
+/* Resource Center Cards — Same 3D Hover as Product Cards */
+.resource-card {
+  transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1), 
+              box-shadow 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 10px 30px -15px rgb(0 0 0 / 0.1);
+}
+
+.resource-card:hover {
+  transform: translateY(-12px) rotateX(6deg) rotateY(6deg);
+  box-shadow: 0 30px 60px -15px rgb(0 0 0 / 0.25), 
+              0 0 0 1px rgba(255, 20, 147, 0.15);
+}
+/* EMERGENCY FIX - Force footer visible */
+.parallax-reveal {
+  opacity: 1 !important;
+  transform: none !important;
+}
 
  </style>
 </head>
@@ -208,7 +273,7 @@ button:active { transform: scale(0.985); }
     </div>
 
     <div class="flex flex-col sm:flex-row gap-4 mt-10">
-     <button @click="showGate = false; localStorage.setItem('ageVerified', 'true')"
+      <button @click="showGate = false"
               class="flex-1 bg-[#ff1493] hover:bg-pink-600 py-4 rounded-2xl font-semibold text-lg text-white transition">
         I ACKNOWLEDGE — ENTER SITE
       </button>
@@ -228,7 +293,7 @@ button:active { transform: scale(0.985); }
 Free Priority Shipping on all orders over $250</div>
 
 <!-- HEADER – WHITE SLIDE-IN MENU WITH ALL 3 SOCIAL ICONS -->
-<header class="bg-black border-b border-zinc-800 sticky top-0 z-50">
+<header class="sticky top-0 z-50 bg-black/5 backdrop-blur-xl">
   <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
     <!-- Logo -->
     <a href="#" class="flex items-center gap-3">
@@ -550,6 +615,7 @@ Free Priority Shipping on all orders over $250</div>
   </div>
 </div>
 
+<!-- SHOP RESULTS - SINGLE CLEAN VERSION (Matches Live Site) -->
 <div id="shop-results" class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
   <template x-for="category in [
     { name: 'GLPs', products: glpProducts() },
@@ -560,7 +626,8 @@ Free Priority Shipping on all orders over $250</div>
     { name: 'Solvents', products: solventsProducts() }
   ]" :key="category.name">
     
-    <div class="mb-16 category-section" :data-category="category.name.toLowerCase()">
+    <div class="mb-16 category-section" 
+         :data-category="category.name.toLowerCase()">
       
       <h2 class="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-3 uppercase tracking-tighter">
         <span class="text-[#ff1493]" x-text="category.name"></span>
@@ -569,14 +636,11 @@ Free Priority Shipping on all orders over $250</div>
       <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
         <template x-for="product in category.products" :key="product.id">
           <div class="product-card group bg-zinc-900/60 border border-zinc-800 rounded-3xl overflow-hidden hover:border-white/20 flex flex-col relative" :data-product-id="product.id">
-
-            <!-- Image with click to product page -->
+            
             <div @click="window.location.href = '/product.html?id=' + product.id" class="cursor-pointer overflow-hidden relative">
               <img :src="product.image" :alt="product.name" 
                    @error="$el.src = 'https://i.imgur.com/jXQlcWB.png'" 
                    class="w-full h-48 md:h-64 object-cover group-hover:scale-[1.08] transition-transform duration-700">
-
-              <!-- Floating HPLC badge -->
               <div class="absolute top-3 right-3 bg-black/70 text-[10px] px-2.5 py-0.5 rounded-full border border-white/20 text-white/90">
                 HPLC ≥99%
               </div>
@@ -585,7 +649,6 @@ Free Priority Shipping on all orders over $250</div>
             <div class="p-5 md:p-6 flex-1 flex flex-col">
               <h3 class="text-xl md:text-2xl font-bold text-white" x-text="product.name"></h3>
 
-              <!-- Dose buttons -->
               <div class="flex flex-wrap gap-2 mt-4" x-show="product.doses.length > 1">
                 <template x-for="variant in product.doses" :key="variant.mg || variant.ml">
                   <button @click.stop="toggleDose(product, variant)"
@@ -598,7 +661,6 @@ Free Priority Shipping on all orders over $250</div>
               </div>
 
               <div class="mt-auto pt-5 flex items-center justify-between">
-                <!-- Glass price tag -->
                 <div class="price-tag px-5 py-1 rounded-2xl text-white text-3xl font-semibold flex items-baseline">
                   $<span x-text="product.price || product.doses[0].price"></span>
                 </div>
@@ -612,31 +674,21 @@ Free Priority Shipping on all orders over $250</div>
           </div>
         </template>
       </div>
+
+      <!-- Empty state -->
+      <div x-show="searchTerm && category.products.length === 0" 
+           class="text-center py-8 text-zinc-500 text-sm border border-zinc-800 rounded-3xl mt-4">
+        No matches in this category
+      </div>
+      
     </div>
   </template>
 </div>
 
-<!-- NO RESULTS FOUND - stays exactly where it is -->
-<div x-show="searchTerm.length > 0 && filteredProducts().length === 0" 
-     class="text-center py-20 bg-zinc-950 border border-zinc-800 rounded-3xl mx-4">
-  <div class="max-w-md mx-auto">
-    <div class="text-7xl mb-6">🔍</div>
-    <h3 class="text-3xl font-bold text-white mb-4">No products found</h3>
-    <p class="text-xl text-zinc-400 mb-8">
-      We couldn't find anything for "<span class="text-[#ff1493] font-semibold" x-text="searchTerm"></span>".
-    </p>
-    <div class="text-sm text-zinc-500">
-      Try searching for: <span class="text-white">Reta, Tirz, BPC-157, MOTS-C</span>
-    </div>
-    <button @click="searchTerm = ''; handleSearch()" 
-            class="mt-8 px-8 py-3 bg-white text-black font-semibold rounded-2xl hover:bg-zinc-200 transition">
-      Clear Search
-    </button>
-  </div>
-</div>
+
 
 <!-- === RESEARCH STANDARDS, DOCUMENTATION & BUYER RESOURCE CENTER === -->
-<section class="bg-zinc-950 py-12 md:py-20 border-t border-b border-zinc-800">
+<section class="bg-zinc-950 py-12 md:py-20 border-t border-b border-zinc-800 parallax-reveal">
   <div class="max-w-7xl mx-auto px-6">
     <div class="mb-10 text-center md:text-left">
       <h2 class="text-3xl md:text-4xl font-bold text-white mb-2 uppercase tracking-tighter">Resource Center</h2>
@@ -646,28 +698,28 @@ Free Priority Shipping on all orders over $250</div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       
       <!-- Card 1 -->
-      <div class="bg-white border border-zinc-200 rounded-3xl p-8 h-full min-h-[300px] hover:border-[#ff1493] transition-all group flex flex-col">
+      <div class="bg-white border border-zinc-200 rounded-3xl p-8 h-full min-h-[300px] hover:border-[#ff1493] transition-all group flex flex-col resource-card">
         <h3 class="text-lg font-bold text-zinc-900 mb-4 group-hover:text-[#ff1493] uppercase">What Are Peptides?</h3>
         <p class="text-zinc-600 text-sm leading-relaxed flex-1">Overview of peptide structure, classification, and laboratory research context.</p>
         <a href="/what-is-a-peptide.html" class="inline-flex items-center text-[#ff1493] hover:text-pink-400 font-bold text-sm mt-6">LEARN MORE →</a>
       </div>
 
       <!-- Card 2 -->
-      <div class="bg-white border border-zinc-200 rounded-3xl p-8 h-full min-h-[300px] hover:border-[#ff1493] transition-all group flex flex-col">
+      <div class="bg-white border border-zinc-200 rounded-3xl p-8 h-full min-h-[300px] hover:border-[#ff1493] transition-all group flex flex-col resource-card">
         <h3 class="text-lg font-bold text-zinc-900 mb-4 group-hover:text-[#ff1493] uppercase">Storage & Handling</h3>
         <p class="text-zinc-600 text-sm leading-relaxed flex-1">Stability controls, environmental considerations, and lab best practices.</p>
         <a href="/storage-handling.html" class="inline-flex items-center text-[#ff1493] hover:text-pink-400 font-bold text-sm mt-6">VIEW GUIDE →</a>
       </div>
 
       <!-- Card 3 -->
-      <div class="bg-white border border-zinc-200 rounded-3xl p-8 h-full min-h-[300px] hover:border-[#ff1493] transition-all group flex flex-col">
+      <div class="bg-white border border-zinc-200 rounded-3xl p-8 h-full min-h-[300px] hover:border-[#ff1493] transition-all group flex flex-col resource-card">
         <h3 class="text-lg font-bold text-zinc-900 mb-4 group-hover:text-[#ff1493] uppercase">Testing Methods</h3>
         <p class="text-zinc-600 text-sm leading-relaxed flex-1">HPLC, mass spectrometry, and batch verification fundamentals.</p>
         <a href="/testing-methods.html" class="inline-flex items-center text-[#ff1493] hover:text-pink-400 font-bold text-sm mt-6">READ MORE →</a>
       </div>
 
       <!-- Card 4 -->
-      <div class="bg-white border border-zinc-200 rounded-3xl p-8 h-full min-h-[300px] hover:border-[#ff1493] transition-all group flex flex-col">
+      <div class="bg-white border border-zinc-200 rounded-3xl p-8 h-full min-h-[300px] hover:border-[#ff1493] transition-all group flex flex-col resource-card">
         <h3 class="text-lg font-bold text-zinc-900 mb-4 group-hover:text-[#ff1493] uppercase">Reconstitution</h3>
         <p class="text-zinc-600 text-sm leading-relaxed flex-1">Technical instructions for peptide reconstitution and solvent selection.</p>
         <a href="/how-to-reconstitute-peptides.html" class="inline-flex items-center text-[#ff1493] hover:text-pink-400 font-bold text-sm mt-6">VERIFY DOCS →</a>
@@ -721,8 +773,8 @@ Free Priority Shipping on all orders over $250</div>
 </div>
 
 <!-- === FULL-WIDTH WHITE PAGE-BREAK FOOTER (with your exact links) === -->
-<div class="bg-white text-black py-16 border-t border-zinc-200 w-full">
-  <div class="max-w-7xl mx-auto px-6">
+<div class="bg-white text-black py-16 border-t border-zinc-200 w-full parallax-reveal">
+  <div class="max-w-7xl mx-auto px-6 footer-content">
     <div class="grid md:grid-cols-12 gap-12">
 
       <!-- Left Column: Trustpilot + Company Info -->
@@ -813,7 +865,7 @@ Free Priority Shipping on all orders over $250</div>
 </div>
 
     <!-- Bottom Copyright -->
-    <div class="mt-16 pt-8 border-t border-zinc-200 text-center text-xs text-zinc-500">
+   <div class="copyright-bar mt-12 pt-8 border-t border-zinc-200 text-center text-xs text-zinc-500">
       © 2026 Paragon Peptides • All Rights Reserved • For research use only. Not for human consumption.
 Products are not intended to diagnose, treat, or cure any condition.
 By purchasing, you confirm you are 21 or older and conducting scientific research.
@@ -1145,45 +1197,6 @@ By purchasing, you confirm you are 21 or older and conducting scientific researc
   </div>
 </div>
 
-<!-- DYNAMIC PRODUCT MODAL (mobile-optimized) -->
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-    <div class="grid md:grid-cols-2 gap-8">
-      <div class="relative">
-
-      <div>
-<template x-if="currentProduct">
-    <div>
-        <h1 x-text="currentProduct.name"></h1>
-        <p x-text="currentProduct.desc"></p>
-        <div class="grid grid-cols-3 gap-3">
-            <template x-for="variant in currentProduct.doses" :key="variant.mg || variant.ml">
-                <button @click="currentProduct.selectedDose = (variant.mg || variant.ml); currentProduct.price = variant.price"
-                        x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')">
-                </button>
-            </template>
-        </div>
-    </div>
-</template>
-
-<!-- DYNAMIC DOSE BUTTONS – FIXED & SYNCED -->
-<div class="mt-6 sm:mt-8">
-  <div class="grid grid-cols-3 sm:grid-cols-5 gap-3 dose-grid">
-    <template x-for="variant in currentProduct.doses" :key="variant.mg || variant.ml">
-      <button
-        @click="currentProduct.selectedDose = (variant.mg || variant.ml); currentProduct.price = variant.price"
-        :disabled="variant.stock <= 0"
-        :class="{
-          'bg-[#ff1493] text-white min-h-[44px] ring-2 ring-pink-500 scale-105': currentProduct.selectedDose === (variant.mg || variant.ml) && variant.stock > 0,
-          'bg-zinc-800 text-zinc-400 cursor-not-allowed opacity-60 min-h-[44px]': variant.stock <= 0,
-          'bg-zinc-800 hover:bg-zinc-700 min-h-[44px]': currentProduct.selectedDose !== (variant.mg || variant.ml) && variant.stock > 0
-        }"
-        class="py-3 px-4 rounded-xl font-medium transition text-sm sm:text-base flex items-center justify-center gap-2">
-        <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
-      </button>
-    </template>
-  </div>
-</div>
-
 <!-- GLOBAL LOADING SPINNER -->
 <div x-show="isLoading" class="fixed inset-0 bg-black/90 flex items-center justify-center z-[999999]">
   <div class="text-center">
@@ -1239,7 +1252,30 @@ function initModernScroll() {
 setTimeout(initModernScroll, 800);
 
 </script>
+<script>
+function initAurumFooterReveal() {
+  const footer = document.querySelector('.parallax-reveal');
+  if (!footer) return;
 
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        footer.classList.add('visible');
+        observer.unobserve(footer);
+      }
+    });
+  }, {
+    threshold: 0.3,
+    rootMargin: "0px 0px -100px 0px"
+  });
+
+  observer.observe(footer);
+}
+
+window.addEventListener('load', () => {
+  setTimeout(initAurumFooterReveal, 1200);
+});
+</script>
 </body>
 </html>
 
@@ -1393,18 +1429,19 @@ async loadProducts() {
   console.log('[LOAD] Starting product fetch...');
   this.isLoading = true;
 
-  // IMMEDIATE FALLBACK — guarantees products appear instantly on every hard refresh
   this.useFallbackData();
-  console.log('[LOAD] Immediate fallback loaded (4 products)');
+  console.log('[LOAD] Fallback loaded — if you only see 4 products, Supabase query failed or returned empty');
 
-  // Try Supabase in background to overwrite with live data if possible
   try {
     const { data, error } = await this.supabase
       .from('products')
       .select('*')
       .order('id', { ascending: true });
 
-    if (error) throw error;
+    if (error) {
+      console.error('[LOAD] Supabase error (check RLS / table name / columns):', error);
+      return; // keep fallback
+    }
 
     if (data && data.length > 0) {
       this.products = data.map(product => {
@@ -1416,17 +1453,16 @@ async loadProducts() {
           quantity: 1
         };
       });
-      console.log(`[LOAD] SUCCESS - Overwrote with ${this.products.length} LIVE products from Supabase`);
+      console.log(`[LOAD] SUCCESS — ${this.products.length} live products loaded from Supabase`);
     } else {
-      console.log('[LOAD] Supabase returned no data - keeping fallback');
+      console.warn('[LOAD] Supabase returned 0 rows — table may be empty or RLS is blocking anon key');
     }
   } catch (e) {
-    console.error('[LOAD] Supabase unavailable, using fallback only:', e.message);
+    console.error('[LOAD] Supabase completely unavailable:', e.message);
   } finally {
     this.isLoading = false;
   }
 },
-
 
     quickAddToCart(id, name, dose, price) {
       const filename = `${name.toLowerCase().replace(/ /g,'-')}-${dose.toLowerCase()}.jpg`;
@@ -1607,37 +1643,12 @@ async loadProducts() {
       ];
     },
 
-glpProducts() { 
-  if (this.searchTerm && this.searchTerm.trim() !== '') return this.filteredProducts();
-  const filtered = this.filteredProducts().filter(p => (p.category || '').toLowerCase().includes('glp'));
-  return filtered.length > 0 ? filtered : this.filteredProducts();
-},
-metabolicProducts() { 
-  if (this.searchTerm && this.searchTerm.trim() !== '') return this.filteredProducts();
-  const filtered = this.filteredProducts().filter(p => (p.category || '').toLowerCase().includes('metabolic'));
-  return filtered.length > 0 ? filtered : this.filteredProducts();
-},
-specializedProducts() { 
-  if (this.searchTerm && this.searchTerm.trim() !== '') return this.filteredProducts();
-  const filtered = this.filteredProducts().filter(p => (p.category || '').toLowerCase().includes('special'));
-  return filtered.length > 0 ? filtered : this.filteredProducts();
-},
-recoveryProducts() { 
-  if (this.searchTerm && this.searchTerm.trim() !== '') return this.filteredProducts();
-  const filtered = this.filteredProducts().filter(p => (p.category || '').toLowerCase().includes('recovery'));
-  return filtered.length > 0 ? filtered : this.filteredProducts();
-},
-ghProducts() { 
-  if (this.searchTerm && this.searchTerm.trim() !== '') return this.filteredProducts();
-  const filtered = this.filteredProducts().filter(p => (p.category || '').toLowerCase().includes('gh') || (p.category || '').toLowerCase().includes('secretagogue'));
-  return filtered.length > 0 ? filtered : this.filteredProducts();
-},
-solventsProducts() { 
-  if (this.searchTerm && this.searchTerm.trim() !== '') return this.filteredProducts();
-  const filtered = this.filteredProducts().filter(p => (p.category || '').toLowerCase().includes('solvent'));
-  return filtered.length > 0 ? filtered : this.filteredProducts();
-},
-
+glpProducts() { return this.filteredProducts().filter(p => p.category === 'GLP'); },
+metabolicProducts() { return this.filteredProducts().filter(p => p.category === 'metabolic'); },
+specializedProducts() { return this.filteredProducts().filter(p => p.category === 'specialized'); },
+recoveryProducts() { return this.filteredProducts().filter(p => p.category === 'recovery'); },
+ghProducts() { return this.filteredProducts().filter(p => p.category === 'gh-secretagogue'); },
+solventsProducts() { return this.filteredProducts().filter(p => p.category === 'solvents'); },
 
     applyCoupon() {
       const code = this.couponCode.trim().toUpperCase();
