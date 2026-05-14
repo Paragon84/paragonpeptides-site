@@ -242,23 +242,22 @@ button:active { transform: scale(0.985); }
   opacity: 1 !important;
   transform: none !important;
 }
-
-/* Make Add to Cart button smaller on mobile */
+/* Compact Add to Cart button on mobile */
 #shop-results .product-card button {
-  padding-top: 10px !important;
-  padding-bottom: 10px !important;
-  font-size: 13px !important;
-  line-height: 1.1 !important;
+  padding: 8px 14px !important;
+  font-size: 12.5px !important;
+  min-height: 42px !important;   /* Prevents it from being too short */
 }
 
-/* Slightly bigger on desktop */
+/* Normal size on desktop */
 @media (min-width: 768px) {
   #shop-results .product-card button {
-    padding-top: 14px !important;
-    padding-bottom: 14px !important;
+    padding: 14px 16px !important;
     font-size: 14px !important;
+    min-height: auto !important;
   }
 }
+
 
  </style>
 </head>
