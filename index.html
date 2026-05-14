@@ -242,21 +242,6 @@ button:active { transform: scale(0.985); }
   opacity: 1 !important;
   transform: none !important;
 }
-/* Compact Add to Cart button on mobile */
-#shop-results .product-card button {
-  padding: 8px 14px !important;
-  font-size: 12.5px !important;
-  min-height: 42px !important;   /* Prevents it from being too short */
-}
-
-/* Normal size on desktop */
-@media (min-width: 768px) {
-  #shop-results .product-card button {
-    padding: 14px 16px !important;
-    font-size: 14px !important;
-    min-height: auto !important;
-  }
-}
 
 
  </style>
@@ -665,27 +650,30 @@ Free Priority Shipping on all orders over $250</div>
             <div class="p-5 md:p-6 flex-1 flex flex-col">
               <h3 class="text-xl md:text-2xl font-bold text-white" x-text="product.name"></h3>
 
-              <div class="flex flex-wrap gap-1.5 md:gap-2 mt-4" x-show="product.doses.length > 1">
-                <template x-for="variant in product.doses" :key="variant.mg || variant.ml">
-                  <button @click.stop="toggleDose(product, variant)"
-                          :disabled="variant.stock <= 0"
-                          :class="product.selectedDose === (variant.mg || variant.ml) ? 'bg-[#c026d3] text-white ring-1 ring-[#c026d3]' : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700'"
-                          class="px-3 py-1.5 rounded-xl text-xs md:text-sm font-medium transition-all min-h-[38px]">
-                    <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
-                  </button>
-                </template>
-              </div>
+              <!-- Dose Buttons - Keep them side by side on mobile -->
+<div class="flex flex-wrap gap-1.5 mt-3" x-show="product.doses.length > 1">
+  <template x-for="variant in product.doses" :key="variant.mg || variant.ml">
+    <button @click.stop="toggleDose(product, variant)"
+            :disabled="variant.stock <= 0"
+            :class="product.selectedDose === (variant.mg || variant.ml) 
+              ? 'bg-[#c026d3] text-white ring-1 ring-[#c026d3]' 
+              : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700'"
+            class="px-2.5 py-1 md:px-3 md:py-1.5 rounded-lg text-xs md:text-sm font-medium transition-all">
+      <span x-text="(variant.mg || variant.ml) + (variant.mg ? 'mg' : 'ml')"></span>
+    </button>
+  </template>
+</div>
 
-<div class="mt-auto pt-4 flex flex-col gap-2.5">
+<div class="mt-auto pt-3 flex items-center justify-between gap-3">
       <div class="flex items-baseline gap-1">
         <span class="text-2xl md:text-3xl font-bold text-white" x-text="'$' + (product.price || product.doses[0].price)"></span>
         <span class="text-xs text-zinc-500">/vial</span>
       </div>
 
-      <button @click.stop="addToCartWithDose(product)"
-              class="w-full py-3 md:py-3.5 px-4 rounded-2xl font-bold text-sm md:text-base transition-all bg-white text-black hover:bg-[#c026d3] hover:text-white active:scale-[0.985]">
-        <span x-text="product.selectedDose ? 'ADD TO CART' : 'SELECT DOSE'"></span>
-      </button>
+     <button @click.stop="addToCartWithDose(product)"
+          class="px-4 py-2 md:py-2.5 text-sm md:text-base font-bold rounded-2xl transition-all bg-white text-black hover:bg-[#c026d3] hover:text-white active:scale-[0.985]">
+    <span x-text="product.selectedDose ? 'ADD TO CART' : 'SELECT DOSE'"></span>
+  </button>
               </div>
             </div>
           </div>
