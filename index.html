@@ -243,6 +243,23 @@ button:active { transform: scale(0.985); }
   transform: none !important;
 }
 
+/* Make Add to Cart button smaller on mobile */
+#shop-results .product-card button {
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  font-size: 13px !important;
+  line-height: 1.1 !important;
+}
+
+/* Slightly bigger on desktop */
+@media (min-width: 768px) {
+  #shop-results .product-card button {
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
+    font-size: 14px !important;
+  }
+}
+
  </style>
 </head>
 <body class="antialiased" x-data="app()" x-init="init()">
