@@ -1504,14 +1504,14 @@ window.addEventListener('load', () => {
 
         <!-- RIGHT: Order Summary -->
         <div class="order-1 lg:order-2">
-          <div class="bg-white border border-zinc-300 rounded-3xl p-6 sm:p-8 lg:sticky lg:top-8 flex flex-col h-fit shadow-xl">
-            <h2 class="text-2xl font-semibold text-black mb-6 flex items-center justify-between">
-              <span>Your Order</span>
-              <span class="text-xs px-3 py-1 bg-zinc-100 rounded-full text-zinc-600 font-normal" x-text="cart.length + ' items'"></span>
-            </h2>
+  <div class="bg-white border border-zinc-300 rounded-3xl p-6 sm:p-8 lg:sticky lg:top-8 flex flex-col h-fit shadow-xl text-black">
+    <h2 class="text-2xl font-semibold text-black mb-6 flex items-center justify-between">
+      <span>Your Order</span>
+      <span class="text-xs px-3 py-1 bg-zinc-100 rounded-full text-zinc-600 font-normal" x-text="cart.length + ' items'"></span>
+    </h2>
 
             <!-- Cart Items -->
-            <div class="space-y-3 mb-6 text-sm">
+            <div class="space-y-3 mb-6 text-sm text-black">
               <template x-for="item in cart" :key="item.id">
                 <div class="flex justify-between">
                   <span x-text="item.name + ' × ' + item.qty"></span>
@@ -1521,7 +1521,7 @@ window.addEventListener('load', () => {
             </div>
 
             <!-- Totals -->
-            <div class="border-t border-zinc-300 pt-5 space-y-2 text-sm">
+        <div class="border-t border-zinc-300 pt-5 space-y-2 text-sm text-black">
               <div class="flex justify-between"><span>Subtotal</span><span x-text="'$' + cartTotal.toFixed(2)"></span></div>
               <div class="flex justify-between"><span>Shipping</span><span x-text="discountedTotal >= 250 ? 'Free' : '$12.99'"></span></div>
               <div class="flex justify-between text-2xl font-bold pt-3 border-t border-zinc-300">
@@ -1533,14 +1533,14 @@ window.addEventListener('load', () => {
             <!-- Coupon -->
             <div class="mt-6">
               <div class="flex gap-2">
-                <input type="text" x-model="couponCode" placeholder="Coupon code" class="flex-1 border border-zinc-300 rounded-2xl px-4 py-3 text-sm">
+                <input type="text" x-model="couponCode" placeholder="Coupon code" class="flex-1 border border-zinc-300 rounded-2xl px-4 py-3 text-sm text-black">
                 <button @click="applyCoupon()" class="bg-[#ff1493] hover:bg-pink-600 px-5 py-3 rounded-2xl font-medium text-white text-sm">Apply</button>
               </div>
               <p x-show="couponMessage" class="mt-2 text-sm" :class="appliedCoupon ? 'text-green-600' : 'text-red-600'" x-text="couponMessage"></p>
             </div>
 
             <!-- Payment Methods -->
-            <div class="mt-8">
+           <div class="mt-8 text-black">
               <h3 class="text-xl font-semibold text-black mb-4">Payment Method</h3>
               
               <!-- Venmo, Cash App, Bitcoin sections (same as before) -->
