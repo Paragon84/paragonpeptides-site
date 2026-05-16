@@ -738,45 +738,6 @@ Free Priority Shipping on all orders over $250</div>
    </div>
 
 <!-- NEWSLETTER POPUP – White background with pink accents -->
-<div x-show="showNewsletter" 
-     class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[99999] p-6" 
-     @click.self="showNewsletter = false">
-  
-  <div class="bg-white border border-zinc-200 rounded-3xl max-w-md w-full p-10 relative shadow-2xl">
-    
-    <button @click="showNewsletter = false" 
-            class="absolute top-6 right-6 text-zinc-400 hover:text-zinc-600 text-3xl">
-      ×
-    </button>
-
-    <div class="text-center">
-      <div class="inline-flex items-center gap-2 bg-[#ff1493]/10 text-[#ff1493] text-sm font-bold uppercase tracking-widest px-6 py-2 rounded-3xl mb-6">
-        🎟️ LIMITED TIME OFFER
-      </div>
-
-      <h2 class="text-4xl font-bold text-zinc-900 mb-3">Get 15% Off Your First Order</h2>
-      <p class="text-zinc-600 text-lg mb-8">Join the Paragon Research Community for exclusive drops and lab insights.</p>
-
-      <form action="https://formspree.io/f/mlgpeovo" method="POST" @submit.prevent="subscribeNewsletter" class="space-y-5">
-        <input type="email" x-model="newsletterEmail" name="email" placeholder="your@email.com" required 
-               class="w-full bg-zinc-100 border border-zinc-300 focus:border-[#ff1493] rounded-3xl px-6 py-5 text-zinc-900 placeholder-zinc-500 outline-none text-lg">
-
-        <input type="hidden" name="_subject" value="New Newsletter Subscriber">
-        <input type="hidden" name="message" value="Newsletter signup – send 15% discount code RESEARCH15">
-
-        <button type="submit" :disabled="newsletterSubmitting" 
-                class="w-full bg-[#ff1493] hover:bg-pink-600 py-5 rounded-3xl font-semibold text-xl text-white transition-all active:scale-95">
-          <span x-text="newsletterSubmitting ? 'Sending...' : 'Claim My 15% Discount'"></span>
-        </button>
-      </form>
-
-      <button @click="showNewsletter = false; sessionStorage.setItem('newsletterShown', 'true')" 
-              class="mt-6 text-zinc-500 hover:text-zinc-700 text-sm underline">
-        No thanks, maybe later
-      </button>
-    </div>
-  </div>
-</div>
 
 <!-- === FULL-WIDTH WHITE PAGE-BREAK FOOTER (with your exact links) === -->
 <div class="bg-white text-black py-16 border-t border-zinc-200 w-full parallax-reveal">
@@ -1520,15 +1481,22 @@ window.addEventListener('load', () => {
               </template>
             </div>
 
-            <!-- Totals -->
-        <div class="border-t border-zinc-300 pt-5 space-y-2 text-sm text-black">
-              <div class="flex justify-between"><span>Subtotal</span><span x-text="'$' + cartTotal.toFixed(2)"></span></div>
-              <div class="flex justify-between"><span>Shipping</span><span x-text="discountedTotal >= 250 ? 'Free' : '$12.99'"></span></div>
-              <div class="flex justify-between text-2xl font-bold pt-3 border-t border-zinc-300">
-                <span>Total</span>
-                <span x-text="'$' + discountedTotal.toFixed(2)"></span>
-              </div>
-            </div>
+<!-- Totals - correct 15% calculation -->
+<div class="border-t border-zinc-300 pt-5 space-y-2 text-base text-black">
+  <div class="flex justify-between">
+    <span>Subtotal</span>
+    <span class="font-medium" x-text="'$' + cartTotal.toFixed(2)"></span>
+  </div>
+  <div class="flex justify-between">
+    <span>Shipping</span>
+    <span class="font-medium" x-text="cartTotal >= 250 ? 'FREE' : '$12.99'"></span>
+  </div>
+
+  <div class="flex justify-between text-3xl font-bold pt-4 border-t border-zinc-300 text-black">
+    <span>Total</span>
+    <span x-text="'$' + (cartTotal + (cartTotal >= 250 ? 0 : 12.99) - (appliedCoupon ? cartTotal * appliedCoupon.discount : 0)).toFixed(2)"></span>
+  </div>
+</div>
 
             <!-- Coupon -->
             <div class="mt-6">
@@ -1673,6 +1641,8 @@ function app() {
     currentProduct: null,
     selectedDose: null,
     cart: [],
+         cartTotal: 0,
+         discountedTotal: 0,
     searchTerm: '',
     activeFilter: 'all',
 
@@ -1717,20 +1687,10 @@ function app() {
     },
 
     // Getters
-    get cartTotal() {
-      return this.cart.reduce((sum, item) => sum + (item.price * (item.qty || 1)), 0);
-    },
-
-    get discountedTotal() {
-      let subtotal = this.cartTotal;
-      let shipping = subtotal >= 250 ? 0 : 12.99;
-      let total = subtotal + shipping;
-      if (this.appliedCoupon) {
-        const discount = subtotal * (this.appliedCoupon.discount / 100);
-        total = Math.max(0, total - discount);
-      }
-      return total;
-    },
+// Getters - MUST be inside the return { ... } of app()
+get cartTotal() {
+  return this.cart.reduce((sum, item) => sum + (item.price * (item.qty || 1)), 0);
+},
 
     // Methods from checkout.html
     validateField(field) {
@@ -1838,6 +1798,7 @@ init() {
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5ZGxtZ3phdmVwY2R0cmVlb3RvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NDA3MTksImV4cCI6MjA4OTQxNjcxOX0.-F_lSkO6_Wz4-FnNwsPkib-k31_xEe5sgrC4WDaOOSk'
     );
     console.log('[INIT] Supabase client created successfully');
+         this.calculateTotals();
     this.loadProducts();
   } catch (e) {
     console.error('[INIT] Failed to create Supabase client:', e);
@@ -1852,6 +1813,14 @@ init() {
     }, 4500);
   }
 },
+
+    calculateTotals() {
+      this.cartTotal = this.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      let subtotal = this.cartTotal;
+      if (this.appliedCoupon) subtotal = subtotal * (1 - this.appliedCoupon.discount);
+      const shipping = subtotal >= 250 ? 0 : 12.99;
+      this.discountedTotal = subtotal + shipping;
+    },
 
 async loadProducts() {
   console.log('[LOAD] Starting product fetch...');
@@ -1922,6 +1891,23 @@ async loadProducts() {
         return (startsWithMatch || containsMatch) && matchesCategory;
       });
     },
+applyCoupon() {
+  const code = this.couponCode.trim().toUpperCase();
+  this.couponMessage = '';
+  this.appliedCoupon = null;
+
+  const valid = {
+    'PARAGON15': { discount: 0.15, message: '✅ 15% off applied!' },
+    'WELCOME10': { discount: 0.10, message: '✅ 10% off applied!' }
+  };
+
+  if (valid[code]) {
+    this.appliedCoupon = { code, discount: valid[code].discount };
+    this.couponMessage = valid[code].message;
+  } else {
+    this.couponMessage = '❌ Invalid coupon';
+  }
+},
 
 
 
