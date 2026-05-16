@@ -40,6 +40,43 @@
       <span class="text-zinc-400">Done</span>
     </div>
   </div>
+<!-- PREMIUM 5-MINUTE PAYMENT TIMER – MOBILE OPTIMIZED -->
+<div x-data="paymentTimer()" class="max-w-md mx-auto mb-8">
+  <div class="bg-white border border-[#ff1493]/30 rounded-3xl p-5 sm:p-6 text-center relative shadow-xl">
+    
+    <div class="flex items-center justify-center gap-3 mb-4">
+      <div class="text-3xl">🧪</div>
+      <div>
+        <div class="text-[#ff1493] font-bold text-base sm:text-lg tracking-wider">LIMITED TIME BONUS</div>
+        <div class="text-black text-sm">Pay within 5 minutes</div>
+      </div>
+    </div>
+
+    <!-- Circular Countdown (smaller on mobile) -->
+    <div class="relative w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-4">
+      <svg class="w-full h-full -rotate-90" viewBox="0 0 120 120">
+        <circle cx="60" cy="60" r="52" fill="none" stroke="#e5e7eb" stroke-width="8"/>
+        <circle cx="60" cy="60" r="52" fill="none" 
+                stroke="#ff1493" stroke-width="8" stroke-linecap="round"
+                :style="`stroke-dasharray: ${circumference}; stroke-dashoffset: ${circumference * (1 - progress)}`"/>
+      </svg>
+      
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="text-center">
+          <div class="text-4xl sm:text-5xl font-mono font-bold text-black tabular-nums" 
+               x-text="formattedTime"></div>
+          <div class="text-[10px] text-zinc-500 -mt-0.5">REMAINING</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-emerald-600 font-semibold text-lg sm:text-xl mb-1">🎁 FREE 10ml Bac-Water</div>
+    <div class="text-zinc-600 text-sm px-2">Automatically added if you complete payment in time</div>
+
+    <div x-show="timeLeft > 0" class="mt-4 text-xs text-emerald-600 font-medium">✅ Offer active</div>
+    <div x-show="timeLeft <= 0" class="mt-4 text-xs text-red-500 font-medium">❌ Offer expired</div>
+  </div>
+</div>
 
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
     
@@ -443,6 +480,48 @@ validateField(field) {
   return !error;
 },
 
+paymentTimer() {
+  return {
+    timeLeft: 300,           // 5 minutes
+    circumference: 2 * Math.PI * 52,
+    progress: 1,
+    formattedTime: '05:00',
+    interval: null,
+
+    init() {
+      const savedStart = sessionStorage.getItem('checkoutTimerStart');
+      const now = Date.now();
+
+      if (savedStart) {
+        const elapsed = Math.floor((now - parseInt(savedStart)) / 1000);
+        this.timeLeft = Math.max(0, 300 - elapsed);
+      } else {
+        sessionStorage.setItem('checkoutTimerStart', now.toString());
+        this.timeLeft = 300;
+      }
+
+      this.updateDisplay();
+
+      this.interval = setInterval(() => {
+        this.timeLeft--;
+        this.updateDisplay();
+        if (this.timeLeft <= 0) clearInterval(this.interval);
+      }, 1000);
+    },
+
+    updateDisplay() {
+      const m = Math.floor(this.timeLeft / 60);
+      const s = this.timeLeft % 60;
+      this.formattedTime = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+      this.progress = this.timeLeft / 300;
+    },
+
+    isOfferValid() {
+      return this.timeLeft > 0;
+    }
+  }
+},
+
     validateForm() {
       let isValid = true;
       Object.keys(this.validationRules).forEach(field => {
@@ -469,6 +548,15 @@ validateField(field) {
       const form = document.getElementById('checkout-form');
       const formData = new FormData(form);
       const orderNum = "PP-" + Math.floor(100000 + Math.random() * 900000);
+
+// === 5-MINUTE FREE BAC-WATER LOGIC ===
+const timerComponent = document.querySelector('[x-data="paymentTimer()"]');
+const offerValid = timerComponent ? timerComponent.__x.$data.isOfferValid() : false;
+
+if (offerValid) {
+  formData.append('free_bac_water', 'true');
+  formData.append('free_item', '10ml Bac-Water (FREE - paid within 5 minutes)');
+}
 
       let itemsText = this.cart.map(item =>
         `${item.name} (${item.dose}${item.unit}) x${item.qty} - $${(item.price * item.qty).toFixed(2)}`
