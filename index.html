@@ -1566,7 +1566,8 @@ window.addEventListener('load', () => {
               <p x-show="couponMessage" class="mt-2 text-sm" :class="appliedCoupon ? 'text-green-600' : 'text-red-600'" x-text="couponMessage"></p>
             </div>
 
-  <div class="mt-8">
+            <!-- Payment Methods -->
+            <div class="mt-8">
           <h3 class="text-xl font-semibold text-black mb-4">Payment Method</h3>
           
           <!-- Venmo -->
@@ -1583,7 +1584,7 @@ window.addEventListener('load', () => {
                   <span class="text-3xl mt-0.5">⚠️</span>
                   <div>
                     <p class="font-extrabold text-red-700 text-base leading-tight">DO NOT TURN ON PURCHASE PROTECTION!</p>
-                    <p class="text-red-600 text-sm mt-1.5 font-semibold">Your Order Will be Cancelled.</p>
+                    <p class="text-red-600 text-sm mt-1.5 font-semibold">This will cancel your ORDER!.</p>
                   </div>
                 </div>
               </div>
@@ -1633,6 +1634,8 @@ window.addEventListener('load', () => {
     </div>
   </div>
 </div>
+  </div>
+</div>
 <!-- THANK YOU MODAL -->
 <div x-show="showThankYouModal" class="fixed inset-0 bg-black z-[100000] flex items-center justify-center p-6" x-transition>
   <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-auto p-8 md:p-10 shadow-2xl">
@@ -1663,13 +1666,15 @@ window.addEventListener('load', () => {
 
     <p class="text-center text-zinc-600 mb-8">Send the exact total + order number using one of the buttons below</p>
 
-   <!-- Venmo card -->
-<a href="https://venmo.com/Paragon_Tides" target="_blank" class="group block bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 hover:border-[#ff1493] rounded-3xl p-8 text-center transition-all">
-  <div class="text-4xl mb-4">💸</div>
-  <div class="font-semibold text-2xl mb-2">Venmo</div>
-  <p class="text-sm text-zinc-400">Send payment + order number in memo</p>
-  <p class="text-xs text-[#ff1493] mt-6 font-medium">OPEN VENMO →</p>
-</a>
+    <!-- Your 3 payment cards stay exactly the same -->
+    <div class="grid md:grid-cols-3 gap-6 mb-12">
+   <!-- Venmo -->
+    <a href="https://venmo.com/Paragon_Tides" target="_blank" class="group block bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 hover:border-[#ff1493] rounded-3xl p-8 text-center transition-all mb-4">
+      <div class="text-4xl mb-4">💸</div>
+      <div class="font-semibold text-2xl mb-2">Venmo</div>
+      <p class="text-sm text-zinc-400">Send payment + order number in memo</p>
+      <p class="text-xs text-[#ff1493] mt-6 font-medium">OPEN VENMO →</p>
+    </a>
 
       <!-- Cash App card -->
       <a href="https://cash.app/$ParagonPeps" target="_blank" class="group block bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 hover:border-[#ff1493] rounded-3xl p-8 text-center transition-all">
@@ -2294,7 +2299,8 @@ applyCoupon() {
       try {
         for (const p of this.products) {
           const { error } = await this.supabase.from('products').update({ doses: p.doses }).eq('id', p.id);
-          if (error) throw error;
+          
+if (error) throw error;
         }
         console.log('Global stock sync complete');
       } catch (e) {
